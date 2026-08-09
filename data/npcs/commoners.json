@@ -1,0 +1,1245 @@
+{
+  "category": "commoners",
+  "npcs": [
+    {
+      "id": "nell-riverwick",
+      "name": "Nell Riverwick",
+      "species": "Human",
+      "gender": "Female",
+      "age": 24,
+      "occupation": "Street Sweep",
+      "category": "commoners",
+      "tags": [
+        "overlooked",
+        "listener",
+        "streets"
+      ],
+      "description": "Street Sweep associated with dawn streets with a rush broom.",
+      "biography": "Ask around town for a street sweep and someone will point you to Nell at dawn streets with a rush broom. At 24, this Human has learned which smiles are currency and which are warnings. Nell listens more than she sweeps, and is rarely without pocket full of lost buttons she means to return. Friend to Finn; informant to Merrick. What drives them is simple to name and hard to finish: they want to save for a room that doesn't leak. What keeps them careful is being noticed by the wrong people for noticing too much. To a DM, Nell is ready to roleplay immediately—useful for favors, local color, or trouble. Mapped which cellar grates glow after midnight for Merrick.",
+      "personality": "listens more than she sweeps. Professional demeanor of a seasoned street sweep.",
+      "motivation": "Pursue this: save for a room that doesn't leak. Avoid this: being noticed by the wrong people for noticing too much.",
+      "secret": "Privately terrified of being noticed by the wrong people for noticing too much, and currently entangled with: Mapped which cellar grates glow after midnight for Merrick.",
+      "rumor": "Rumor says Nell can tell you anything that happens near dawn streets with a rush broom—for a price or a kindness.",
+      "voice": "Speaks like a Human street sweep: concrete details first, embellishment only when useful.",
+      "appearance": "Human; often near dawn streets with a rush broom; look for pocket full of lost buttons she means to return.",
+      "portrait": "modules/townforge/assets/portraits/nell-riverwick.webp",
+      "token": "modules/townforge/assets/tokens/nell-riverwick.webp",
+      "relationships": [
+        {
+          "id": "merrick-coal",
+          "type": "informant",
+          "note": "Passes street details for tea money."
+        }
+      ],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 10
+            },
+            "dex": {
+              "value": 10
+            },
+            "con": {
+              "value": 10
+            },
+            "int": {
+              "value": 10
+            },
+            "wis": {
+              "value": 11
+            },
+            "cha": {
+              "value": 11
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 10,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 4,
+              "max": 4
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "human"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "prc": {
+              "value": 1
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "jab-millroad",
+      "name": "Jab Millroad",
+      "species": "Human",
+      "gender": "Male",
+      "age": 38,
+      "occupation": "Carter",
+      "category": "commoners",
+      "tags": [
+        "cart",
+        "deliveries",
+        "routes"
+      ],
+      "description": "Carter associated with the mill road with his two-mule cart.",
+      "biography": "Most days begin the same for Jab Millroad: a 38-year-old Human carter moving through the mill road with his two-mule cart as if the stones themselves keep appointments with them. Jab names his mules after bad decisions, and is rarely without waybill clipboard chewed at the corners. Hauls for Garr; drinks with Old Tallow. What drives them is simple to name and hard to finish: they want to buy a covered wagon before winter rain. What keeps them careful is highway 'tolls' that aren't official. To a DM, Jab is ready to roleplay immediately—useful for favors, local color, or trouble. Was paid double to deliver an unmarked crate to the old mill and ask nothing.",
+      "personality": "names his mules after bad decisions. Professional demeanor of a seasoned carter.",
+      "motivation": "Pursue this: buy a covered wagon before winter rain. Avoid this: highway 'tolls' that aren't official.",
+      "secret": "Privately terrified of highway 'tolls' that aren't official, and currently entangled with: Was paid double to deliver an unmarked crate to the old mill and ask nothing.",
+      "rumor": "Rumor says Jab can tell you anything that happens near the mill road with his two-mule cart—for a price or a kindness.",
+      "voice": "Speaks like a Human carter: concrete details first, embellishment only when useful.",
+      "appearance": "Human; often near the mill road with his two-mule cart; look for waybill clipboard chewed at the corners.",
+      "portrait": "modules/townforge/assets/portraits/jab-millroad.webp",
+      "token": "modules/townforge/assets/tokens/jab-millroad.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 10
+            },
+            "dex": {
+              "value": 10
+            },
+            "con": {
+              "value": 10
+            },
+            "int": {
+              "value": 10
+            },
+            "wis": {
+              "value": 11
+            },
+            "cha": {
+              "value": 11
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 10,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 4,
+              "max": 4
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "human"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "prc": {
+              "value": 1
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "oma-kettle",
+      "name": "Oma Kettle",
+      "species": "Halfling",
+      "gender": "Female",
+      "age": 70,
+      "occupation": "Laundry Worker",
+      "category": "commoners",
+      "tags": [
+        "laundry",
+        "soap",
+        "kind"
+      ],
+      "description": "Laundry Worker associated with the washhouse steam.",
+      "biography": "Oma Kettle works as a laundry worker out of the washhouse steam, a 70-year-old Halfling with more town memory than most council minutes. Oma hums lullabies to stained sheets, and is rarely without cake of soap scented with river mint. Washes for manor staff; knows Ora. What drives them is simple to name and hard to finish: they want to see her grandson apprenticed cleanly. What keeps them careful is illness spreading through shared basins. To a DM, Oma is ready to roleplay immediately—useful for favors, local color, or trouble. Found a blood-stiffened shirt with a Vale-colored thread in the cuff.",
+      "personality": "hums lullabies to stained sheets. Professional demeanor of a seasoned laundry worker.",
+      "motivation": "Pursue this: see her grandson apprenticed cleanly. Avoid this: illness spreading through shared basins.",
+      "secret": "Privately terrified of illness spreading through shared basins, and currently entangled with: Found a blood-stiffened shirt with a Vale-colored thread in the cuff.",
+      "rumor": "Rumor says Oma can tell you anything that happens near the washhouse steam—for a price or a kindness.",
+      "voice": "Speaks like a Halfling laundry worker: concrete details first, embellishment only when useful.",
+      "appearance": "Halfling; often near the washhouse steam; look for cake of soap scented with river mint.",
+      "portrait": "modules/townforge/assets/portraits/oma-kettle.webp",
+      "token": "modules/townforge/assets/tokens/oma-kettle.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 10
+            },
+            "dex": {
+              "value": 10
+            },
+            "con": {
+              "value": 10
+            },
+            "int": {
+              "value": 10
+            },
+            "wis": {
+              "value": 11
+            },
+            "cha": {
+              "value": 11
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 10,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 4,
+              "max": 4
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "halfling"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "prc": {
+              "value": 1
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "finn-cobble",
+      "name": "Finn Cobble",
+      "species": "Human",
+      "gender": "Male",
+      "age": 16,
+      "occupation": "Messenger Boy",
+      "category": "commoners",
+      "tags": [
+        "messages",
+        "fast",
+        "curious"
+      ],
+      "description": "Messenger Boy associated with shortcuts between market and manor.",
+      "biography": "Most days begin the same for Finn Cobble: a 16-year-old Human messenger boy moving through shortcuts between market and manor as if the stones themselves keep appointments with them. Finn runs messages before he reads them—usually, and is rarely without scuffed satchel with a false seam. Idolizes Blink; friends with Nell. What drives them is simple to name and hard to finish: they want to become a long-road courier like Blink. What keeps them careful is delivering something that gets a friend hanged. To a DM, Finn is ready to roleplay immediately—useful for favors, local color, or trouble. Peeked at a letter from Brother Caldus naming Magister Quen.",
+      "personality": "runs messages before he reads them—usually. Professional demeanor of a seasoned messenger boy.",
+      "motivation": "Pursue this: become a long-road courier like Blink. Avoid this: delivering something that gets a friend hanged.",
+      "secret": "Privately terrified of delivering something that gets a friend hanged, and currently entangled with: Peeked at a letter from Brother Caldus naming Magister Quen.",
+      "rumor": "Rumor says Finn can tell you anything that happens near shortcuts between market and manor—for a price or a kindness.",
+      "voice": "Speaks like a Human messenger boy: concrete details first, embellishment only when useful.",
+      "appearance": "Human; often near shortcuts between market and manor; look for scuffed satchel with a false seam.",
+      "portrait": "modules/townforge/assets/portraits/finn-cobble.webp",
+      "token": "modules/townforge/assets/tokens/finn-cobble.webp",
+      "relationships": [
+        {
+          "id": "courier-blink",
+          "type": "idol",
+          "note": "Wants to become a real long-road courier."
+        }
+      ],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 12
+            },
+            "dex": {
+              "value": 14
+            },
+            "con": {
+              "value": 12
+            },
+            "int": {
+              "value": 11
+            },
+            "wis": {
+              "value": 13
+            },
+            "cha": {
+              "value": 12
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 13,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 11,
+              "max": 11
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.25,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "human"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "sur": {
+              "value": 1
+            },
+            "prc": {
+              "value": 1
+            },
+            "ath": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Shortsword",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "martialM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d6",
+                    "piercing"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          },
+          {
+            "name": "Traveler's Pack",
+            "type": "tool",
+            "img": "icons/svg/eye.svg",
+            "system": {
+              "quantity": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "bera-wells",
+      "name": "Bera Wells",
+      "species": "Human",
+      "gender": "Female",
+      "age": 52,
+      "occupation": "Well Keeper",
+      "category": "commoners",
+      "tags": [
+        "well",
+        "water",
+        "community"
+      ],
+      "description": "Well Keeper associated with the town well square.",
+      "biography": "Most days begin the same for Bera Wells: a 52-year-old Human well keeper moving through the town well square as if the stones themselves keep appointments with them. Bera rations buckets fairly when drought talk starts, and is rarely without iron well key on a red cord. Community voice; speaks to Mayor Haldrin. What drives them is simple to name and hard to finish: they want to fund a second well before the next dry summer. What keeps them careful is poison or panic at the water. To a DM, Bera is ready to roleplay immediately—useful for favors, local color, or trouble. Noticed a bitter taste the morning after smugglers used the mill race.",
+      "personality": "rations buckets fairly when drought talk starts. Professional demeanor of a seasoned well keeper.",
+      "motivation": "Pursue this: fund a second well before the next dry summer. Avoid this: poison or panic at the water.",
+      "secret": "Privately terrified of poison or panic at the water, and currently entangled with: Noticed a bitter taste the morning after smugglers used the mill race.",
+      "rumor": "Rumor says Bera can tell you anything that happens near the town well square—for a price or a kindness.",
+      "voice": "Speaks like a Human well keeper: concrete details first, embellishment only when useful.",
+      "appearance": "Human; often near the town well square; look for iron well key on a red cord.",
+      "portrait": "modules/townforge/assets/portraits/bera-wells.webp",
+      "token": "modules/townforge/assets/tokens/bera-wells.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 10
+            },
+            "dex": {
+              "value": 10
+            },
+            "con": {
+              "value": 10
+            },
+            "int": {
+              "value": 10
+            },
+            "wis": {
+              "value": 11
+            },
+            "cha": {
+              "value": 11
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 10,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 4,
+              "max": 4
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "human"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "prc": {
+              "value": 1
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "skog-rake",
+      "name": "Skog Rake",
+      "species": "Half-Orc",
+      "gender": "Male",
+      "age": 33,
+      "occupation": "Stable Hand",
+      "category": "commoners",
+      "tags": [
+        "stables",
+        "horses",
+        "quiet"
+      ],
+      "description": "Stable Hand associated with the public stables.",
+      "biography": "Skog Rake works as a stable hand out of the public stables, a 33-year-old Half-Orc with more town memory than most council minutes. Skog speaks to horses before people, and is rarely without curry comb worn to a crescent. Stables Jor's caravan beasts; quiet friend to Vessa. What drives them is simple to name and hard to finish: they want to breed a courier line that outruns bandits. What keeps them careful is fire in the hayloft. To a DM, Skog is ready to roleplay immediately—useful for favors, local color, or trouble. Found a branded Vale mare stabled under a false name overnight.",
+      "personality": "speaks to horses before people. Professional demeanor of a seasoned stable hand.",
+      "motivation": "Pursue this: breed a courier line that outruns bandits. Avoid this: fire in the hayloft.",
+      "secret": "Privately terrified of fire in the hayloft, and currently entangled with: Found a branded Vale mare stabled under a false name overnight.",
+      "rumor": "Rumor says Skog can tell you anything that happens near the public stables—for a price or a kindness.",
+      "voice": "Speaks like a Half-Orc stable hand: concrete details first, embellishment only when useful.",
+      "appearance": "Half-Orc; often near the public stables; look for curry comb worn to a crescent.",
+      "portrait": "modules/townforge/assets/portraits/skog-rake.webp",
+      "token": "modules/townforge/assets/tokens/skog-rake.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 10
+            },
+            "dex": {
+              "value": 10
+            },
+            "con": {
+              "value": 10
+            },
+            "int": {
+              "value": 10
+            },
+            "wis": {
+              "value": 11
+            },
+            "cha": {
+              "value": 11
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 10,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 4,
+              "max": 4
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "half-orc"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "prc": {
+              "value": 1
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "tilda-ashpan",
+      "name": "Tilda Ashpan",
+      "species": "Human",
+      "gender": "Female",
+      "age": 61,
+      "occupation": "Chimney Sweep",
+      "category": "commoners",
+      "tags": [
+        "roofs",
+        "soot",
+        "hardy"
+      ],
+      "description": "Chimney Sweep associated with rooftops and chimneys.",
+      "biography": "Tilda Ashpan works as a chimney sweep out of rooftops and chimneys, a 61-year-old Human with more town memory than most council minutes. Tilda spits soot and blessings in the same breath, and is rarely without rope harness inked with chimney marks. Confirms Old Tallow's lantern story. What drives them is simple to name and hard to finish: they want to train one apprentice who isn't afraid of heights. What keeps them careful is falling through a rotten stack. To a DM, Tilda is ready to roleplay immediately—useful for favors, local color, or trouble. Saw signal lanterns answering each other from mill to river from a roof ridge.",
+      "personality": "spits soot and blessings in the same breath. Professional demeanor of a seasoned chimney sweep.",
+      "motivation": "Pursue this: train one apprentice who isn't afraid of heights. Avoid this: falling through a rotten stack.",
+      "secret": "Privately terrified of falling through a rotten stack, and currently entangled with: Saw signal lanterns answering each other from mill to river from a roof ridge.",
+      "rumor": "Rumor says Tilda can tell you anything that happens near rooftops and chimneys—for a price or a kindness.",
+      "voice": "Speaks like a Human chimney sweep: concrete details first, embellishment only when useful.",
+      "appearance": "Human; often near rooftops and chimneys; look for rope harness inked with chimney marks.",
+      "portrait": "modules/townforge/assets/portraits/tilda-ashpan.webp",
+      "token": "modules/townforge/assets/tokens/tilda-ashpan.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 10
+            },
+            "dex": {
+              "value": 10
+            },
+            "con": {
+              "value": 10
+            },
+            "int": {
+              "value": 10
+            },
+            "wis": {
+              "value": 11
+            },
+            "cha": {
+              "value": 11
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 10,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 4,
+              "max": 4
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "human"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "prc": {
+              "value": 1
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "wren-pocket",
+      "name": "Wren Pocket",
+      "species": "Gnome",
+      "gender": "Nonbinary",
+      "age": 40,
+      "occupation": "Street Peddler",
+      "category": "commoners",
+      "tags": [
+        "peddler",
+        "trinkets",
+        "jokes"
+      ],
+      "description": "Street Peddler associated with fountain steps with a peddler cloth.",
+      "biography": "Most days begin the same for Wren Pocket: a 40-year-old Gnome street peddler moving through fountain steps with a peddler cloth as if the stones themselves keep appointments with them. Wren turns jokes into discounts, and is rarely without box of 'lucky' nails that are just nails. Competes lightly with Quinn; knows Mouse. What drives them is simple to name and hard to finish: they want to rent a real stall by spring. What keeps them careful is Quinn undercutting their street trade. To a DM, Wren is ready to roleplay immediately—useful for favors, local color, or trouble. Sold a 'treasure map' that Mouse Pip later swore matched real tunnels.",
+      "personality": "turns jokes into discounts. Professional demeanor of a seasoned street peddler.",
+      "motivation": "Pursue this: rent a real stall by spring. Avoid this: Quinn undercutting their street trade.",
+      "secret": "Privately terrified of Quinn undercutting their street trade, and currently entangled with: Sold a 'treasure map' that Mouse Pip later swore matched real tunnels.",
+      "rumor": "Rumor says Wren can tell you anything that happens near fountain steps with a peddler cloth—for a price or a kindness.",
+      "voice": "Speaks like a Gnome street peddler: concrete details first, embellishment only when useful.",
+      "appearance": "Gnome; often near fountain steps with a peddler cloth; look for box of 'lucky' nails that are just nails.",
+      "portrait": "modules/townforge/assets/portraits/wren-pocket.webp",
+      "token": "modules/townforge/assets/tokens/wren-pocket.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 10
+            },
+            "dex": {
+              "value": 12
+            },
+            "con": {
+              "value": 11
+            },
+            "int": {
+              "value": 13
+            },
+            "wis": {
+              "value": 12
+            },
+            "cha": {
+              "value": 14
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 11,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 8,
+              "max": 8
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.125,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "gnome"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "per": {
+              "value": 1
+            },
+            "ins": {
+              "value": 1
+            },
+            "inv": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Merchant's Scale",
+            "type": "tool",
+            "img": "icons/svg/eye.svg",
+            "system": {
+              "quantity": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "mael-ferry",
+      "name": "Mael Ferry",
+      "species": "Human",
+      "gender": "Male",
+      "age": 47,
+      "occupation": "Dock Hauler",
+      "category": "commoners",
+      "tags": [
+        "docks",
+        "crates",
+        "strong"
+      ],
+      "description": "Dock Hauler associated with the cargo docks.",
+      "biography": "Most days begin the same for Mael Ferry: a 47-year-old Human dock hauler moving through the cargo docks as if the stones themselves keep appointments with them. Mael rolls shoulders before lifting anything proud, and is rarely without hooks and gloves stiff with river salt. Works near Tem Brine; wary of Nedda. What drives them is simple to name and hard to finish: they want to join a river crew with proper shares. What keeps them careful is cranes failing on a crowded quay. To a DM, Mael is ready to roleplay immediately—useful for favors, local color, or trouble. Helped Nedda unload 'grain' that smelled of lamp oil.",
+      "personality": "rolls shoulders before lifting anything proud. Professional demeanor of a seasoned dock hauler.",
+      "motivation": "Pursue this: join a river crew with proper shares. Avoid this: cranes failing on a crowded quay.",
+      "secret": "Privately terrified of cranes failing on a crowded quay, and currently entangled with: Helped Nedda unload 'grain' that smelled of lamp oil.",
+      "rumor": "Rumor says Mael can tell you anything that happens near the cargo docks—for a price or a kindness.",
+      "voice": "Speaks like a Human dock hauler: concrete details first, embellishment only when useful.",
+      "appearance": "Human; often near the cargo docks; look for hooks and gloves stiff with river salt.",
+      "portrait": "modules/townforge/assets/portraits/mael-ferry.webp",
+      "token": "modules/townforge/assets/tokens/mael-ferry.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 10
+            },
+            "dex": {
+              "value": 10
+            },
+            "con": {
+              "value": 10
+            },
+            "int": {
+              "value": 10
+            },
+            "wis": {
+              "value": 11
+            },
+            "cha": {
+              "value": 11
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 10,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 4,
+              "max": 4
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "human"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "prc": {
+              "value": 1
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "sera-patch",
+      "name": "Sera Patch",
+      "species": "Human",
+      "gender": "Female",
+      "age": 35,
+      "occupation": "Seamstress",
+      "category": "commoners",
+      "tags": [
+        "mending",
+        "home",
+        "thrifty"
+      ],
+      "description": "Seamstress associated with a tiny mending shop by the lane.",
+      "biography": "Most days begin the same for Sera Patch: a 35-year-old Human seamstress moving through a tiny mending shop by the lane as if the stones themselves keep appointments with them. Sera bites thread instead of using scissors when nervous, and is rarely without basket of orphaned buttons from Oma. Friend to Pippa; customer of Issy. What drives them is simple to name and hard to finish: they want to sew Pippa's first proper dress for a dance. What keeps them careful is rent rising after Midsummer. To a DM, Sera is ready to roleplay immediately—useful for favors, local color, or trouble. Mended a tear pattern that matched a climb over a spiked wall.",
+      "personality": "bites thread instead of using scissors when nervous. Professional demeanor of a seasoned seamstress.",
+      "motivation": "Pursue this: sew Pippa's first proper dress for a dance. Avoid this: rent rising after Midsummer.",
+      "secret": "Privately terrified of rent rising after Midsummer, and currently entangled with: Mended a tear pattern that matched a climb over a spiked wall.",
+      "rumor": "Rumor says Sera can tell you anything that happens near a tiny mending shop by the lane—for a price or a kindness.",
+      "voice": "Speaks like a Human seamstress: concrete details first, embellishment only when useful.",
+      "appearance": "Human; often near a tiny mending shop by the lane; look for basket of orphaned buttons from Oma.",
+      "portrait": "modules/townforge/assets/portraits/sera-patch.webp",
+      "token": "modules/townforge/assets/tokens/sera-patch.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 14
+            },
+            "dex": {
+              "value": 12
+            },
+            "con": {
+              "value": 13
+            },
+            "int": {
+              "value": 11
+            },
+            "wis": {
+              "value": 12
+            },
+            "cha": {
+              "value": 10
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 12,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 12,
+              "max": 12
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.25,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "human"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "ath": {
+              "value": 1
+            },
+            "inv": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Artisan's Tools",
+            "type": "tool",
+            "img": "icons/svg/eye.svg",
+            "system": {
+              "quantity": 1
+            }
+          },
+          {
+            "name": "Light Hammer",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "simpleM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d4",
+                    "bludgeoning"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "odin-crumb",
+      "name": "Odin Crumb",
+      "species": "Halfling",
+      "gender": "Male",
+      "age": 29,
+      "occupation": "Baker's Assistant",
+      "category": "commoners",
+      "tags": [
+        "bakery",
+        "dawn",
+        "flour"
+      ],
+      "description": "Baker's Assistant associated with Moll's bakery before dawn.",
+      "biography": "Odin Crumb works as a baker's assistant out of Moll's bakery before dawn, a 29-year-old Halfling with more town memory than most council minutes. Odin sneaks burnt heels to street kids, and is rarely without flour handprint forever on his cap. Works for Moll; feeds Finn crumbs. What drives them is simple to name and hard to finish: they want to learn the master recipes before he turns thirty. What keeps them careful is the oven fire spreading to the street. To a DM, Odin is ready to roleplay immediately—useful for favors, local color, or trouble. A morning regular paid in a temple seal stamped on wax, not coin.",
+      "personality": "sneaks burnt heels to street kids. Professional demeanor of a seasoned baker's assistant.",
+      "motivation": "Pursue this: learn the master recipes before he turns thirty. Avoid this: the oven fire spreading to the street.",
+      "secret": "Privately terrified of the oven fire spreading to the street, and currently entangled with: A morning regular paid in a temple seal stamped on wax, not coin.",
+      "rumor": "Rumor says Odin can tell you anything that happens near Moll's bakery before dawn—for a price or a kindness.",
+      "voice": "Speaks like a Halfling baker's assistant: concrete details first, embellishment only when useful.",
+      "appearance": "Halfling; often near Moll's bakery before dawn; look for flour handprint forever on his cap.",
+      "portrait": "modules/townforge/assets/portraits/odin-crumb.webp",
+      "token": "modules/townforge/assets/tokens/odin-crumb.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 10
+            },
+            "dex": {
+              "value": 10
+            },
+            "con": {
+              "value": 10
+            },
+            "int": {
+              "value": 10
+            },
+            "wis": {
+              "value": 11
+            },
+            "cha": {
+              "value": 11
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 10,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 4,
+              "max": 4
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "halfling"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "prc": {
+              "value": 1
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "yara-moss",
+      "name": "Yara Moss",
+      "species": "Half-Elf",
+      "gender": "Female",
+      "age": 26,
+      "occupation": "Herb Gatherer",
+      "category": "commoners",
+      "tags": [
+        "herbs",
+        "woods",
+        "baskets"
+      ],
+      "description": "Herb Gatherer associated with the tree line beyond the north gate.",
+      "biography": "Yara Moss works as a herb gatherer out of the tree line beyond the north gate, a 26-year-old Half-Elf with more town memory than most council minutes. Yara thanks plants before she cuts them, and is rarely without drying racks of labeled leaves. Supplies Petra; walks trails with Kavi. What drives them is simple to name and hard to finish: they want to publish a simple herbal for midwives. What keeps them careful is overharvesting a rare feverwort patch. To a DM, Yara is ready to roleplay immediately—useful for favors, local color, or trouble. Found bootprints and chalk arrows near her feverwort—heading toward the mill.",
+      "personality": "thanks plants before she cuts them. Professional demeanor of a seasoned herb gatherer.",
+      "motivation": "Pursue this: publish a simple herbal for midwives. Avoid this: overharvesting a rare feverwort patch.",
+      "secret": "Privately terrified of overharvesting a rare feverwort patch, and currently entangled with: Found bootprints and chalk arrows near her feverwort—heading toward the mill.",
+      "rumor": "Rumor says Yara can tell you anything that happens near the tree line beyond the north gate—for a price or a kindness.",
+      "voice": "Speaks like a Half-Elf herb gatherer: concrete details first, embellishment only when useful.",
+      "appearance": "Half-Elf; often near the tree line beyond the north gate; look for drying racks of labeled leaves.",
+      "portrait": "modules/townforge/assets/portraits/yara-moss.webp",
+      "token": "modules/townforge/assets/tokens/yara-moss.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 12
+            },
+            "dex": {
+              "value": 14
+            },
+            "con": {
+              "value": 12
+            },
+            "int": {
+              "value": 11
+            },
+            "wis": {
+              "value": 13
+            },
+            "cha": {
+              "value": 12
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 13,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 11,
+              "max": 11
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.25,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "half-elf"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "sur": {
+              "value": 1
+            },
+            "prc": {
+              "value": 1
+            },
+            "ath": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Shortsword",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "martialM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d6",
+                    "piercing"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          },
+          {
+            "name": "Traveler's Pack",
+            "type": "tool",
+            "img": "icons/svg/eye.svg",
+            "system": {
+              "quantity": 1
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

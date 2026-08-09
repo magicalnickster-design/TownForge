@@ -1,0 +1,1162 @@
+{
+  "category": "criminal",
+  "npcs": [
+    {
+      "id": "rook-vell",
+      "name": "Rook Vell",
+      "species": "Human",
+      "gender": "Male",
+      "age": 32,
+      "occupation": "Fence",
+      "category": "criminal",
+      "tags": [
+        "fence",
+        "alleys",
+        "wanted"
+      ],
+      "description": "Fence associated with back rooms behind a shuttered tannery.",
+      "biography": "Ask around town for a fence and someone will point you to Rook at back rooms behind a shuttered tannery. At 32, this Human has learned which smiles are currency and which are warnings. Rook never sits with his back to a door, and is rarely without ledger written in laundry marks. Hunted by Serra; crew with Silk and Jax; rivals Kitty. What drives them is simple to name and hard to finish: they want to buy legitimacy through a 'respectable' shopfront. What keeps them careful is Serra getting a witness who won't scare. To a DM, Rook is ready to roleplay immediately—useful for favors, local color, or trouble. Claimed ownership of the mill tunnel against Kitty Shade.",
+      "personality": "never sits with his back to a door. Professional demeanor of a seasoned fence.",
+      "motivation": "Pursue this: buy legitimacy through a 'respectable' shopfront. Avoid this: Serra getting a witness who won't scare.",
+      "secret": "Privately terrified of Serra getting a witness who won't scare, and currently entangled with: Claimed ownership of the mill tunnel against Kitty Shade.",
+      "rumor": "Rumor says Rook can tell you anything that happens near back rooms behind a shuttered tannery—for a price or a kindness.",
+      "voice": "Speaks like a Human fence: concrete details first, embellishment only when useful.",
+      "appearance": "Human; often near back rooms behind a shuttered tannery; look for ledger written in laundry marks.",
+      "portrait": "modules/townforge/assets/portraits/rook-vell.webp",
+      "token": "modules/townforge/assets/tokens/rook-vell.webp",
+      "relationships": [
+        {
+          "id": "serra-dawnpike",
+          "type": "hunted-by",
+          "note": "Building a quiet case against Rook's fence ring."
+        }
+      ],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 11
+            },
+            "dex": {
+              "value": 15
+            },
+            "con": {
+              "value": 12
+            },
+            "int": {
+              "value": 12
+            },
+            "wis": {
+              "value": 11
+            },
+            "cha": {
+              "value": 13
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 13,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 11,
+              "max": 11
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.25,
+            "alignment": "chaotic neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "human"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "ste": {
+              "value": 1
+            },
+            "slt": {
+              "value": 1
+            },
+            "dec": {
+              "value": 1
+            },
+            "prc": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Dagger",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "simpleM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d4",
+                    "piercing"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          },
+          {
+            "name": "Shortsword",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "martialM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d6",
+                    "piercing"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "silk-mara",
+      "name": "Silk Mara",
+      "species": "Half-Elf",
+      "gender": "Female",
+      "age": 29,
+      "occupation": "Pickpocket",
+      "category": "criminal",
+      "tags": [
+        "thief",
+        "crowd",
+        "fleet"
+      ],
+      "description": "Pickpocket associated with market crowds and festival lines.",
+      "biography": "Silk Mara works as a pickpocket out of market crowds and festival lines, a 29-year-old Half-Elf with more town memory than most council minutes. Silk apologizes while she steals, and is rarely without fingerless gloves with silk palms. Works for Rook; sells extras to Kitty. What drives them is simple to name and hard to finish: they want to exit the life with one perfect score. What keeps them careful is Rook deciding she's a liability. To a DM, Silk is ready to roleplay immediately—useful for favors, local color, or trouble. Lifted Lina's note about Lysa's ring and sold the tip to Kitty.",
+      "personality": "apologizes while she steals. Professional demeanor of a seasoned pickpocket.",
+      "motivation": "Pursue this: exit the life with one perfect score. Avoid this: Rook deciding she's a liability.",
+      "secret": "Privately terrified of Rook deciding she's a liability, and currently entangled with: Lifted Lina's note about Lysa's ring and sold the tip to Kitty.",
+      "rumor": "Rumor says Silk can tell you anything that happens near market crowds and festival lines—for a price or a kindness.",
+      "voice": "Speaks like a Half-Elf pickpocket: concrete details first, embellishment only when useful.",
+      "appearance": "Half-Elf; often near market crowds and festival lines; look for fingerless gloves with silk palms.",
+      "portrait": "modules/townforge/assets/portraits/silk-mara.webp",
+      "token": "modules/townforge/assets/tokens/silk-mara.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 11
+            },
+            "dex": {
+              "value": 15
+            },
+            "con": {
+              "value": 12
+            },
+            "int": {
+              "value": 12
+            },
+            "wis": {
+              "value": 11
+            },
+            "cha": {
+              "value": 13
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 13,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 11,
+              "max": 11
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.25,
+            "alignment": "chaotic neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "half-elf"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "ste": {
+              "value": 1
+            },
+            "slt": {
+              "value": 1
+            },
+            "dec": {
+              "value": 1
+            },
+            "prc": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Dagger",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "simpleM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d4",
+                    "piercing"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          },
+          {
+            "name": "Shortsword",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "martialM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d6",
+                    "piercing"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "gutter-jax",
+      "name": "Gutter Jax",
+      "species": "Human",
+      "gender": "Male",
+      "age": 25,
+      "occupation": "Lookout",
+      "category": "criminal",
+      "tags": [
+        "lookout",
+        "rooftops",
+        "whistle"
+      ],
+      "description": "Lookout associated with rooftops and gutter runs.",
+      "biography": "Gutter Jax works as a lookout out of rooftops and gutter runs, a 25-year-old Human with more town memory than most council minutes. Gutter sleeps with a whistle between his teeth, and is rarely without chalk for marking safe tiles. Lookout for Rook; spotted by Tomas. What drives them is simple to name and hard to finish: they want to be paid enough to stop running messages. What keeps them careful is Aya's arrows. To a DM, Gutter is ready to roleplay immediately—useful for favors, local color, or trouble. Signaled Tomas's patrol route to Rook's buyers.",
+      "personality": "sleeps with a whistle between his teeth. Professional demeanor of a seasoned lookout.",
+      "motivation": "Pursue this: be paid enough to stop running messages. Avoid this: Aya's arrows.",
+      "secret": "Privately terrified of Aya's arrows, and currently entangled with: Signaled Tomas's patrol route to Rook's buyers.",
+      "rumor": "Rumor says Gutter can tell you anything that happens near rooftops and gutter runs—for a price or a kindness.",
+      "voice": "Speaks like a Human lookout: concrete details first, embellishment only when useful.",
+      "appearance": "Human; often near rooftops and gutter runs; look for chalk for marking safe tiles.",
+      "portrait": "modules/townforge/assets/portraits/gutter-jax.webp",
+      "token": "modules/townforge/assets/tokens/gutter-jax.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 11
+            },
+            "dex": {
+              "value": 15
+            },
+            "con": {
+              "value": 12
+            },
+            "int": {
+              "value": 12
+            },
+            "wis": {
+              "value": 11
+            },
+            "cha": {
+              "value": 13
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 13,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 11,
+              "max": 11
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.25,
+            "alignment": "chaotic neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "human"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "ste": {
+              "value": 1
+            },
+            "slt": {
+              "value": 1
+            },
+            "dec": {
+              "value": 1
+            },
+            "prc": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Dagger",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "simpleM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d4",
+                    "piercing"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          },
+          {
+            "name": "Shortsword",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "martialM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d6",
+                    "piercing"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "nedda-blacktooth",
+      "name": "Nedda Blacktooth",
+      "species": "Dwarf",
+      "gender": "Female",
+      "age": 90,
+      "occupation": "Smuggler",
+      "category": "criminal",
+      "tags": [
+        "smuggler",
+        "river",
+        "crates"
+      ],
+      "description": "Smuggler associated with a low river barge.",
+      "biography": "Nedda Blacktooth works as a smuggler out of a low river barge, a 90-year-old Dwarf with more town memory than most council minutes. Nedda grins with the missing tooth facing customs, and is rarely without false-bottom grain sacks. Smuggler eyed by Brannic; paid by Orrin. What drives them is simple to name and hard to finish: they want to retire upriver with a clean name and dirty fortune. What keeps them careful is Brannic measuring her draft again. To a DM, Nedda is ready to roleplay immediately—useful for favors, local color, or trouble. Moved lamp oil under grain manifests with Mael's unknowing help.",
+      "personality": "grins with the missing tooth facing customs. Professional demeanor of a seasoned smuggler.",
+      "motivation": "Pursue this: retire upriver with a clean name and dirty fortune. Avoid this: Brannic measuring her draft again.",
+      "secret": "Privately terrified of Brannic measuring her draft again, and currently entangled with: Moved lamp oil under grain manifests with Mael's unknowing help.",
+      "rumor": "Rumor says Nedda can tell you anything that happens near a low river barge—for a price or a kindness.",
+      "voice": "Speaks like a Dwarf smuggler: concrete details first, embellishment only when useful.",
+      "appearance": "Dwarf; often near a low river barge; look for false-bottom grain sacks.",
+      "portrait": "modules/townforge/assets/portraits/nedda-blacktooth.webp",
+      "token": "modules/townforge/assets/tokens/nedda-blacktooth.webp",
+      "relationships": [
+        {
+          "id": "brannic-stonehelm",
+          "type": "watched-by",
+          "note": "Watches her barge draft at the river gate."
+        }
+      ],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 11
+            },
+            "dex": {
+              "value": 15
+            },
+            "con": {
+              "value": 12
+            },
+            "int": {
+              "value": 12
+            },
+            "wis": {
+              "value": 11
+            },
+            "cha": {
+              "value": 13
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 13,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 11,
+              "max": 11
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.25,
+            "alignment": "chaotic neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "dwarf"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "ste": {
+              "value": 1
+            },
+            "slt": {
+              "value": 1
+            },
+            "dec": {
+              "value": 1
+            },
+            "prc": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Dagger",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "simpleM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d4",
+                    "piercing"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          },
+          {
+            "name": "Shortsword",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "martialM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d6",
+                    "piercing"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "pale-orin",
+      "name": "Pale Orin",
+      "species": "Human",
+      "gender": "Male",
+      "age": 43,
+      "occupation": "Forgery Clerk",
+      "category": "criminal",
+      "tags": [
+        "forgery",
+        "docs",
+        "neat"
+      ],
+      "description": "Forgery Clerk associated with a tidy upstairs room near the clerk's hall.",
+      "biography": "Pale Orin works as a forgery clerk out of a tidy upstairs room near the clerk's hall, a 43-year-old Human with more town memory than most council minutes. Pale washes ink from his hands until they crack, and is rarely without set of copied seals in clay. Forger for Rook; nervous around Penna. What drives them is simple to name and hard to finish: they want to forge one document that buys him out forever. What keeps them careful is Penna Ledgerwell recognizing his pen pressure. To a DM, Pale is ready to roleplay immediately—useful for favors, local color, or trouble. Drafted a fake warehouse writ used in Rook's last shipment.",
+      "personality": "washes ink from his hands until they crack. Professional demeanor of a seasoned forgery clerk.",
+      "motivation": "Pursue this: forge one document that buys him out forever. Avoid this: Penna Ledgerwell recognizing his pen pressure.",
+      "secret": "Privately terrified of Penna Ledgerwell recognizing his pen pressure, and currently entangled with: Drafted a fake warehouse writ used in Rook's last shipment.",
+      "rumor": "Rumor says Pale can tell you anything that happens near a tidy upstairs room near the clerk's hall—for a price or a kindness.",
+      "voice": "Speaks like a Human forgery clerk: concrete details first, embellishment only when useful.",
+      "appearance": "Human; often near a tidy upstairs room near the clerk's hall; look for set of copied seals in clay.",
+      "portrait": "modules/townforge/assets/portraits/pale-orin.webp",
+      "token": "modules/townforge/assets/tokens/pale-orin.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 8
+            },
+            "dex": {
+              "value": 11
+            },
+            "con": {
+              "value": 10
+            },
+            "int": {
+              "value": 16
+            },
+            "wis": {
+              "value": 13
+            },
+            "cha": {
+              "value": 12
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 11,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 7,
+              "max": 7
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.125,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "human"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "arc": {
+              "value": 1
+            },
+            "his": {
+              "value": 1
+            },
+            "inv": {
+              "value": 1
+            },
+            "nat": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Scholar's Kit",
+            "type": "tool",
+            "img": "icons/svg/eye.svg",
+            "system": {
+              "quantity": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "kitty-shade",
+      "name": "Kitty Shade",
+      "species": "Tiefling",
+      "gender": "Female",
+      "age": 27,
+      "occupation": "Information Broker",
+      "category": "criminal",
+      "tags": [
+        "broker",
+        "secrets",
+        "smile"
+      ],
+      "description": "Information Broker associated with velvet booths and quiet balconies.",
+      "biography": "Ask around town for a information broker and someone will point you to Kitty at velvet booths and quiet balconies. At 27, this Tiefling has learned which smiles are currency and which are warnings. Kitty tips well and remembers every favor owed, and is rarely without mirror compact with a poisoned pin unused. Rival to Rook; buys from Silk and Cressida. What drives them is simple to name and hard to finish: they want to own the town's secrets market outright. What keeps them careful is Rook unifying the alleys without her. To a DM, Kitty is ready to roleplay immediately—useful for favors, local color, or trouble. Bought Cressida's Lysa rumor and auctioned a softer version to Edric's enemies.",
+      "personality": "tips well and remembers every favor owed. Professional demeanor of a seasoned information broker.",
+      "motivation": "Pursue this: own the town's secrets market outright. Avoid this: Rook unifying the alleys without her.",
+      "secret": "Privately terrified of Rook unifying the alleys without her, and currently entangled with: Bought Cressida's Lysa rumor and auctioned a softer version to Edric's enemies.",
+      "rumor": "Rumor says Kitty can tell you anything that happens near velvet booths and quiet balconies—for a price or a kindness.",
+      "voice": "Speaks like a Tiefling information broker: concrete details first, embellishment only when useful.",
+      "appearance": "Tiefling; often near velvet booths and quiet balconies; look for mirror compact with a poisoned pin unused.",
+      "portrait": "modules/townforge/assets/portraits/kitty-shade.webp",
+      "token": "modules/townforge/assets/tokens/kitty-shade.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 11
+            },
+            "dex": {
+              "value": 15
+            },
+            "con": {
+              "value": 12
+            },
+            "int": {
+              "value": 12
+            },
+            "wis": {
+              "value": 11
+            },
+            "cha": {
+              "value": 13
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 13,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 11,
+              "max": 11
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.25,
+            "alignment": "chaotic neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "tiefling"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "ste": {
+              "value": 1
+            },
+            "slt": {
+              "value": 1
+            },
+            "dec": {
+              "value": 1
+            },
+            "prc": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Dagger",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "simpleM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d4",
+                    "piercing"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          },
+          {
+            "name": "Shortsword",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "martialM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d6",
+                    "piercing"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "bask-hammer",
+      "name": "Bask Hammer",
+      "species": "Half-Orc",
+      "gender": "Male",
+      "age": 35,
+      "occupation": "Debt Collector",
+      "category": "criminal",
+      "tags": [
+        "collector",
+        "threats",
+        "muscle"
+      ],
+      "description": "Debt Collector associated with doorways of debtors.",
+      "biography": "Most days begin the same for Bask Hammer: a 35-year-old Half-Orc debt collector moving through doorways of debtors as if the stones themselves keep appointments with them. Bask knocks politely, then harder, and is rarely without leather gloves lined with coin weights. Marrow's collector; clashed with Dorn. What drives them is simple to name and hard to finish: they want to earn Marrow's partnership, not just wages. What keeps them careful is Dorn catching him in public again. To a DM, Bask is ready to roleplay immediately—useful for favors, local color, or trouble. Warned a baker that 'accidents' happen to ovens behind on interest.",
+      "personality": "knocks politely, then harder. Professional demeanor of a seasoned debt collector.",
+      "motivation": "Pursue this: earn Marrow's partnership, not just wages. Avoid this: Dorn catching him in public again.",
+      "secret": "Privately terrified of Dorn catching him in public again, and currently entangled with: Warned a baker that 'accidents' happen to ovens behind on interest.",
+      "rumor": "Rumor says Bask can tell you anything that happens near doorways of debtors—for a price or a kindness.",
+      "voice": "Speaks like a Half-Orc debt collector: concrete details first, embellishment only when useful.",
+      "appearance": "Half-Orc; often near doorways of debtors; look for leather gloves lined with coin weights.",
+      "portrait": "modules/townforge/assets/portraits/bask-hammer.webp",
+      "token": "modules/townforge/assets/tokens/bask-hammer.webp",
+      "relationships": [
+        {
+          "id": "marrow-cline",
+          "type": "employee",
+          "note": "Sends Bask when polite smiles fail."
+        }
+      ],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 14
+            },
+            "dex": {
+              "value": 12
+            },
+            "con": {
+              "value": 14
+            },
+            "int": {
+              "value": 10
+            },
+            "wis": {
+              "value": 11
+            },
+            "cha": {
+              "value": 10
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 16,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 16,
+              "max": 16
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.5,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "half-orc"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "ath": {
+              "value": 1
+            },
+            "prc": {
+              "value": 1
+            },
+            "intimidation": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Chain Shirt",
+            "type": "equipment",
+            "img": "icons/svg/shield.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "medium"
+              },
+              "armor": {
+                "value": 13,
+                "dex": 0
+              }
+            }
+          },
+          {
+            "name": "Spear",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "simpleM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d6",
+                    "piercing"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          },
+          {
+            "name": "Shortsword",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "martialM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d6",
+                    "piercing"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "mouse-pip",
+      "name": "Mouse Pip",
+      "species": "Halfling",
+      "gender": "Male",
+      "age": 21,
+      "occupation": "Sewer Runner",
+      "category": "criminal",
+      "tags": [
+        "sewers",
+        "maps",
+        "timid"
+      ],
+      "description": "Sewer Runner associated with sewer mouths and grate shadows.",
+      "biography": "Mouse Pip works as a sewer runner out of sewer mouths and grate shadows, a 21-year-old Halfling with more town memory than most council minutes. Mouse apologizes to rats before he traps them, and is rarely without oilskin map folio of tunnels. Knows sewers; fed by Pola; tracked by Kessa. What drives them is simple to name and hard to finish: they want to sell his maps to someone who won't kill him after. What keeps them careful is being sealed in below during a storm. To a DM, Mouse is ready to roleplay immediately—useful for favors, local color, or trouble. His tunnel sketch matches Wren's joke map and Rina's overheard 'mill tunnel'.",
+      "personality": "apologizes to rats before he traps them. Professional demeanor of a seasoned sewer runner.",
+      "motivation": "Pursue this: sell his maps to someone who won't kill him after. Avoid this: being sealed in below during a storm.",
+      "secret": "Privately terrified of being sealed in below during a storm, and currently entangled with: His tunnel sketch matches Wren's joke map and Rina's overheard 'mill tunnel'.",
+      "rumor": "Rumor says Mouse can tell you anything that happens near sewer mouths and grate shadows—for a price or a kindness.",
+      "voice": "Speaks like a Halfling sewer runner: concrete details first, embellishment only when useful.",
+      "appearance": "Halfling; often near sewer mouths and grate shadows; look for oilskin map folio of tunnels.",
+      "portrait": "modules/townforge/assets/portraits/mouse-pip.webp",
+      "token": "modules/townforge/assets/tokens/mouse-pip.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 11
+            },
+            "dex": {
+              "value": 15
+            },
+            "con": {
+              "value": 12
+            },
+            "int": {
+              "value": 12
+            },
+            "wis": {
+              "value": 11
+            },
+            "cha": {
+              "value": 13
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 13,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 11,
+              "max": 11
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.25,
+            "alignment": "chaotic neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "halfling"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "ste": {
+              "value": 1
+            },
+            "slt": {
+              "value": 1
+            },
+            "dec": {
+              "value": 1
+            },
+            "prc": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Dagger",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "simpleM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d4",
+                    "piercing"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          },
+          {
+            "name": "Shortsword",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "martialM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d6",
+                    "piercing"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,1049 @@
+{
+  "category": "religious",
+  "npcs": [
+    {
+      "id": "mother-elen-bright",
+      "name": "Mother Elen Bright",
+      "species": "Human",
+      "gender": "Female",
+      "age": 56,
+      "occupation": "Temple Priestess",
+      "category": "religious",
+      "tags": [
+        "priestess",
+        "mercy",
+        "leader"
+      ],
+      "description": "Temple Priestess associated with the Temple of Kindled Mercy.",
+      "biography": "Ask around town for a temple priestess and someone will point you to Mother at the Temple of Kindled Mercy. At 56, this Human has learned which smiles are currency and which are warnings. Mother lights a candle for strangers before asking their names, and is rarely without prayer beads worn smooth on one side. Leads temple; suspicious of Quen; mentors Pola. What drives them is simple to name and hard to finish: they want to keep the alms kitchen open through winter. What keeps them careful is faith becoming a weapon in council politics. To a DM, Mother is ready to roleplay immediately—useful for favors, local color, or trouble. Received an anonymous donation of black candles and a warning about 'tower fire'.",
+      "personality": "lights a candle for strangers before asking their names. Professional demeanor of a seasoned temple priestess.",
+      "motivation": "Pursue this: keep the alms kitchen open through winter. Avoid this: faith becoming a weapon in council politics.",
+      "secret": "Privately terrified of faith becoming a weapon in council politics, and currently entangled with: Received an anonymous donation of black candles and a warning about 'tower fire'.",
+      "rumor": "Rumor says Mother can tell you anything that happens near the Temple of Kindled Mercy—for a price or a kindness.",
+      "voice": "Speaks like a Human temple priestess: concrete details first, embellishment only when useful.",
+      "appearance": "Human; often near the Temple of Kindled Mercy; look for prayer beads worn smooth on one side.",
+      "portrait": "modules/townforge/assets/portraits/mother-elen-bright.webp",
+      "token": "modules/townforge/assets/tokens/mother-elen-bright.webp",
+      "relationships": [
+        {
+          "id": "magister-quen",
+          "type": "suspicious-of",
+          "note": "Believes Quen's experiments skirt blasphemy."
+        }
+      ],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 10
+            },
+            "dex": {
+              "value": 10
+            },
+            "con": {
+              "value": 12
+            },
+            "int": {
+              "value": 11
+            },
+            "wis": {
+              "value": 15
+            },
+            "cha": {
+              "value": 13
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 13,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 14,
+              "max": 14
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.5,
+            "alignment": "lawful good",
+            "type": {
+              "value": "humanoid",
+              "subtype": "human"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "rel": {
+              "value": 1
+            },
+            "med": {
+              "value": 1
+            },
+            "per": {
+              "value": 1
+            },
+            "ins": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Holy Vestments",
+            "type": "equipment",
+            "img": "icons/svg/shield.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "clothing"
+              },
+              "armor": {
+                "value": 1,
+                "dex": 0
+              }
+            }
+          },
+          {
+            "name": "Mace",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "simpleM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d6",
+                    "bludgeoning"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "brother-caldus",
+      "name": "Brother Caldus",
+      "species": "Human",
+      "gender": "Male",
+      "age": 41,
+      "occupation": "Temple Archivist",
+      "category": "religious",
+      "tags": [
+        "archive",
+        "suspicious",
+        "ink"
+      ],
+      "description": "Temple Archivist associated with the temple archive loft.",
+      "biography": "Ask around town for a temple archivist and someone will point you to Brother at the temple archive loft. At 41, this Human has learned which smiles are currency and which are warnings. Brother indexes sins as carefully as saints, and is rarely without key to a cabinet labeled 'disputed miracles'. Reports to Elen; rivals Quen; uses Finn sometimes. What drives them is simple to name and hard to finish: they want to prove Magister Quen's work endangers souls. What keeps them careful is magic without doctrine. To a DM, Brother is ready to roleplay immediately—useful for favors, local color, or trouble. Copied a page from a restricted folio that matches Quen's latest purchase order.",
+      "personality": "indexes sins as carefully as saints. Professional demeanor of a seasoned temple archivist.",
+      "motivation": "Pursue this: prove Magister Quen's work endangers souls. Avoid this: magic without doctrine.",
+      "secret": "Privately terrified of magic without doctrine, and currently entangled with: Copied a page from a restricted folio that matches Quen's latest purchase order.",
+      "rumor": "Rumor says Brother can tell you anything that happens near the temple archive loft—for a price or a kindness.",
+      "voice": "Speaks like a Human temple archivist: concrete details first, embellishment only when useful.",
+      "appearance": "Human; often near the temple archive loft; look for key to a cabinet labeled 'disputed miracles'.",
+      "portrait": "modules/townforge/assets/portraits/brother-caldus.webp",
+      "token": "modules/townforge/assets/tokens/brother-caldus.webp",
+      "relationships": [
+        {
+          "id": "magister-quen",
+          "type": "rival",
+          "note": "Collects evidence of unsafe private magic."
+        }
+      ],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 8
+            },
+            "dex": {
+              "value": 11
+            },
+            "con": {
+              "value": 10
+            },
+            "int": {
+              "value": 16
+            },
+            "wis": {
+              "value": 13
+            },
+            "cha": {
+              "value": 12
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 11,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 7,
+              "max": 7
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.125,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "human"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "arc": {
+              "value": 1
+            },
+            "his": {
+              "value": 1
+            },
+            "inv": {
+              "value": 1
+            },
+            "nat": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Scholar's Kit",
+            "type": "tool",
+            "img": "icons/svg/eye.svg",
+            "system": {
+              "quantity": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "sister-pola",
+      "name": "Sister Pola",
+      "species": "Halfling",
+      "gender": "Female",
+      "age": 34,
+      "occupation": "Alms Keeper",
+      "category": "religious",
+      "tags": [
+        "charity",
+        "soup",
+        "gentle"
+      ],
+      "description": "Alms Keeper associated with the alms yard.",
+      "biography": "Ask around town for a alms keeper and someone will point you to Sister at the alms yard. At 34, this Halfling has learned which smiles are currency and which are warnings. Sister remembers every hungry face by stew preference, and is rarely without ladle polished brighter than the altar plate. Trained by Elen; feeds Mouse when he looks starved. What drives them is simple to name and hard to finish: they want to start a skills school for street children. What keeps them careful is running out of barley before Midwinter. To a DM, Sister is ready to roleplay immediately—useful for favors, local color, or trouble. A 'beggar' with soft hands asked questions about temple vault schedules.",
+      "personality": "remembers every hungry face by stew preference. Professional demeanor of a seasoned alms keeper.",
+      "motivation": "Pursue this: start a skills school for street children. Avoid this: running out of barley before Midwinter.",
+      "secret": "Privately terrified of running out of barley before Midwinter, and currently entangled with: A 'beggar' with soft hands asked questions about temple vault schedules.",
+      "rumor": "Rumor says Sister can tell you anything that happens near the alms yard—for a price or a kindness.",
+      "voice": "Speaks like a Halfling alms keeper: concrete details first, embellishment only when useful.",
+      "appearance": "Halfling; often near the alms yard; look for ladle polished brighter than the altar plate.",
+      "portrait": "modules/townforge/assets/portraits/sister-pola.webp",
+      "token": "modules/townforge/assets/tokens/sister-pola.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 10
+            },
+            "dex": {
+              "value": 10
+            },
+            "con": {
+              "value": 12
+            },
+            "int": {
+              "value": 11
+            },
+            "wis": {
+              "value": 15
+            },
+            "cha": {
+              "value": 13
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 13,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 14,
+              "max": 14
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.5,
+            "alignment": "lawful good",
+            "type": {
+              "value": "humanoid",
+              "subtype": "halfling"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "rel": {
+              "value": 1
+            },
+            "med": {
+              "value": 1
+            },
+            "per": {
+              "value": 1
+            },
+            "ins": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Holy Vestments",
+            "type": "equipment",
+            "img": "icons/svg/shield.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "clothing"
+              },
+              "armor": {
+                "value": 1,
+                "dex": 0
+              }
+            }
+          },
+          {
+            "name": "Mace",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "simpleM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d6",
+                    "bludgeoning"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "father-bram",
+      "name": "Father Bram",
+      "species": "Dwarf",
+      "gender": "Male",
+      "age": 102,
+      "occupation": "Funeral Priest",
+      "category": "religious",
+      "tags": [
+        "burial",
+        "solemn",
+        "stone"
+      ],
+      "description": "Funeral Priest associated with the graveyard chapel.",
+      "biography": "Ask around town for a funeral priest and someone will point you to Father at the graveyard chapel. At 102, this Dwarf has learned which smiles are currency and which are warnings. Father speaks to headstones as neighbors, and is rarely without stone chisel blessed for names. Works with Mol Deeprow; quiet observer of nobles. What drives them is simple to name and hard to finish: they want to finish the memorial wall for flood victims. What keeps them careful is unmarked graves becoming a fashion for the wealthy. To a DM, Father is ready to roleplay immediately—useful for favors, local color, or trouble. Paid extra to bury a 'nobody' whose boots were Vale-cobbled.",
+      "personality": "speaks to headstones as neighbors. Professional demeanor of a seasoned funeral priest.",
+      "motivation": "Pursue this: finish the memorial wall for flood victims. Avoid this: unmarked graves becoming a fashion for the wealthy.",
+      "secret": "Privately terrified of unmarked graves becoming a fashion for the wealthy, and currently entangled with: Paid extra to bury a 'nobody' whose boots were Vale-cobbled.",
+      "rumor": "Rumor says Father can tell you anything that happens near the graveyard chapel—for a price or a kindness.",
+      "voice": "Speaks like a Dwarf funeral priest: concrete details first, embellishment only when useful.",
+      "appearance": "Dwarf; often near the graveyard chapel; look for stone chisel blessed for names.",
+      "portrait": "modules/townforge/assets/portraits/father-bram.webp",
+      "token": "modules/townforge/assets/tokens/father-bram.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 10
+            },
+            "dex": {
+              "value": 10
+            },
+            "con": {
+              "value": 12
+            },
+            "int": {
+              "value": 11
+            },
+            "wis": {
+              "value": 15
+            },
+            "cha": {
+              "value": 13
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 13,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 14,
+              "max": 14
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.5,
+            "alignment": "lawful good",
+            "type": {
+              "value": "humanoid",
+              "subtype": "dwarf"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "rel": {
+              "value": 1
+            },
+            "med": {
+              "value": 1
+            },
+            "per": {
+              "value": 1
+            },
+            "ins": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Holy Vestments",
+            "type": "equipment",
+            "img": "icons/svg/shield.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "clothing"
+              },
+              "armor": {
+                "value": 1,
+                "dex": 0
+              }
+            }
+          },
+          {
+            "name": "Mace",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "simpleM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d6",
+                    "bludgeoning"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "acolyte-ren",
+      "name": "Ren Candlemark",
+      "species": "Human",
+      "gender": "Male",
+      "age": 18,
+      "occupation": "Acolyte",
+      "category": "religious",
+      "tags": [
+        "acolyte",
+        "earnest",
+        "bells"
+      ],
+      "description": "Acolyte associated with bell tower and candle niches.",
+      "biography": "Ask around town for a acolyte and someone will point you to Ren at bell tower and candle niches. At 18, this Human has learned which smiles are currency and which are warnings. Ren practices sermons to empty pews, and is rarely without taper box with one lucky stub. Earnest junior under Elen and Caldus. What drives them is simple to name and hard to finish: they want to be trusted to hold the dawn service alone. What keeps them careful is failing his vows by gossiping. To a DM, Ren is ready to roleplay immediately—useful for favors, local color, or trouble. Saw Brother Caldus meet a cloaked figure behind the charnel hedge.",
+      "personality": "practices sermons to empty pews. Professional demeanor of a seasoned acolyte.",
+      "motivation": "Pursue this: be trusted to hold the dawn service alone. Avoid this: failing his vows by gossiping.",
+      "secret": "Privately terrified of failing his vows by gossiping, and currently entangled with: Saw Brother Caldus meet a cloaked figure behind the charnel hedge.",
+      "rumor": "Rumor says Ren can tell you anything that happens near bell tower and candle niches—for a price or a kindness.",
+      "voice": "Speaks like a Human acolyte: concrete details first, embellishment only when useful.",
+      "appearance": "Human; often near bell tower and candle niches; look for taper box with one lucky stub.",
+      "portrait": "modules/townforge/assets/portraits/acolyte-ren.webp",
+      "token": "modules/townforge/assets/tokens/acolyte-ren.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 10
+            },
+            "dex": {
+              "value": 10
+            },
+            "con": {
+              "value": 10
+            },
+            "int": {
+              "value": 10
+            },
+            "wis": {
+              "value": 11
+            },
+            "cha": {
+              "value": 11
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 10,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 4,
+              "max": 4
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "human"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "prc": {
+              "value": 1
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "seer-ivra",
+      "name": "Ivra Glass-Eye",
+      "species": "Tiefling",
+      "gender": "Female",
+      "age": 39,
+      "occupation": "Oracle",
+      "category": "religious",
+      "tags": [
+        "oracle",
+        "visions",
+        "controversial"
+      ],
+      "description": "Oracle associated with a rented room above the candle shop.",
+      "biography": "Ivra Glass-Eye works as a oracle out of a rented room above the candle shop, a 39-year-old Tiefling with more town memory than most council minutes. Ivra covers her glass eye when the visions itch, and is rarely without bowl of river stones for casting. Controversial; Rold rents her the room; Elen half-believes her. What drives them is simple to name and hard to finish: they want to warn the town of a real fire before it happens. What keeps them careful is being used as a party trick by nobles. To a DM, Ivra is ready to roleplay immediately—useful for favors, local color, or trouble. Predicted 'iron in grain and blood in cloaks' a week before Mira's stool seven mystery.",
+      "personality": "covers her glass eye when the visions itch. Professional demeanor of a seasoned oracle.",
+      "motivation": "Pursue this: warn the town of a real fire before it happens. Avoid this: being used as a party trick by nobles.",
+      "secret": "Privately terrified of being used as a party trick by nobles, and currently entangled with: Predicted 'iron in grain and blood in cloaks' a week before Mira's stool seven mystery.",
+      "rumor": "Rumor says Ivra can tell you anything that happens near a rented room above the candle shop—for a price or a kindness.",
+      "voice": "Speaks like a Tiefling oracle: concrete details first, embellishment only when useful.",
+      "appearance": "Tiefling; often near a rented room above the candle shop; look for bowl of river stones for casting.",
+      "portrait": "modules/townforge/assets/portraits/seer-ivra.webp",
+      "token": "modules/townforge/assets/tokens/seer-ivra.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 8
+            },
+            "dex": {
+              "value": 13
+            },
+            "con": {
+              "value": 12
+            },
+            "int": {
+              "value": 16
+            },
+            "wis": {
+              "value": 12
+            },
+            "cha": {
+              "value": 11
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 12,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 18,
+              "max": 18
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 1,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "tiefling"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "arc": {
+              "value": 1
+            },
+            "his": {
+              "value": 1
+            },
+            "inv": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Quarterstaff",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "simpleM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d6",
+                    "bludgeoning"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          },
+          {
+            "name": "Component Pouch",
+            "type": "tool",
+            "img": "icons/svg/eye.svg",
+            "system": {
+              "quantity": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "monk-sol",
+      "name": "Sol Quietstep",
+      "species": "Human",
+      "gender": "Male",
+      "age": 44,
+      "occupation": "Cloister Monk",
+      "category": "religious",
+      "tags": [
+        "monk",
+        "silence",
+        "garden"
+      ],
+      "description": "Cloister Monk associated with the cloister herb garden.",
+      "biography": "Most days begin the same for Sol Quietstep: a 44-year-old Human cloister monk moving through the cloister herb garden as if the stones themselves keep appointments with them. Sol answers questions with another hour of weeding, and is rarely without kneeling pad stuffed with lavender. Shares garden knowledge with Yara; peaceful counterweight to Caldus. What drives them is simple to name and hard to finish: they want to teach silence as a craft, not a punishment. What keeps them careful is violence entering sacred quiet. To a DM, Sol is ready to roleplay immediately—useful for favors, local color, or trouble. Found chalk sigils under the cloister bench matching Nym's survey marks.",
+      "personality": "answers questions with another hour of weeding. Professional demeanor of a seasoned cloister monk.",
+      "motivation": "Pursue this: teach silence as a craft, not a punishment. Avoid this: violence entering sacred quiet.",
+      "secret": "Privately terrified of violence entering sacred quiet, and currently entangled with: Found chalk sigils under the cloister bench matching Nym's survey marks.",
+      "rumor": "Rumor says Sol can tell you anything that happens near the cloister herb garden—for a price or a kindness.",
+      "voice": "Speaks like a Human cloister monk: concrete details first, embellishment only when useful.",
+      "appearance": "Human; often near the cloister herb garden; look for kneeling pad stuffed with lavender.",
+      "portrait": "modules/townforge/assets/portraits/monk-sol.webp",
+      "token": "modules/townforge/assets/tokens/monk-sol.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 10
+            },
+            "dex": {
+              "value": 10
+            },
+            "con": {
+              "value": 12
+            },
+            "int": {
+              "value": 11
+            },
+            "wis": {
+              "value": 15
+            },
+            "cha": {
+              "value": 13
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 13,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 14,
+              "max": 14
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.5,
+            "alignment": "lawful good",
+            "type": {
+              "value": "humanoid",
+              "subtype": "human"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "rel": {
+              "value": 1
+            },
+            "med": {
+              "value": 1
+            },
+            "per": {
+              "value": 1
+            },
+            "ins": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Holy Vestments",
+            "type": "equipment",
+            "img": "icons/svg/shield.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "clothing"
+              },
+              "armor": {
+                "value": 1,
+                "dex": 0
+              }
+            }
+          },
+          {
+            "name": "Mace",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "simpleM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d6",
+                    "bludgeoning"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "chaplain-dorr",
+      "name": "Chaplain Dorr",
+      "species": "Half-Orc",
+      "gender": "Male",
+      "age": 37,
+      "occupation": "Guard Chaplain",
+      "category": "religious",
+      "tags": [
+        "chaplain",
+        "guards",
+        "comfort"
+      ],
+      "description": "Guard Chaplain associated with the barracks shrine nook.",
+      "biography": "Ask around town for a guard chaplain and someone will point you to Chaplain at the barracks shrine nook. At 37, this Half-Orc has learned which smiles are currency and which are warnings. Chaplain sits with shaking guards until their hands still, and is rarely without portable altar cloth stained with polish oil. Chaplain to Serra's guards. What drives them is simple to name and hard to finish: they want to keep Serra's watch human when the case hardens. What keeps them careful is blessing a raid that kills the wrong people. To a DM, Chaplain is ready to roleplay immediately—useful for favors, local color, or trouble. Heard Dorn admit he almost killed Bask—and wants penance, not praise.",
+      "personality": "sits with shaking guards until their hands still. Professional demeanor of a seasoned guard chaplain.",
+      "motivation": "Pursue this: keep Serra's watch human when the case hardens. Avoid this: blessing a raid that kills the wrong people.",
+      "secret": "Privately terrified of blessing a raid that kills the wrong people, and currently entangled with: Heard Dorn admit he almost killed Bask—and wants penance, not praise.",
+      "rumor": "Rumor says Chaplain can tell you anything that happens near the barracks shrine nook—for a price or a kindness.",
+      "voice": "Speaks like a Half-Orc guard chaplain: concrete details first, embellishment only when useful.",
+      "appearance": "Half-Orc; often near the barracks shrine nook; look for portable altar cloth stained with polish oil.",
+      "portrait": "modules/townforge/assets/portraits/chaplain-dorr.webp",
+      "token": "modules/townforge/assets/tokens/chaplain-dorr.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 10
+            },
+            "dex": {
+              "value": 10
+            },
+            "con": {
+              "value": 12
+            },
+            "int": {
+              "value": 11
+            },
+            "wis": {
+              "value": 15
+            },
+            "cha": {
+              "value": 13
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 13,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 14,
+              "max": 14
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.5,
+            "alignment": "lawful good",
+            "type": {
+              "value": "humanoid",
+              "subtype": "half-orc"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "rel": {
+              "value": 1
+            },
+            "med": {
+              "value": 1
+            },
+            "per": {
+              "value": 1
+            },
+            "ins": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Holy Vestments",
+            "type": "equipment",
+            "img": "icons/svg/shield.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "clothing"
+              },
+              "armor": {
+                "value": 1,
+                "dex": 0
+              }
+            }
+          },
+          {
+            "name": "Mace",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "simpleM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d6",
+                    "bludgeoning"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

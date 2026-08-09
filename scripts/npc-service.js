@@ -1,17 +1,21 @@
 import {
   CATEGORIES,
   DATA_PATHS,
+  FALLBACK_PORTRAIT,
+  FALLBACK_TOKEN,
   LIBRARY_FREE,
   LIBRARY_PRO,
   LOG_PREFIX,
-  MODULE_ID
+  MODULE_ID,
+  NPC_CATEGORY_FILES,
+  REQUIRED_NPC_FIELDS
 } from "./constants.js";
 
 /**
  * NPC data access layer.
  *
- * v0.1 loads a local Free library catalog from data/npcs.json.
- * Library-aware so Free/Pro catalogs can plug in later.
+ * Loads Free library category packs from data/npcs/*.json via manifest.json,
+ * validates/normalizes entries, and exposes search/filter helpers.
  */
 export class NpcService {
   /** @type {Map<string, object[]>} */
@@ -23,9 +27,17 @@ export class NpcService {
   /** @type {boolean} */
   #loadFailed = false;
 
+  /** @type {{total: number, valid: number, invalid: number, duplicateIds: string[], categories: Record<string, number>}} */
+  #lastValidation = {
+    total: 0,
+    valid: 0,
+    invalid: 0,
+    duplicateIds: [],
+    categories: {}
+  };
+
   /**
    * Ensure local Free library data is loaded.
-   * Failed loads are cached as empty so Foundry does not crash; reopen/reload to retry.
    * @returns {Promise<void>}
    */
   async ready() {
@@ -35,40 +47,35 @@ export class NpcService {
     await this.#loadPromise;
   }
 
-  /**
-   * Whether the last Free library load failed.
-   * @returns {boolean}
-   */
+  /** @returns {boolean} */
   get loadFailed() {
     return this.#loadFailed;
   }
 
-  /**
-   * Return category filter definitions for the browser UI.
-   * @returns {ReadonlyArray<{id: string, label: string}>}
-   */
+  /** @returns {object} */
+  get lastValidation() {
+    return foundry.utils.deepClone(this.#lastValidation);
+  }
+
+  /** @returns {ReadonlyArray<{id: string, label: string}>} */
   getCategories() {
     return CATEGORIES;
   }
 
   /**
    * Resolve which libraries are currently available to this client.
-   * Pro / entitlement gating will live here later.
    * @returns {string[]}
    */
   getAvailableLibraries() {
     const available = [LIBRARY_FREE];
-
     // Future: Gambits Forge auth + Pro entitlement check before including Pro.
     if (this.#isProLibraryEnabled()) {
       available.push(LIBRARY_PRO);
     }
-
     return available;
   }
 
   /**
-   * Get every NPC from every currently available library.
    * @returns {Promise<object[]>}
    */
   async getAllNpcs() {
@@ -78,7 +85,6 @@ export class NpcService {
   }
 
   /**
-   * Find a single NPC by stable id across available libraries.
    * @param {string} npcId
    * @returns {Promise<object|null>}
    */
@@ -101,16 +107,17 @@ export class NpcService {
     return npcs.filter((npc) => {
       const categoryMatch =
         normalizedCategory === "all" || npc.category === normalizedCategory;
-
       if (!categoryMatch) return false;
       if (!normalizedQuery) return true;
 
       const haystack = [
         npc.name,
-        npc.race,
+        npc.species,
         npc.occupation,
         npc.category,
-        npc.description
+        npc.description,
+        npc.gender,
+        ...(npc.tags ?? [])
       ]
         .filter(Boolean)
         .join(" ")
@@ -121,52 +128,136 @@ export class NpcService {
   }
 
   /**
-   * Load and normalize the local Free library catalog.
+   * Load Free library category packs listed by manifest.json.
    * @returns {Promise<void>}
    */
   async #loadFreeLibrary() {
-    const path = DATA_PATHS.FREE_NPCS;
     this.#loadFailed = false;
+    const seenIds = new Set();
+    const normalized = [];
+    let invalid = 0;
+    let total = 0;
+    const categoryCounts = {};
 
     try {
-      const response = await foundry.utils.fetchJsonWithTimeout(path);
-      const { entries, malformed } = this.#extractEntries(response);
-
-      if (malformed) {
+      const packPaths = await this.#resolvePackPaths();
+      if (!packPaths.length) {
         this.#loadFailed = true;
         this.#libraryCache.set(LIBRARY_FREE, []);
-        console.error(`${LOG_PREFIX} Malformed NPC library JSON at ${path}`, response);
-        ui.notifications?.error("TownForge NPC library JSON is malformed.");
+        this.#lastValidation = {
+          total: 0,
+          valid: 0,
+          invalid: 0,
+          duplicateIds: [],
+          categories: {}
+        };
+        console.error(`${LOG_PREFIX} No NPC category packs found`);
+        ui.notifications?.error("TownForge could not find its NPC library packs.");
         return;
       }
 
-      const normalized = [];
-      for (const entry of entries) {
+      for (const path of packPaths) {
+        let response;
         try {
-          const npc = this.#normalizeNpc(entry, LIBRARY_FREE);
-          if (npc) normalized.push(npc);
+          response = await foundry.utils.fetchJsonWithTimeout(path);
         } catch (error) {
-          console.error(`${LOG_PREFIX} Skipping NPC entry due to normalize error`, entry, error);
+          console.error(`${LOG_PREFIX} Failed to load NPC pack ${path}`, error);
+          invalid += 1;
+          continue;
+        }
+
+        const { entries, malformed } = this.#extractEntries(response);
+        if (malformed) {
+          console.error(`${LOG_PREFIX} Malformed NPC pack at ${path}`, response);
+          invalid += 1;
+          continue;
+        }
+
+        for (const entry of entries) {
+          total += 1;
+          try {
+            const npc = this.#normalizeNpc(entry, LIBRARY_FREE);
+            if (!npc) {
+              invalid += 1;
+              continue;
+            }
+
+            if (seenIds.has(npc.id)) {
+              invalid += 1;
+              console.warn(`${LOG_PREFIX} Skipping duplicate NPC id "${npc.id}" from ${path}`);
+              continue;
+            }
+
+            seenIds.add(npc.id);
+            normalized.push(npc);
+            categoryCounts[npc.category] = (categoryCounts[npc.category] ?? 0) + 1;
+          } catch (error) {
+            invalid += 1;
+            const id = entry?.id ?? "unknown";
+            console.error(`${LOG_PREFIX} Skipping NPC "${id}" due to normalize error`, error);
+          }
         }
       }
 
       this.#libraryCache.set(LIBRARY_FREE, normalized);
-      console.log(`${LOG_PREFIX} NPC library loaded (${normalized.length} NPCs)`);
+      this.#lastValidation = {
+        total,
+        valid: normalized.length,
+        invalid,
+        duplicateIds: [],
+        categories: categoryCounts
+      };
+
+      if (!normalized.length) {
+        this.#loadFailed = true;
+        ui.notifications?.error("TownForge could not load its NPC library.");
+      }
+
+      console.log(
+        `${LOG_PREFIX} NPC library loaded (${normalized.length} NPCs` +
+          `${invalid ? `, ${invalid} skipped` : ""})`
+      );
     } catch (error) {
       this.#loadFailed = true;
       this.#libraryCache.set(LIBRARY_FREE, []);
-      console.error(`${LOG_PREFIX} Failed to load NPC library from ${path}`, error);
+      this.#lastValidation = {
+        total,
+        valid: 0,
+        invalid: total || 1,
+        duplicateIds: [],
+        categories: {}
+      };
+      console.error(`${LOG_PREFIX} Failed to load NPC library`, error);
       ui.notifications?.error("TownForge could not load its NPC library.");
     }
   }
 
   /**
-   * Accept either a raw array or `{ npcs: [] }` catalog shape.
+   * Resolve category pack paths from manifest.json, with a static fallback list.
+   * @returns {Promise<string[]>}
+   */
+  async #resolvePackPaths() {
+    try {
+      const manifest = await foundry.utils.fetchJsonWithTimeout(DATA_PATHS.FREE_MANIFEST);
+      if (Array.isArray(manifest?.packs) && manifest.packs.length) {
+        return manifest.packs.map((pack) =>
+          pack.startsWith("modules/")
+            ? pack
+            : `${DATA_PATHS.FREE_NPCS_DIR}/${pack.replace(/^\/+/, "")}`
+        );
+      }
+    } catch (error) {
+      console.warn(`${LOG_PREFIX} NPC manifest missing; falling back to category file list`, error);
+    }
+
+    return NPC_CATEGORY_FILES.map((id) => `${DATA_PATHS.FREE_NPCS_DIR}/${id}.json`);
+  }
+
+  /**
    * @param {unknown} response
-   * @param {string} path
    * @returns {{entries: object[], malformed: boolean}}
    */
-  #extractEntries(response, path) {
+  #extractEntries(response) {
     if (Array.isArray(response)) {
       return { entries: response, malformed: false };
     }
@@ -179,7 +270,7 @@ export class NpcService {
   }
 
   /**
-   * Normalize a raw NPC record into the shape the browser expects.
+   * Validate and normalize one NPC record.
    * @param {object} raw
    * @param {string} libraryId
    * @returns {object|null}
@@ -190,44 +281,85 @@ export class NpcService {
       return null;
     }
 
-    if (!raw.id || !raw.name) {
-      console.warn(`${LOG_PREFIX} Skipping invalid NPC entry (missing id/name)`, raw);
+    const missing = REQUIRED_NPC_FIELDS.filter((field) => {
+      const value = raw[field];
+      if (field === "actorData") {
+        return !value || typeof value !== "object" || Array.isArray(value);
+      }
+      return value === undefined || value === null || value === "";
+    });
+
+    if (missing.length) {
+      const id = raw.id ?? "unknown";
+      console.warn(
+        `${LOG_PREFIX} Skipping NPC "${id}" — missing required fields: ${missing.join(", ")}`
+      );
       return null;
     }
 
-    const placeholderPortrait = `modules/${MODULE_ID}/assets/portraits/placeholder.svg`;
-    const placeholderToken = `modules/${MODULE_ID}/assets/tokens/placeholder.svg`;
+    const id = String(raw.id).trim();
+    if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(id)) {
+      console.warn(`${LOG_PREFIX} Skipping NPC "${id}" — id must be kebab-case`);
+      return null;
+    }
+
+    const category = String(raw.category).toLowerCase().trim();
+    const knownCategories = new Set(NPC_CATEGORY_FILES);
+    if (!knownCategories.has(category)) {
+      console.warn(`${LOG_PREFIX} Skipping NPC "${id}" — unknown category "${category}"`);
+      return null;
+    }
+
+    const expectedPortrait = `modules/${MODULE_ID}/assets/portraits/${id}.webp`;
+    const expectedToken = `modules/${MODULE_ID}/assets/tokens/${id}.webp`;
 
     let actorData = {};
     try {
-      actorData = foundry.utils.deepClone(raw.actorData ?? {});
+      actorData = foundry.utils.deepClone(raw.actorData);
     } catch (error) {
-      console.warn(`${LOG_PREFIX} Invalid actorData for NPC "${raw.id}"; using empty object`, error);
-      actorData = {};
+      console.warn(`${LOG_PREFIX} Skipping NPC "${id}" — actorData could not be cloned`, error);
+      return null;
     }
 
+    if (!actorData.type) actorData.type = "npc";
+
+    const species = String(raw.species ?? raw.race ?? "Human");
+    const tags = Array.isArray(raw.tags)
+      ? raw.tags.map((tag) => String(tag)).filter(Boolean)
+      : [];
+
     return {
-      id: String(raw.id),
-      name: String(raw.name),
-      race: String(raw.race ?? "Unknown"),
-      occupation: String(raw.occupation ?? "Unknown"),
-      category: String(raw.category ?? "commoners").toLowerCase(),
+      id,
+      name: String(raw.name).trim(),
+      species,
+      // Keep race as a compatibility alias for older UI/search code paths.
+      race: species,
+      gender: String(raw.gender ?? "Unknown"),
+      age: Number.isFinite(Number(raw.age)) ? Number(raw.age) : String(raw.age ?? "Unknown"),
+      occupation: String(raw.occupation).trim(),
+      category,
+      tags,
       description: String(raw.description ?? ""),
-      portrait: String(raw.portrait || placeholderPortrait),
-      token: String(raw.token || raw.portrait || placeholderToken),
+      biography: String(raw.biography).trim(),
+      personality: String(raw.personality ?? ""),
+      motivation: String(raw.motivation ?? ""),
+      secret: String(raw.secret ?? ""),
+      rumor: String(raw.rumor ?? ""),
+      voice: String(raw.voice ?? ""),
+      appearance: String(raw.appearance ?? ""),
+      portrait: String(raw.portrait || expectedPortrait),
+      token: String(raw.token || expectedToken),
       actorData,
       library: libraryId,
-      // Reserved for future animated WebM / multi-variant support.
+      relationships: Array.isArray(raw.relationships) ? raw.relationships : [],
       tokenVariants: Array.isArray(raw.tokenVariants) ? raw.tokenVariants : [],
       animatedToken: raw.animatedToken ?? null,
-      tags: Array.isArray(raw.tags) ? raw.tags : []
+      fallbackPortrait: FALLBACK_PORTRAIT,
+      fallbackToken: FALLBACK_TOKEN
     };
   }
 
-  /**
-   * Placeholder Pro entitlement check.
-   * @returns {boolean}
-   */
+  /** @returns {boolean} */
   #isProLibraryEnabled() {
     const proFlag = game.modules.get(MODULE_ID)?.flags?.townforge?.libraries?.pro;
     return Boolean(proFlag?.enabled);

@@ -11,7 +11,7 @@ import { npcService } from "./npc-service.js";
  */
 
 Hooks.once("init", () => {
-  console.log(`${LOG_PREFIX} Initializing ${MODULE_TITLE} v0.1`);
+  console.log(`${LOG_PREFIX} Initializing ${MODULE_TITLE} v0.2`);
 });
 
 Hooks.once("ready", async () => {

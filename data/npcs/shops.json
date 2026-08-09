@@ -1,0 +1,1251 @@
+{
+  "category": "shops",
+  "npcs": [
+    {
+      "id": "tovin-brassbarrow",
+      "name": "Tovin Brassbarrow",
+      "species": "Dwarf",
+      "gender": "Male",
+      "age": 121,
+      "occupation": "General Store Owner",
+      "category": "shops",
+      "tags": [
+        "merchant",
+        "ledger",
+        "pride"
+      ],
+      "description": "General Store Owner associated with Brassbarrow General.",
+      "biography": "Tovin Brassbarrow works as a general store owner out of Brassbarrow General, a 121-year-old Dwarf with more town memory than most council minutes. Tovin taps the ledger thrice before he trusts a total, and is rarely without brass abacus older than the shop sign. Father to Lina; debtor to Marrow. What drives them is simple to name and hard to finish: they want to hand a debt-free shop to Lina. What keeps them careful is losing the store to Marrow's interest rates. To a DM, Tovin is ready to roleplay immediately—useful for favors, local color, or trouble. A crate labeled nails arrived full of locked strongbox parts.",
+      "personality": "taps the ledger thrice before he trusts a total. Professional demeanor of a seasoned general store owner.",
+      "motivation": "Pursue this: hand a debt-free shop to Lina. Avoid this: losing the store to Marrow's interest rates.",
+      "secret": "Privately terrified of losing the store to Marrow's interest rates, and currently entangled with: A crate labeled nails arrived full of locked strongbox parts.",
+      "rumor": "Rumor says Tovin can tell you anything that happens near Brassbarrow General—for a price or a kindness.",
+      "voice": "Speaks like a Dwarf general store owner: concrete details first, embellishment only when useful.",
+      "appearance": "Dwarf; often near Brassbarrow General; look for brass abacus older than the shop sign.",
+      "portrait": "modules/townforge/assets/portraits/tovin-brassbarrow.webp",
+      "token": "modules/townforge/assets/tokens/tovin-brassbarrow.webp",
+      "relationships": [
+        {
+          "id": "lina-brassbarrow",
+          "type": "family",
+          "note": "Father and sharpest clerk."
+        },
+        {
+          "id": "marrow-cline",
+          "type": "debt",
+          "note": "Owes Marrow for a ruined shipment loan."
+        }
+      ],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 10
+            },
+            "dex": {
+              "value": 12
+            },
+            "con": {
+              "value": 11
+            },
+            "int": {
+              "value": 13
+            },
+            "wis": {
+              "value": 12
+            },
+            "cha": {
+              "value": 14
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 11,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 8,
+              "max": 8
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.125,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "dwarf"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "per": {
+              "value": 1
+            },
+            "ins": {
+              "value": 1
+            },
+            "inv": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Merchant's Scale",
+            "type": "tool",
+            "img": "icons/svg/eye.svg",
+            "system": {
+              "quantity": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "lina-brassbarrow",
+      "name": "Lina Brassbarrow",
+      "species": "Dwarf",
+      "gender": "Female",
+      "age": 98,
+      "occupation": "Shop Clerk",
+      "category": "shops",
+      "tags": [
+        "clerk",
+        "family",
+        "sharp"
+      ],
+      "description": "Shop Clerk associated with the shop counter.",
+      "biography": "Most days begin the same for Lina Brassbarrow: a 98-year-old Dwarf shop clerk moving through the shop counter as if the stones themselves keep appointments with them. Lina corrects prices under her breath in Khuzdul, and is rarely without ink-stained apron with secret pockets for disputed notes. Tovin's daughter and clerk. What drives them is simple to name and hard to finish: they want to modernize inventory before the autumn fair. What keeps them careful is her father making another handshake loan. To a DM, Lina is ready to roleplay immediately—useful for favors, local color, or trouble. Matched a pawn ticket description to a ring Lysa Thorne tried to sell quietly.",
+      "personality": "corrects prices under her breath in Khuzdul. Professional demeanor of a seasoned shop clerk.",
+      "motivation": "Pursue this: modernize inventory before the autumn fair. Avoid this: her father making another handshake loan.",
+      "secret": "Privately terrified of her father making another handshake loan, and currently entangled with: Matched a pawn ticket description to a ring Lysa Thorne tried to sell quietly.",
+      "rumor": "Rumor says Lina can tell you anything that happens near the shop counter—for a price or a kindness.",
+      "voice": "Speaks like a Dwarf shop clerk: concrete details first, embellishment only when useful.",
+      "appearance": "Dwarf; often near the shop counter; look for ink-stained apron with secret pockets for disputed notes.",
+      "portrait": "modules/townforge/assets/portraits/lina-brassbarrow.webp",
+      "token": "modules/townforge/assets/tokens/lina-brassbarrow.webp",
+      "relationships": [
+        {
+          "id": "tovin-brassbarrow",
+          "type": "family",
+          "note": "Father and sharpest clerk."
+        }
+      ],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 10
+            },
+            "dex": {
+              "value": 12
+            },
+            "con": {
+              "value": 11
+            },
+            "int": {
+              "value": 13
+            },
+            "wis": {
+              "value": 12
+            },
+            "cha": {
+              "value": 14
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 11,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 8,
+              "max": 8
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.125,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "dwarf"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "per": {
+              "value": 1
+            },
+            "ins": {
+              "value": 1
+            },
+            "inv": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Merchant's Scale",
+            "type": "tool",
+            "img": "icons/svg/eye.svg",
+            "system": {
+              "quantity": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "marrow-cline",
+      "name": "Marrow Cline",
+      "species": "Human",
+      "gender": "Male",
+      "age": 46,
+      "occupation": "Moneylender",
+      "category": "shops",
+      "tags": [
+        "credit",
+        "feared",
+        "debts"
+      ],
+      "description": "Moneylender associated with a narrow credit office above the grain street.",
+      "biography": "Ask around town for a moneylender and someone will point you to Marrow at a narrow credit office above the grain street. At 46, this Human has learned which smiles are currency and which are warnings. Marrow smiles with his mouth and not his eyes, and is rarely without velvet pouch of signed markers. Creditor to Tovin and Cal; employs Bask. What drives them is simple to name and hard to finish: they want to own a seat on the town council through 'gifts'. What keeps them careful is the watch linking him to Bask's broken fingers. To a DM, Marrow is ready to roleplay immediately—useful for favors, local color, or trouble. Keeps a second book of debts the mayor would not want read aloud.",
+      "personality": "smiles with his mouth and not his eyes. Professional demeanor of a seasoned moneylender.",
+      "motivation": "Pursue this: own a seat on the town council through 'gifts'. Avoid this: the watch linking him to Bask's broken fingers.",
+      "secret": "Privately terrified of the watch linking him to Bask's broken fingers, and currently entangled with: Keeps a second book of debts the mayor would not want read aloud.",
+      "rumor": "Rumor says Marrow can tell you anything that happens near a narrow credit office above the grain street—for a price or a kindness.",
+      "voice": "Speaks like a Human moneylender: concrete details first, embellishment only when useful.",
+      "appearance": "Human; often near a narrow credit office above the grain street; look for velvet pouch of signed markers.",
+      "portrait": "modules/townforge/assets/portraits/marrow-cline.webp",
+      "token": "modules/townforge/assets/tokens/marrow-cline.webp",
+      "relationships": [
+        {
+          "id": "tovin-brassbarrow",
+          "type": "creditor",
+          "note": "Owes Marrow for a ruined shipment loan."
+        },
+        {
+          "id": "bask-hammer",
+          "type": "employer",
+          "note": "Sends Bask when polite smiles fail."
+        }
+      ],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 10
+            },
+            "dex": {
+              "value": 12
+            },
+            "con": {
+              "value": 11
+            },
+            "int": {
+              "value": 13
+            },
+            "wis": {
+              "value": 12
+            },
+            "cha": {
+              "value": 14
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 11,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 8,
+              "max": 8
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.125,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "human"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "per": {
+              "value": 1
+            },
+            "ins": {
+              "value": 1
+            },
+            "inv": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Merchant's Scale",
+            "type": "tool",
+            "img": "icons/svg/eye.svg",
+            "system": {
+              "quantity": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "hedda-loom",
+      "name": "Hedda Loom",
+      "species": "Human",
+      "gender": "Female",
+      "age": 39,
+      "occupation": "Clothier",
+      "category": "shops",
+      "tags": [
+        "tailor",
+        "fashion",
+        "secrets"
+      ],
+      "description": "Clothier associated with Hedda's Fine Cloth.",
+      "biography": "Ask around town for a clothier and someone will point you to Hedda at Hedda's Fine Cloth. At 39, this Human has learned which smiles are currency and which are warnings. Hedda pins patterns while reading faces, and is rarely without mannequin wearing last season's scandalous sleeve. Client relationship with Lysa Thorne. What drives them is simple to name and hard to finish: they want to dress the Midsummer court and set taste for a year. What keeps them careful is Lady Mirelle learning who ordered mourning-black in secret. To a DM, Hedda is ready to roleplay immediately—useful for favors, local color, or trouble. Altered a cloak with orangery perfume still in the lining for Lysa.",
+      "personality": "pins patterns while reading faces. Professional demeanor of a seasoned clothier.",
+      "motivation": "Pursue this: dress the Midsummer court and set taste for a year. Avoid this: Lady Mirelle learning who ordered mourning-black in secret.",
+      "secret": "Privately terrified of Lady Mirelle learning who ordered mourning-black in secret, and currently entangled with: Altered a cloak with orangery perfume still in the lining for Lysa.",
+      "rumor": "Rumor says Hedda can tell you anything that happens near Hedda's Fine Cloth—for a price or a kindness.",
+      "voice": "Speaks like a Human clothier: concrete details first, embellishment only when useful.",
+      "appearance": "Human; often near Hedda's Fine Cloth; look for mannequin wearing last season's scandalous sleeve.",
+      "portrait": "modules/townforge/assets/portraits/hedda-loom.webp",
+      "token": "modules/townforge/assets/tokens/hedda-loom.webp",
+      "relationships": [
+        {
+          "id": "lysa-thorne",
+          "type": "client",
+          "note": "Handles discreet clothing alterations."
+        }
+      ],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 10
+            },
+            "dex": {
+              "value": 12
+            },
+            "con": {
+              "value": 11
+            },
+            "int": {
+              "value": 13
+            },
+            "wis": {
+              "value": 12
+            },
+            "cha": {
+              "value": 14
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 11,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 8,
+              "max": 8
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.125,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "human"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "per": {
+              "value": 1
+            },
+            "ins": {
+              "value": 1
+            },
+            "inv": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Merchant's Scale",
+            "type": "tool",
+            "img": "icons/svg/eye.svg",
+            "system": {
+              "quantity": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "orrin-spice",
+      "name": "Orrin Spice",
+      "species": "Halfling",
+      "gender": "Male",
+      "age": 55,
+      "occupation": "Spice Merchant",
+      "category": "shops",
+      "tags": [
+        "spices",
+        "import",
+        "nosy"
+      ],
+      "description": "Spice Merchant associated with the spice stall near the fountain.",
+      "biography": "Orrin Spice works as a spice merchant out of the spice stall near the fountain, a 55-year-old Halfling with more town memory than most council minutes. Orrin sneezes into a silk handkerchief with theatrical timing, and is rarely without locked saffron box that is usually half-full of dyed powder. Trades with Jor; buys silence from Nedda. What drives them is simple to name and hard to finish: they want to secure a caravan monopoly with Jor. What keeps them careful is customs opening the wrong crate. To a DM, Orrin is ready to roleplay immediately—useful for favors, local color, or trouble. Paid Nedda Blacktooth to 'lose' a tariff stamp last month.",
+      "personality": "sneezes into a silk handkerchief with theatrical timing. Professional demeanor of a seasoned spice merchant.",
+      "motivation": "Pursue this: secure a caravan monopoly with Jor. Avoid this: customs opening the wrong crate.",
+      "secret": "Privately terrified of customs opening the wrong crate, and currently entangled with: Paid Nedda Blacktooth to 'lose' a tariff stamp last month.",
+      "rumor": "Rumor says Orrin can tell you anything that happens near the spice stall near the fountain—for a price or a kindness.",
+      "voice": "Speaks like a Halfling spice merchant: concrete details first, embellishment only when useful.",
+      "appearance": "Halfling; often near the spice stall near the fountain; look for locked saffron box that is usually half-full of dyed powder.",
+      "portrait": "modules/townforge/assets/portraits/orrin-spice.webp",
+      "token": "modules/townforge/assets/tokens/orrin-spice.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 10
+            },
+            "dex": {
+              "value": 12
+            },
+            "con": {
+              "value": 11
+            },
+            "int": {
+              "value": 13
+            },
+            "wis": {
+              "value": 12
+            },
+            "cha": {
+              "value": 14
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 11,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 8,
+              "max": 8
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.125,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "halfling"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "per": {
+              "value": 1
+            },
+            "ins": {
+              "value": 1
+            },
+            "inv": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Merchant's Scale",
+            "type": "tool",
+            "img": "icons/svg/eye.svg",
+            "system": {
+              "quantity": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "vela-inkwell",
+      "name": "Vela Inkwell",
+      "species": "Elf",
+      "gender": "Female",
+      "age": 210,
+      "occupation": "Bookstore Owner",
+      "category": "shops",
+      "tags": [
+        "books",
+        "quiet",
+        "collector"
+      ],
+      "description": "Bookstore Owner associated with the Quiet Quire bookstore.",
+      "biography": "Vela Inkwell works as a bookstore owner out of the Quiet Quire bookstore, a 210-year-old Elf with more town memory than most council minutes. Vela shelves by smell of paper as much as subject, and is rarely without reading ladder with a hidden compartment for banned pamphlets. Seller to Quen; watched by Caldus. What drives them is simple to name and hard to finish: they want to preserve a complete run of the old town chronicles. What keeps them careful is Brother Caldus demanding a purge of her arcane shelf. To a DM, Vela is ready to roleplay immediately—useful for favors, local color, or trouble. Magister Quen requested a treatise that shouldn't exist outside a temple vault.",
+      "personality": "shelves by smell of paper as much as subject. Professional demeanor of a seasoned bookstore owner.",
+      "motivation": "Pursue this: preserve a complete run of the old town chronicles. Avoid this: Brother Caldus demanding a purge of her arcane shelf.",
+      "secret": "Privately terrified of Brother Caldus demanding a purge of her arcane shelf, and currently entangled with: Magister Quen requested a treatise that shouldn't exist outside a temple vault.",
+      "rumor": "Rumor says Vela can tell you anything that happens near the Quiet Quire bookstore—for a price or a kindness.",
+      "voice": "Speaks like a Elf bookstore owner: concrete details first, embellishment only when useful.",
+      "appearance": "Elf; often near the Quiet Quire bookstore; look for reading ladder with a hidden compartment for banned pamphlets.",
+      "portrait": "modules/townforge/assets/portraits/vela-inkwell.webp",
+      "token": "modules/townforge/assets/tokens/vela-inkwell.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 8
+            },
+            "dex": {
+              "value": 11
+            },
+            "con": {
+              "value": 10
+            },
+            "int": {
+              "value": 16
+            },
+            "wis": {
+              "value": 13
+            },
+            "cha": {
+              "value": 12
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 11,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 7,
+              "max": 7
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.125,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "elf"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "arc": {
+              "value": 1
+            },
+            "his": {
+              "value": 1
+            },
+            "inv": {
+              "value": 1
+            },
+            "nat": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Scholar's Kit",
+            "type": "tool",
+            "img": "icons/svg/eye.svg",
+            "system": {
+              "quantity": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "garr-hopsack",
+      "name": "Garr Hopsack",
+      "species": "Human",
+      "gender": "Male",
+      "age": 33,
+      "occupation": "Grain Dealer",
+      "category": "shops",
+      "tags": [
+        "grain",
+        "carts",
+        "practical"
+      ],
+      "description": "Grain Dealer associated with the grain yard.",
+      "biography": "Garr Hopsack works as a grain dealer out of the grain yard, a 33-year-old Human with more town memory than most council minutes. Garr kicks sacks to judge dampness, and is rarely without wagon chalked with route ciphers. Delivers to Moll Ovenheart and Mira. What drives them is simple to name and hard to finish: they want to buy a second wagon before harvest. What keeps them careful is blight rumors collapsing prices. To a DM, Garr is ready to roleplay immediately—useful for favors, local color, or trouble. One sack in the latest load rattled with coin, not barley.",
+      "personality": "kicks sacks to judge dampness. Professional demeanor of a seasoned grain dealer.",
+      "motivation": "Pursue this: buy a second wagon before harvest. Avoid this: blight rumors collapsing prices.",
+      "secret": "Privately terrified of blight rumors collapsing prices, and currently entangled with: One sack in the latest load rattled with coin, not barley.",
+      "rumor": "Rumor says Garr can tell you anything that happens near the grain yard—for a price or a kindness.",
+      "voice": "Speaks like a Human grain dealer: concrete details first, embellishment only when useful.",
+      "appearance": "Human; often near the grain yard; look for wagon chalked with route ciphers.",
+      "portrait": "modules/townforge/assets/portraits/garr-hopsack.webp",
+      "token": "modules/townforge/assets/tokens/garr-hopsack.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 10
+            },
+            "dex": {
+              "value": 12
+            },
+            "con": {
+              "value": 11
+            },
+            "int": {
+              "value": 13
+            },
+            "wis": {
+              "value": 12
+            },
+            "cha": {
+              "value": 14
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 11,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 8,
+              "max": 8
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.125,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "human"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "per": {
+              "value": 1
+            },
+            "ins": {
+              "value": 1
+            },
+            "inv": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Merchant's Scale",
+            "type": "tool",
+            "img": "icons/svg/eye.svg",
+            "system": {
+              "quantity": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "issy-needle",
+      "name": "Issy Needle",
+      "species": "Gnome",
+      "gender": "Female",
+      "age": 61,
+      "occupation": "Haberdasher",
+      "category": "shops",
+      "tags": [
+        "notions",
+        "gossip",
+        "bright"
+      ],
+      "description": "Haberdasher associated with a bright notions shop.",
+      "biography": "Issy Needle works as a haberdasher out of a bright notions shop, a 61-year-old Gnome with more town memory than most council minutes. Issy gifts free buttons to children who bring gossip, and is rarely without tin of mother-of-pearl toggles from a wrecked ship. Gossips with Bea Heartstring. What drives them is simple to name and hard to finish: they want to expand into wedding lace. What keeps them careful is being blamed for a noble's torn gown. To a DM, Issy is ready to roleplay immediately—useful for favors, local color, or trouble. Sold black thread in bulk to someone who paid with a temple candle stub.",
+      "personality": "gifts free buttons to children who bring gossip. Professional demeanor of a seasoned haberdasher.",
+      "motivation": "Pursue this: expand into wedding lace. Avoid this: being blamed for a noble's torn gown.",
+      "secret": "Privately terrified of being blamed for a noble's torn gown, and currently entangled with: Sold black thread in bulk to someone who paid with a temple candle stub.",
+      "rumor": "Rumor says Issy can tell you anything that happens near a bright notions shop—for a price or a kindness.",
+      "voice": "Speaks like a Gnome haberdasher: concrete details first, embellishment only when useful.",
+      "appearance": "Gnome; often near a bright notions shop; look for tin of mother-of-pearl toggles from a wrecked ship.",
+      "portrait": "modules/townforge/assets/portraits/issy-needle.webp",
+      "token": "modules/townforge/assets/tokens/issy-needle.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 10
+            },
+            "dex": {
+              "value": 12
+            },
+            "con": {
+              "value": 11
+            },
+            "int": {
+              "value": 13
+            },
+            "wis": {
+              "value": 12
+            },
+            "cha": {
+              "value": 14
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 11,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 8,
+              "max": 8
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.125,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "gnome"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "per": {
+              "value": 1
+            },
+            "ins": {
+              "value": 1
+            },
+            "inv": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Merchant's Scale",
+            "type": "tool",
+            "img": "icons/svg/eye.svg",
+            "system": {
+              "quantity": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "rold-candlewick",
+      "name": "Rold Candlewick",
+      "species": "Human",
+      "gender": "Male",
+      "age": 58,
+      "occupation": "Chandler",
+      "category": "shops",
+      "tags": [
+        "candles",
+        "wax",
+        "steady"
+      ],
+      "description": "Chandler associated with the chandler's workshop.",
+      "biography": "Ask around town for a chandler and someone will point you to Rold at the chandler's workshop. At 58, this Human has learned which smiles are currency and which are warnings. Rold trims wicks as if pruning roses, and is rarely without mold set engraved with a forgotten house crest. Supplies temple and government offices. What drives them is simple to name and hard to finish: they want to light the mayor's hall for Winterfest. What keeps them careful is fire insurance inspectors. To a DM, Rold is ready to roleplay immediately—useful for favors, local color, or trouble. A customer ordered fifty unscented black candles 'for accounting nights'.",
+      "personality": "trims wicks as if pruning roses. Professional demeanor of a seasoned chandler.",
+      "motivation": "Pursue this: light the mayor's hall for Winterfest. Avoid this: fire insurance inspectors.",
+      "secret": "Privately terrified of fire insurance inspectors, and currently entangled with: A customer ordered fifty unscented black candles 'for accounting nights'.",
+      "rumor": "Rumor says Rold can tell you anything that happens near the chandler's workshop—for a price or a kindness.",
+      "voice": "Speaks like a Human chandler: concrete details first, embellishment only when useful.",
+      "appearance": "Human; often near the chandler's workshop; look for mold set engraved with a forgotten house crest.",
+      "portrait": "modules/townforge/assets/portraits/rold-candlewick.webp",
+      "token": "modules/townforge/assets/tokens/rold-candlewick.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 14
+            },
+            "dex": {
+              "value": 12
+            },
+            "con": {
+              "value": 13
+            },
+            "int": {
+              "value": 11
+            },
+            "wis": {
+              "value": 12
+            },
+            "cha": {
+              "value": 10
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 12,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 12,
+              "max": 12
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.25,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "human"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "ath": {
+              "value": 1
+            },
+            "inv": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Artisan's Tools",
+            "type": "tool",
+            "img": "icons/svg/eye.svg",
+            "system": {
+              "quantity": 1
+            }
+          },
+          {
+            "name": "Light Hammer",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "simpleM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d4",
+                    "bludgeoning"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "petra-glass",
+      "name": "Petra Glass",
+      "species": "Half-Elf",
+      "gender": "Female",
+      "age": 29,
+      "occupation": "Apothecary Clerk",
+      "category": "shops",
+      "tags": [
+        "herbs",
+        "remedies",
+        "careful"
+      ],
+      "description": "Apothecary Clerk associated with the apothecary front.",
+      "biography": "Most days begin the same for Petra Glass: a 29-year-old Half-Elf apothecary clerk moving through the apothecary front as if the stones themselves keep appointments with them. Petra labels jars twice, once for customers and once for truth, and is rarely without mortar cracked and wired with silver. Consults Yara Moss for wild herbs; respects Ora. What drives them is simple to name and hard to finish: they want to earn her own license when the master retires. What keeps them careful is selling the wrong draft to a pregnant mother. To a DM, Petra is ready to roleplay immediately—useful for favors, local color, or trouble. Someone tried to buy three lethal doses 'for rats' with too much coin.",
+      "personality": "labels jars twice, once for customers and once for truth. Professional demeanor of a seasoned apothecary clerk.",
+      "motivation": "Pursue this: earn her own license when the master retires. Avoid this: selling the wrong draft to a pregnant mother.",
+      "secret": "Privately terrified of selling the wrong draft to a pregnant mother, and currently entangled with: Someone tried to buy three lethal doses 'for rats' with too much coin.",
+      "rumor": "Rumor says Petra can tell you anything that happens near the apothecary front—for a price or a kindness.",
+      "voice": "Speaks like a Half-Elf apothecary clerk: concrete details first, embellishment only when useful.",
+      "appearance": "Half-Elf; often near the apothecary front; look for mortar cracked and wired with silver.",
+      "portrait": "modules/townforge/assets/portraits/petra-glass.webp",
+      "token": "modules/townforge/assets/tokens/petra-glass.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 8
+            },
+            "dex": {
+              "value": 11
+            },
+            "con": {
+              "value": 10
+            },
+            "int": {
+              "value": 16
+            },
+            "wis": {
+              "value": 13
+            },
+            "cha": {
+              "value": 12
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 11,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 7,
+              "max": 7
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.125,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "half-elf"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "arc": {
+              "value": 1
+            },
+            "his": {
+              "value": 1
+            },
+            "inv": {
+              "value": 1
+            },
+            "nat": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Scholar's Kit",
+            "type": "tool",
+            "img": "icons/svg/eye.svg",
+            "system": {
+              "quantity": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "quinn-pawn",
+      "name": "Quinn Pawn",
+      "species": "Human",
+      "gender": "Nonbinary",
+      "age": 41,
+      "occupation": "Pawnbroker",
+      "category": "shops",
+      "tags": [
+        "pawn",
+        "secrets",
+        "neutral"
+      ],
+      "description": "Pawnbroker associated with the pawn lattice window.",
+      "biography": "Quinn Pawn works as a pawnbroker out of the pawn lattice window, a 41-year-old Human with more town memory than most council minutes. Quinn never asks names, always asks stories, and is rarely without tray of wedding rings with dates scratched out. Sometimes buys from Silk Mara; tip-toes around Rook. What drives them is simple to name and hard to finish: they want to stay useful to everyone and owned by no one. What keeps them careful is fencing something that brings Serra's investigators. To a DM, Quinn is ready to roleplay immediately—useful for favors, local color, or trouble. Took in a watch badge filed smooth—and logged it under 'costume jewelry'.",
+      "personality": "never asks names, always asks stories. Professional demeanor of a seasoned pawnbroker.",
+      "motivation": "Pursue this: stay useful to everyone and owned by no one. Avoid this: fencing something that brings Serra's investigators.",
+      "secret": "Privately terrified of fencing something that brings Serra's investigators, and currently entangled with: Took in a watch badge filed smooth—and logged it under 'costume jewelry'.",
+      "rumor": "Rumor says Quinn can tell you anything that happens near the pawn lattice window—for a price or a kindness.",
+      "voice": "Speaks like a Human pawnbroker: concrete details first, embellishment only when useful.",
+      "appearance": "Human; often near the pawn lattice window; look for tray of wedding rings with dates scratched out.",
+      "portrait": "modules/townforge/assets/portraits/quinn-pawn.webp",
+      "token": "modules/townforge/assets/tokens/quinn-pawn.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 10
+            },
+            "dex": {
+              "value": 12
+            },
+            "con": {
+              "value": 11
+            },
+            "int": {
+              "value": 13
+            },
+            "wis": {
+              "value": 12
+            },
+            "cha": {
+              "value": 14
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 11,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 8,
+              "max": 8
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.125,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "human"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "per": {
+              "value": 1
+            },
+            "ins": {
+              "value": 1
+            },
+            "inv": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Merchant's Scale",
+            "type": "tool",
+            "img": "icons/svg/eye.svg",
+            "system": {
+              "quantity": 1
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

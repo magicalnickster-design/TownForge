@@ -1,0 +1,18 @@
+{
+  "library": "free",
+  "version": 2,
+  "packs": [
+    "tavern.json",
+    "shops.json",
+    "guards.json",
+    "nobility.json",
+    "commoners.json",
+    "religious.json",
+    "criminal.json",
+    "scholars.json",
+    "travelers.json",
+    "craftsmen.json",
+    "government.json",
+    "miscellaneous.json"
+  ]
+}

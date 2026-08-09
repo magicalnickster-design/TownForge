@@ -170,9 +170,10 @@ export class ActorService {
         ? foundry.utils.deepClone(npc.actorData)
         : {};
 
+    // Asset probes happen only during Add to Scene (never while browsing).
     const portrait = await this.#resolveImagePath(npc.portrait, FALLBACK_IMAGE);
     const tokenImg = await this.#resolveImagePath(npc.token || npc.portrait, portrait);
-    const biography = npc.description ? `<p>${this.#escapeHTML(npc.description)}</p>` : "";
+    const biographyHtml = this.#buildBiographyHtml(npc);
 
     // Overlay TownForge-required identity fields so catalog actorData cannot strip them.
     const data = foundry.utils.mergeObject(
@@ -191,7 +192,7 @@ export class ActorService {
         system: {
           details: {
             biography: {
-              value: biography
+              value: biographyHtml
             }
           }
         },
@@ -332,6 +333,33 @@ export class ActorService {
       img.onerror = () => resolve(false);
       img.src = src;
     });
+  }
+
+  /**
+   * Compose Actor biography HTML from TownForge roleplay fields.
+   * @param {object} npc
+   * @returns {string}
+   */
+  #buildBiographyHtml(npc) {
+    const blocks = [];
+    const biography = npc.biography || npc.description;
+    if (biography) blocks.push(`<p>${this.#escapeHTML(biography)}</p>`);
+
+    const extras = [
+      ["Personality", npc.personality],
+      ["Motivation", npc.motivation],
+      ["Voice", npc.voice],
+      ["Appearance", npc.appearance],
+      ["Rumor", npc.rumor],
+      ["Secret (GM)", npc.secret]
+    ];
+
+    for (const [label, value] of extras) {
+      if (!value) continue;
+      blocks.push(`<p><strong>${label}:</strong> ${this.#escapeHTML(value)}</p>`);
+    }
+
+    return blocks.join("");
   }
 
   /**

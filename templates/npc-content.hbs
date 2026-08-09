@@ -17,11 +17,17 @@
         role="listitem"
       >
         <div class="townforge-card-portrait">
-          <img src="{{portrait}}" alt="" loading="lazy" />
+          <img
+            src="{{portrait}}"
+            alt=""
+            loading="lazy"
+            data-townforge-img
+            data-fallback="{{fallbackPortrait}}"
+          />
         </div>
         <div class="townforge-card-body">
           <h2 class="townforge-card-name">{{name}}</h2>
-          <p class="townforge-card-meta">{{race}} · {{occupation}}</p>
+          <p class="townforge-card-meta">{{species}} · {{occupation}}</p>
           <span class="townforge-card-category">{{category}}</span>
         </div>
       </button>

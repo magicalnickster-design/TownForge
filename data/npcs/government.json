@@ -1,0 +1,649 @@
+{
+  "category": "government",
+  "npcs": [
+    {
+      "id": "mayor-haldrin",
+      "name": "Mayor Haldrin Moth",
+      "species": "Human",
+      "gender": "Male",
+      "age": 59,
+      "occupation": "Town Mayor",
+      "category": "government",
+      "tags": [
+        "mayor",
+        "speeches",
+        "compromise"
+      ],
+      "description": "Town Mayor associated with the council chamber and festival platforms.",
+      "biography": "Ask around town for a town mayor and someone will point you to Mayor at the council chamber and festival platforms. At 59, this Human has learned which smiles are currency and which are warnings. Mayor clears his throat before every compromise, and is rarely without chain of office that pinches when he lies. Patronized by Edric; depends on Penna; peers with Sava. What drives them is simple to name and hard to finish: they want to leave town richer in goodwill than coin. What keeps them careful is a scandal collapsing Midsummer trade. To a DM, Mayor is ready to roleplay immediately—useful for favors, local color, or trouble. Accepted Edric's festival funding with fewer questions than Penna liked.",
+      "personality": "clears his throat before every compromise. Professional demeanor of a seasoned town mayor.",
+      "motivation": "Pursue this: leave town richer in goodwill than coin. Avoid this: a scandal collapsing Midsummer trade.",
+      "secret": "Privately terrified of a scandal collapsing Midsummer trade, and currently entangled with: Accepted Edric's festival funding with fewer questions than Penna liked.",
+      "rumor": "Rumor says Mayor can tell you anything that happens near the council chamber and festival platforms—for a price or a kindness.",
+      "voice": "Speaks like a Human town mayor: concrete details first, embellishment only when useful.",
+      "appearance": "Human; often near the council chamber and festival platforms; look for chain of office that pinches when he lies.",
+      "portrait": "modules/townforge/assets/portraits/mayor-haldrin.webp",
+      "token": "modules/townforge/assets/tokens/mayor-haldrin.webp",
+      "relationships": [
+        {
+          "id": "clerk-penna",
+          "type": "depends-on",
+          "note": "Cannot run council paperwork without Penna."
+        }
+      ],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 10
+            },
+            "dex": {
+              "value": 11
+            },
+            "con": {
+              "value": 12
+            },
+            "int": {
+              "value": 13
+            },
+            "wis": {
+              "value": 14
+            },
+            "cha": {
+              "value": 13
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 11,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 10,
+              "max": 10
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.125,
+            "alignment": "lawful neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "human"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "ins": {
+              "value": 1
+            },
+            "per": {
+              "value": 1
+            },
+            "his": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Ledger and Seal",
+            "type": "tool",
+            "img": "icons/svg/eye.svg",
+            "system": {
+              "quantity": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "clerk-penna",
+      "name": "Penna Ledgerwell",
+      "species": "Human",
+      "gender": "Female",
+      "age": 32,
+      "occupation": "Town Clerk",
+      "category": "government",
+      "tags": [
+        "clerk",
+        "records",
+        "precise"
+      ],
+      "description": "Town Clerk associated with the records hall.",
+      "biography": "Penna Ledgerwell works as a town clerk out of the records hall, a 32-year-old Human with more town memory than most council minutes. Penna alphabetizes emergencies, and is rarely without ribbon tags for 'urgent', 'political', and 'do not lose'. Essential to Mayor; threat to Orin; overflow to Hala. What drives them is simple to name and hard to finish: they want to digitize nothing and perfect everything on paper. What keeps them careful is forged seals passing her desk. To a DM, Penna is ready to roleplay immediately—useful for favors, local color, or trouble. Flagged a warehouse writ with Pale Orin's distinctive pen pressure.",
+      "personality": "alphabetizes emergencies. Professional demeanor of a seasoned town clerk.",
+      "motivation": "Pursue this: digitize nothing and perfect everything on paper. Avoid this: forged seals passing her desk.",
+      "secret": "Privately terrified of forged seals passing her desk, and currently entangled with: Flagged a warehouse writ with Pale Orin's distinctive pen pressure.",
+      "rumor": "Rumor says Penna can tell you anything that happens near the records hall—for a price or a kindness.",
+      "voice": "Speaks like a Human town clerk: concrete details first, embellishment only when useful.",
+      "appearance": "Human; often near the records hall; look for ribbon tags for 'urgent', 'political', and 'do not lose'.",
+      "portrait": "modules/townforge/assets/portraits/clerk-penna.webp",
+      "token": "modules/townforge/assets/tokens/clerk-penna.webp",
+      "relationships": [
+        {
+          "id": "mayor-haldrin",
+          "type": "supports",
+          "note": "Cannot run council paperwork without Penna."
+        }
+      ],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 10
+            },
+            "dex": {
+              "value": 11
+            },
+            "con": {
+              "value": 12
+            },
+            "int": {
+              "value": 13
+            },
+            "wis": {
+              "value": 14
+            },
+            "cha": {
+              "value": 13
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 11,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 10,
+              "max": 10
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.125,
+            "alignment": "lawful neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "human"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "ins": {
+              "value": 1
+            },
+            "per": {
+              "value": 1
+            },
+            "his": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Ledger and Seal",
+            "type": "tool",
+            "img": "icons/svg/eye.svg",
+            "system": {
+              "quantity": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "bailiff-crowe",
+      "name": "Bailiff Crowe",
+      "species": "Human",
+      "gender": "Male",
+      "age": 48,
+      "occupation": "Bailiff",
+      "category": "government",
+      "tags": [
+        "bailiff",
+        "fines",
+        "grim"
+      ],
+      "description": "Bailiff associated with collection rounds and holding cells.",
+      "biography": "Most days begin the same for Bailiff Crowe: a 48-year-old Human bailiff moving through collection rounds and holding cells as if the stones themselves keep appointments with them. Bailiff recites fine schedules like scripture, and is rarely without baton he has never raised and always shows. Works with Judge Sava; pressured by alleys. What drives them is simple to name and hard to finish: they want to enforce law without starring in Kitty's rumors. What keeps them careful is becoming Marrow's public face. To a DM, Bailiff is ready to roleplay immediately—useful for favors, local color, or trouble. Was offered a bribe to 'misplace' Rook's holding paperwork.",
+      "personality": "recites fine schedules like scripture. Professional demeanor of a seasoned bailiff.",
+      "motivation": "Pursue this: enforce law without starring in Kitty's rumors. Avoid this: becoming Marrow's public face.",
+      "secret": "Privately terrified of becoming Marrow's public face, and currently entangled with: Was offered a bribe to 'misplace' Rook's holding paperwork.",
+      "rumor": "Rumor says Bailiff can tell you anything that happens near collection rounds and holding cells—for a price or a kindness.",
+      "voice": "Speaks like a Human bailiff: concrete details first, embellishment only when useful.",
+      "appearance": "Human; often near collection rounds and holding cells; look for baton he has never raised and always shows.",
+      "portrait": "modules/townforge/assets/portraits/bailiff-crowe.webp",
+      "token": "modules/townforge/assets/tokens/bailiff-crowe.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 10
+            },
+            "dex": {
+              "value": 11
+            },
+            "con": {
+              "value": 12
+            },
+            "int": {
+              "value": 13
+            },
+            "wis": {
+              "value": 14
+            },
+            "cha": {
+              "value": 13
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 11,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 10,
+              "max": 10
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.125,
+            "alignment": "lawful neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "human"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "ins": {
+              "value": 1
+            },
+            "per": {
+              "value": 1
+            },
+            "his": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Ledger and Seal",
+            "type": "tool",
+            "img": "icons/svg/eye.svg",
+            "system": {
+              "quantity": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "taxer-miln",
+      "name": "Miln Tallcount",
+      "species": "Halfling",
+      "gender": "Male",
+      "age": 53,
+      "occupation": "Tax Assessor",
+      "category": "government",
+      "tags": [
+        "taxes",
+        "math",
+        "unpopular"
+      ],
+      "description": "Tax Assessor associated with doorsteps with a counting board.",
+      "biography": "Most days begin the same for Miln Tallcount: a 53-year-old Halfling tax assessor moving through doorsteps with a counting board as if the stones themselves keep appointments with them. Miln apologizes and assesses in the same breath, and is rarely without folding abacus and a rainproof satchel. Unpopular; useful against Nedda; supports Bera. What drives them is simple to name and hard to finish: they want to fund Bera's second well through honest tallies. What keeps them careful is being drowned in a well 'accident' of popularity. To a DM, Miln is ready to roleplay immediately—useful for favors, local color, or trouble. Found undeclared barge income patterns matching Nedda's trips.",
+      "personality": "apologizes and assesses in the same breath. Professional demeanor of a seasoned tax assessor.",
+      "motivation": "Pursue this: fund Bera's second well through honest tallies. Avoid this: being drowned in a well 'accident' of popularity.",
+      "secret": "Privately terrified of being drowned in a well 'accident' of popularity, and currently entangled with: Found undeclared barge income patterns matching Nedda's trips.",
+      "rumor": "Rumor says Miln can tell you anything that happens near doorsteps with a counting board—for a price or a kindness.",
+      "voice": "Speaks like a Halfling tax assessor: concrete details first, embellishment only when useful.",
+      "appearance": "Halfling; often near doorsteps with a counting board; look for folding abacus and a rainproof satchel.",
+      "portrait": "modules/townforge/assets/portraits/taxer-miln.webp",
+      "token": "modules/townforge/assets/tokens/taxer-miln.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 10
+            },
+            "dex": {
+              "value": 11
+            },
+            "con": {
+              "value": 12
+            },
+            "int": {
+              "value": 13
+            },
+            "wis": {
+              "value": 14
+            },
+            "cha": {
+              "value": 13
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 11,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 10,
+              "max": 10
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.125,
+            "alignment": "lawful neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "halfling"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "ins": {
+              "value": 1
+            },
+            "per": {
+              "value": 1
+            },
+            "his": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Ledger and Seal",
+            "type": "tool",
+            "img": "icons/svg/eye.svg",
+            "system": {
+              "quantity": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "judge-sava",
+      "name": "Judge Sava Wren",
+      "species": "Half-Elf",
+      "gender": "Female",
+      "age": 61,
+      "occupation": "Magistrate",
+      "category": "government",
+      "tags": [
+        "judge",
+        "fair",
+        "law"
+      ],
+      "description": "Magistrate associated with the magistrate's bench.",
+      "biography": "Judge Sava Wren works as a magistrate out of the magistrate's bench, a 61-year-old Half-Elf with more town memory than most council minutes. Judge makes eye contact with the poorest person first, and is rarely without gavel with a softened rim. Peer to Mayor; works with Crowe and Merrick. What drives them is simple to name and hard to finish: they want to set a precedent that ledgers bind lords too. What keeps them careful is nobles buying outcomes through festival gifts. To a DM, Judge is ready to roleplay immediately—useful for favors, local color, or trouble. Asked Merrick for a clean chain of evidence on Rook before festival court.",
+      "personality": "makes eye contact with the poorest person first. Professional demeanor of a seasoned magistrate.",
+      "motivation": "Pursue this: set a precedent that ledgers bind lords too. Avoid this: nobles buying outcomes through festival gifts.",
+      "secret": "Privately terrified of nobles buying outcomes through festival gifts, and currently entangled with: Asked Merrick for a clean chain of evidence on Rook before festival court.",
+      "rumor": "Rumor says Judge can tell you anything that happens near the magistrate's bench—for a price or a kindness.",
+      "voice": "Speaks like a Half-Elf magistrate: concrete details first, embellishment only when useful.",
+      "appearance": "Half-Elf; often near the magistrate's bench; look for gavel with a softened rim.",
+      "portrait": "modules/townforge/assets/portraits/judge-sava.webp",
+      "token": "modules/townforge/assets/tokens/judge-sava.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 10
+            },
+            "dex": {
+              "value": 11
+            },
+            "con": {
+              "value": 12
+            },
+            "int": {
+              "value": 13
+            },
+            "wis": {
+              "value": 14
+            },
+            "cha": {
+              "value": 13
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 11,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 10,
+              "max": 10
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.125,
+            "alignment": "lawful neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "half-elf"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "ins": {
+              "value": 1
+            },
+            "per": {
+              "value": 1
+            },
+            "his": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Ledger and Seal",
+            "type": "tool",
+            "img": "icons/svg/eye.svg",
+            "system": {
+              "quantity": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "herald-bol",
+      "name": "Bol Brightvoice",
+      "species": "Human",
+      "gender": "Male",
+      "age": 28,
+      "occupation": "Town Herald",
+      "category": "government",
+      "tags": [
+        "herald",
+        "news",
+        "loud"
+      ],
+      "description": "Town Herald associated with corners, steps, and market cries.",
+      "biography": "Bol Brightvoice works as a town herald out of corners, steps, and market cries, a 28-year-old Human with more town memory than most council minutes. Bol projects news until windows open, and is rarely without brass bell with a cracked throat. Voice of government; confused by mill intrigue. What drives them is simple to name and hard to finish: they want to be trusted with truth, not only volume. What keeps them careful is reading a proclamation that starts a riot. To a DM, Bol is ready to roleplay immediately—useful for favors, local color, or trouble. Was handed two conflicting proclamations about mill ownership in one morning.",
+      "personality": "projects news until windows open. Professional demeanor of a seasoned town herald.",
+      "motivation": "Pursue this: be trusted with truth, not only volume. Avoid this: reading a proclamation that starts a riot.",
+      "secret": "Privately terrified of reading a proclamation that starts a riot, and currently entangled with: Was handed two conflicting proclamations about mill ownership in one morning.",
+      "rumor": "Rumor says Bol can tell you anything that happens near corners, steps, and market cries—for a price or a kindness.",
+      "voice": "Speaks like a Human town herald: concrete details first, embellishment only when useful.",
+      "appearance": "Human; often near corners, steps, and market cries; look for brass bell with a cracked throat.",
+      "portrait": "modules/townforge/assets/portraits/herald-bol.webp",
+      "token": "modules/townforge/assets/tokens/herald-bol.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 10
+            },
+            "dex": {
+              "value": 10
+            },
+            "con": {
+              "value": 10
+            },
+            "int": {
+              "value": 10
+            },
+            "wis": {
+              "value": 11
+            },
+            "cha": {
+              "value": 11
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 10,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 4,
+              "max": 4
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "human"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "prc": {
+              "value": 1
+            }
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,829 @@
+{
+  "category": "scholars",
+  "npcs": [
+    {
+      "id": "magister-quen",
+      "name": "Magister Quen",
+      "species": "Elf",
+      "gender": "Male",
+      "age": 312,
+      "occupation": "Town Mage",
+      "category": "scholars",
+      "tags": [
+        "mage",
+        "tower",
+        "aloof"
+      ],
+      "description": "Town Mage associated with a narrow tower with copper gutters.",
+      "biography": "Ask around town for a town mage and someone will point you to Magister at a narrow tower with copper gutters. At 312, this Elf has learned which smiles are currency and which are warnings. Magister answers practical questions with theory first, and is rarely without focus crystal cracked and still used. Watched by Caldus; trades with Pire; buys from Vela. What drives them is simple to name and hard to finish: they want to stabilize a ward that could spare the town another flood fire. What keeps them careful is a temple-led ban on private laboratories. To a DM, Magister is ready to roleplay immediately—useful for favors, local color, or trouble. Ordered a restricted treatise through Vela the same week Caldus copied a matching page.",
+      "personality": "answers practical questions with theory first. Professional demeanor of a seasoned town mage.",
+      "motivation": "Pursue this: stabilize a ward that could spare the town another flood fire. Avoid this: a temple-led ban on private laboratories.",
+      "secret": "Privately terrified of a temple-led ban on private laboratories, and currently entangled with: Ordered a restricted treatise through Vela the same week Caldus copied a matching page.",
+      "rumor": "Rumor says Magister can tell you anything that happens near a narrow tower with copper gutters—for a price or a kindness.",
+      "voice": "Speaks like a Elf town mage: concrete details first, embellishment only when useful.",
+      "appearance": "Elf; often near a narrow tower with copper gutters; look for focus crystal cracked and still used.",
+      "portrait": "modules/townforge/assets/portraits/magister-quen.webp",
+      "token": "modules/townforge/assets/tokens/magister-quen.webp",
+      "relationships": [
+        {
+          "id": "mother-elen-bright",
+          "type": "watched-by",
+          "note": "Believes Quen's experiments skirt blasphemy."
+        },
+        {
+          "id": "brother-caldus",
+          "type": "rival",
+          "note": "Collects evidence of unsafe private magic."
+        }
+      ],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 8
+            },
+            "dex": {
+              "value": 13
+            },
+            "con": {
+              "value": 12
+            },
+            "int": {
+              "value": 16
+            },
+            "wis": {
+              "value": 12
+            },
+            "cha": {
+              "value": 11
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 12,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 18,
+              "max": 18
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 1,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "elf"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "arc": {
+              "value": 1
+            },
+            "his": {
+              "value": 1
+            },
+            "inv": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Quarterstaff",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "simpleM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d6",
+                    "bludgeoning"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          },
+          {
+            "name": "Component Pouch",
+            "type": "tool",
+            "img": "icons/svg/eye.svg",
+            "system": {
+              "quantity": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "scribe-hala",
+      "name": "Hala Quill",
+      "species": "Human",
+      "gender": "Female",
+      "age": 30,
+      "occupation": "Public Scribe",
+      "category": "scholars",
+      "tags": [
+        "scribe",
+        "letters",
+        "fair"
+      ],
+      "description": "Public Scribe associated with a public writing desk by the fountain.",
+      "biography": "Hala Quill works as a public scribe out of a public writing desk by the fountain, a 30-year-old Human with more town memory than most council minutes. Hala offers fair rates and unfair honesty, and is rarely without traveling inkwell on a chain. Honest counterpoint to Orin; helps Penna overflow work. What drives them is simple to name and hard to finish: they want to open a small school for girls' letters. What keeps them careful is being forced to copy forgeries. To a DM, Hala is ready to roleplay immediately—useful for favors, local color, or trouble. Refused Pale Orin's request to 'borrow' her official nib cut.",
+      "personality": "offers fair rates and unfair honesty. Professional demeanor of a seasoned public scribe.",
+      "motivation": "Pursue this: open a small school for girls' letters. Avoid this: being forced to copy forgeries.",
+      "secret": "Privately terrified of being forced to copy forgeries, and currently entangled with: Refused Pale Orin's request to 'borrow' her official nib cut.",
+      "rumor": "Rumor says Hala can tell you anything that happens near a public writing desk by the fountain—for a price or a kindness.",
+      "voice": "Speaks like a Human public scribe: concrete details first, embellishment only when useful.",
+      "appearance": "Human; often near a public writing desk by the fountain; look for traveling inkwell on a chain.",
+      "portrait": "modules/townforge/assets/portraits/scribe-hala.webp",
+      "token": "modules/townforge/assets/tokens/scribe-hala.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 8
+            },
+            "dex": {
+              "value": 11
+            },
+            "con": {
+              "value": 10
+            },
+            "int": {
+              "value": 16
+            },
+            "wis": {
+              "value": 13
+            },
+            "cha": {
+              "value": 12
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 11,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 7,
+              "max": 7
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.125,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "human"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "arc": {
+              "value": 1
+            },
+            "his": {
+              "value": 1
+            },
+            "inv": {
+              "value": 1
+            },
+            "nat": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Scholar's Kit",
+            "type": "tool",
+            "img": "icons/svg/eye.svg",
+            "system": {
+              "quantity": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "archivist-vonn",
+      "name": "Vonn Dustmere",
+      "species": "Human",
+      "gender": "Male",
+      "age": 63,
+      "occupation": "Library Archivist",
+      "category": "scholars",
+      "tags": [
+        "library",
+        "catalog",
+        "dust"
+      ],
+      "description": "Library Archivist associated with the town library stacks.",
+      "biography": "Ask around town for a library archivist and someone will point you to Vonn at the town library stacks. At 63, this Human has learned which smiles are currency and which are warnings. Vonn dusts spines like soothing animals, and is rarely without catalog cards in three conflicting systems. Works near Vela's rare shelf; aids Olda. What drives them is simple to name and hard to finish: they want to finish a single coherent index before he dies. What keeps them careful is damp destroying the flood-year records. To a DM, Vonn is ready to roleplay immediately—useful for favors, local color, or trouble. Found a missing chronicle volume returned with mill chalk on the cover.",
+      "personality": "dusts spines like soothing animals. Professional demeanor of a seasoned library archivist.",
+      "motivation": "Pursue this: finish a single coherent index before he dies. Avoid this: damp destroying the flood-year records.",
+      "secret": "Privately terrified of damp destroying the flood-year records, and currently entangled with: Found a missing chronicle volume returned with mill chalk on the cover.",
+      "rumor": "Rumor says Vonn can tell you anything that happens near the town library stacks—for a price or a kindness.",
+      "voice": "Speaks like a Human library archivist: concrete details first, embellishment only when useful.",
+      "appearance": "Human; often near the town library stacks; look for catalog cards in three conflicting systems.",
+      "portrait": "modules/townforge/assets/portraits/archivist-vonn.webp",
+      "token": "modules/townforge/assets/tokens/archivist-vonn.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 8
+            },
+            "dex": {
+              "value": 11
+            },
+            "con": {
+              "value": 10
+            },
+            "int": {
+              "value": 16
+            },
+            "wis": {
+              "value": 13
+            },
+            "cha": {
+              "value": 12
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 11,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 7,
+              "max": 7
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.125,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "human"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "arc": {
+              "value": 1
+            },
+            "his": {
+              "value": 1
+            },
+            "inv": {
+              "value": 1
+            },
+            "nat": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Scholar's Kit",
+            "type": "tool",
+            "img": "icons/svg/eye.svg",
+            "system": {
+              "quantity": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "alchemist-pire",
+      "name": "Pire Saltglass",
+      "species": "Gnome",
+      "gender": "Male",
+      "age": 74,
+      "occupation": "Alchemist",
+      "category": "scholars",
+      "tags": [
+        "alchemy",
+        "fumes",
+        "curious"
+      ],
+      "description": "Alchemist associated with a fume-stained shop with open windows.",
+      "biography": "Ask around town for a alchemist and someone will point you to Pire at a fume-stained shop with open windows. At 74, this Gnome has learned which smiles are currency and which are warnings. Pire labels explosions as 'educational', and is rarely without goggles with one lens tinted rose. Colleague to Quen; evidence path to Nedda. What drives them is simple to name and hard to finish: they want to invent a safe lamp oil that smugglers can't dilute. What keeps them careful is Quen's ward drawing lightning to the street. To a DM, Pire is ready to roleplay immediately—useful for favors, local color, or trouble. Tested a sample from Nedda's 'grain' and found lamp oil cut with pitch.",
+      "personality": "labels explosions as 'educational'. Professional demeanor of a seasoned alchemist.",
+      "motivation": "Pursue this: invent a safe lamp oil that smugglers can't dilute. Avoid this: Quen's ward drawing lightning to the street.",
+      "secret": "Privately terrified of Quen's ward drawing lightning to the street, and currently entangled with: Tested a sample from Nedda's 'grain' and found lamp oil cut with pitch.",
+      "rumor": "Rumor says Pire can tell you anything that happens near a fume-stained shop with open windows—for a price or a kindness.",
+      "voice": "Speaks like a Gnome alchemist: concrete details first, embellishment only when useful.",
+      "appearance": "Gnome; often near a fume-stained shop with open windows; look for goggles with one lens tinted rose.",
+      "portrait": "modules/townforge/assets/portraits/alchemist-pire.webp",
+      "token": "modules/townforge/assets/tokens/alchemist-pire.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 8
+            },
+            "dex": {
+              "value": 13
+            },
+            "con": {
+              "value": 12
+            },
+            "int": {
+              "value": 16
+            },
+            "wis": {
+              "value": 12
+            },
+            "cha": {
+              "value": 11
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 12,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 18,
+              "max": 18
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 1,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "gnome"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "arc": {
+              "value": 1
+            },
+            "his": {
+              "value": 1
+            },
+            "inv": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Quarterstaff",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "simpleM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d6",
+                    "bludgeoning"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          },
+          {
+            "name": "Component Pouch",
+            "type": "tool",
+            "img": "icons/svg/eye.svg",
+            "system": {
+              "quantity": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "tutor-essa",
+      "name": "Essa Brightlane",
+      "species": "Half-Elf",
+      "gender": "Female",
+      "age": 36,
+      "occupation": "Children's Tutor",
+      "category": "scholars",
+      "tags": [
+        "tutor",
+        "children",
+        "patient"
+      ],
+      "description": "Children's Tutor associated with manor schoolrooms and kitchen tables.",
+      "biography": "Ask around town for a children's tutor and someone will point you to Essa at manor schoolrooms and kitchen tables. At 36, this Half-Elf has learned which smiles are currency and which are warnings. Essa turns chores into lessons, and is rarely without slate of multiplication dragons. Tutors Perrin; friend to Hala. What drives them is simple to name and hard to finish: they want to teach commoner children beside noble ones. What keeps them careful is Perrin learning only pride. To a DM, Essa is ready to roleplay immediately—useful for favors, local color, or trouble. Caught Perrin forging a practice excuse in her handwriting.",
+      "personality": "turns chores into lessons. Professional demeanor of a seasoned children's tutor.",
+      "motivation": "Pursue this: teach commoner children beside noble ones. Avoid this: Perrin learning only pride.",
+      "secret": "Privately terrified of Perrin learning only pride, and currently entangled with: Caught Perrin forging a practice excuse in her handwriting.",
+      "rumor": "Rumor says Essa can tell you anything that happens near manor schoolrooms and kitchen tables—for a price or a kindness.",
+      "voice": "Speaks like a Half-Elf children's tutor: concrete details first, embellishment only when useful.",
+      "appearance": "Half-Elf; often near manor schoolrooms and kitchen tables; look for slate of multiplication dragons.",
+      "portrait": "modules/townforge/assets/portraits/tutor-essa.webp",
+      "token": "modules/townforge/assets/tokens/tutor-essa.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 8
+            },
+            "dex": {
+              "value": 11
+            },
+            "con": {
+              "value": 10
+            },
+            "int": {
+              "value": 16
+            },
+            "wis": {
+              "value": 13
+            },
+            "cha": {
+              "value": 12
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 11,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 7,
+              "max": 7
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.125,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "half-elf"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "arc": {
+              "value": 1
+            },
+            "his": {
+              "value": 1
+            },
+            "inv": {
+              "value": 1
+            },
+            "nat": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Scholar's Kit",
+            "type": "tool",
+            "img": "icons/svg/eye.svg",
+            "system": {
+              "quantity": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "cartographer-nym",
+      "name": "Nym Fairchart",
+      "species": "Human",
+      "gender": "Nonbinary",
+      "age": 42,
+      "occupation": "Cartographer",
+      "category": "scholars",
+      "tags": [
+        "maps",
+        "survey",
+        "travel"
+      ],
+      "description": "Cartographer associated with survey posts outside the walls.",
+      "biography": "Most days begin the same for Nym Fairchart: a 42-year-old Human cartographer moving through survey posts outside the walls as if the stones themselves keep appointments with them. Nym humming while measuring angles, and is rarely without case of chalk sticks in coded colors. Marks confused Sol; maps desired by Mouse and Jor. What drives them is simple to name and hard to finish: they want to publish a public town map that settles property fights. What keeps them careful is their maps being used for invasion or crime. To a DM, Nym is ready to roleplay immediately—useful for favors, local color, or trouble. Chalk marks in the cloister matched a survey line aimed at the old mill.",
+      "personality": "humming while measuring angles. Professional demeanor of a seasoned cartographer.",
+      "motivation": "Pursue this: publish a public town map that settles property fights. Avoid this: their maps being used for invasion or crime.",
+      "secret": "Privately terrified of their maps being used for invasion or crime, and currently entangled with: Chalk marks in the cloister matched a survey line aimed at the old mill.",
+      "rumor": "Rumor says Nym can tell you anything that happens near survey posts outside the walls—for a price or a kindness.",
+      "voice": "Speaks like a Human cartographer: concrete details first, embellishment only when useful.",
+      "appearance": "Human; often near survey posts outside the walls; look for case of chalk sticks in coded colors.",
+      "portrait": "modules/townforge/assets/portraits/cartographer-nym.webp",
+      "token": "modules/townforge/assets/tokens/cartographer-nym.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 8
+            },
+            "dex": {
+              "value": 11
+            },
+            "con": {
+              "value": 10
+            },
+            "int": {
+              "value": 16
+            },
+            "wis": {
+              "value": 13
+            },
+            "cha": {
+              "value": 12
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 11,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 7,
+              "max": 7
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.125,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "human"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "arc": {
+              "value": 1
+            },
+            "his": {
+              "value": 1
+            },
+            "inv": {
+              "value": 1
+            },
+            "nat": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Scholar's Kit",
+            "type": "tool",
+            "img": "icons/svg/eye.svg",
+            "system": {
+              "quantity": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "historian-olda",
+      "name": "Olda Runebridge",
+      "species": "Dwarf",
+      "gender": "Female",
+      "age": 155,
+      "occupation": "Town Historian",
+      "category": "scholars",
+      "tags": [
+        "history",
+        "stones",
+        "pride"
+      ],
+      "description": "Town Historian associated with stone benches and foundation corners.",
+      "biography": "Olda Runebridge works as a town historian out of stone benches and foundation corners, a 155-year-old Dwarf with more town memory than most council minutes. Olda rubs inscriptions with reverent thumbs, and is rarely without rubbing charcoal and rice paper. Works with Vonn; theory supports Mouse's maps. What drives them is simple to name and hard to finish: they want to prove the mill sits on a sealed undercroft. What keeps them careful is new money paving over old truths. To a DM, Olda is ready to roleplay immediately—useful for favors, local color, or trouble. Her rubbing of a foundation stone shows a tunnel arch 'filled by order'.",
+      "personality": "rubs inscriptions with reverent thumbs. Professional demeanor of a seasoned town historian.",
+      "motivation": "Pursue this: prove the mill sits on a sealed undercroft. Avoid this: new money paving over old truths.",
+      "secret": "Privately terrified of new money paving over old truths, and currently entangled with: Her rubbing of a foundation stone shows a tunnel arch 'filled by order'.",
+      "rumor": "Rumor says Olda can tell you anything that happens near stone benches and foundation corners—for a price or a kindness.",
+      "voice": "Speaks like a Dwarf town historian: concrete details first, embellishment only when useful.",
+      "appearance": "Dwarf; often near stone benches and foundation corners; look for rubbing charcoal and rice paper.",
+      "portrait": "modules/townforge/assets/portraits/historian-olda.webp",
+      "token": "modules/townforge/assets/tokens/historian-olda.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 8
+            },
+            "dex": {
+              "value": 11
+            },
+            "con": {
+              "value": 10
+            },
+            "int": {
+              "value": 16
+            },
+            "wis": {
+              "value": 13
+            },
+            "cha": {
+              "value": 12
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 11,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 7,
+              "max": 7
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.125,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "dwarf"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "arc": {
+              "value": 1
+            },
+            "his": {
+              "value": 1
+            },
+            "inv": {
+              "value": 1
+            },
+            "nat": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Scholar's Kit",
+            "type": "tool",
+            "img": "icons/svg/eye.svg",
+            "system": {
+              "quantity": 1
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

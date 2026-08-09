@@ -1,0 +1,983 @@
+{
+  "category": "nobility",
+  "npcs": [
+    {
+      "id": "lord-edric-vale",
+      "name": "Lord Edric Vale",
+      "species": "Human",
+      "gender": "Male",
+      "age": 48,
+      "occupation": "Noble Patron",
+      "category": "nobility",
+      "tags": [
+        "lord",
+        "patron",
+        "politics"
+      ],
+      "description": "Noble Patron associated with Vale Manor's receiving hall.",
+      "biography": "Ask around town for a noble patron and someone will point you to Lord at Vale Manor's receiving hall. At 48, this Human has learned which smiles are currency and which are warnings. Lord offers wine before answers, and is rarely without signet he twists when lying politely. Married to Mirelle; affair with Lysa; patron to Mayor. What drives them is simple to name and hard to finish: they want to place Perrin in a marriage that secures river rights. What keeps them careful is scandal costing him council influence. To a DM, Lord is ready to roleplay immediately—useful for favors, local color, or trouble. Misplaced a spare signet the same week Mira found one in a cloak hem.",
+      "personality": "offers wine before answers. Professional demeanor of a seasoned noble patron.",
+      "motivation": "Pursue this: place Perrin in a marriage that secures river rights. Avoid this: scandal costing him council influence.",
+      "secret": "Privately terrified of scandal costing him council influence, and currently entangled with: Misplaced a spare signet the same week Mira found one in a cloak hem.",
+      "rumor": "Rumor says Lord can tell you anything that happens near Vale Manor's receiving hall—for a price or a kindness.",
+      "voice": "Speaks like a Human noble patron: concrete details first, embellishment only when useful.",
+      "appearance": "Human; often near Vale Manor's receiving hall; look for signet he twists when lying politely.",
+      "portrait": "modules/townforge/assets/portraits/lord-edric-vale.webp",
+      "token": "modules/townforge/assets/tokens/lord-edric-vale.webp",
+      "relationships": [
+        {
+          "id": "lysa-thorne",
+          "type": "affair",
+          "note": "Meet in the old orangery after salon hours."
+        },
+        {
+          "id": "lady-mirelle-vale",
+          "type": "spouse",
+          "note": "Publicly devoted partners in Vale politics."
+        }
+      ],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 10
+            },
+            "dex": {
+              "value": 12
+            },
+            "con": {
+              "value": 11
+            },
+            "int": {
+              "value": 13
+            },
+            "wis": {
+              "value": 12
+            },
+            "cha": {
+              "value": 15
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 12,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 12,
+              "max": 12
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.25,
+            "alignment": "lawful neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "human"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "per": {
+              "value": 1
+            },
+            "his": {
+              "value": 1
+            },
+            "ins": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Rapier",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "martialM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d8",
+                    "piercing"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "lady-mirelle-vale",
+      "name": "Lady Mirelle Vale",
+      "species": "Human",
+      "gender": "Female",
+      "age": 45,
+      "occupation": "Estate Hostess",
+      "category": "nobility",
+      "tags": [
+        "lady",
+        "salon",
+        "influence"
+      ],
+      "description": "Estate Hostess associated with the manor salon.",
+      "biography": "Lady Mirelle Vale works as a estate hostess out of the manor salon, a 45-year-old Human with more town memory than most council minutes. Lady rearranges flowers when displeased, and is rarely without invitation ledger with coded dots. Edric's spouse; confides in Cressida. What drives them is simple to name and hard to finish: they want to host the prince's envoy next season. What keeps them careful is becoming a punchline in Cressida's circle. To a DM, Lady is ready to roleplay immediately—useful for favors, local color, or trouble. Hired a private listener to watch the orangery path at night.",
+      "personality": "rearranges flowers when displeased. Professional demeanor of a seasoned estate hostess.",
+      "motivation": "Pursue this: host the prince's envoy next season. Avoid this: becoming a punchline in Cressida's circle.",
+      "secret": "Privately terrified of becoming a punchline in Cressida's circle, and currently entangled with: Hired a private listener to watch the orangery path at night.",
+      "rumor": "Rumor says Lady can tell you anything that happens near the manor salon—for a price or a kindness.",
+      "voice": "Speaks like a Human estate hostess: concrete details first, embellishment only when useful.",
+      "appearance": "Human; often near the manor salon; look for invitation ledger with coded dots.",
+      "portrait": "modules/townforge/assets/portraits/lady-mirelle-vale.webp",
+      "token": "modules/townforge/assets/tokens/lady-mirelle-vale.webp",
+      "relationships": [
+        {
+          "id": "lord-edric-vale",
+          "type": "spouse",
+          "note": "Publicly devoted partners in Vale politics."
+        }
+      ],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 10
+            },
+            "dex": {
+              "value": 12
+            },
+            "con": {
+              "value": 11
+            },
+            "int": {
+              "value": 13
+            },
+            "wis": {
+              "value": 12
+            },
+            "cha": {
+              "value": 15
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 12,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 12,
+              "max": 12
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.25,
+            "alignment": "lawful neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "human"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "per": {
+              "value": 1
+            },
+            "his": {
+              "value": 1
+            },
+            "ins": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Rapier",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "martialM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d8",
+                    "piercing"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "sir-halden-rook",
+      "name": "Sir Halden Rook",
+      "species": "Human",
+      "gender": "Male",
+      "age": 37,
+      "occupation": "Knight Retainer",
+      "category": "nobility",
+      "tags": [
+        "knight",
+        "honor",
+        "blade"
+      ],
+      "description": "Knight Retainer associated with the manor gate and tourneys.",
+      "biography": "Ask around town for a knight retainer and someone will point you to Sir at the manor gate and tourneys. At 37, this Human has learned which smiles are currency and which are warnings. Sir checks his reflection in his blade, and is rarely without favor ribbon he pretends is from a lady of standing. Retainer to the Vales; uneasy. What drives them is simple to name and hard to finish: they want to earn land of his own through honest service. What keeps them careful is being ordered to cover Edric's sins. To a DM, Sir is ready to roleplay immediately—useful for favors, local color, or trouble. Saw Edric and Lysa in the orangery and chose silence—for now.",
+      "personality": "checks his reflection in his blade. Professional demeanor of a seasoned knight retainer.",
+      "motivation": "Pursue this: earn land of his own through honest service. Avoid this: being ordered to cover Edric's sins.",
+      "secret": "Privately terrified of being ordered to cover Edric's sins, and currently entangled with: Saw Edric and Lysa in the orangery and chose silence—for now.",
+      "rumor": "Rumor says Sir can tell you anything that happens near the manor gate and tourneys—for a price or a kindness.",
+      "voice": "Speaks like a Human knight retainer: concrete details first, embellishment only when useful.",
+      "appearance": "Human; often near the manor gate and tourneys; look for favor ribbon he pretends is from a lady of standing.",
+      "portrait": "modules/townforge/assets/portraits/sir-halden-rook.webp",
+      "token": "modules/townforge/assets/tokens/sir-halden-rook.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 15
+            },
+            "dex": {
+              "value": 13
+            },
+            "con": {
+              "value": 14
+            },
+            "int": {
+              "value": 11
+            },
+            "wis": {
+              "value": 13
+            },
+            "cha": {
+              "value": 12
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 17,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 32,
+              "max": 32
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 1,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "human"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "ath": {
+              "value": 1
+            },
+            "prc": {
+              "value": 1
+            },
+            "ins": {
+              "value": 1
+            },
+            "per": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Breastplate",
+            "type": "equipment",
+            "img": "icons/svg/shield.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "medium"
+              },
+              "armor": {
+                "value": 14,
+                "dex": 0
+              }
+            }
+          },
+          {
+            "name": "Longsword",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "martialM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d8",
+                    "slashing"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          },
+          {
+            "name": "Light Crossbow",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "simpleR"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d8",
+                    "piercing"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "cressida-fenn",
+      "name": "Cressida Fenn",
+      "species": "Half-Elf",
+      "gender": "Female",
+      "age": 33,
+      "occupation": "Court Gossip",
+      "category": "nobility",
+      "tags": [
+        "court",
+        "gossip",
+        "letters"
+      ],
+      "description": "Court Gossip associated with tea tables and balcony whispers.",
+      "biography": "Cressida Fenn works as a court gossip out of tea tables and balcony whispers, a 33-year-old Half-Elf with more town memory than most council minutes. Cressida laughs softly at secrets she already knew, and is rarely without fan with a hollow rivet for notes. Confidante to Mirelle; plays both sides. What drives them is simple to name and hard to finish: they want to become the town's indispensable matchmaker of alliances. What keeps them careful is backing the wrong Vale in a house split. To a DM, Cressida is ready to roleplay immediately—useful for favors, local color, or trouble. Sold a rumor about Lysa to Kitty Shade for theater tickets and leverage.",
+      "personality": "laughs softly at secrets she already knew. Professional demeanor of a seasoned court gossip.",
+      "motivation": "Pursue this: become the town's indispensable matchmaker of alliances. Avoid this: backing the wrong Vale in a house split.",
+      "secret": "Privately terrified of backing the wrong Vale in a house split, and currently entangled with: Sold a rumor about Lysa to Kitty Shade for theater tickets and leverage.",
+      "rumor": "Rumor says Cressida can tell you anything that happens near tea tables and balcony whispers—for a price or a kindness.",
+      "voice": "Speaks like a Half-Elf court gossip: concrete details first, embellishment only when useful.",
+      "appearance": "Half-Elf; often near tea tables and balcony whispers; look for fan with a hollow rivet for notes.",
+      "portrait": "modules/townforge/assets/portraits/cressida-fenn.webp",
+      "token": "modules/townforge/assets/tokens/cressida-fenn.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 10
+            },
+            "dex": {
+              "value": 12
+            },
+            "con": {
+              "value": 11
+            },
+            "int": {
+              "value": 13
+            },
+            "wis": {
+              "value": 12
+            },
+            "cha": {
+              "value": 15
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 12,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 12,
+              "max": 12
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.25,
+            "alignment": "lawful neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "half-elf"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "per": {
+              "value": 1
+            },
+            "his": {
+              "value": 1
+            },
+            "ins": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Rapier",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "martialM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d8",
+                    "piercing"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "baron-torvald-ash",
+      "name": "Baron Torvald Ash",
+      "species": "Dwarf",
+      "gender": "Male",
+      "age": 140,
+      "occupation": "Mining Magnate",
+      "category": "nobility",
+      "tags": [
+        "baron",
+        "mines",
+        "wealth"
+      ],
+      "description": "Mining Magnate associated with a stone townhouse smelling of ore.",
+      "biography": "Ask around town for a mining magnate and someone will point you to Baron at a stone townhouse smelling of ore. At 140, this Dwarf has learned which smiles are currency and which are warnings. Baron weighs coins on a pocket scale mid-conversation, and is rarely without nugget pendant from his first profitable shaft. Business rival/partner talks with Edric. What drives them is simple to name and hard to finish: they want to buy river docking rights from Edric. What keeps them careful is sabotage in the mines blamed on 'adventurers'. To a DM, Baron is ready to roleplay immediately—useful for favors, local color, or trouble. Suspects Orrin's 'spice losses' are cover for ore theft.",
+      "personality": "weighs coins on a pocket scale mid-conversation. Professional demeanor of a seasoned mining magnate.",
+      "motivation": "Pursue this: buy river docking rights from Edric. Avoid this: sabotage in the mines blamed on 'adventurers'.",
+      "secret": "Privately terrified of sabotage in the mines blamed on 'adventurers', and currently entangled with: Suspects Orrin's 'spice losses' are cover for ore theft.",
+      "rumor": "Rumor says Baron can tell you anything that happens near a stone townhouse smelling of ore—for a price or a kindness.",
+      "voice": "Speaks like a Dwarf mining magnate: concrete details first, embellishment only when useful.",
+      "appearance": "Dwarf; often near a stone townhouse smelling of ore; look for nugget pendant from his first profitable shaft.",
+      "portrait": "modules/townforge/assets/portraits/baron-torvald-ash.webp",
+      "token": "modules/townforge/assets/tokens/baron-torvald-ash.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 10
+            },
+            "dex": {
+              "value": 12
+            },
+            "con": {
+              "value": 11
+            },
+            "int": {
+              "value": 13
+            },
+            "wis": {
+              "value": 12
+            },
+            "cha": {
+              "value": 15
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 12,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 12,
+              "max": 12
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.25,
+            "alignment": "lawful neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "dwarf"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "per": {
+              "value": 1
+            },
+            "his": {
+              "value": 1
+            },
+            "ins": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Rapier",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "martialM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d8",
+                    "piercing"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "lysa-thorne",
+      "name": "Lysa Thorne",
+      "species": "Human",
+      "gender": "Female",
+      "age": 28,
+      "occupation": "Lady-in-Waiting",
+      "category": "nobility",
+      "tags": [
+        "affair",
+        "secret",
+        "grace"
+      ],
+      "description": "Lady-in-Waiting associated with side corridors of Vale Manor.",
+      "biography": "Ask around town for a lady-in-waiting and someone will point you to Lysa at side corridors of Vale Manor. At 28, this Human has learned which smiles are currency and which are warnings. Lysa checks over her shoulder before she smiles, and is rarely without locket with a blank painted face. Affair with Edric; client of Hedda. What drives them is simple to name and hard to finish: they want to leave town with enough coin to vanish kindly. What keeps them careful is Mirelle's private listener. To a DM, Lysa is ready to roleplay immediately—useful for favors, local color, or trouble. Tried to pawn Edric's gift ring; Lina almost recognized the crest.",
+      "personality": "checks over her shoulder before she smiles. Professional demeanor of a seasoned lady-in-waiting.",
+      "motivation": "Pursue this: leave town with enough coin to vanish kindly. Avoid this: Mirelle's private listener.",
+      "secret": "Privately terrified of Mirelle's private listener, and currently entangled with: Tried to pawn Edric's gift ring; Lina almost recognized the crest.",
+      "rumor": "Rumor says Lysa can tell you anything that happens near side corridors of Vale Manor—for a price or a kindness.",
+      "voice": "Speaks like a Human lady-in-waiting: concrete details first, embellishment only when useful.",
+      "appearance": "Human; often near side corridors of Vale Manor; look for locket with a blank painted face.",
+      "portrait": "modules/townforge/assets/portraits/lysa-thorne.webp",
+      "token": "modules/townforge/assets/tokens/lysa-thorne.webp",
+      "relationships": [
+        {
+          "id": "lord-edric-vale",
+          "type": "affair",
+          "note": "Meet in the old orangery after salon hours."
+        },
+        {
+          "id": "hedda-loom",
+          "type": "vendor",
+          "note": "Handles discreet clothing alterations."
+        }
+      ],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 10
+            },
+            "dex": {
+              "value": 10
+            },
+            "con": {
+              "value": 10
+            },
+            "int": {
+              "value": 10
+            },
+            "wis": {
+              "value": 11
+            },
+            "cha": {
+              "value": 11
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 10,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 4,
+              "max": 4
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "human"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "prc": {
+              "value": 1
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "young-perrin-vale",
+      "name": "Perrin Vale",
+      "species": "Human",
+      "gender": "Male",
+      "age": 17,
+      "occupation": "Heir Apparent",
+      "category": "nobility",
+      "tags": [
+        "heir",
+        "restless",
+        "dueling"
+      ],
+      "description": "Heir Apparent associated with fencing yards and tavern galleries.",
+      "biography": "Perrin Vale works as a heir apparent out of fencing yards and tavern galleries, a 17-year-old Human with more town memory than most council minutes. Perrin challenges anyone who calls him 'boy', and is rarely without practice rapier with a noble wire wrap. Heir; trained illicitly by Hobb's yard. What drives them is simple to name and hard to finish: they want to win a real duel that makes minstrels sing. What keeps them careful is being married off before he sees the world. To a DM, Perrin is ready to roleplay immediately—useful for favors, local color, or trouble. Paid Cal for introductions to 'dangerous friends'.",
+      "personality": "challenges anyone who calls him 'boy'. Professional demeanor of a seasoned heir apparent.",
+      "motivation": "Pursue this: win a real duel that makes minstrels sing. Avoid this: being married off before he sees the world.",
+      "secret": "Privately terrified of being married off before he sees the world, and currently entangled with: Paid Cal for introductions to 'dangerous friends'.",
+      "rumor": "Rumor says Perrin can tell you anything that happens near fencing yards and tavern galleries—for a price or a kindness.",
+      "voice": "Speaks like a Human heir apparent: concrete details first, embellishment only when useful.",
+      "appearance": "Human; often near fencing yards and tavern galleries; look for practice rapier with a noble wire wrap.",
+      "portrait": "modules/townforge/assets/portraits/young-perrin-vale.webp",
+      "token": "modules/townforge/assets/tokens/young-perrin-vale.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 10
+            },
+            "dex": {
+              "value": 10
+            },
+            "con": {
+              "value": 10
+            },
+            "int": {
+              "value": 10
+            },
+            "wis": {
+              "value": 11
+            },
+            "cha": {
+              "value": 11
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 10,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 4,
+              "max": 4
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "human"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "prc": {
+              "value": 1
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "dame-orla-quince",
+      "name": "Dame Orla Quince",
+      "species": "Elf",
+      "gender": "Female",
+      "age": 260,
+      "occupation": "Salon Patron",
+      "category": "nobility",
+      "tags": [
+        "patron",
+        "arts",
+        "old-money"
+      ],
+      "description": "Salon Patron associated with an old elf-owned townhouse gallery.",
+      "biography": "Dame Orla Quince works as a salon patron out of an old elf-owned townhouse gallery, a 260-year-old Elf with more town memory than most council minutes. Dame corrects pronunciation of dead poets, and is rarely without portrait collection with one face turned to the wall. Patron of arts; employs Cressida's gossip. What drives them is simple to name and hard to finish: they want to fund a public theater that outlives gossip. What keeps them careful is mortality fashion among humans rushing her into patronage mistakes. To a DM, Dame is ready to roleplay immediately—useful for favors, local color, or trouble. Commissioned Nessa to sing a satire soft enough to sting Edric.",
+      "personality": "corrects pronunciation of dead poets. Professional demeanor of a seasoned salon patron.",
+      "motivation": "Pursue this: fund a public theater that outlives gossip. Avoid this: mortality fashion among humans rushing her into patronage mistakes.",
+      "secret": "Privately terrified of mortality fashion among humans rushing her into patronage mistakes, and currently entangled with: Commissioned Nessa to sing a satire soft enough to sting Edric.",
+      "rumor": "Rumor says Dame can tell you anything that happens near an old elf-owned townhouse gallery—for a price or a kindness.",
+      "voice": "Speaks like a Elf salon patron: concrete details first, embellishment only when useful.",
+      "appearance": "Elf; often near an old elf-owned townhouse gallery; look for portrait collection with one face turned to the wall.",
+      "portrait": "modules/townforge/assets/portraits/dame-orla-quince.webp",
+      "token": "modules/townforge/assets/tokens/dame-orla-quince.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 10
+            },
+            "dex": {
+              "value": 12
+            },
+            "con": {
+              "value": 11
+            },
+            "int": {
+              "value": 13
+            },
+            "wis": {
+              "value": 12
+            },
+            "cha": {
+              "value": 15
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 12,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 12,
+              "max": 12
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.25,
+            "alignment": "lawful neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "elf"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "per": {
+              "value": 1
+            },
+            "his": {
+              "value": 1
+            },
+            "ins": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Rapier",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "martialM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d8",
+                    "piercing"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -6,14 +6,49 @@
 
   <div class="townforge-details-layout">
     <div class="townforge-details-portrait">
-      <img src="{{npc.portrait}}" alt="{{npc.name}}" />
+      <img
+        src="{{npc.portrait}}"
+        alt="{{npc.name}}"
+        data-townforge-img
+        data-fallback="{{npc.fallbackPortrait}}"
+      />
     </div>
 
     <div class="townforge-details-body">
       <h2 class="townforge-details-name">{{npc.name}}</h2>
-      <p class="townforge-details-meta">{{npc.race}} · {{npc.occupation}}</p>
+      <p class="townforge-details-meta">{{npc.species}} · {{npc.occupation}}</p>
       <p class="townforge-details-category">{{npc.category}}</p>
-      <p class="townforge-details-description">{{npc.description}}</p>
+
+      <section class="townforge-detail-block">
+        <h3>Biography</h3>
+        <p>{{npc.biography}}</p>
+      </section>
+
+      <section class="townforge-detail-grid">
+        <div class="townforge-detail-block">
+          <h3>Personality</h3>
+          <p>{{npc.personality}}</p>
+        </div>
+        <div class="townforge-detail-block">
+          <h3>Motivation</h3>
+          <p>{{npc.motivation}}</p>
+        </div>
+        <div class="townforge-detail-block">
+          <h3>Rumor</h3>
+          <p>{{npc.rumor}}</p>
+        </div>
+        <div class="townforge-detail-block townforge-secret">
+          <h3>Secret <span class="townforge-gm-only">GM Only</span></h3>
+          <p>{{npc.secret}}</p>
+        </div>
+      </section>
+
+      {{#if npc.voice}}
+      <section class="townforge-detail-block">
+        <h3>Voice</h3>
+        <p>{{npc.voice}}</p>
+      </section>
+      {{/if}}
 
       <div class="townforge-details-actions">
         <button

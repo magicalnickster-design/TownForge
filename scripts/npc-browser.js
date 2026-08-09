@@ -112,6 +112,7 @@ export class NpcBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
   _onRender(context, options) {
     super._onRender?.(context, options);
     this.#bindSearchInput();
+    this.#bindImageFallbacks();
   }
 
   /**
@@ -128,6 +129,23 @@ export class NpcBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
       if (this.#selectedNpcId) this.#selectedNpcId = null;
       void this.render({ parts: ["content"] });
     });
+  }
+
+  /**
+   * Natural image fallback when portrait/token art files are not present yet.
+   * Does not probe assets up front.
+   */
+  #bindImageFallbacks() {
+    const images = this.element.querySelectorAll("img[data-townforge-img]");
+    for (const img of images) {
+      if (img.dataset.townforgeImgBound) continue;
+      img.dataset.townforgeImgBound = "1";
+      img.addEventListener("error", () => {
+        const fallback = img.dataset.fallback;
+        if (!fallback || img.src.endsWith(fallback) || img.getAttribute("src") === fallback) return;
+        img.src = fallback;
+      });
+    }
   }
 
   /**

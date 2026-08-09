@@ -1,0 +1,1614 @@
+{
+  "category": "guards",
+  "npcs": [
+    {
+      "id": "serra-dawnpike",
+      "name": "Serra Dawnpike",
+      "species": "Human",
+      "gender": "Female",
+      "age": 34,
+      "occupation": "City Guard Captain",
+      "category": "guards",
+      "tags": [
+        "captain",
+        "justice",
+        "patrol"
+      ],
+      "description": "City Guard Captain associated with the watch barracks office.",
+      "biography": "Serra Dawnpike works as a city guard captain out of the watch barracks office, a 34-year-old Human with more town memory than most council minutes. Serra oils her scabbard while she thinks, and is rarely without sister's braid-token tied inside her bracer. Investigates Rook; mentors Tomas; ally to Dara. What drives them is simple to name and hard to finish: they want to break Rook Vell's fence ring without a street war. What keeps them careful is losing Tomas the way she lost his mother. To a DM, Serra is ready to roleplay immediately—useful for favors, local color, or trouble. A seized crate of 'scrap iron' matched Tovin's missing strongbox parts.",
+      "personality": "oils her scabbard while she thinks. Professional demeanor of a seasoned city guard captain.",
+      "motivation": "Pursue this: break Rook Vell's fence ring without a street war. Avoid this: losing Tomas the way she lost his mother.",
+      "secret": "Privately terrified of losing Tomas the way she lost his mother, and currently entangled with: A seized crate of 'scrap iron' matched Tovin's missing strongbox parts.",
+      "rumor": "Rumor says Serra can tell you anything that happens near the watch barracks office—for a price or a kindness.",
+      "voice": "Speaks like a Human city guard captain: concrete details first, embellishment only when useful.",
+      "appearance": "Human; often near the watch barracks office; look for sister's braid-token tied inside her bracer.",
+      "portrait": "modules/townforge/assets/portraits/serra-dawnpike.webp",
+      "token": "modules/townforge/assets/tokens/serra-dawnpike.webp",
+      "relationships": [
+        {
+          "id": "rook-vell",
+          "type": "investigating",
+          "note": "Building a quiet case against Rook's fence ring."
+        },
+        {
+          "id": "tomas-reedpike",
+          "type": "mentor",
+          "note": "Her late sister's son; pushed him into the watch."
+        },
+        {
+          "id": "smith-dara",
+          "type": "ally",
+          "note": "Priority repairs for the captain's watch."
+        }
+      ],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 15
+            },
+            "dex": {
+              "value": 13
+            },
+            "con": {
+              "value": 14
+            },
+            "int": {
+              "value": 11
+            },
+            "wis": {
+              "value": 13
+            },
+            "cha": {
+              "value": 12
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 17,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 32,
+              "max": 32
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 1,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "human"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "ath": {
+              "value": 1
+            },
+            "prc": {
+              "value": 1
+            },
+            "ins": {
+              "value": 1
+            },
+            "per": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Breastplate",
+            "type": "equipment",
+            "img": "icons/svg/shield.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "medium"
+              },
+              "armor": {
+                "value": 14,
+                "dex": 0
+              }
+            }
+          },
+          {
+            "name": "Longsword",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "martialM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d8",
+                    "slashing"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          },
+          {
+            "name": "Light Crossbow",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "simpleR"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d8",
+                    "piercing"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "tomas-reedpike",
+      "name": "Tomas Reedpike",
+      "species": "Human",
+      "gender": "Male",
+      "age": 22,
+      "occupation": "Junior Guard",
+      "category": "guards",
+      "tags": [
+        "rookie",
+        "idealist",
+        "nephew"
+      ],
+      "description": "Junior Guard associated with the south gate rotation.",
+      "biography": "Tomas Reedpike works as a junior guard out of the south gate rotation, a 22-year-old Human with more town memory than most council minutes. Tomas polishes his spearhead until it blinds him, and is rarely without lunch tin Pippa packed once and he still keeps. Serra's junior; sweet on Pippa. What drives them is simple to name and hard to finish: they want to earn a stripe Serra didn't gift him. What keeps them careful is freezing in his first real fight. To a DM, Tomas is ready to roleplay immediately—useful for favors, local color, or trouble. Saw Gutter Jax flash a rooftop signal toward the pawn shop.",
+      "personality": "polishes his spearhead until it blinds him. Professional demeanor of a seasoned junior guard.",
+      "motivation": "Pursue this: earn a stripe Serra didn't gift him. Avoid this: freezing in his first real fight.",
+      "secret": "Privately terrified of freezing in his first real fight, and currently entangled with: Saw Gutter Jax flash a rooftop signal toward the pawn shop.",
+      "rumor": "Rumor says Tomas can tell you anything that happens near the south gate rotation—for a price or a kindness.",
+      "voice": "Speaks like a Human junior guard: concrete details first, embellishment only when useful.",
+      "appearance": "Human; often near the south gate rotation; look for lunch tin Pippa packed once and he still keeps.",
+      "portrait": "modules/townforge/assets/portraits/tomas-reedpike.webp",
+      "token": "modules/townforge/assets/tokens/tomas-reedpike.webp",
+      "relationships": [
+        {
+          "id": "pippa-reed",
+          "type": "crush",
+          "note": "Blushes whenever Tomas comes off duty."
+        },
+        {
+          "id": "serra-dawnpike",
+          "type": "protege",
+          "note": "Her late sister's son; pushed him into the watch."
+        }
+      ],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 14
+            },
+            "dex": {
+              "value": 12
+            },
+            "con": {
+              "value": 14
+            },
+            "int": {
+              "value": 10
+            },
+            "wis": {
+              "value": 11
+            },
+            "cha": {
+              "value": 10
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 16,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 16,
+              "max": 16
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.5,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "human"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "ath": {
+              "value": 1
+            },
+            "prc": {
+              "value": 1
+            },
+            "intimidation": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Chain Shirt",
+            "type": "equipment",
+            "img": "icons/svg/shield.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "medium"
+              },
+              "armor": {
+                "value": 13,
+                "dex": 0
+              }
+            }
+          },
+          {
+            "name": "Spear",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "simpleM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d6",
+                    "piercing"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          },
+          {
+            "name": "Shortsword",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "martialM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d6",
+                    "piercing"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "brannic-stonehelm",
+      "name": "Brannic Stonehelm",
+      "species": "Dwarf",
+      "gender": "Male",
+      "age": 76,
+      "occupation": "Gate Sergeant",
+      "category": "guards",
+      "tags": [
+        "gate",
+        "veteran",
+        "stern"
+      ],
+      "description": "Gate Sergeant associated with the river gate.",
+      "biography": "Most days begin the same for Brannic Stonehelm: a 76-year-old Dwarf gate sergeant moving through the river gate as if the stones themselves keep appointments with them. Brannic records wagon counts in a slate book, and is rarely without gate key as thick as a thumb. Reports to Serra; eyes Nedda. What drives them is simple to name and hard to finish: they want to retire with the gate still standing straight. What keeps them careful is another flood year and panicked stampedes. To a DM, Brannic is ready to roleplay immediately—useful for favors, local color, or trouble. Noted Nedda's barge riding too high for its declared grain.",
+      "personality": "records wagon counts in a slate book. Professional demeanor of a seasoned gate sergeant.",
+      "motivation": "Pursue this: retire with the gate still standing straight. Avoid this: another flood year and panicked stampedes.",
+      "secret": "Privately terrified of another flood year and panicked stampedes, and currently entangled with: Noted Nedda's barge riding too high for its declared grain.",
+      "rumor": "Rumor says Brannic can tell you anything that happens near the river gate—for a price or a kindness.",
+      "voice": "Speaks like a Dwarf gate sergeant: concrete details first, embellishment only when useful.",
+      "appearance": "Dwarf; often near the river gate; look for gate key as thick as a thumb.",
+      "portrait": "modules/townforge/assets/portraits/brannic-stonehelm.webp",
+      "token": "modules/townforge/assets/tokens/brannic-stonehelm.webp",
+      "relationships": [
+        {
+          "id": "nedda-blacktooth",
+          "type": "suspects",
+          "note": "Watches her barge draft at the river gate."
+        }
+      ],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 14
+            },
+            "dex": {
+              "value": 12
+            },
+            "con": {
+              "value": 14
+            },
+            "int": {
+              "value": 10
+            },
+            "wis": {
+              "value": 11
+            },
+            "cha": {
+              "value": 10
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 16,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 16,
+              "max": 16
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.5,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "dwarf"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "ath": {
+              "value": 1
+            },
+            "prc": {
+              "value": 1
+            },
+            "intimidation": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Chain Shirt",
+            "type": "equipment",
+            "img": "icons/svg/shield.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "medium"
+              },
+              "armor": {
+                "value": 13,
+                "dex": 0
+              }
+            }
+          },
+          {
+            "name": "Spear",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "simpleM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d6",
+                    "piercing"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          },
+          {
+            "name": "Shortsword",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "martialM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d6",
+                    "piercing"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "aya-swiftquiver",
+      "name": "Aya Swiftquiver",
+      "species": "Elf",
+      "gender": "Female",
+      "age": 145,
+      "occupation": "Wall Archer",
+      "category": "guards",
+      "tags": [
+        "archer",
+        "nightwatch",
+        "keen"
+      ],
+      "description": "Wall Archer associated with the eastern wall walk.",
+      "biography": "Most days begin the same for Aya Swiftquiver: a 145-year-old Elf wall archer moving through the eastern wall walk as if the stones themselves keep appointments with them. Aya names constellations after petty criminals she spots, and is rarely without yew bow with an elf-mark scraped half off. Night partner to Kessa Lantern. What drives them is simple to name and hard to finish: they want to train a human archer who can keep up. What keeps them careful is night fogs that hide grapples. To a DM, Aya is ready to roleplay immediately—useful for favors, local color, or trouble. Tracked a rope-and-hook team that aborted when her lantern rose.",
+      "personality": "names constellations after petty criminals she spots. Professional demeanor of a seasoned wall archer.",
+      "motivation": "Pursue this: train a human archer who can keep up. Avoid this: night fogs that hide grapples.",
+      "secret": "Privately terrified of night fogs that hide grapples, and currently entangled with: Tracked a rope-and-hook team that aborted when her lantern rose.",
+      "rumor": "Rumor says Aya can tell you anything that happens near the eastern wall walk—for a price or a kindness.",
+      "voice": "Speaks like a Elf wall archer: concrete details first, embellishment only when useful.",
+      "appearance": "Elf; often near the eastern wall walk; look for yew bow with an elf-mark scraped half off.",
+      "portrait": "modules/townforge/assets/portraits/aya-swiftquiver.webp",
+      "token": "modules/townforge/assets/tokens/aya-swiftquiver.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 14
+            },
+            "dex": {
+              "value": 12
+            },
+            "con": {
+              "value": 14
+            },
+            "int": {
+              "value": 10
+            },
+            "wis": {
+              "value": 11
+            },
+            "cha": {
+              "value": 10
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 16,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 16,
+              "max": 16
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.5,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "elf"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "ath": {
+              "value": 1
+            },
+            "prc": {
+              "value": 1
+            },
+            "intimidation": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Chain Shirt",
+            "type": "equipment",
+            "img": "icons/svg/shield.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "medium"
+              },
+              "armor": {
+                "value": 13,
+                "dex": 0
+              }
+            }
+          },
+          {
+            "name": "Spear",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "simpleM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d6",
+                    "piercing"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          },
+          {
+            "name": "Shortsword",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "martialM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d6",
+                    "piercing"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "merrick-coal",
+      "name": "Merrick Coal",
+      "species": "Human",
+      "gender": "Male",
+      "age": 40,
+      "occupation": "Watch Investigator",
+      "category": "guards",
+      "tags": [
+        "investigator",
+        "patient",
+        "notes"
+      ],
+      "description": "Watch Investigator associated with alley corners and quiet inns.",
+      "biography": "Merrick Coal works as a watch investigator out of alley corners and quiet inns, a 40-year-old Human with more town memory than most council minutes. Merrick writes interviews in a private shorthand, and is rarely without charcoal stubs and a dog-eared case folio. Works cases for Serra; pays Nell in tea. What drives them is simple to name and hard to finish: they want to prove the fence network without relying on street rumors alone. What keeps them careful is convicting the wrong poor soul for a rich man's crime. To a DM, Merrick is ready to roleplay immediately—useful for favors, local color, or trouble. Nell's tip about lanterns under the mill matched Old Tallow's story.",
+      "personality": "writes interviews in a private shorthand. Professional demeanor of a seasoned watch investigator.",
+      "motivation": "Pursue this: prove the fence network without relying on street rumors alone. Avoid this: convicting the wrong poor soul for a rich man's crime.",
+      "secret": "Privately terrified of convicting the wrong poor soul for a rich man's crime, and currently entangled with: Nell's tip about lanterns under the mill matched Old Tallow's story.",
+      "rumor": "Rumor says Merrick can tell you anything that happens near alley corners and quiet inns—for a price or a kindness.",
+      "voice": "Speaks like a Human watch investigator: concrete details first, embellishment only when useful.",
+      "appearance": "Human; often near alley corners and quiet inns; look for charcoal stubs and a dog-eared case folio.",
+      "portrait": "modules/townforge/assets/portraits/merrick-coal.webp",
+      "token": "modules/townforge/assets/tokens/merrick-coal.webp",
+      "relationships": [
+        {
+          "id": "nell-riverwick",
+          "type": "contact",
+          "note": "Passes street details for tea money."
+        }
+      ],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 14
+            },
+            "dex": {
+              "value": 12
+            },
+            "con": {
+              "value": 14
+            },
+            "int": {
+              "value": 10
+            },
+            "wis": {
+              "value": 11
+            },
+            "cha": {
+              "value": 10
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 16,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 16,
+              "max": 16
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.5,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "human"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "ath": {
+              "value": 1
+            },
+            "prc": {
+              "value": 1
+            },
+            "intimidation": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Chain Shirt",
+            "type": "equipment",
+            "img": "icons/svg/shield.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "medium"
+              },
+              "armor": {
+                "value": 13,
+                "dex": 0
+              }
+            }
+          },
+          {
+            "name": "Spear",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "simpleM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d6",
+                    "piercing"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          },
+          {
+            "name": "Shortsword",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "martialM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d6",
+                    "piercing"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "dorn-ironstep",
+      "name": "Dorn Ironstep",
+      "species": "Half-Orc",
+      "gender": "Male",
+      "age": 29,
+      "occupation": "Riot Shield Guard",
+      "category": "guards",
+      "tags": [
+        "shield",
+        "crowd",
+        "loyal"
+      ],
+      "description": "Riot Shield Guard associated with market square during crowds.",
+      "biography": "Ask around town for a riot shield guard and someone will point you to Dorn at market square during crowds. At 29, this Half-Orc has learned which smiles are currency and which are warnings. Dorn plants his shield like a doorframe, and is rarely without dent in his helm from a festival riot. Respects Serra; hates Bask's methods. What drives them is simple to name and hard to finish: they want to be known as the guard who ends fights early. What keeps them careful is crushing someone smaller in a shove. To a DM, Dorn is ready to roleplay immediately—useful for favors, local color, or trouble. Pulled Bask Hammer off a debtor before bones broke—and got a warning look.",
+      "personality": "plants his shield like a doorframe. Professional demeanor of a seasoned riot shield guard.",
+      "motivation": "Pursue this: be known as the guard who ends fights early. Avoid this: crushing someone smaller in a shove.",
+      "secret": "Privately terrified of crushing someone smaller in a shove, and currently entangled with: Pulled Bask Hammer off a debtor before bones broke—and got a warning look.",
+      "rumor": "Rumor says Dorn can tell you anything that happens near market square during crowds—for a price or a kindness.",
+      "voice": "Speaks like a Half-Orc riot shield guard: concrete details first, embellishment only when useful.",
+      "appearance": "Half-Orc; often near market square during crowds; look for dent in his helm from a festival riot.",
+      "portrait": "modules/townforge/assets/portraits/dorn-ironstep.webp",
+      "token": "modules/townforge/assets/tokens/dorn-ironstep.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 14
+            },
+            "dex": {
+              "value": 12
+            },
+            "con": {
+              "value": 14
+            },
+            "int": {
+              "value": 10
+            },
+            "wis": {
+              "value": 11
+            },
+            "cha": {
+              "value": 10
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 16,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 16,
+              "max": 16
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.5,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "half-orc"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "ath": {
+              "value": 1
+            },
+            "prc": {
+              "value": 1
+            },
+            "intimidation": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Chain Shirt",
+            "type": "equipment",
+            "img": "icons/svg/shield.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "medium"
+              },
+              "armor": {
+                "value": 13,
+                "dex": 0
+              }
+            }
+          },
+          {
+            "name": "Spear",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "simpleM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d6",
+                    "piercing"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          },
+          {
+            "name": "Shortsword",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "martialM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d6",
+                    "piercing"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "kessa-lantern",
+      "name": "Kessa Lantern",
+      "species": "Halfling",
+      "gender": "Female",
+      "age": 31,
+      "occupation": "Night Patrol Lead",
+      "category": "guards",
+      "tags": [
+        "night",
+        "lantern",
+        "whistle"
+      ],
+      "description": "Night Patrol Lead associated with lamplit night beats.",
+      "biography": "Most days begin the same for Kessa Lantern: a 31-year-old Halfling night patrol lead moving through lamplit night beats as if the stones themselves keep appointments with them. Kessa whistles two notes meaning 'eyes up', and is rarely without shuttered lantern with colored glass slides. Partners with Aya; aware of Mouse. What drives them is simple to name and hard to finish: they want to formalize a night-watch signal code townwide. What keeps them careful is missing a fire while chasing thieves. To a DM, Kessa is ready to roleplay immediately—useful for favors, local color, or trouble. Found Mouse Pip emerging from a grate with wet maps.",
+      "personality": "whistles two notes meaning 'eyes up'. Professional demeanor of a seasoned night patrol lead.",
+      "motivation": "Pursue this: formalize a night-watch signal code townwide. Avoid this: missing a fire while chasing thieves.",
+      "secret": "Privately terrified of missing a fire while chasing thieves, and currently entangled with: Found Mouse Pip emerging from a grate with wet maps.",
+      "rumor": "Rumor says Kessa can tell you anything that happens near lamplit night beats—for a price or a kindness.",
+      "voice": "Speaks like a Halfling night patrol lead: concrete details first, embellishment only when useful.",
+      "appearance": "Halfling; often near lamplit night beats; look for shuttered lantern with colored glass slides.",
+      "portrait": "modules/townforge/assets/portraits/kessa-lantern.webp",
+      "token": "modules/townforge/assets/tokens/kessa-lantern.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 14
+            },
+            "dex": {
+              "value": 12
+            },
+            "con": {
+              "value": 14
+            },
+            "int": {
+              "value": 10
+            },
+            "wis": {
+              "value": 11
+            },
+            "cha": {
+              "value": 10
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 16,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 16,
+              "max": 16
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.5,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "halfling"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "ath": {
+              "value": 1
+            },
+            "prc": {
+              "value": 1
+            },
+            "intimidation": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Chain Shirt",
+            "type": "equipment",
+            "img": "icons/svg/shield.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "medium"
+              },
+              "armor": {
+                "value": 13,
+                "dex": 0
+              }
+            }
+          },
+          {
+            "name": "Spear",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "simpleM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d6",
+                    "piercing"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          },
+          {
+            "name": "Shortsword",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "martialM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d6",
+                    "piercing"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "ulf-greyband",
+      "name": "Ulf Greyband",
+      "species": "Human",
+      "gender": "Male",
+      "age": 51,
+      "occupation": "Armory Warden",
+      "category": "guards",
+      "tags": [
+        "armory",
+        "inventory",
+        "strict"
+      ],
+      "description": "Armory Warden associated with the armory cage.",
+      "biography": "Most days begin the same for Ulf Greyband: a 51-year-old Human armory warden moving through the armory cage as if the stones themselves keep appointments with them. Ulf inventories spears by humming marching cadence, and is rarely without wax seal stamp for issued kit. Client of Smith Dara; reports anomalies to Serra. What drives them is simple to name and hard to finish: they want to keep every blade accounted for through winter. What keeps them careful is black-market watch steel. To a DM, Ulf is ready to roleplay immediately—useful for favors, local color, or trouble. A returned spear had smith marks that weren't Dara's.",
+      "personality": "inventories spears by humming marching cadence. Professional demeanor of a seasoned armory warden.",
+      "motivation": "Pursue this: keep every blade accounted for through winter. Avoid this: black-market watch steel.",
+      "secret": "Privately terrified of black-market watch steel, and currently entangled with: A returned spear had smith marks that weren't Dara's.",
+      "rumor": "Rumor says Ulf can tell you anything that happens near the armory cage—for a price or a kindness.",
+      "voice": "Speaks like a Human armory warden: concrete details first, embellishment only when useful.",
+      "appearance": "Human; often near the armory cage; look for wax seal stamp for issued kit.",
+      "portrait": "modules/townforge/assets/portraits/ulf-greyband.webp",
+      "token": "modules/townforge/assets/tokens/ulf-greyband.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 14
+            },
+            "dex": {
+              "value": 12
+            },
+            "con": {
+              "value": 14
+            },
+            "int": {
+              "value": 10
+            },
+            "wis": {
+              "value": 11
+            },
+            "cha": {
+              "value": 10
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 16,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 16,
+              "max": 16
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.5,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "human"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "ath": {
+              "value": 1
+            },
+            "prc": {
+              "value": 1
+            },
+            "intimidation": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Chain Shirt",
+            "type": "equipment",
+            "img": "icons/svg/shield.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "medium"
+              },
+              "armor": {
+                "value": 13,
+                "dex": 0
+              }
+            }
+          },
+          {
+            "name": "Spear",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "simpleM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d6",
+                    "piercing"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          },
+          {
+            "name": "Shortsword",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "martialM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d6",
+                    "piercing"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "rina-softboot",
+      "name": "Rina Softboot",
+      "species": "Half-Elf",
+      "gender": "Female",
+      "age": 27,
+      "occupation": "Undercover Watcher",
+      "category": "guards",
+      "tags": [
+        "undercover",
+        "alleys",
+        "masks"
+      ],
+      "description": "Undercover Watcher associated with crowded markets in borrowed faces.",
+      "biography": "Most days begin the same for Rina Softboot: a 27-year-old Half-Elf undercover watcher moving through crowded markets in borrowed faces as if the stones themselves keep appointments with them. Rina changes her walk when she changes her scarf, and is rarely without set of cheap rings for different personas. Undercover for Serra; avoids Rook's crew. What drives them is simple to name and hard to finish: they want to bring Serra a ledger that ends the fence war. What keeps them careful is being burned by Kitty Shade for sport. To a DM, Rina is ready to roleplay immediately—useful for favors, local color, or trouble. Heard Kitty and Rook argue over who owns the 'mill tunnel'.",
+      "personality": "changes her walk when she changes her scarf. Professional demeanor of a seasoned undercover watcher.",
+      "motivation": "Pursue this: bring Serra a ledger that ends the fence war. Avoid this: being burned by Kitty Shade for sport.",
+      "secret": "Privately terrified of being burned by Kitty Shade for sport, and currently entangled with: Heard Kitty and Rook argue over who owns the 'mill tunnel'.",
+      "rumor": "Rumor says Rina can tell you anything that happens near crowded markets in borrowed faces—for a price or a kindness.",
+      "voice": "Speaks like a Half-Elf undercover watcher: concrete details first, embellishment only when useful.",
+      "appearance": "Half-Elf; often near crowded markets in borrowed faces; look for set of cheap rings for different personas.",
+      "portrait": "modules/townforge/assets/portraits/rina-softboot.webp",
+      "token": "modules/townforge/assets/tokens/rina-softboot.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 11
+            },
+            "dex": {
+              "value": 15
+            },
+            "con": {
+              "value": 12
+            },
+            "int": {
+              "value": 12
+            },
+            "wis": {
+              "value": 11
+            },
+            "cha": {
+              "value": 13
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 13,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 11,
+              "max": 11
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.25,
+            "alignment": "chaotic neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "half-elf"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "ste": {
+              "value": 1
+            },
+            "slt": {
+              "value": 1
+            },
+            "dec": {
+              "value": 1
+            },
+            "prc": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Dagger",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "simpleM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d4",
+                    "piercing"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          },
+          {
+            "name": "Shortsword",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "martialM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d6",
+                    "piercing"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "hobb-drum",
+      "name": "Hobb Drum",
+      "species": "Human",
+      "gender": "Male",
+      "age": 45,
+      "occupation": "Drill Instructor",
+      "category": "guards",
+      "tags": [
+        "drill",
+        "trainer",
+        "loud"
+      ],
+      "description": "Drill Instructor associated with the drill yard.",
+      "biography": "Ask around town for a drill instructor and someone will point you to Hobb at the drill yard. At 45, this Human has learned which smiles are currency and which are warnings. Hobb barks corrections before praise, and is rarely without practice sword wrapped in black cloth. Trains Tomas; scolded Perrin. What drives them is simple to name and hard to finish: they want to make Tomas deadly enough to come home. What keeps them careful is sending green guards out soft. To a DM, Hobb is ready to roleplay immediately—useful for favors, local color, or trouble. Caught Perrin Vale sneaking into the yard for illegal dueling lessons.",
+      "personality": "barks corrections before praise. Professional demeanor of a seasoned drill instructor.",
+      "motivation": "Pursue this: make Tomas deadly enough to come home. Avoid this: sending green guards out soft.",
+      "secret": "Privately terrified of sending green guards out soft, and currently entangled with: Caught Perrin Vale sneaking into the yard for illegal dueling lessons.",
+      "rumor": "Rumor says Hobb can tell you anything that happens near the drill yard—for a price or a kindness.",
+      "voice": "Speaks like a Human drill instructor: concrete details first, embellishment only when useful.",
+      "appearance": "Human; often near the drill yard; look for practice sword wrapped in black cloth.",
+      "portrait": "modules/townforge/assets/portraits/hobb-drum.webp",
+      "token": "modules/townforge/assets/tokens/hobb-drum.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 14
+            },
+            "dex": {
+              "value": 12
+            },
+            "con": {
+              "value": 14
+            },
+            "int": {
+              "value": 10
+            },
+            "wis": {
+              "value": 11
+            },
+            "cha": {
+              "value": 10
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 16,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 16,
+              "max": 16
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.5,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "human"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "ath": {
+              "value": 1
+            },
+            "prc": {
+              "value": 1
+            },
+            "intimidation": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Chain Shirt",
+            "type": "equipment",
+            "img": "icons/svg/shield.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "medium"
+              },
+              "armor": {
+                "value": 13,
+                "dex": 0
+              }
+            }
+          },
+          {
+            "name": "Spear",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "simpleM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d6",
+                    "piercing"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          },
+          {
+            "name": "Shortsword",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "martialM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d6",
+                    "piercing"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

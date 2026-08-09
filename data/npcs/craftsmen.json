@@ -1,0 +1,1253 @@
+{
+  "category": "craftsmen",
+  "npcs": [
+    {
+      "id": "smith-dara",
+      "name": "Dara Ironbloom",
+      "species": "Dwarf",
+      "gender": "Female",
+      "age": 86,
+      "occupation": "Blacksmith",
+      "category": "craftsmen",
+      "tags": [
+        "smith",
+        "forge",
+        "reliable"
+      ],
+      "description": "Blacksmith associated with Ironbloom Forge.",
+      "biography": "Ask around town for a blacksmith and someone will point you to Dara at Ironbloom Forge. At 86, this Dwarf has learned which smiles are currency and which are warnings. Dara tests steel with a thumbnail and a prayer, and is rarely without hammer named 'Deadline'. Ally to Serra; supplier to Ulf. What drives them is simple to name and hard to finish: they want to forge a gate hinge that outlasts gossip. What keeps them careful is watch steel leaking to alleys. To a DM, Dara is ready to roleplay immediately—useful for favors, local color, or trouble. Told Ulf a returned spear wasn't hers—and stamped a covert mark on new watch blades.",
+      "personality": "tests steel with a thumbnail and a prayer. Professional demeanor of a seasoned blacksmith.",
+      "motivation": "Pursue this: forge a gate hinge that outlasts gossip. Avoid this: watch steel leaking to alleys.",
+      "secret": "Privately terrified of watch steel leaking to alleys, and currently entangled with: Told Ulf a returned spear wasn't hers—and stamped a covert mark on new watch blades.",
+      "rumor": "Rumor says Dara can tell you anything that happens near Ironbloom Forge—for a price or a kindness.",
+      "voice": "Speaks like a Dwarf blacksmith: concrete details first, embellishment only when useful.",
+      "appearance": "Dwarf; often near Ironbloom Forge; look for hammer named 'Deadline'.",
+      "portrait": "modules/townforge/assets/portraits/smith-dara.webp",
+      "token": "modules/townforge/assets/tokens/smith-dara.webp",
+      "relationships": [
+        {
+          "id": "serra-dawnpike",
+          "type": "ally",
+          "note": "Priority repairs for the captain's watch."
+        }
+      ],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 16
+            },
+            "dex": {
+              "value": 11
+            },
+            "con": {
+              "value": 14
+            },
+            "int": {
+              "value": 10
+            },
+            "wis": {
+              "value": 11
+            },
+            "cha": {
+              "value": 10
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 13,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 18,
+              "max": 18
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.5,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "dwarf"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "ath": {
+              "value": 1
+            },
+            "inv": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Smith's Tools",
+            "type": "tool",
+            "img": "icons/svg/eye.svg",
+            "system": {
+              "quantity": 1
+            }
+          },
+          {
+            "name": "Smith's Apron",
+            "type": "equipment",
+            "img": "icons/svg/shield.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "clothing"
+              },
+              "armor": {
+                "value": 1,
+                "dex": 0
+              }
+            }
+          },
+          {
+            "name": "Warhammer",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "martialM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d8",
+                    "bludgeoning"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "cooper-brenwick",
+      "name": "Brenwick Cask",
+      "species": "Human",
+      "gender": "Male",
+      "age": 44,
+      "occupation": "Cooper",
+      "category": "craftsmen",
+      "tags": [
+        "barrels",
+        "tavern-supply",
+        "oak"
+      ],
+      "description": "Cooper associated with a yard of oak staves.",
+      "biography": "Ask around town for a cooper and someone will point you to Brenwick at a yard of oak staves. At 44, this Human has learned which smiles are currency and which are warnings. Brenwick rolls barrels to hear their honesty, and is rarely without adze older than his apprenticeship. Supplies Mira/Bren; uneasy about the special order. What drives them is simple to name and hard to finish: they want to keep Mira and Bren stocked through festival season. What keeps them careful is taverns switching to cheap imported casks. To a DM, Brenwick is ready to roleplay immediately—useful for favors, local color, or trouble. Built a 'special' barrel with a sleeve cavity on a rush order paid in mixed coin.",
+      "personality": "rolls barrels to hear their honesty. Professional demeanor of a seasoned cooper.",
+      "motivation": "Pursue this: keep Mira and Bren stocked through festival season. Avoid this: taverns switching to cheap imported casks.",
+      "secret": "Privately terrified of taverns switching to cheap imported casks, and currently entangled with: Built a 'special' barrel with a sleeve cavity on a rush order paid in mixed coin.",
+      "rumor": "Rumor says Brenwick can tell you anything that happens near a yard of oak staves—for a price or a kindness.",
+      "voice": "Speaks like a Human cooper: concrete details first, embellishment only when useful.",
+      "appearance": "Human; often near a yard of oak staves; look for adze older than his apprenticeship.",
+      "portrait": "modules/townforge/assets/portraits/cooper-brenwick.webp",
+      "token": "modules/townforge/assets/tokens/cooper-brenwick.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 14
+            },
+            "dex": {
+              "value": 12
+            },
+            "con": {
+              "value": 13
+            },
+            "int": {
+              "value": 11
+            },
+            "wis": {
+              "value": 12
+            },
+            "cha": {
+              "value": 10
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 12,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 12,
+              "max": 12
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.25,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "human"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "ath": {
+              "value": 1
+            },
+            "inv": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Artisan's Tools",
+            "type": "tool",
+            "img": "icons/svg/eye.svg",
+            "system": {
+              "quantity": 1
+            }
+          },
+          {
+            "name": "Light Hammer",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "simpleM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d4",
+                    "bludgeoning"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "potter-umi",
+      "name": "Umi Clayhand",
+      "species": "Gnome",
+      "gender": "Female",
+      "age": 57,
+      "occupation": "Potter",
+      "category": "craftsmen",
+      "tags": [
+        "pottery",
+        "kiln",
+        "art"
+      ],
+      "description": "Potter associated with a kiln yard scented with wet clay.",
+      "biography": "Umi Clayhand works as a potter out of a kiln yard scented with wet clay, a 57-year-old Gnome with more town memory than most council minutes. Umi names pots after moods, and is rarely without glaze recipes in a cipher only she enjoys. Sells to Petra for ointment pots. What drives them is simple to name and hard to finish: they want to sell a dinner set to Dame Orla. What keeps them careful is a kiln fire jumping to thatch. To a DM, Umi is ready to roleplay immediately—useful for favors, local color, or trouble. Fired a batch of plain jars that a buyer insisted be waterproof and opaque.",
+      "personality": "names pots after moods. Professional demeanor of a seasoned potter.",
+      "motivation": "Pursue this: sell a dinner set to Dame Orla. Avoid this: a kiln fire jumping to thatch.",
+      "secret": "Privately terrified of a kiln fire jumping to thatch, and currently entangled with: Fired a batch of plain jars that a buyer insisted be waterproof and opaque.",
+      "rumor": "Rumor says Umi can tell you anything that happens near a kiln yard scented with wet clay—for a price or a kindness.",
+      "voice": "Speaks like a Gnome potter: concrete details first, embellishment only when useful.",
+      "appearance": "Gnome; often near a kiln yard scented with wet clay; look for glaze recipes in a cipher only she enjoys.",
+      "portrait": "modules/townforge/assets/portraits/potter-umi.webp",
+      "token": "modules/townforge/assets/tokens/potter-umi.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 14
+            },
+            "dex": {
+              "value": 12
+            },
+            "con": {
+              "value": 13
+            },
+            "int": {
+              "value": 11
+            },
+            "wis": {
+              "value": 12
+            },
+            "cha": {
+              "value": 10
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 12,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 12,
+              "max": 12
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.25,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "gnome"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "ath": {
+              "value": 1
+            },
+            "inv": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Artisan's Tools",
+            "type": "tool",
+            "img": "icons/svg/eye.svg",
+            "system": {
+              "quantity": 1
+            }
+          },
+          {
+            "name": "Light Hammer",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "simpleM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d4",
+                    "bludgeoning"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "carpenter-jod",
+      "name": "Jod Beam",
+      "species": "Human",
+      "gender": "Male",
+      "age": 40,
+      "occupation": "Carpenter",
+      "category": "craftsmen",
+      "tags": [
+        "wood",
+        "repairs",
+        "square"
+      ],
+      "description": "Carpenter associated with half-built scaffolds and repair jobs.",
+      "biography": "Ask around town for a carpenter and someone will point you to Jod at half-built scaffolds and repair jobs. At 40, this Human has learned which smiles are currency and which are warnings. Jod measures twice, jokes once, and is rarely without chalk line stained blue. Potential mill work; evidence for Olda's theory. What drives them is simple to name and hard to finish: they want to win the contract to restore the mill safely. What keeps them careful is rot in the mill beams being ignored. To a DM, Jod is ready to roleplay immediately—useful for favors, local color, or trouble. Quoted a repair on mill joists and found fresh sawdust in a 'sealed' undercroft vent.",
+      "personality": "measures twice, jokes once. Professional demeanor of a seasoned carpenter.",
+      "motivation": "Pursue this: win the contract to restore the mill safely. Avoid this: rot in the mill beams being ignored.",
+      "secret": "Privately terrified of rot in the mill beams being ignored, and currently entangled with: Quoted a repair on mill joists and found fresh sawdust in a 'sealed' undercroft vent.",
+      "rumor": "Rumor says Jod can tell you anything that happens near half-built scaffolds and repair jobs—for a price or a kindness.",
+      "voice": "Speaks like a Human carpenter: concrete details first, embellishment only when useful.",
+      "appearance": "Human; often near half-built scaffolds and repair jobs; look for chalk line stained blue.",
+      "portrait": "modules/townforge/assets/portraits/carpenter-jod.webp",
+      "token": "modules/townforge/assets/tokens/carpenter-jod.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 14
+            },
+            "dex": {
+              "value": 12
+            },
+            "con": {
+              "value": 13
+            },
+            "int": {
+              "value": 11
+            },
+            "wis": {
+              "value": 12
+            },
+            "cha": {
+              "value": 10
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 12,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 12,
+              "max": 12
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.25,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "human"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "ath": {
+              "value": 1
+            },
+            "inv": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Artisan's Tools",
+            "type": "tool",
+            "img": "icons/svg/eye.svg",
+            "system": {
+              "quantity": 1
+            }
+          },
+          {
+            "name": "Light Hammer",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "simpleM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d4",
+                    "bludgeoning"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "cobbler-pax",
+      "name": "Pax Sole",
+      "species": "Halfling",
+      "gender": "Male",
+      "age": 49,
+      "occupation": "Cobbler",
+      "category": "craftsmen",
+      "tags": [
+        "shoes",
+        "leather",
+        "gossip"
+      ],
+      "description": "Cobbler associated with a shoe-scented corner shop.",
+      "biography": "Ask around town for a cobbler and someone will point you to Pax at a shoe-scented corner shop. At 49, this Halfling has learned which smiles are currency and which are warnings. Pax guesses a customer's miles from their soles, and is rarely without lasts lined up like little soldiers. Gossip node; connects to Bram's mystery corpse. What drives them is simple to name and hard to finish: they want to shoe the whole watch at a fair rate. What keeps them careful is noble boots made elsewhere forever. To a DM, Pax is ready to roleplay immediately—useful for favors, local color, or trouble. Recognized Vale-cobbled boots on Father Bram's 'nobody' burial description.",
+      "personality": "guesses a customer's miles from their soles. Professional demeanor of a seasoned cobbler.",
+      "motivation": "Pursue this: shoe the whole watch at a fair rate. Avoid this: noble boots made elsewhere forever.",
+      "secret": "Privately terrified of noble boots made elsewhere forever, and currently entangled with: Recognized Vale-cobbled boots on Father Bram's 'nobody' burial description.",
+      "rumor": "Rumor says Pax can tell you anything that happens near a shoe-scented corner shop—for a price or a kindness.",
+      "voice": "Speaks like a Halfling cobbler: concrete details first, embellishment only when useful.",
+      "appearance": "Halfling; often near a shoe-scented corner shop; look for lasts lined up like little soldiers.",
+      "portrait": "modules/townforge/assets/portraits/cobbler-pax.webp",
+      "token": "modules/townforge/assets/tokens/cobbler-pax.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 14
+            },
+            "dex": {
+              "value": 12
+            },
+            "con": {
+              "value": 13
+            },
+            "int": {
+              "value": 11
+            },
+            "wis": {
+              "value": 12
+            },
+            "cha": {
+              "value": 10
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 12,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 12,
+              "max": 12
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.25,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "halfling"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "ath": {
+              "value": 1
+            },
+            "inv": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Artisan's Tools",
+            "type": "tool",
+            "img": "icons/svg/eye.svg",
+            "system": {
+              "quantity": 1
+            }
+          },
+          {
+            "name": "Light Hammer",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "simpleM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d4",
+                    "bludgeoning"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "fletcher-ira",
+      "name": "Ira Trueflight",
+      "species": "Elf",
+      "gender": "Female",
+      "age": 190,
+      "occupation": "Fletcher",
+      "category": "craftsmen",
+      "tags": [
+        "arrows",
+        "bows",
+        "precision"
+      ],
+      "description": "Fletcher associated with a quiet fletching loft.",
+      "biography": "Most days begin the same for Ira Trueflight: a 190-year-old Elf fletcher moving through a quiet fletching loft as if the stones themselves keep appointments with them. Ira spins shafts to hear truth in the wobble, and is rarely without goose feathers sorted by mood. Supplies Aya; IOU ties to Rook. What drives them is simple to name and hard to finish: they want to rearm Aya's night watch with matched sets. What keeps them careful is her arrows used in alley murders. To a DM, Ira is ready to roleplay immediately—useful for favors, local color, or trouble. Sold a custom quiver to a buyer who paid with Rook's laundry-mark IOU.",
+      "personality": "spins shafts to hear truth in the wobble. Professional demeanor of a seasoned fletcher.",
+      "motivation": "Pursue this: rearm Aya's night watch with matched sets. Avoid this: her arrows used in alley murders.",
+      "secret": "Privately terrified of her arrows used in alley murders, and currently entangled with: Sold a custom quiver to a buyer who paid with Rook's laundry-mark IOU.",
+      "rumor": "Rumor says Ira can tell you anything that happens near a quiet fletching loft—for a price or a kindness.",
+      "voice": "Speaks like a Elf fletcher: concrete details first, embellishment only when useful.",
+      "appearance": "Elf; often near a quiet fletching loft; look for goose feathers sorted by mood.",
+      "portrait": "modules/townforge/assets/portraits/fletcher-ira.webp",
+      "token": "modules/townforge/assets/tokens/fletcher-ira.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 14
+            },
+            "dex": {
+              "value": 12
+            },
+            "con": {
+              "value": 13
+            },
+            "int": {
+              "value": 11
+            },
+            "wis": {
+              "value": 12
+            },
+            "cha": {
+              "value": 10
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 12,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 12,
+              "max": 12
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.25,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "elf"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "ath": {
+              "value": 1
+            },
+            "inv": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Artisan's Tools",
+            "type": "tool",
+            "img": "icons/svg/eye.svg",
+            "system": {
+              "quantity": 1
+            }
+          },
+          {
+            "name": "Light Hammer",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "simpleM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d4",
+                    "bludgeoning"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "baker-moll",
+      "name": "Moll Ovenheart",
+      "species": "Human",
+      "gender": "Female",
+      "age": 46,
+      "occupation": "Baker",
+      "category": "craftsmen",
+      "tags": [
+        "bread",
+        "dawn",
+        "warm"
+      ],
+      "description": "Baker associated with Ovenheart Bakery at first light.",
+      "biography": "Most days begin the same for Moll Ovenheart: a 46-year-old Human baker moving through Ovenheart Bakery at first light as if the stones themselves keep appointments with them. Moll feeds anyone who sweeps her step, and is rarely without recipe board with flour ghosts of old menus. Employer of Odin; threatened by Bask; helped by Dorn. What drives them is simple to name and hard to finish: they want to keep prices fair when grain spikes. What keeps them careful is Bask's 'oven accidents'. To a DM, Moll is ready to roleplay immediately—useful for favors, local color, or trouble. Told Dorn when Bask threatened her—and hid a debtor's child in the flour room.",
+      "personality": "feeds anyone who sweeps her step. Professional demeanor of a seasoned baker.",
+      "motivation": "Pursue this: keep prices fair when grain spikes. Avoid this: Bask's 'oven accidents'.",
+      "secret": "Privately terrified of Bask's 'oven accidents', and currently entangled with: Told Dorn when Bask threatened her—and hid a debtor's child in the flour room.",
+      "rumor": "Rumor says Moll can tell you anything that happens near Ovenheart Bakery at first light—for a price or a kindness.",
+      "voice": "Speaks like a Human baker: concrete details first, embellishment only when useful.",
+      "appearance": "Human; often near Ovenheart Bakery at first light; look for recipe board with flour ghosts of old menus.",
+      "portrait": "modules/townforge/assets/portraits/baker-moll.webp",
+      "token": "modules/townforge/assets/tokens/baker-moll.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 10
+            },
+            "dex": {
+              "value": 10
+            },
+            "con": {
+              "value": 10
+            },
+            "int": {
+              "value": 10
+            },
+            "wis": {
+              "value": 11
+            },
+            "cha": {
+              "value": 11
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 10,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 4,
+              "max": 4
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "human"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "prc": {
+              "value": 1
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "tinker-zib",
+      "name": "Zib Gearwhistle",
+      "species": "Gnome",
+      "gender": "Male",
+      "age": 66,
+      "occupation": "Tinker",
+      "category": "craftsmen",
+      "tags": [
+        "gadgets",
+        "repair",
+        "curious"
+      ],
+      "description": "Tinker associated with a bench of gears and kettles.",
+      "biography": "Ask around town for a tinker and someone will point you to Zib at a bench of gears and kettles. At 66, this Gnome has learned which smiles are currency and which are warnings. Zib talks to broken things until they confess, and is rarely without multi-tool that unfolds into too many blades. Helped Mouse unintentionally; curious about mill tech. What drives them is simple to name and hard to finish: they want to patent a safer mill winch. What keeps them careful is being blamed for traps he didn't build. To a DM, Zib is ready to roleplay immediately—useful for favors, local color, or trouble. Disarmed a tripwire near a sewer grate Mouse uses.",
+      "personality": "talks to broken things until they confess. Professional demeanor of a seasoned tinker.",
+      "motivation": "Pursue this: patent a safer mill winch. Avoid this: being blamed for traps he didn't build.",
+      "secret": "Privately terrified of being blamed for traps he didn't build, and currently entangled with: Disarmed a tripwire near a sewer grate Mouse uses.",
+      "rumor": "Rumor says Zib can tell you anything that happens near a bench of gears and kettles—for a price or a kindness.",
+      "voice": "Speaks like a Gnome tinker: concrete details first, embellishment only when useful.",
+      "appearance": "Gnome; often near a bench of gears and kettles; look for multi-tool that unfolds into too many blades.",
+      "portrait": "modules/townforge/assets/portraits/tinker-zib.webp",
+      "token": "modules/townforge/assets/tokens/tinker-zib.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 14
+            },
+            "dex": {
+              "value": 12
+            },
+            "con": {
+              "value": 13
+            },
+            "int": {
+              "value": 11
+            },
+            "wis": {
+              "value": 12
+            },
+            "cha": {
+              "value": 10
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 12,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 12,
+              "max": 12
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.25,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "gnome"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "ath": {
+              "value": 1
+            },
+            "inv": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Artisan's Tools",
+            "type": "tool",
+            "img": "icons/svg/eye.svg",
+            "system": {
+              "quantity": 1
+            }
+          },
+          {
+            "name": "Light Hammer",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "simpleM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d4",
+                    "bludgeoning"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "weaver-sala",
+      "name": "Sala Threadwyn",
+      "species": "Half-Elf",
+      "gender": "Female",
+      "age": 38,
+      "occupation": "Weaver",
+      "category": "craftsmen",
+      "tags": [
+        "cloth",
+        "loom",
+        "patterns"
+      ],
+      "description": "Weaver associated with a loom room loud with rhythm.",
+      "biography": "Most days begin the same for Sala Threadwyn: a 38-year-old Half-Elf weaver moving through a loom room loud with rhythm as if the stones themselves keep appointments with them. Sala weaves worries into border patterns, and is rarely without pattern book with a locked clasp. Rival/colleague to Hedda; kind to Pola. What drives them is simple to name and hard to finish: they want to clothe the alms school Sister Pola dreams of. What keeps them careful is Hedda stealing her festival design. To a DM, Sala is ready to roleplay immediately—useful for favors, local color, or trouble. Was asked to weave a cloak lining that hides a rigid map sheet.",
+      "personality": "weaves worries into border patterns. Professional demeanor of a seasoned weaver.",
+      "motivation": "Pursue this: clothe the alms school Sister Pola dreams of. Avoid this: Hedda stealing her festival design.",
+      "secret": "Privately terrified of Hedda stealing her festival design, and currently entangled with: Was asked to weave a cloak lining that hides a rigid map sheet.",
+      "rumor": "Rumor says Sala can tell you anything that happens near a loom room loud with rhythm—for a price or a kindness.",
+      "voice": "Speaks like a Half-Elf weaver: concrete details first, embellishment only when useful.",
+      "appearance": "Half-Elf; often near a loom room loud with rhythm; look for pattern book with a locked clasp.",
+      "portrait": "modules/townforge/assets/portraits/weaver-sala.webp",
+      "token": "modules/townforge/assets/tokens/weaver-sala.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 14
+            },
+            "dex": {
+              "value": 12
+            },
+            "con": {
+              "value": 13
+            },
+            "int": {
+              "value": 11
+            },
+            "wis": {
+              "value": 12
+            },
+            "cha": {
+              "value": 10
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 12,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 12,
+              "max": 12
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.25,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "half-elf"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "ath": {
+              "value": 1
+            },
+            "inv": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Artisan's Tools",
+            "type": "tool",
+            "img": "icons/svg/eye.svg",
+            "system": {
+              "quantity": 1
+            }
+          },
+          {
+            "name": "Light Hammer",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "simpleM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d4",
+                    "bludgeoning"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "stonemason-kor",
+      "name": "Kor Chiselmark",
+      "species": "Dwarf",
+      "gender": "Male",
+      "age": 110,
+      "occupation": "Stonemason",
+      "category": "craftsmen",
+      "tags": [
+        "stone",
+        "walls",
+        "patient"
+      ],
+      "description": "Stonemason associated with quarry carts and wall scaffolds.",
+      "biography": "Ask around town for a stonemason and someone will point you to Kor at quarry carts and wall scaffolds. At 110, this Dwarf has learned which smiles are currency and which are warnings. Kor listens to stone for hidden cracks, and is rarely without chisel set wrapped in oilcloth. Works with Bram; confirms undercroft. What drives them is simple to name and hard to finish: they want to restore the memorial wall with Father Bram. What keeps them careful is rush jobs on sacred foundations. To a DM, Kor is ready to roleplay immediately—useful for favors, local color, or trouble. Confirmed Olda's rubbing: a filled arch exists under the mill approach.",
+      "personality": "listens to stone for hidden cracks. Professional demeanor of a seasoned stonemason.",
+      "motivation": "Pursue this: restore the memorial wall with Father Bram. Avoid this: rush jobs on sacred foundations.",
+      "secret": "Privately terrified of rush jobs on sacred foundations, and currently entangled with: Confirmed Olda's rubbing: a filled arch exists under the mill approach.",
+      "rumor": "Rumor says Kor can tell you anything that happens near quarry carts and wall scaffolds—for a price or a kindness.",
+      "voice": "Speaks like a Dwarf stonemason: concrete details first, embellishment only when useful.",
+      "appearance": "Dwarf; often near quarry carts and wall scaffolds; look for chisel set wrapped in oilcloth.",
+      "portrait": "modules/townforge/assets/portraits/stonemason-kor.webp",
+      "token": "modules/townforge/assets/tokens/stonemason-kor.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 14
+            },
+            "dex": {
+              "value": 12
+            },
+            "con": {
+              "value": 13
+            },
+            "int": {
+              "value": 11
+            },
+            "wis": {
+              "value": 12
+            },
+            "cha": {
+              "value": 10
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 12,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 12,
+              "max": 12
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.25,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "dwarf"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "ath": {
+              "value": 1
+            },
+            "inv": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Artisan's Tools",
+            "type": "tool",
+            "img": "icons/svg/eye.svg",
+            "system": {
+              "quantity": 1
+            }
+          },
+          {
+            "name": "Light Hammer",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "simpleM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d4",
+                    "bludgeoning"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,1062 @@
+{
+  "category": "tavern",
+  "npcs": [
+    {
+      "id": "mira-ashkettle",
+      "name": "Mira Ashkettle",
+      "species": "Halfling",
+      "gender": "Female",
+      "age": 42,
+      "occupation": "Tavern Keeper",
+      "category": "tavern",
+      "tags": [
+        "innkeeper",
+        "gossip",
+        "matriarch"
+      ],
+      "description": "Tavern Keeper associated with the Hearth & Barrel.",
+      "biography": "Most days begin the same for Mira Ashkettle: a 42-year-old Halfling tavern keeper moving through the Hearth & Barrel as if the stones themselves keep appointments with them. Mira polishes a dented copper mug between orders, and is rarely without chalk tally board behind the bar. Married to Bren; employs Pippa and Hound Garrik. What drives them is simple to name and hard to finish: they want to buy the empty lot next door for a beer garden. What keeps them careful is debt collectors spooking her evening crowd. To a DM, Mira is ready to roleplay immediately—useful for favors, local color, or trouble. A bloodstained cloak left on stool seven holds a noble signet in the hem.",
+      "personality": "polishes a dented copper mug between orders. Professional demeanor of a seasoned tavern keeper.",
+      "motivation": "Pursue this: buy the empty lot next door for a beer garden. Avoid this: debt collectors spooking her evening crowd.",
+      "secret": "Privately terrified of debt collectors spooking her evening crowd, and currently entangled with: A bloodstained cloak left on stool seven holds a noble signet in the hem.",
+      "rumor": "Rumor says Mira can tell you anything that happens near the Hearth & Barrel—for a price or a kindness.",
+      "voice": "Speaks like a Halfling tavern keeper: concrete details first, embellishment only when useful.",
+      "appearance": "Halfling; often near the Hearth & Barrel; look for chalk tally board behind the bar.",
+      "portrait": "modules/townforge/assets/portraits/mira-ashkettle.webp",
+      "token": "modules/townforge/assets/tokens/mira-ashkettle.webp",
+      "relationships": [
+        {
+          "id": "bren-ashkettle",
+          "type": "spouse",
+          "note": "Run the Hearth & Barrel together."
+        },
+        {
+          "id": "pippa-reed",
+          "type": "employer",
+          "note": "Trains and protects Pippa on busy nights."
+        }
+      ],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 10
+            },
+            "dex": {
+              "value": 11
+            },
+            "con": {
+              "value": 12
+            },
+            "int": {
+              "value": 11
+            },
+            "wis": {
+              "value": 12
+            },
+            "cha": {
+              "value": 14
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 11,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 9,
+              "max": 9
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.125,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "halfling"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "per": {
+              "value": 1
+            },
+            "prc": {
+              "value": 1
+            },
+            "ins": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Brewer's Supplies",
+            "type": "tool",
+            "img": "icons/svg/eye.svg",
+            "system": {
+              "quantity": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "bren-ashkettle",
+      "name": "Bren Ashkettle",
+      "species": "Halfling",
+      "gender": "Male",
+      "age": 44,
+      "occupation": "Cellar Master",
+      "category": "tavern",
+      "tags": [
+        "spouse",
+        "brewer",
+        "cellar"
+      ],
+      "description": "Cellar Master associated with the tavern cellar.",
+      "biography": "Ask around town for a cellar master and someone will point you to Bren at the tavern cellar. At 44, this Halfling has learned which smiles are currency and which are warnings. Bren sniffs every bung before he trusts it, and is rarely without ring of cellar keys worn shiny. Mira's spouse and cellar master. What drives them is simple to name and hard to finish: they want to retire the smoky old boil kettle for a proper brew setup. What keeps them careful is contraband in his casks ruining Mira's name. To a DM, Bren is ready to roleplay immediately—useful for favors, local color, or trouble. Two casks bear burned smuggler marks under the wax he only found at midnight.",
+      "personality": "sniffs every bung before he trusts it. Professional demeanor of a seasoned cellar master.",
+      "motivation": "Pursue this: retire the smoky old boil kettle for a proper brew setup. Avoid this: contraband in his casks ruining Mira's name.",
+      "secret": "Privately terrified of contraband in his casks ruining Mira's name, and currently entangled with: Two casks bear burned smuggler marks under the wax he only found at midnight.",
+      "rumor": "Rumor says Bren can tell you anything that happens near the tavern cellar—for a price or a kindness.",
+      "voice": "Speaks like a Halfling cellar master: concrete details first, embellishment only when useful.",
+      "appearance": "Halfling; often near the tavern cellar; look for ring of cellar keys worn shiny.",
+      "portrait": "modules/townforge/assets/portraits/bren-ashkettle.webp",
+      "token": "modules/townforge/assets/tokens/bren-ashkettle.webp",
+      "relationships": [
+        {
+          "id": "mira-ashkettle",
+          "type": "spouse",
+          "note": "Run the Hearth & Barrel together."
+        }
+      ],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 10
+            },
+            "dex": {
+              "value": 11
+            },
+            "con": {
+              "value": 12
+            },
+            "int": {
+              "value": 11
+            },
+            "wis": {
+              "value": 12
+            },
+            "cha": {
+              "value": 14
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 11,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 9,
+              "max": 9
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.125,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "halfling"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "per": {
+              "value": 1
+            },
+            "prc": {
+              "value": 1
+            },
+            "ins": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Brewer's Supplies",
+            "type": "tool",
+            "img": "icons/svg/eye.svg",
+            "system": {
+              "quantity": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "pippa-reed",
+      "name": "Pippa Reed",
+      "species": "Human",
+      "gender": "Female",
+      "age": 19,
+      "occupation": "Barmaid",
+      "category": "tavern",
+      "tags": [
+        "server",
+        "eager",
+        "employee"
+      ],
+      "description": "Barmaid associated with the busy taproom floor.",
+      "biography": "Pippa Reed works as a barmaid out of the busy taproom floor, a 19-year-old Human with more town memory than most council minutes. Pippa hums while she stacks tankards too fast, and is rarely without ribbon from her sister tied on her wrist. Employee of Mira; sweet on Tomas Reedpike. What drives them is simple to name and hard to finish: they want to save enough to apprentice with a seamstress. What keeps them careful is being sent back to the mill if she breaks too many mugs. To a DM, Pippa is ready to roleplay immediately—useful for favors, local color, or trouble. She overheard Cal Drownwick promise a 'soft job' to a cloaked stranger.",
+      "personality": "hums while she stacks tankards too fast. Professional demeanor of a seasoned barmaid.",
+      "motivation": "Pursue this: save enough to apprentice with a seamstress. Avoid this: being sent back to the mill if she breaks too many mugs.",
+      "secret": "Privately terrified of being sent back to the mill if she breaks too many mugs, and currently entangled with: She overheard Cal Drownwick promise a 'soft job' to a cloaked stranger.",
+      "rumor": "Rumor says Pippa can tell you anything that happens near the busy taproom floor—for a price or a kindness.",
+      "voice": "Speaks like a Human barmaid: concrete details first, embellishment only when useful.",
+      "appearance": "Human; often near the busy taproom floor; look for ribbon from her sister tied on her wrist.",
+      "portrait": "modules/townforge/assets/portraits/pippa-reed.webp",
+      "token": "modules/townforge/assets/tokens/pippa-reed.webp",
+      "relationships": [
+        {
+          "id": "mira-ashkettle",
+          "type": "employee",
+          "note": "Trains and protects Pippa on busy nights."
+        },
+        {
+          "id": "tomas-reedpike",
+          "type": "crush",
+          "note": "Blushes whenever Tomas comes off duty."
+        }
+      ],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 10
+            },
+            "dex": {
+              "value": 10
+            },
+            "con": {
+              "value": 10
+            },
+            "int": {
+              "value": 10
+            },
+            "wis": {
+              "value": 11
+            },
+            "cha": {
+              "value": 11
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 10,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 4,
+              "max": 4
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "human"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "prc": {
+              "value": 1
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "hound-garrik",
+      "name": "Hound Garrik",
+      "species": "Half-Orc",
+      "gender": "Male",
+      "age": 36,
+      "occupation": "Bouncer",
+      "category": "tavern",
+      "tags": [
+        "bouncer",
+        "scarred",
+        "loyal"
+      ],
+      "description": "Bouncer associated with the tavern doorway.",
+      "biography": "Hound Garrik works as a bouncer out of the tavern doorway, a 36-year-old Half-Orc with more town memory than most council minutes. Hound counts exits before he counts customers, and is rarely without notched oak club hung by the coat pegs. Mira's bouncer; once served under Serra's predecessor. What drives them is simple to name and hard to finish: they want to earn a quiet room upstairs and a steady wage forever. What keeps them careful is hurting someone who didn't deserve it in a brawl. To a DM, Hound is ready to roleplay immediately—useful for favors, local color, or trouble. Recognized a wanted tattoo on a 'merchant' who fled when met his eyes.",
+      "personality": "counts exits before he counts customers. Professional demeanor of a seasoned bouncer.",
+      "motivation": "Pursue this: earn a quiet room upstairs and a steady wage forever. Avoid this: hurting someone who didn't deserve it in a brawl.",
+      "secret": "Privately terrified of hurting someone who didn't deserve it in a brawl, and currently entangled with: Recognized a wanted tattoo on a 'merchant' who fled when met his eyes.",
+      "rumor": "Rumor says Hound can tell you anything that happens near the tavern doorway—for a price or a kindness.",
+      "voice": "Speaks like a Half-Orc bouncer: concrete details first, embellishment only when useful.",
+      "appearance": "Half-Orc; often near the tavern doorway; look for notched oak club hung by the coat pegs.",
+      "portrait": "modules/townforge/assets/portraits/hound-garrik.webp",
+      "token": "modules/townforge/assets/tokens/hound-garrik.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 14
+            },
+            "dex": {
+              "value": 12
+            },
+            "con": {
+              "value": 14
+            },
+            "int": {
+              "value": 10
+            },
+            "wis": {
+              "value": 11
+            },
+            "cha": {
+              "value": 10
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 16,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 16,
+              "max": 16
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.5,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "half-orc"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "ath": {
+              "value": 1
+            },
+            "prc": {
+              "value": 1
+            },
+            "intimidation": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Chain Shirt",
+            "type": "equipment",
+            "img": "icons/svg/shield.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "medium"
+              },
+              "armor": {
+                "value": 13,
+                "dex": 0
+              }
+            }
+          },
+          {
+            "name": "Spear",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "simpleM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d6",
+                    "piercing"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          },
+          {
+            "name": "Shortsword",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "martialM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d6",
+                    "piercing"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "old-tallow",
+      "name": "Old Tallow",
+      "species": "Human",
+      "gender": "Male",
+      "age": 67,
+      "occupation": "Fireplace Regular",
+      "category": "tavern",
+      "tags": [
+        "regular",
+        "storyteller",
+        "retired"
+      ],
+      "description": "Fireplace Regular associated with the fireside bench.",
+      "biography": "Old Tallow works as a fireplace regular out of the fireside bench, a 67-year-old Human with more town memory than most council minutes. Old taps the hearthstones when a story turns true, and is rarely without pipe carved like a sleeping hound. Retired carter; friend to Nell and Jab. What drives them is simple to name and hard to finish: they want to see the Midsummer fair one more year. What keeps them careful is dying with his best stories untold. To a DM, Old is ready to roleplay immediately—useful for favors, local color, or trouble. Swears he saw lanterns moving under the old mill three nights running.",
+      "personality": "taps the hearthstones when a story turns true. Professional demeanor of a seasoned fireplace regular.",
+      "motivation": "Pursue this: see the Midsummer fair one more year. Avoid this: dying with his best stories untold.",
+      "secret": "Privately terrified of dying with his best stories untold, and currently entangled with: Swears he saw lanterns moving under the old mill three nights running.",
+      "rumor": "Rumor says Old can tell you anything that happens near the fireside bench—for a price or a kindness.",
+      "voice": "Speaks like a Human fireplace regular: concrete details first, embellishment only when useful.",
+      "appearance": "Human; often near the fireside bench; look for pipe carved like a sleeping hound.",
+      "portrait": "modules/townforge/assets/portraits/old-tallow.webp",
+      "token": "modules/townforge/assets/tokens/old-tallow.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 10
+            },
+            "dex": {
+              "value": 10
+            },
+            "con": {
+              "value": 10
+            },
+            "int": {
+              "value": 10
+            },
+            "wis": {
+              "value": 11
+            },
+            "cha": {
+              "value": 11
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 10,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 4,
+              "max": 4
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "human"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "prc": {
+              "value": 1
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "sela-vintner",
+      "name": "Sela Vintner",
+      "species": "Half-Elf",
+      "gender": "Female",
+      "age": 31,
+      "occupation": "Wine Seller",
+      "category": "tavern",
+      "tags": [
+        "wine",
+        "supplier",
+        "travel"
+      ],
+      "description": "Wine Seller associated with the wine corner of the tavern.",
+      "biography": "Most days begin the same for Sela Vintner: a 31-year-old Half-Elf wine seller moving through the wine corner of the tavern as if the stones themselves keep appointments with them. Sela rolls corks between her fingers while she listens, and is rarely without travel-stained sample case of rare vintages. Supplies Mira; trades rumors with Jor Sandline. What drives them is simple to name and hard to finish: they want to open a tasting room with Mira next spring. What keeps them careful is her upriver supplier being replaced by smugglers. To a DM, Sela is ready to roleplay immediately—useful for favors, local color, or trouble. A bottle she sold as orchard white tasted of river silt and iron.",
+      "personality": "rolls corks between her fingers while she listens. Professional demeanor of a seasoned wine seller.",
+      "motivation": "Pursue this: open a tasting room with Mira next spring. Avoid this: her upriver supplier being replaced by smugglers.",
+      "secret": "Privately terrified of her upriver supplier being replaced by smugglers, and currently entangled with: A bottle she sold as orchard white tasted of river silt and iron.",
+      "rumor": "Rumor says Sela can tell you anything that happens near the wine corner of the tavern—for a price or a kindness.",
+      "voice": "Speaks like a Half-Elf wine seller: concrete details first, embellishment only when useful.",
+      "appearance": "Half-Elf; often near the wine corner of the tavern; look for travel-stained sample case of rare vintages.",
+      "portrait": "modules/townforge/assets/portraits/sela-vintner.webp",
+      "token": "modules/townforge/assets/tokens/sela-vintner.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 10
+            },
+            "dex": {
+              "value": 12
+            },
+            "con": {
+              "value": 11
+            },
+            "int": {
+              "value": 13
+            },
+            "wis": {
+              "value": 12
+            },
+            "cha": {
+              "value": 14
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 11,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 8,
+              "max": 8
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.125,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "half-elf"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "per": {
+              "value": 1
+            },
+            "ins": {
+              "value": 1
+            },
+            "inv": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Merchant's Scale",
+            "type": "tool",
+            "img": "icons/svg/eye.svg",
+            "system": {
+              "quantity": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "jory-mugwright",
+      "name": "Jory Mugwright",
+      "species": "Dwarf",
+      "gender": "Male",
+      "age": 88,
+      "occupation": "Taproom Cook",
+      "category": "tavern",
+      "tags": [
+        "cook",
+        "stew",
+        "gruff"
+      ],
+      "description": "Taproom Cook associated with the tavern kitchen.",
+      "biography": "Ask around town for a taproom cook and someone will point you to Jory at the tavern kitchen. At 88, this Dwarf has learned which smiles are currency and which are warnings. Jory tastes stew with the same wooden spoon for luck, and is rarely without spice box with a false bottom for salt pork money. Cook for Mira; buys barrels from Cooper Brenwick. What drives them is simple to name and hard to finish: they want to publish a chapbook of 'proper dwarf stews for soft southern mouths'. What keeps them careful is the roof leaking into his flour again. To a DM, Jory is ready to roleplay immediately—useful for favors, local color, or trouble. Found a coded note pinned under a delivery crate of turnips.",
+      "personality": "tastes stew with the same wooden spoon for luck. Professional demeanor of a seasoned taproom cook.",
+      "motivation": "Pursue this: publish a chapbook of 'proper dwarf stews for soft southern mouths'. Avoid this: the roof leaking into his flour again.",
+      "secret": "Privately terrified of the roof leaking into his flour again, and currently entangled with: Found a coded note pinned under a delivery crate of turnips.",
+      "rumor": "Rumor says Jory can tell you anything that happens near the tavern kitchen—for a price or a kindness.",
+      "voice": "Speaks like a Dwarf taproom cook: concrete details first, embellishment only when useful.",
+      "appearance": "Dwarf; often near the tavern kitchen; look for spice box with a false bottom for salt pork money.",
+      "portrait": "modules/townforge/assets/portraits/jory-mugwright.webp",
+      "token": "modules/townforge/assets/tokens/jory-mugwright.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 14
+            },
+            "dex": {
+              "value": 12
+            },
+            "con": {
+              "value": 13
+            },
+            "int": {
+              "value": 11
+            },
+            "wis": {
+              "value": 12
+            },
+            "cha": {
+              "value": 10
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 12,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 12,
+              "max": 12
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.25,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "dwarf"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "ath": {
+              "value": 1
+            },
+            "inv": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Artisan's Tools",
+            "type": "tool",
+            "img": "icons/svg/eye.svg",
+            "system": {
+              "quantity": 1
+            }
+          },
+          {
+            "name": "Light Hammer",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "simpleM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d4",
+                    "bludgeoning"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "nessa-brightcup",
+      "name": "Nessa Brightcup",
+      "species": "Gnome",
+      "gender": "Female",
+      "age": 52,
+      "occupation": "Evening Singer",
+      "category": "tavern",
+      "tags": [
+        "singer",
+        "performer",
+        "charming"
+      ],
+      "description": "Evening Singer associated with the tavern stage plank.",
+      "biography": "Nessa Brightcup works as a evening singer out of the tavern stage plank, a 52-year-old Gnome with more town memory than most council minutes. Nessa tunes her lute to the room's mood before she smiles, and is rarely without songbook with pages swapped for maps. Performs at Mira's; shares rooms sometimes with Rilo. What drives them is simple to name and hard to finish: they want to earn a noble patronage without losing the common room. What keeps them careful is a past patron recognizing her from another town's scandal. To a DM, Nessa is ready to roleplay immediately—useful for favors, local color, or trouble. Her new ballad names a 'pale clerk' who sells signatures by moonlight.",
+      "personality": "tunes her lute to the room's mood before she smiles. Professional demeanor of a seasoned evening singer.",
+      "motivation": "Pursue this: earn a noble patronage without losing the common room. Avoid this: a past patron recognizing her from another town's scandal.",
+      "secret": "Privately terrified of a past patron recognizing her from another town's scandal, and currently entangled with: Her new ballad names a 'pale clerk' who sells signatures by moonlight.",
+      "rumor": "Rumor says Nessa can tell you anything that happens near the tavern stage plank—for a price or a kindness.",
+      "voice": "Speaks like a Gnome evening singer: concrete details first, embellishment only when useful.",
+      "appearance": "Gnome; often near the tavern stage plank; look for songbook with pages swapped for maps.",
+      "portrait": "modules/townforge/assets/portraits/nessa-brightcup.webp",
+      "token": "modules/townforge/assets/tokens/nessa-brightcup.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 10
+            },
+            "dex": {
+              "value": 10
+            },
+            "con": {
+              "value": 10
+            },
+            "int": {
+              "value": 10
+            },
+            "wis": {
+              "value": 11
+            },
+            "cha": {
+              "value": 11
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 10,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 4,
+              "max": 4
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "gnome"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "prc": {
+              "value": 1
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "cal-drownwick",
+      "name": "Cal Drownwick",
+      "species": "Human",
+      "gender": "Male",
+      "age": 27,
+      "occupation": "Dice Dealer",
+      "category": "tavern",
+      "tags": [
+        "gambling",
+        "charm",
+        "debts"
+      ],
+      "description": "Dice Dealer associated with the corner dice table.",
+      "biography": "Most days begin the same for Cal Drownwick: a 27-year-old Human dice dealer moving through the corner dice table as if the stones themselves keep appointments with them. Cal laughs one beat late when the dice betray him, and is rarely without weighted knucklebone die he never uses in his own tavern. Debtor to Marrow; acquaintance of Rook. What drives them is simple to name and hard to finish: they want to win one clean stake large enough to leave town smiling. What keeps them careful is Marrow Cline collecting more than coin. To a DM, Cal is ready to roleplay immediately—useful for favors, local color, or trouble. Steered a drunk grain merchant toward Rook Vell for a cut.",
+      "personality": "laughs one beat late when the dice betray him. Professional demeanor of a seasoned dice dealer.",
+      "motivation": "Pursue this: win one clean stake large enough to leave town smiling. Avoid this: Marrow Cline collecting more than coin.",
+      "secret": "Privately terrified of Marrow Cline collecting more than coin, and currently entangled with: Steered a drunk grain merchant toward Rook Vell for a cut.",
+      "rumor": "Rumor says Cal can tell you anything that happens near the corner dice table—for a price or a kindness.",
+      "voice": "Speaks like a Human dice dealer: concrete details first, embellishment only when useful.",
+      "appearance": "Human; often near the corner dice table; look for weighted knucklebone die he never uses in his own tavern.",
+      "portrait": "modules/townforge/assets/portraits/cal-drownwick.webp",
+      "token": "modules/townforge/assets/tokens/cal-drownwick.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 11
+            },
+            "dex": {
+              "value": 15
+            },
+            "con": {
+              "value": 12
+            },
+            "int": {
+              "value": 12
+            },
+            "wis": {
+              "value": 11
+            },
+            "cha": {
+              "value": 13
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 13,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 11,
+              "max": 11
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.25,
+            "alignment": "chaotic neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "human"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "ste": {
+              "value": 1
+            },
+            "slt": {
+              "value": 1
+            },
+            "dec": {
+              "value": 1
+            },
+            "prc": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Dagger",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "simpleM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d4",
+                    "piercing"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          },
+          {
+            "name": "Shortsword",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "martialM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d6",
+                    "piercing"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

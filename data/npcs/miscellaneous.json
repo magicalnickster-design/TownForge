@@ -1,0 +1,426 @@
+{
+  "category": "miscellaneous",
+  "npcs": [
+    {
+      "id": "midwife-ora",
+      "name": "Ora Softhands",
+      "species": "Human",
+      "gender": "Female",
+      "age": 54,
+      "occupation": "Midwife",
+      "category": "miscellaneous",
+      "tags": [
+        "midwife",
+        "trusted",
+        "night-calls"
+      ],
+      "description": "Midwife associated with bedside lamps across town.",
+      "biography": "Ask around town for a midwife and someone will point you to Ora at bedside lamps across town. At 54, this Human has learned which smiles are currency and which are warnings. Ora washes her hands as ritual and science, and is rarely without kit bag with lavender and clean linen. Trusted by many; link to Petra; saw Vale jewelry. What drives them is simple to name and hard to finish: they want to train Petra as a proper clinic partner. What keeps them careful is losing a mother to pride or poverty. To a DM, Ora is ready to roleplay immediately—useful for favors, local color, or trouble. Delivered a child for a veiled woman who paid with a Vale cufflink.",
+      "personality": "washes her hands as ritual and science. Professional demeanor of a seasoned midwife.",
+      "motivation": "Pursue this: train Petra as a proper clinic partner. Avoid this: losing a mother to pride or poverty.",
+      "secret": "Privately terrified of losing a mother to pride or poverty, and currently entangled with: Delivered a child for a veiled woman who paid with a Vale cufflink.",
+      "rumor": "Rumor says Ora can tell you anything that happens near bedside lamps across town—for a price or a kindness.",
+      "voice": "Speaks like a Human midwife: concrete details first, embellishment only when useful.",
+      "appearance": "Human; often near bedside lamps across town; look for kit bag with lavender and clean linen.",
+      "portrait": "modules/townforge/assets/portraits/midwife-ora.webp",
+      "token": "modules/townforge/assets/tokens/midwife-ora.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 10
+            },
+            "dex": {
+              "value": 10
+            },
+            "con": {
+              "value": 10
+            },
+            "int": {
+              "value": 10
+            },
+            "wis": {
+              "value": 11
+            },
+            "cha": {
+              "value": 11
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 10,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 4,
+              "max": 4
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "human"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "prc": {
+              "value": 1
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "gravedigger-mol",
+      "name": "Mol Deeprow",
+      "species": "Human",
+      "gender": "Male",
+      "age": 49,
+      "occupation": "Gravedigger",
+      "category": "miscellaneous",
+      "tags": [
+        "graveyard",
+        "quiet",
+        "shovel"
+      ],
+      "description": "Gravedigger associated with the laddered graves behind chapel.",
+      "biography": "Mol Deeprow works as a gravedigger out of the laddered graves behind chapel, a 49-year-old Human with more town memory than most council minutes. Mol whistles off-key to keep spirits uninterested, and is rarely without shovel with measurement notches. Works with Bram; holds physical evidence. What drives them is simple to name and hard to finish: they want to keep the flood memorial neat for Bram. What keeps them careful is burying someone still claimed by the living. To a DM, Mol is ready to roleplay immediately—useful for favors, local color, or trouble. Buried Father Bram's 'nobody' and kept the Vale-cobbled boots in a hessian sack.",
+      "personality": "whistles off-key to keep spirits uninterested. Professional demeanor of a seasoned gravedigger.",
+      "motivation": "Pursue this: keep the flood memorial neat for Bram. Avoid this: burying someone still claimed by the living.",
+      "secret": "Privately terrified of burying someone still claimed by the living, and currently entangled with: Buried Father Bram's 'nobody' and kept the Vale-cobbled boots in a hessian sack.",
+      "rumor": "Rumor says Mol can tell you anything that happens near the laddered graves behind chapel—for a price or a kindness.",
+      "voice": "Speaks like a Human gravedigger: concrete details first, embellishment only when useful.",
+      "appearance": "Human; often near the laddered graves behind chapel; look for shovel with measurement notches.",
+      "portrait": "modules/townforge/assets/portraits/gravedigger-mol.webp",
+      "token": "modules/townforge/assets/tokens/gravedigger-mol.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 10
+            },
+            "dex": {
+              "value": 10
+            },
+            "con": {
+              "value": 10
+            },
+            "int": {
+              "value": 10
+            },
+            "wis": {
+              "value": 11
+            },
+            "cha": {
+              "value": 11
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 10,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 4,
+              "max": 4
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "human"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "prc": {
+              "value": 1
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "ratcatcher-skit",
+      "name": "Skit Needlefang",
+      "species": "Gnome",
+      "gender": "Male",
+      "age": 35,
+      "occupation": "Ratcatcher",
+      "category": "miscellaneous",
+      "tags": [
+        "rats",
+        "alleys",
+        "traps"
+      ],
+      "description": "Ratcatcher associated with alleys, cellars, and pantries.",
+      "biography": "Skit Needlefang works as a ratcatcher out of alleys, cellars, and pantries, a 35-year-old Gnome with more town memory than most council minutes. Skit names rats before he catches them, and is rarely without cage of squeaks and a crooked grin. Knows Mouse's world from below; evidence for undercroft. What drives them is simple to name and hard to finish: they want to be paid on contract by the council, not in scraps. What keeps them careful is plague talk turning into torch talk. To a DM, Skit is ready to roleplay immediately—useful for favors, local color, or trouble. Followed rat runs that revealed a chewed opening into the mill undercroft.",
+      "personality": "names rats before he catches them. Professional demeanor of a seasoned ratcatcher.",
+      "motivation": "Pursue this: be paid on contract by the council, not in scraps. Avoid this: plague talk turning into torch talk.",
+      "secret": "Privately terrified of plague talk turning into torch talk, and currently entangled with: Followed rat runs that revealed a chewed opening into the mill undercroft.",
+      "rumor": "Rumor says Skit can tell you anything that happens near alleys, cellars, and pantries—for a price or a kindness.",
+      "voice": "Speaks like a Gnome ratcatcher: concrete details first, embellishment only when useful.",
+      "appearance": "Gnome; often near alleys, cellars, and pantries; look for cage of squeaks and a crooked grin.",
+      "portrait": "modules/townforge/assets/portraits/ratcatcher-skit.webp",
+      "token": "modules/townforge/assets/tokens/ratcatcher-skit.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 11
+            },
+            "dex": {
+              "value": 15
+            },
+            "con": {
+              "value": 12
+            },
+            "int": {
+              "value": 12
+            },
+            "wis": {
+              "value": 11
+            },
+            "cha": {
+              "value": 13
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 13,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 11,
+              "max": 11
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.25,
+            "alignment": "chaotic neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "gnome"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "ste": {
+              "value": 1
+            },
+            "slt": {
+              "value": 1
+            },
+            "dec": {
+              "value": 1
+            },
+            "prc": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Dagger",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "simpleM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d4",
+                    "piercing"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          },
+          {
+            "name": "Shortsword",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "martialM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d6",
+                    "piercing"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "matchmaker-bea",
+      "name": "Bea Heartstring",
+      "species": "Halfling",
+      "gender": "Female",
+      "age": 63,
+      "occupation": "Matchmaker",
+      "category": "miscellaneous",
+      "tags": [
+        "matchmaker",
+        "weddings",
+        "meddling"
+      ],
+      "description": "Matchmaker associated with tea shops and festival dances.",
+      "biography": "Bea Heartstring works as a matchmaker out of tea shops and festival dances, a 63-year-old Halfling with more town memory than most council minutes. Bea asks about siblings before asking about love, and is rarely without ribbon ledger of almost-engagements. Gossips with Issy; ships Pippa/Tomas; spotted Lysa's exit plan. What drives them is simple to name and hard to finish: they want to see Pippa and Tomas dance without supervision. What keeps them careful is arranging a match that hides abuse. To a DM, Bea is ready to roleplay immediately—useful for favors, local color, or trouble. Noticed Lysa buying travel clothes 'for a cousin' who does not exist.",
+      "personality": "asks about siblings before asking about love. Professional demeanor of a seasoned matchmaker.",
+      "motivation": "Pursue this: see Pippa and Tomas dance without supervision. Avoid this: arranging a match that hides abuse.",
+      "secret": "Privately terrified of arranging a match that hides abuse, and currently entangled with: Noticed Lysa buying travel clothes 'for a cousin' who does not exist.",
+      "rumor": "Rumor says Bea can tell you anything that happens near tea shops and festival dances—for a price or a kindness.",
+      "voice": "Speaks like a Halfling matchmaker: concrete details first, embellishment only when useful.",
+      "appearance": "Halfling; often near tea shops and festival dances; look for ribbon ledger of almost-engagements.",
+      "portrait": "modules/townforge/assets/portraits/matchmaker-bea.webp",
+      "token": "modules/townforge/assets/tokens/matchmaker-bea.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 10
+            },
+            "dex": {
+              "value": 10
+            },
+            "con": {
+              "value": 10
+            },
+            "int": {
+              "value": 10
+            },
+            "wis": {
+              "value": 11
+            },
+            "cha": {
+              "value": 11
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 10,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 4,
+              "max": 4
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "halfling"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "prc": {
+              "value": 1
+            }
+          }
+        }
+      }
+    }
+  ]
+}

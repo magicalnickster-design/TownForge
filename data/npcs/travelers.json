@@ -1,0 +1,888 @@
+{
+  "category": "travelers",
+  "npcs": [
+    {
+      "id": "caravan-jor",
+      "name": "Jor Sandline",
+      "species": "Human",
+      "gender": "Male",
+      "age": 39,
+      "occupation": "Caravan Master",
+      "category": "travelers",
+      "tags": [
+        "caravan",
+        "routes",
+        "deals"
+      ],
+      "description": "Caravan Master associated with the caravan yard outside the north gate.",
+      "biography": "Most days begin the same for Jor Sandline: a 39-year-old Human caravan master moving through the caravan yard outside the north gate as if the stones themselves keep appointments with them. Jor pays in mixed coin to learn who notices, and is rarely without route book bound in camel hide. Deals with Orrin; uses Skog's stables; hires Jab. What drives them is simple to name and hard to finish: they want to secure Orrin's spice contract exclusively. What keeps them careful is losing a season to bandits or tariffs. To a DM, Jor is ready to roleplay immediately—useful for favors, local color, or trouble. Offered Jab double to deliver to the mill without a waybill copy.",
+      "personality": "pays in mixed coin to learn who notices. Professional demeanor of a seasoned caravan master.",
+      "motivation": "Pursue this: secure Orrin's spice contract exclusively. Avoid this: losing a season to bandits or tariffs.",
+      "secret": "Privately terrified of losing a season to bandits or tariffs, and currently entangled with: Offered Jab double to deliver to the mill without a waybill copy.",
+      "rumor": "Rumor says Jor can tell you anything that happens near the caravan yard outside the north gate—for a price or a kindness.",
+      "voice": "Speaks like a Human caravan master: concrete details first, embellishment only when useful.",
+      "appearance": "Human; often near the caravan yard outside the north gate; look for route book bound in camel hide.",
+      "portrait": "modules/townforge/assets/portraits/caravan-jor.webp",
+      "token": "modules/townforge/assets/tokens/caravan-jor.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 12
+            },
+            "dex": {
+              "value": 14
+            },
+            "con": {
+              "value": 12
+            },
+            "int": {
+              "value": 11
+            },
+            "wis": {
+              "value": 13
+            },
+            "cha": {
+              "value": 12
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 13,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 11,
+              "max": 11
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.25,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "human"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "sur": {
+              "value": 1
+            },
+            "prc": {
+              "value": 1
+            },
+            "ath": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Shortsword",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "martialM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d6",
+                    "piercing"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          },
+          {
+            "name": "Traveler's Pack",
+            "type": "tool",
+            "img": "icons/svg/eye.svg",
+            "system": {
+              "quantity": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "scout-kavi",
+      "name": "Kavi Greenhood",
+      "species": "Elf",
+      "gender": "Female",
+      "age": 128,
+      "occupation": "Wilderness Scout",
+      "category": "travelers",
+      "tags": [
+        "scout",
+        "forest",
+        "trails"
+      ],
+      "description": "Wilderness Scout associated with forest margins and game trails.",
+      "biography": "Ask around town for a wilderness scout and someone will point you to Kavi at forest margins and game trails. At 128, this Elf has learned which smiles are currency and which are warnings. Kavi leaves stacked stones as silent letters, and is rarely without green hood faded almost gray. Walks with Yara; reports odd trails to Serra sometimes. What drives them is simple to name and hard to finish: they want to keep a safe trail for pilgrims and herbalists. What keeps them careful is town politics spilling into the woods. To a DM, Kavi is ready to roleplay immediately—useful for favors, local color, or trouble. Found Yara's feverwort patch flagged with chalk arrows toward the mill.",
+      "personality": "leaves stacked stones as silent letters. Professional demeanor of a seasoned wilderness scout.",
+      "motivation": "Pursue this: keep a safe trail for pilgrims and herbalists. Avoid this: town politics spilling into the woods.",
+      "secret": "Privately terrified of town politics spilling into the woods, and currently entangled with: Found Yara's feverwort patch flagged with chalk arrows toward the mill.",
+      "rumor": "Rumor says Kavi can tell you anything that happens near forest margins and game trails—for a price or a kindness.",
+      "voice": "Speaks like a Elf wilderness scout: concrete details first, embellishment only when useful.",
+      "appearance": "Elf; often near forest margins and game trails; look for green hood faded almost gray.",
+      "portrait": "modules/townforge/assets/portraits/scout-kavi.webp",
+      "token": "modules/townforge/assets/tokens/scout-kavi.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 12
+            },
+            "dex": {
+              "value": 14
+            },
+            "con": {
+              "value": 12
+            },
+            "int": {
+              "value": 11
+            },
+            "wis": {
+              "value": 13
+            },
+            "cha": {
+              "value": 12
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 13,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 11,
+              "max": 11
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.25,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "elf"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "sur": {
+              "value": 1
+            },
+            "prc": {
+              "value": 1
+            },
+            "ath": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Shortsword",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "martialM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d6",
+                    "piercing"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          },
+          {
+            "name": "Traveler's Pack",
+            "type": "tool",
+            "img": "icons/svg/eye.svg",
+            "system": {
+              "quantity": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "minstrel-rilo",
+      "name": "Rilo Songpenny",
+      "species": "Half-Elf",
+      "gender": "Male",
+      "age": 27,
+      "occupation": "Traveling Minstrel",
+      "category": "travelers",
+      "tags": [
+        "music",
+        "news",
+        "charm"
+      ],
+      "description": "Traveling Minstrel associated with roads, fairs, and Mira's stage.",
+      "biography": "Rilo Songpenny works as a traveling minstrel out of roads, fairs, and Mira's stage, a 27-year-old Half-Elf with more town memory than most council minutes. Rilo collects rumors the way others collect coins, and is rarely without cape lined with song scraps. Sometimes rooms with Nessa; carries news. What drives them is simple to name and hard to finish: they want to be hired by Dame Orla for a full season. What keeps them careful is singing the wrong satire in the wrong hall. To a DM, Rilo is ready to roleplay immediately—useful for favors, local color, or trouble. Heard sailors say Nedda's barge 'rides light and smells bright'.",
+      "personality": "collects rumors the way others collect coins. Professional demeanor of a seasoned traveling minstrel.",
+      "motivation": "Pursue this: be hired by Dame Orla for a full season. Avoid this: singing the wrong satire in the wrong hall.",
+      "secret": "Privately terrified of singing the wrong satire in the wrong hall, and currently entangled with: Heard sailors say Nedda's barge 'rides light and smells bright'.",
+      "rumor": "Rumor says Rilo can tell you anything that happens near roads, fairs, and Mira's stage—for a price or a kindness.",
+      "voice": "Speaks like a Half-Elf traveling minstrel: concrete details first, embellishment only when useful.",
+      "appearance": "Half-Elf; often near roads, fairs, and Mira's stage; look for cape lined with song scraps.",
+      "portrait": "modules/townforge/assets/portraits/minstrel-rilo.webp",
+      "token": "modules/townforge/assets/tokens/minstrel-rilo.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 10
+            },
+            "dex": {
+              "value": 10
+            },
+            "con": {
+              "value": 10
+            },
+            "int": {
+              "value": 10
+            },
+            "wis": {
+              "value": 11
+            },
+            "cha": {
+              "value": 11
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 10,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 4,
+              "max": 4
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "half-elf"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "prc": {
+              "value": 1
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "pilgrim-asha",
+      "name": "Asha Roadbless",
+      "species": "Human",
+      "gender": "Female",
+      "age": 50,
+      "occupation": "Pilgrim",
+      "category": "travelers",
+      "tags": [
+        "pilgrim",
+        "faith",
+        "walking"
+      ],
+      "description": "Pilgrim associated with temple steps and road shrines.",
+      "biography": "Most days begin the same for Asha Roadbless: a 50-year-old Human pilgrim moving through temple steps and road shrines as if the stones themselves keep appointments with them. Asha washes her feet before every gate, and is rarely without walking staff carved with mercy marks. Guest of Elen's temple; rejected Orin. What drives them is simple to name and hard to finish: they want to reach three temples before winter. What keeps them careful is faithful folk turned away for being poor. To a DM, Asha is ready to roleplay immediately—useful for favors, local color, or trouble. Was offered 'safe passage' papers by Pale Orin for a 'donation'.",
+      "personality": "washes her feet before every gate. Professional demeanor of a seasoned pilgrim.",
+      "motivation": "Pursue this: reach three temples before winter. Avoid this: faithful folk turned away for being poor.",
+      "secret": "Privately terrified of faithful folk turned away for being poor, and currently entangled with: Was offered 'safe passage' papers by Pale Orin for a 'donation'.",
+      "rumor": "Rumor says Asha can tell you anything that happens near temple steps and road shrines—for a price or a kindness.",
+      "voice": "Speaks like a Human pilgrim: concrete details first, embellishment only when useful.",
+      "appearance": "Human; often near temple steps and road shrines; look for walking staff carved with mercy marks.",
+      "portrait": "modules/townforge/assets/portraits/pilgrim-asha.webp",
+      "token": "modules/townforge/assets/tokens/pilgrim-asha.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 10
+            },
+            "dex": {
+              "value": 10
+            },
+            "con": {
+              "value": 12
+            },
+            "int": {
+              "value": 11
+            },
+            "wis": {
+              "value": 15
+            },
+            "cha": {
+              "value": 13
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 13,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 14,
+              "max": 14
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.5,
+            "alignment": "lawful good",
+            "type": {
+              "value": "humanoid",
+              "subtype": "human"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "rel": {
+              "value": 1
+            },
+            "med": {
+              "value": 1
+            },
+            "per": {
+              "value": 1
+            },
+            "ins": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Holy Vestments",
+            "type": "equipment",
+            "img": "icons/svg/shield.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "clothing"
+              },
+              "armor": {
+                "value": 1,
+                "dex": 0
+              }
+            }
+          },
+          {
+            "name": "Mace",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "simpleM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d6",
+                    "bludgeoning"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "sailor-tem",
+      "name": "Tem Brine",
+      "species": "Human",
+      "gender": "Male",
+      "age": 34,
+      "occupation": "River Sailor",
+      "category": "travelers",
+      "tags": [
+        "river",
+        "boat",
+        "cargo"
+      ],
+      "description": "River Sailor associated with river wharf and midstream.",
+      "biography": "Ask around town for a river sailor and someone will point you to Tem at river wharf and midstream. At 34, this Human has learned which smiles are currency and which are warnings. Tem reads water the way scholars read books, and is rarely without rope calluses like badges. Works docks with Mael; cleaner than Nedda. What drives them is simple to name and hard to finish: they want to captain his own flatboat next year. What keeps them careful is fog collisions near the mill race. To a DM, Tem is ready to roleplay immediately—useful for favors, local color, or trouble. Refused to tow Nedda after smelling her 'grain'.",
+      "personality": "reads water the way scholars read books. Professional demeanor of a seasoned river sailor.",
+      "motivation": "Pursue this: captain his own flatboat next year. Avoid this: fog collisions near the mill race.",
+      "secret": "Privately terrified of fog collisions near the mill race, and currently entangled with: Refused to tow Nedda after smelling her 'grain'.",
+      "rumor": "Rumor says Tem can tell you anything that happens near river wharf and midstream—for a price or a kindness.",
+      "voice": "Speaks like a Human river sailor: concrete details first, embellishment only when useful.",
+      "appearance": "Human; often near river wharf and midstream; look for rope calluses like badges.",
+      "portrait": "modules/townforge/assets/portraits/sailor-tem.webp",
+      "token": "modules/townforge/assets/tokens/sailor-tem.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 12
+            },
+            "dex": {
+              "value": 14
+            },
+            "con": {
+              "value": 12
+            },
+            "int": {
+              "value": 11
+            },
+            "wis": {
+              "value": 13
+            },
+            "cha": {
+              "value": 12
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 13,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 11,
+              "max": 11
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.25,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "human"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "sur": {
+              "value": 1
+            },
+            "prc": {
+              "value": 1
+            },
+            "ath": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Shortsword",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "martialM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d6",
+                    "piercing"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          },
+          {
+            "name": "Traveler's Pack",
+            "type": "tool",
+            "img": "icons/svg/eye.svg",
+            "system": {
+              "quantity": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "hunter-vessa",
+      "name": "Vessa Coldtrail",
+      "species": "Half-Orc",
+      "gender": "Female",
+      "age": 31,
+      "occupation": "Game Hunter",
+      "category": "travelers",
+      "tags": [
+        "hunter",
+        "furs",
+        "camp"
+      ],
+      "description": "Game Hunter associated with cold camps beyond the tree line.",
+      "biography": "Most days begin the same for Vessa Coldtrail: a 31-year-old Half-Orc game hunter moving through cold camps beyond the tree line as if the stones themselves keep appointments with them. Vessa shares meat before she shares names, and is rarely without fur roll tied with sinew. Friends with Skog; confirms Kavi's trail signs. What drives them is simple to name and hard to finish: they want to sell honest furs without guild bribes. What keeps them careful is overhunting for noble fashion. To a DM, Vessa is ready to roleplay immediately—useful for favors, local color, or trouble. Tracked armed strangers caching rope near the mill at dusk.",
+      "personality": "shares meat before she shares names. Professional demeanor of a seasoned game hunter.",
+      "motivation": "Pursue this: sell honest furs without guild bribes. Avoid this: overhunting for noble fashion.",
+      "secret": "Privately terrified of overhunting for noble fashion, and currently entangled with: Tracked armed strangers caching rope near the mill at dusk.",
+      "rumor": "Rumor says Vessa can tell you anything that happens near cold camps beyond the tree line—for a price or a kindness.",
+      "voice": "Speaks like a Half-Orc game hunter: concrete details first, embellishment only when useful.",
+      "appearance": "Half-Orc; often near cold camps beyond the tree line; look for fur roll tied with sinew.",
+      "portrait": "modules/townforge/assets/portraits/hunter-vessa.webp",
+      "token": "modules/townforge/assets/tokens/hunter-vessa.webp",
+      "relationships": [],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 12
+            },
+            "dex": {
+              "value": 14
+            },
+            "con": {
+              "value": 12
+            },
+            "int": {
+              "value": 11
+            },
+            "wis": {
+              "value": 13
+            },
+            "cha": {
+              "value": 12
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 13,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 11,
+              "max": 11
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.25,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "half-orc"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "sur": {
+              "value": 1
+            },
+            "prc": {
+              "value": 1
+            },
+            "ath": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Shortsword",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "martialM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d6",
+                    "piercing"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          },
+          {
+            "name": "Traveler's Pack",
+            "type": "tool",
+            "img": "icons/svg/eye.svg",
+            "system": {
+              "quantity": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "courier-blink",
+      "name": "Blink Feather",
+      "species": "Halfling",
+      "gender": "Male",
+      "age": 23,
+      "occupation": "Long-Road Courier",
+      "category": "travelers",
+      "tags": [
+        "courier",
+        "letters",
+        "speed"
+      ],
+      "description": "Long-Road Courier associated with the long road in all weather.",
+      "biography": "Blink Feather works as a long-road courier out of the long road in all weather, a 23-year-old Halfling with more town memory than most council minutes. Blink never sleeps in the same loft twice, and is rarely without sealable message tube worn as a belt. Idol for Finn; professional pride. What drives them is simple to name and hard to finish: they want to hire Finn as a second when the boy is ready. What keeps them careful is being forced to open a letter. To a DM, Blink is ready to roleplay immediately—useful for favors, local color, or trouble. Carried a sealed note from Kitty Shade to someone inside Vale Manor.",
+      "personality": "never sleeps in the same loft twice. Professional demeanor of a seasoned long-road courier.",
+      "motivation": "Pursue this: hire Finn as a second when the boy is ready. Avoid this: being forced to open a letter.",
+      "secret": "Privately terrified of being forced to open a letter, and currently entangled with: Carried a sealed note from Kitty Shade to someone inside Vale Manor.",
+      "rumor": "Rumor says Blink can tell you anything that happens near the long road in all weather—for a price or a kindness.",
+      "voice": "Speaks like a Halfling long-road courier: concrete details first, embellishment only when useful.",
+      "appearance": "Halfling; often near the long road in all weather; look for sealable message tube worn as a belt.",
+      "portrait": "modules/townforge/assets/portraits/courier-blink.webp",
+      "token": "modules/townforge/assets/tokens/courier-blink.webp",
+      "relationships": [
+        {
+          "id": "finn-cobble",
+          "type": "admirer",
+          "note": "Wants to become a real long-road courier."
+        }
+      ],
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "abilities": {
+            "str": {
+              "value": 12
+            },
+            "dex": {
+              "value": 14
+            },
+            "con": {
+              "value": 12
+            },
+            "int": {
+              "value": 11
+            },
+            "wis": {
+              "value": 13
+            },
+            "cha": {
+              "value": 12
+            }
+          },
+          "attributes": {
+            "ac": {
+              "flat": 13,
+              "calc": "flat"
+            },
+            "hp": {
+              "value": 11,
+              "max": 11
+            },
+            "movement": {
+              "walk": 30,
+              "units": "ft"
+            },
+            "senses": {
+              "darkvision": 0,
+              "blindsight": 0,
+              "tremorsense": 0,
+              "truesight": 0
+            },
+            "prof": 2
+          },
+          "details": {
+            "cr": 0.25,
+            "alignment": "neutral",
+            "type": {
+              "value": "humanoid",
+              "subtype": "halfling"
+            }
+          },
+          "traits": {
+            "size": "med",
+            "languages": {
+              "value": [
+                "common"
+              ]
+            }
+          },
+          "skills": {
+            "sur": {
+              "value": 1
+            },
+            "prc": {
+              "value": 1
+            },
+            "ath": {
+              "value": 1
+            }
+          }
+        },
+        "items": [
+          {
+            "name": "Shortsword",
+            "type": "weapon",
+            "img": "icons/svg/sword.svg",
+            "system": {
+              "quantity": 1,
+              "equipped": true,
+              "type": {
+                "value": "martialM"
+              },
+              "damage": {
+                "parts": [
+                  [
+                    "1d6",
+                    "piercing"
+                  ]
+                ]
+              },
+              "actionType": "mwak"
+            }
+          },
+          {
+            "name": "Traveler's Pack",
+            "type": "tool",
+            "img": "icons/svg/eye.svg",
+            "system": {
+              "quantity": 1
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
