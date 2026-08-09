@@ -33,11 +33,9 @@ export class ActorService {
 
     try {
       const { actor, created } = await this.ensureActor(npc);
-      ui.notifications?.info(
-        created
-          ? `TownForge imported ${npc.name} into the Actors directory.`
-          : `TownForge found existing Actor for ${npc.name}.`
-      );
+      if (created) {
+        ui.notifications?.info(`TownForge imported ${npc.name} into the Actors directory.`);
+      }
       return { actor, createdActor: created };
     } catch (error) {
       console.error(`${LOG_PREFIX} Actor import failed for "${npc.id}"`, error);
