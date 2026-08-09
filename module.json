@@ -1,0 +1,46 @@
+{
+  "id": "townforge",
+  "title": "TownForge",
+  "description": "TownForge is an NPC library for Gambits Forge that lets Dungeon Masters quickly browse pre-built NPCs and add them directly into a Foundry scene.",
+  "version": "0.1.0",
+  "authors": [
+    {
+      "name": "Gambits Forge",
+      "url": "https://github.com/magicalnickster-design"
+    }
+  ],
+  "compatibility": {
+    "minimum": "13",
+    "verified": "14"
+  },
+  "relationships": {
+    "systems": [
+      {
+        "id": "dnd5e",
+        "type": "system"
+      }
+    ]
+  },
+  "esmodules": [
+    "scripts/main.js"
+  ],
+  "styles": [
+    "styles/townforge.css"
+  ],
+  "flags": {
+    "townforge": {
+      "libraries": {
+        "free": {
+          "id": "free",
+          "label": "TownForge Free",
+          "enabled": true
+        },
+        "pro": {
+          "id": "pro",
+          "label": "TownForge Pro",
+          "enabled": false
+        }
+      }
+    }
+  }
+}

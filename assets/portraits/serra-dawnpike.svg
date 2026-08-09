@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="TownForge placeholder portrait">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#6f8fad"/>
+      <stop offset="100%" stop-color="#243447"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" fill="url(#g)"/>
+  <circle cx="256" cy="190" r="78" fill="rgba(255,255,255,0.18)"/>
+  <path d="M120 430c28-78 88-118 136-118s108 40 136 118" fill="rgba(255,255,255,0.18)"/>
+  <text x="256" y="210" text-anchor="middle" font-family="Georgia, serif" font-size="92" fill="#f3efe6">S</text>
+</svg>

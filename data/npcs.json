@@ -1,0 +1,146 @@
+{
+  "library": "free",
+  "version": 1,
+  "npcs": [
+    {
+      "id": "mira-ashkettle",
+      "name": "Mira Ashkettle",
+      "race": "Halfling",
+      "occupation": "Tavern Keeper",
+      "category": "tavern",
+      "description": "Warm, sharp-eyed, and always polishing a mug. Mira knows every regular by name and every rumor worth hearing.",
+      "portrait": "modules/townforge/assets/portraits/mira-ashkettle.svg",
+      "token": "modules/townforge/assets/tokens/mira-ashkettle.svg",
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "attributes": {
+            "hp": {
+              "value": 9,
+              "max": 9
+            }
+          },
+          "details": {
+            "cr": 0.125,
+            "type": {
+              "value": "humanoid",
+              "subtype": "halfling"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "tovin-brassbarrow",
+      "name": "Tovin Brassbarrow",
+      "race": "Dwarf",
+      "occupation": "General Store Owner",
+      "category": "shops",
+      "description": "A practical shopkeep with a ledger memory. Tovin can find almost anything on his shelves — for the right price.",
+      "portrait": "modules/townforge/assets/portraits/tovin-brassbarrow.svg",
+      "token": "modules/townforge/assets/tokens/tovin-brassbarrow.svg",
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "attributes": {
+            "hp": {
+              "value": 12,
+              "max": 12
+            }
+          },
+          "details": {
+            "cr": 0.25,
+            "type": {
+              "value": "humanoid",
+              "subtype": "dwarf"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "serra-dawnpike",
+      "name": "Serra Dawnpike",
+      "race": "Human",
+      "occupation": "City Guard Captain",
+      "category": "guards",
+      "description": "Straight-backed and soft-spoken until she isn't. Serra keeps the gate honest and the watch on schedule.",
+      "portrait": "modules/townforge/assets/portraits/serra-dawnpike.svg",
+      "token": "modules/townforge/assets/tokens/serra-dawnpike.svg",
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "attributes": {
+            "hp": {
+              "value": 32,
+              "max": 32
+            }
+          },
+          "details": {
+            "cr": 1,
+            "type": {
+              "value": "humanoid",
+              "subtype": "human"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "lord-edric-vale",
+      "name": "Lord Edric Vale",
+      "race": "Human",
+      "occupation": "Noble Patron",
+      "category": "nobility",
+      "description": "Polished manners, careful smiles, and a habit of asking questions that sound like favors.",
+      "portrait": "modules/townforge/assets/portraits/lord-edric-vale.svg",
+      "token": "modules/townforge/assets/tokens/lord-edric-vale.svg",
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "attributes": {
+            "hp": {
+              "value": 16,
+              "max": 16
+            }
+          },
+          "details": {
+            "cr": 0.5,
+            "type": {
+              "value": "humanoid",
+              "subtype": "human"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "nell-riverwick",
+      "name": "Nell Riverwick",
+      "race": "Human",
+      "occupation": "Street Sweep",
+      "category": "commoners",
+      "description": "Quiet, observant, and often overlooked. Nell hears more of the town's true business than most merchants do.",
+      "portrait": "modules/townforge/assets/portraits/nell-riverwick.svg",
+      "token": "modules/townforge/assets/tokens/nell-riverwick.svg",
+      "actorData": {
+        "type": "npc",
+        "system": {
+          "attributes": {
+            "hp": {
+              "value": 4,
+              "max": 4
+            }
+          },
+          "details": {
+            "cr": 0,
+            "type": {
+              "value": "humanoid",
+              "subtype": "human"
+            }
+          }
+        }
+      }
+    }
+  ]
+}

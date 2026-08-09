@@ -1,0 +1,31 @@
+<article class="townforge-details">
+  <button type="button" class="townforge-back" data-action="backToList">
+    <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+    Back to library
+  </button>
+
+  <div class="townforge-details-layout">
+    <div class="townforge-details-portrait">
+      <img src="{{npc.portrait}}" alt="{{npc.name}}" />
+    </div>
+
+    <div class="townforge-details-body">
+      <h2 class="townforge-details-name">{{npc.name}}</h2>
+      <p class="townforge-details-meta">{{npc.race}} · {{npc.occupation}}</p>
+      <p class="townforge-details-category">{{npc.category}}</p>
+      <p class="townforge-details-description">{{npc.description}}</p>
+
+      <div class="townforge-details-actions">
+        <button
+          type="button"
+          class="townforge-add-button"
+          data-action="addToScene"
+          data-npc-id="{{npc.id}}"
+        >
+          <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+          Add to Scene
+        </button>
+      </div>
+    </div>
+  </div>
+</article>
