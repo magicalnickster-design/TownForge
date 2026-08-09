@@ -7,10 +7,8 @@ const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
 /**
  * TownForge NPC Browser
  *
- * Simple GM-facing ApplicationV2 UI:
- * - Search + category filters
- * - Card grid of NPCs
- * - Detail/preview pane with Add to Scene
+ * ApplicationV2 UI with separate header/content parts so search input
+ * updates can re-render the card list without recreating the app window.
  */
 export class NpcBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
   /** @type {string} */
@@ -21,9 +19,6 @@ export class NpcBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
 
   /** @type {string|null} */
   #selectedNpcId = null;
-
-  /** @type {object[]} */
-  #npcs = [];
 
   static DEFAULT_OPTIONS = {
     id: "townforge-npc-browser",
@@ -47,9 +42,13 @@ export class NpcBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
   };
 
   static PARTS = {
-    main: {
-      template: `modules/${MODULE_ID}/templates/npc-browser.hbs`,
-      templates: [`modules/${MODULE_ID}/templates/npc-details.hbs`]
+    header: {
+      template: `modules/${MODULE_ID}/templates/npc-browser.hbs`
+    },
+    content: {
+      template: `modules/${MODULE_ID}/templates/npc-content.hbs`,
+      templates: [`modules/${MODULE_ID}/templates/npc-details.hbs`],
+      scrollable: [""]
     }
   };
 
@@ -60,12 +59,14 @@ export class NpcBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
   static async show() {
     const existing = foundry.applications.instances.get("townforge-npc-browser");
     if (existing instanceof NpcBrowser) {
+      console.log(`${LOG_PREFIX} Browser opened`);
       await existing.render({ force: true });
       existing.bringToFront?.();
       return existing;
     }
 
     const app = new NpcBrowser();
+    console.log(`${LOG_PREFIX} Browser opened`);
     await app.render({ force: true });
     return app;
   }
@@ -75,7 +76,7 @@ export class NpcBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
     const context = await super._prepareContext(options);
     await npcService.ready();
 
-    this.#npcs = await npcService.searchNpcs({
+    const npcs = await npcService.searchNpcs({
       category: this.#category,
       query: this.#query
     });
@@ -84,7 +85,11 @@ export class NpcBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
       ? await npcService.getNpcById(this.#selectedNpcId)
       : null;
 
-    // If the selected NPC is filtered out of the current list, still show it in detail mode.
+    // Clear stale selection if the NPC disappeared from the library.
+    if (this.#selectedNpcId && !selectedNpc) {
+      this.#selectedNpcId = null;
+    }
+
     const categories = npcService.getCategories().map((category) => ({
       ...category,
       active: category.id === this.#category
@@ -95,38 +100,33 @@ export class NpcBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
       query: this.#query,
       category: this.#category,
       categories,
-      npcs: this.#npcs,
+      npcs,
       selectedNpc,
       showingDetails: Boolean(selectedNpc),
-      resultCount: this.#npcs.length
+      resultCount: npcs.length,
+      loadFailed: npcService.loadFailed
     });
   }
 
   /** @inheritDoc */
   _onRender(context, options) {
     super._onRender?.(context, options);
+    this.#bindSearchInput();
+  }
 
+  /**
+   * Bind search once per rendered header input.
+   * Search updates only re-render the content part.
+   */
+  #bindSearchInput() {
     const searchInput = this.element.querySelector("[data-townforge-search]");
     if (!searchInput || searchInput.dataset.townforgeBound) return;
 
     searchInput.dataset.townforgeBound = "1";
     searchInput.addEventListener("input", (event) => {
-      const input = event.currentTarget;
-      const selectionStart = input.selectionStart;
-      const selectionEnd = input.selectionEnd;
-
-      this.#query = input.value ?? "";
-      // Keep detail view closed while searching so results stay visible.
+      this.#query = event.currentTarget.value ?? "";
       if (this.#selectedNpcId) this.#selectedNpcId = null;
-
-      void this.render({ parts: ["main"] }).then(() => {
-        const restored = this.element.querySelector("[data-townforge-search]");
-        if (!restored) return;
-        restored.focus();
-        if (typeof selectionStart === "number" && typeof selectionEnd === "number") {
-          restored.setSelectionRange(selectionStart, selectionEnd);
-        }
-      });
+      void this.render({ parts: ["content"] });
     });
   }
 
@@ -137,12 +137,12 @@ export class NpcBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
    */
   static async #onSetCategory(_event, target) {
     const category = target.dataset.category;
-    if (!category) return;
+    if (!category || category === this.#category) return;
 
     this.#category = category;
     this.#selectedNpcId = null;
-    console.log(`${LOG_PREFIX} Category filter set to "${category}"`);
-    await this.render({ parts: ["main"] });
+    // Header needs active category styles; content needs filtered cards.
+    await this.render({ parts: ["header", "content"] });
   }
 
   /**
@@ -155,8 +155,7 @@ export class NpcBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
     if (!npcId) return;
 
     this.#selectedNpcId = npcId;
-    console.log(`${LOG_PREFIX} Opening NPC details for "${npcId}"`);
-    await this.render({ parts: ["main"] });
+    await this.render({ parts: ["header", "content"] });
   }
 
   /**
@@ -164,7 +163,7 @@ export class NpcBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
    */
   static async #onBackToList() {
     this.#selectedNpcId = null;
-    await this.render({ parts: ["main"] });
+    await this.render({ parts: ["header", "content"] });
   }
 
   /**
@@ -185,16 +184,7 @@ export class NpcBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
 
     target.disabled = true;
     try {
-      console.log(`${LOG_PREFIX} Add to Scene requested for "${npc.name}"`);
-      const result = await actorService.addNpcToScene(npc);
-
-      if (!result.actor) return;
-
-      const reuseNote = result.createdActor ? "created Actor and" : "reused Actor and";
-      ui.notifications?.info(`TownForge ${reuseNote} placed ${npc.name}.`);
-    } catch (error) {
-      console.error(`${LOG_PREFIX} Failed to add NPC to scene`, error);
-      ui.notifications?.error(`TownForge failed to add ${npc.name} to the scene.`);
+      await actorService.addNpcToScene(npc);
     } finally {
       target.disabled = false;
     }

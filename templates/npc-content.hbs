@@ -1,0 +1,36 @@
+<section class="townforge-content">
+  {{#if showingDetails}}
+    {{> "modules/townforge/templates/npc-details.hbs" npc=selectedNpc}}
+  {{else}}
+    <div class="townforge-results-meta">
+      <span>{{resultCount}} NPCs</span>
+    </div>
+
+    {{#if npcs.length}}
+    <div class="townforge-card-grid" role="list">
+      {{#each npcs}}
+      <button
+        type="button"
+        class="townforge-card"
+        data-action="openNpc"
+        data-npc-id="{{id}}"
+        role="listitem"
+      >
+        <div class="townforge-card-portrait">
+          <img src="{{portrait}}" alt="" loading="lazy" />
+        </div>
+        <div class="townforge-card-body">
+          <h2 class="townforge-card-name">{{name}}</h2>
+          <p class="townforge-card-meta">{{race}} · {{occupation}}</p>
+          <span class="townforge-card-category">{{category}}</span>
+        </div>
+      </button>
+      {{/each}}
+    </div>
+    {{else}}
+    <div class="townforge-empty">
+      <p>{{#if loadFailed}}TownForge could not load its NPC library.{{else}}No NPCs match your search.{{/if}}</p>
+    </div>
+    {{/if}}
+  {{/if}}
+</section>

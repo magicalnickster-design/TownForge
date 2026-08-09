@@ -1,73 +1,36 @@
-<section class="townforge-browser">
-  <header class="townforge-header">
-    <div class="townforge-brand">
-      <h1>{{title}}</h1>
-      <p class="townforge-subtitle">Browse pre-built NPCs and place them into your scene.</p>
-    </div>
+<header class="townforge-header">
+  <div class="townforge-brand">
+    <h1>{{title}}</h1>
+    <p class="townforge-subtitle">Browse pre-built NPCs and place them into your scene.</p>
+  </div>
 
-    {{#unless showingDetails}}
-    <div class="townforge-toolbar">
-      <label class="townforge-search">
-        <span class="townforge-sr-only">Search NPCs</span>
-        <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
-        <input
-          type="search"
-          name="query"
-          value="{{query}}"
-          placeholder="Search by name, race, occupation…"
-          data-townforge-search
-          autocomplete="off"
-        />
-      </label>
+  {{#unless showingDetails}}
+  <div class="townforge-toolbar">
+    <label class="townforge-search">
+      <span class="townforge-sr-only">Search NPCs</span>
+      <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+      <input
+        type="search"
+        name="query"
+        value="{{query}}"
+        placeholder="Search by name, race, occupation…"
+        data-townforge-search
+        autocomplete="off"
+      />
+    </label>
 
-      <div class="townforge-categories" role="toolbar" aria-label="NPC categories">
-        {{#each categories}}
-        <button
-          type="button"
-          class="townforge-category{{#if active}} is-active{{/if}}"
-          data-action="setCategory"
-          data-category="{{id}}"
-        >
-          {{label}}
-        </button>
-        {{/each}}
-      </div>
-    </div>
-    {{/unless}}
-  </header>
-
-  {{#if showingDetails}}
-    {{> "modules/townforge/templates/npc-details.hbs" npc=selectedNpc}}
-  {{else}}
-    <div class="townforge-results-meta">
-      <span>{{resultCount}} NPCs</span>
-    </div>
-
-    {{#if npcs.length}}
-    <div class="townforge-card-grid" role="list">
-      {{#each npcs}}
+    <div class="townforge-categories" role="toolbar" aria-label="NPC categories">
+      {{#each categories}}
       <button
         type="button"
-        class="townforge-card"
-        data-action="openNpc"
-        data-npc-id="{{id}}"
-        role="listitem"
+        class="townforge-category{{#if active}} is-active{{/if}}"
+        data-action="setCategory"
+        data-category="{{id}}"
       >
-        <div class="townforge-card-portrait">
-          <img src="{{portrait}}" alt="" loading="lazy" />
-        </div>
-        <div class="townforge-card-body">
-          <h2 class="townforge-card-name">{{name}}</h2>
-          <p class="townforge-card-meta">{{race}} · {{occupation}}</p>
-          <span class="townforge-card-category">{{category}}</span>
-        </div>
+        {{label}}
       </button>
       {{/each}}
     </div>
-    {{else}}
-    <div class="townforge-empty">
-      <p>No NPCs match your search.</p>
-    </div>
-    {{/if}}
-  {{/if}}
-</section>
+  </div>
+  {{/unless}}
+</header>

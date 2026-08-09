@@ -5,7 +5,6 @@ import { npcService } from "./npc-service.js";
 /**
  * TownForge module entrypoint.
  *
- * Keeps bootstrapping thin:
  * - preload Free NPC data
  * - register a GM-only Scene Controls button
  * - expose a small API for future Free/Pro / auth features
@@ -18,25 +17,18 @@ Hooks.once("init", () => {
 Hooks.once("ready", async () => {
   try {
     await npcService.ready();
-    console.log(`${LOG_PREFIX} Ready`);
   } catch (error) {
-    console.error(`${LOG_PREFIX} Ready hook failed`, error);
+    console.error(`${LOG_PREFIX} Ready hook failed while loading NPC library`, error);
   }
 
-  // Public API surface reserved for future Pro auth, imports, and AI tools.
+  console.log(`${LOG_PREFIX} Module ready`);
+
+  // Lightweight public API; Free/Pro auth hooks can attach later.
   globalThis.townforge = Object.freeze({
     id: MODULE_ID,
     title: MODULE_TITLE,
     openBrowser: () => NpcBrowser.show(),
     npcService,
-    /**
-     * Future extension points (not implemented in v0.1):
-     * - authenticate()
-     * - checkEntitlements()
-     * - loadProLibrary()
-     * - importNpc()
-     * - generateNpc()
-     */
     version: game.modules.get(MODULE_ID)?.version ?? "0.1.0"
   });
 });
@@ -48,20 +40,18 @@ Hooks.once("ready", async () => {
 Hooks.on("getSceneControlButtons", (controls) => {
   const tokens = controls.tokens;
   if (!tokens?.tools) {
-    console.warn(`${LOG_PREFIX} Token scene controls unavailable; browser button not registered.`);
+    console.warn(`${LOG_PREFIX} Token scene controls unavailable; browser button not registered`);
     return;
   }
 
-  const order = Object.keys(tokens.tools).length;
   tokens.tools.townforge = {
     name: "townforge",
     title: MODULE_TITLE,
     icon: "fa-solid fa-people-group",
     button: true,
-    visible: game.user?.isGM ?? false,
-    order,
+    visible: Boolean(game.user?.isGM),
+    order: Object.keys(tokens.tools).length,
     onChange: () => {
-      console.log(`${LOG_PREFIX} Opening NPC Browser from scene controls`);
       void NpcBrowser.show();
     }
   };
