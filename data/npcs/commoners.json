@@ -14,23 +14,16 @@
         "listener",
         "streets"
       ],
-      "description": "Street Sweep associated with dawn streets with a rush broom.",
-      "biography": "Ask around town for a street sweep and someone will point you to Nell at dawn streets with a rush broom. At 24, this Human has learned which smiles are currency and which are warnings. Nell listens more than she sweeps, and is rarely without pocket full of lost buttons she means to return. Friend to Finn; informant to Merrick. What drives them is simple to name and hard to finish: they want to save for a room that doesn't leak. What keeps them careful is being noticed by the wrong people for noticing too much. To a DM, Nell is ready to roleplay immediately—useful for favors, local color, or trouble. Mapped which cellar grates glow after midnight for Merrick.",
-      "personality": "listens more than she sweeps. Professional demeanor of a seasoned street sweep.",
-      "motivation": "Pursue this: save for a room that doesn't leak. Avoid this: being noticed by the wrong people for noticing too much.",
-      "secret": "Privately terrified of being noticed by the wrong people for noticing too much, and currently entangled with: Mapped which cellar grates glow after midnight for Merrick.",
-      "rumor": "Rumor says Nell can tell you anything that happens near dawn streets with a rush broom—for a price or a kindness.",
-      "voice": "Speaks like a Human street sweep: concrete details first, embellishment only when useful.",
-      "appearance": "Human; often near dawn streets with a rush broom; look for pocket full of lost buttons she means to return.",
+      "description": "A street sweep rooted at dawn streets with a rush broom, known for how she listens more than she sweeps.",
+      "biography": "Nell did not plan to become the town's go-to street sweep, yet dawn streets with a rush broom made the choice sticky. Now 24, the Human measures success in quiet evenings and unpaid favors returned. She listens more than she sweeps, and keeps the pocket full of lost buttons she means to return like a confessor keeps secrets. Friend to Finn; informant to Merrick. Hope pulls one way—save for a room that doesn't leak—while caution pulls the other because of being noticed by the wrong people for noticing too much. Mapped which cellar grates glow after midnight for Merrick.",
+      "personality": "Steady and sharp-eyed; listens more than she sweeps.",
+      "motivation": "To save for a room that doesn't leak without feeding being noticed by the wrong people for noticing too much.",
+      "secret": "Knows more about this than she admits: Mapped which cellar grates glow after midnight for Merrick.",
+      "rumor": "A smugglers' mark was seen near dawn streets with a rush broom on a night Nell worked late.",
+      "voice": "Low and practical, with a habit of repeating the important clause once.",
+      "appearance": "A human silhouette framed by dawn streets with a rush broom, hands seldom empty of the pocket full of lost buttons she means to return.",
       "portrait": "modules/townforge/assets/portraits/nell-riverwick.webp",
       "token": "modules/townforge/assets/tokens/nell-riverwick.webp",
-      "relationships": [
-        {
-          "id": "merrick-coal",
-          "type": "informant",
-          "note": "Passes street details for tea money."
-        }
-      ],
       "actorData": {
         "type": "npc",
         "system": {
@@ -97,7 +90,14 @@
             }
           }
         }
-      }
+      },
+      "relationships": [
+        {
+          "id": "merrick-coal",
+          "type": "informant",
+          "note": "Passes street details for tea money."
+        }
+      ]
     },
     {
       "id": "jab-millroad",
@@ -112,17 +112,16 @@
         "deliveries",
         "routes"
       ],
-      "description": "Carter associated with the mill road with his two-mule cart.",
-      "biography": "Most days begin the same for Jab Millroad: a 38-year-old Human carter moving through the mill road with his two-mule cart as if the stones themselves keep appointments with them. Jab names his mules after bad decisions, and is rarely without waybill clipboard chewed at the corners. Hauls for Garr; drinks with Old Tallow. What drives them is simple to name and hard to finish: they want to buy a covered wagon before winter rain. What keeps them careful is highway 'tolls' that aren't official. To a DM, Jab is ready to roleplay immediately—useful for favors, local color, or trouble. Was paid double to deliver an unmarked crate to the old mill and ask nothing.",
-      "personality": "names his mules after bad decisions. Professional demeanor of a seasoned carter.",
-      "motivation": "Pursue this: buy a covered wagon before winter rain. Avoid this: highway 'tolls' that aren't official.",
-      "secret": "Privately terrified of highway 'tolls' that aren't official, and currently entangled with: Was paid double to deliver an unmarked crate to the old mill and ask nothing.",
-      "rumor": "Rumor says Jab can tell you anything that happens near the mill road with his two-mule cart—for a price or a kindness.",
-      "voice": "Speaks like a Human carter: concrete details first, embellishment only when useful.",
-      "appearance": "Human; often near the mill road with his two-mule cart; look for waybill clipboard chewed at the corners.",
+      "description": "Jab holds down the mill road with his two-mule cart with callused competence and open ears.",
+      "biography": "Walk into the mill road with his two-mule cart and you will find Jab Millroad before you find a free chair. A 38-year-old Human carter, Jab greets trouble the way other folk greet weather: with a coat and a plan. He names his mules after bad decisions. The waybill clipboard chewed at the corners travels with him almost everywhere. Hauls for Garr; drinks with Old Tallow. His ambition is to buy a covered wagon before winter rain. His nightmare is highway 'tolls' that aren't official. Right now, Was paid double to deliver an unmarked crate to the old mill and ask nothing.",
+      "personality": "Warm with regulars, curt with wasters; names his mules after bad decisions.",
+      "motivation": "Secure enough ground to buy a covered wagon before winter rain.",
+      "secret": "Quietly arranging matters around: Was paid double to deliver an unmarked crate to the old mill and ask nothing.",
+      "rumor": "Jab is writing a private list of debts the council will not touch.",
+      "voice": "Polite public voice; sharper private asides when trust appears.",
+      "appearance": "Looks like someone who sleeps lightly; distinctive detail is the waybill clipboard chewed at the corners.",
       "portrait": "modules/townforge/assets/portraits/jab-millroad.webp",
       "token": "modules/townforge/assets/tokens/jab-millroad.webp",
-      "relationships": [],
       "actorData": {
         "type": "npc",
         "system": {
@@ -204,17 +203,16 @@
         "soap",
         "kind"
       ],
-      "description": "Laundry Worker associated with the washhouse steam.",
-      "biography": "Oma Kettle works as a laundry worker out of the washhouse steam, a 70-year-old Halfling with more town memory than most council minutes. Oma hums lullabies to stained sheets, and is rarely without cake of soap scented with river mint. Washes for manor staff; knows Ora. What drives them is simple to name and hard to finish: they want to see her grandson apprenticed cleanly. What keeps them careful is illness spreading through shared basins. To a DM, Oma is ready to roleplay immediately—useful for favors, local color, or trouble. Found a blood-stiffened shirt with a Vale-colored thread in the cuff.",
-      "personality": "hums lullabies to stained sheets. Professional demeanor of a seasoned laundry worker.",
-      "motivation": "Pursue this: see her grandson apprenticed cleanly. Avoid this: illness spreading through shared basins.",
-      "secret": "Privately terrified of illness spreading through shared basins, and currently entangled with: Found a blood-stiffened shirt with a Vale-colored thread in the cuff.",
-      "rumor": "Rumor says Oma can tell you anything that happens near the washhouse steam—for a price or a kindness.",
-      "voice": "Speaks like a Halfling laundry worker: concrete details first, embellishment only when useful.",
-      "appearance": "Halfling; often near the washhouse steam; look for cake of soap scented with river mint.",
+      "description": "A laundry worker rooted at the washhouse steam, known for how she hums lullabies to stained sheets.",
+      "biography": "Oma learned the hard corners of town by working them as a laundry worker based out of the washhouse steam. At 70, the Halfling has a map of loyalties written in calluses rather than ink. Day after day she hums lullabies to stained sheets, and the cake of soap scented with river mint marks her place in the room. Washes for manor staff; knows Ora. Her north star is to see her grandson apprenticed cleanly. The shadow at her heels is illness spreading through shared basins. Found a blood-stiffened shirt with a Vale-colored thread in the cuff.",
+      "personality": "Steady and sharp-eyed; hums lullabies to stained sheets.",
+      "motivation": "To see her grandson apprenticed cleanly without feeding illness spreading through shared basins.",
+      "secret": "Knows more about this than she admits: Found a blood-stiffened shirt with a Vale-colored thread in the cuff.",
+      "rumor": "Oma is writing a private list of debts the council will not touch.",
+      "voice": "Low and practical, with a habit of repeating the important clause once.",
+      "appearance": "A halfling silhouette framed by the washhouse steam, hands seldom empty of the cake of soap scented with river mint.",
       "portrait": "modules/townforge/assets/portraits/oma-kettle.webp",
       "token": "modules/townforge/assets/tokens/oma-kettle.webp",
-      "relationships": [],
       "actorData": {
         "type": "npc",
         "system": {
@@ -296,23 +294,16 @@
         "fast",
         "curious"
       ],
-      "description": "Messenger Boy associated with shortcuts between market and manor.",
-      "biography": "Most days begin the same for Finn Cobble: a 16-year-old Human messenger boy moving through shortcuts between market and manor as if the stones themselves keep appointments with them. Finn runs messages before he reads them—usually, and is rarely without scuffed satchel with a false seam. Idolizes Blink; friends with Nell. What drives them is simple to name and hard to finish: they want to become a long-road courier like Blink. What keeps them careful is delivering something that gets a friend hanged. To a DM, Finn is ready to roleplay immediately—useful for favors, local color, or trouble. Peeked at a letter from Brother Caldus naming Magister Quen.",
-      "personality": "runs messages before he reads them—usually. Professional demeanor of a seasoned messenger boy.",
-      "motivation": "Pursue this: become a long-road courier like Blink. Avoid this: delivering something that gets a friend hanged.",
-      "secret": "Privately terrified of delivering something that gets a friend hanged, and currently entangled with: Peeked at a letter from Brother Caldus naming Magister Quen.",
-      "rumor": "Rumor says Finn can tell you anything that happens near shortcuts between market and manor—for a price or a kindness.",
-      "voice": "Speaks like a Human messenger boy: concrete details first, embellishment only when useful.",
-      "appearance": "Human; often near shortcuts between market and manor; look for scuffed satchel with a false seam.",
+      "description": "Familiar face at shortcuts between market and manor; useful, stubborn, and hard to surprise.",
+      "biography": "Finn learned the hard corners of town by working them as a messenger boy based out of shortcuts between market and manor. At 16, the Human has a map of loyalties written in calluses rather than ink. Day after day he runs messages before he reads them—usually, and the scuffed satchel with a false seam marks his place in the room. Idolizes Blink; friends with Nell. His north star is to become a long-road courier like Blink. The shadow at his heels is delivering something that gets a friend hanged. Peeked at a letter from Brother Caldus naming Magister Quen.",
+      "personality": "Proud of competence more than praise; runs messages before he reads them—usually.",
+      "motivation": "Protect his place at shortcuts between market and manor long enough to become a long-road courier like Blink.",
+      "secret": "Has not told allies that peeked at a letter from Brother Caldus naming Magister Quen.",
+      "rumor": "Finn is writing a private list of debts the council will not touch.",
+      "voice": "Measured human cadence; concrete nouns before adjectives.",
+      "appearance": "Work-worn human garb; scuffed satchel with a false seam always nearby.",
       "portrait": "modules/townforge/assets/portraits/finn-cobble.webp",
       "token": "modules/townforge/assets/tokens/finn-cobble.webp",
-      "relationships": [
-        {
-          "id": "courier-blink",
-          "type": "idol",
-          "note": "Wants to become a real long-road courier."
-        }
-      ],
       "actorData": {
         "type": "npc",
         "system": {
@@ -416,7 +407,14 @@
             }
           }
         ]
-      }
+      },
+      "relationships": [
+        {
+          "id": "courier-blink",
+          "type": "idol",
+          "note": "Wants to become a real long-road courier."
+        }
+      ]
     },
     {
       "id": "bera-wells",
@@ -431,17 +429,16 @@
         "water",
         "community"
       ],
-      "description": "Well Keeper associated with the town well square.",
-      "biography": "Most days begin the same for Bera Wells: a 52-year-old Human well keeper moving through the town well square as if the stones themselves keep appointments with them. Bera rations buckets fairly when drought talk starts, and is rarely without iron well key on a red cord. Community voice; speaks to Mayor Haldrin. What drives them is simple to name and hard to finish: they want to fund a second well before the next dry summer. What keeps them careful is poison or panic at the water. To a DM, Bera is ready to roleplay immediately—useful for favors, local color, or trouble. Noticed a bitter taste the morning after smugglers used the mill race.",
-      "personality": "rations buckets fairly when drought talk starts. Professional demeanor of a seasoned well keeper.",
-      "motivation": "Pursue this: fund a second well before the next dry summer. Avoid this: poison or panic at the water.",
-      "secret": "Privately terrified of poison or panic at the water, and currently entangled with: Noticed a bitter taste the morning after smugglers used the mill race.",
-      "rumor": "Rumor says Bera can tell you anything that happens near the town well square—for a price or a kindness.",
-      "voice": "Speaks like a Human well keeper: concrete details first, embellishment only when useful.",
-      "appearance": "Human; often near the town well square; look for iron well key on a red cord.",
+      "description": "The well keeper people recommend when they actually want the job finished.",
+      "biography": "Some townsfolk swear Bera was born mid-shift at the town well square; the truth is only slightly less devoted. This Human well keeper, now 52, treats competence like courtesy. She rations buckets fairly when drought talk starts, never far from the iron well key on a red cord. Community voice; speaks to Mayor Haldrin. Ask what she wants and she names it plainly: fund a second well before the next dry summer. Ask what she dreads and the answer is poison or panic at the water. Then comes the fresh problem—Noticed a bitter taste the morning after smugglers used the mill race.",
+      "personality": "Soft-spoken until principles are poked; rations buckets fairly when drought talk starts.",
+      "motivation": "Turn today's scrapes into tomorrow's chance to fund a second well before the next dry summer.",
+      "secret": "Night thoughts keep returning to poison or panic at the water, especially since: Noticed a bitter taste the morning after smugglers used the mill race.",
+      "rumor": "Someone paid Bera to forget a name connected to the town well square.",
+      "voice": "Quick river-town diction, then sudden silences that mean more than words.",
+      "appearance": "Easy to spot near the town well square: human, practical layers, and that iron well key on a red cord.",
       "portrait": "modules/townforge/assets/portraits/bera-wells.webp",
       "token": "modules/townforge/assets/tokens/bera-wells.webp",
-      "relationships": [],
       "actorData": {
         "type": "npc",
         "system": {
@@ -523,17 +520,16 @@
         "horses",
         "quiet"
       ],
-      "description": "Stable Hand associated with the public stables.",
-      "biography": "Skog Rake works as a stable hand out of the public stables, a 33-year-old Half-Orc with more town memory than most council minutes. Skog speaks to horses before people, and is rarely without curry comb worn to a crescent. Stables Jor's caravan beasts; quiet friend to Vessa. What drives them is simple to name and hard to finish: they want to breed a courier line that outruns bandits. What keeps them careful is fire in the hayloft. To a DM, Skog is ready to roleplay immediately—useful for favors, local color, or trouble. Found a branded Vale mare stabled under a false name overnight.",
-      "personality": "speaks to horses before people. Professional demeanor of a seasoned stable hand.",
-      "motivation": "Pursue this: breed a courier line that outruns bandits. Avoid this: fire in the hayloft.",
-      "secret": "Privately terrified of fire in the hayloft, and currently entangled with: Found a branded Vale mare stabled under a false name overnight.",
-      "rumor": "Rumor says Skog can tell you anything that happens near the public stables—for a price or a kindness.",
-      "voice": "Speaks like a Half-Orc stable hand: concrete details first, embellishment only when useful.",
-      "appearance": "Half-Orc; often near the public stables; look for curry comb worn to a crescent.",
+      "description": "Familiar face at the public stables; useful, stubborn, and hard to surprise.",
+      "biography": "Skog did not plan to become the town's go-to stable hand, yet the public stables made the choice sticky. Now 33, the Half-Orc measures success in quiet evenings and unpaid favors returned. He speaks to horses before people, and keeps the curry comb worn to a crescent like a confessor keeps secrets. Stables Jor's caravan beasts; quiet friend to Vessa. Hope pulls one way—breed a courier line that outruns bandits—while caution pulls the other because of fire in the hayloft. Found a branded Vale mare stabled under a false name overnight.",
+      "personality": "Proud of competence more than praise; speaks to horses before people.",
+      "motivation": "Protect his place at the public stables long enough to breed a courier line that outruns bandits.",
+      "secret": "Has not told allies that found a branded Vale mare stabled under a false name overnight.",
+      "rumor": "Skog can open doors at the public stables after hours—if asked the right way.",
+      "voice": "Measured half-orc cadence; concrete nouns before adjectives.",
+      "appearance": "Work-worn half-orc garb; curry comb worn to a crescent always nearby.",
       "portrait": "modules/townforge/assets/portraits/skog-rake.webp",
       "token": "modules/townforge/assets/tokens/skog-rake.webp",
-      "relationships": [],
       "actorData": {
         "type": "npc",
         "system": {
@@ -615,17 +611,16 @@
         "soot",
         "hardy"
       ],
-      "description": "Chimney Sweep associated with rooftops and chimneys.",
-      "biography": "Tilda Ashpan works as a chimney sweep out of rooftops and chimneys, a 61-year-old Human with more town memory than most council minutes. Tilda spits soot and blessings in the same breath, and is rarely without rope harness inked with chimney marks. Confirms Old Tallow's lantern story. What drives them is simple to name and hard to finish: they want to train one apprentice who isn't afraid of heights. What keeps them careful is falling through a rotten stack. To a DM, Tilda is ready to roleplay immediately—useful for favors, local color, or trouble. Saw signal lanterns answering each other from mill to river from a roof ridge.",
-      "personality": "spits soot and blessings in the same breath. Professional demeanor of a seasoned chimney sweep.",
-      "motivation": "Pursue this: train one apprentice who isn't afraid of heights. Avoid this: falling through a rotten stack.",
-      "secret": "Privately terrified of falling through a rotten stack, and currently entangled with: Saw signal lanterns answering each other from mill to river from a roof ridge.",
-      "rumor": "Rumor says Tilda can tell you anything that happens near rooftops and chimneys—for a price or a kindness.",
-      "voice": "Speaks like a Human chimney sweep: concrete details first, embellishment only when useful.",
-      "appearance": "Human; often near rooftops and chimneys; look for rope harness inked with chimney marks.",
+      "description": "Tilda holds down rooftops and chimneys with callused competence and open ears.",
+      "biography": "Tilda learned the hard corners of town by working them as a chimney sweep based out of rooftops and chimneys. At 61, the Human has a map of loyalties written in calluses rather than ink. Day after day she spits soot and blessings in the same breath, and the rope harness inked with chimney marks marks her place in the room. Confirms Old Tallow's lantern story. Her north star is to train one apprentice who isn't afraid of heights. The shadow at her heels is falling through a rotten stack. Saw signal lanterns answering each other from mill to river from a roof ridge.",
+      "personality": "Warm with regulars, curt with wasters; spits soot and blessings in the same breath.",
+      "motivation": "Secure enough ground to train one apprentice who isn't afraid of heights.",
+      "secret": "Quietly arranging matters around: Saw signal lanterns answering each other from mill to river from a roof ridge.",
+      "rumor": "Tilda is writing a private list of debts the council will not touch.",
+      "voice": "Polite public voice; sharper private asides when trust appears.",
+      "appearance": "Looks like someone who sleeps lightly; distinctive detail is the rope harness inked with chimney marks.",
       "portrait": "modules/townforge/assets/portraits/tilda-ashpan.webp",
       "token": "modules/townforge/assets/tokens/tilda-ashpan.webp",
-      "relationships": [],
       "actorData": {
         "type": "npc",
         "system": {
@@ -707,17 +702,16 @@
         "trinkets",
         "jokes"
       ],
-      "description": "Street Peddler associated with fountain steps with a peddler cloth.",
-      "biography": "Most days begin the same for Wren Pocket: a 40-year-old Gnome street peddler moving through fountain steps with a peddler cloth as if the stones themselves keep appointments with them. Wren turns jokes into discounts, and is rarely without box of 'lucky' nails that are just nails. Competes lightly with Quinn; knows Mouse. What drives them is simple to name and hard to finish: they want to rent a real stall by spring. What keeps them careful is Quinn undercutting their street trade. To a DM, Wren is ready to roleplay immediately—useful for favors, local color, or trouble. Sold a 'treasure map' that Mouse Pip later swore matched real tunnels.",
-      "personality": "turns jokes into discounts. Professional demeanor of a seasoned street peddler.",
-      "motivation": "Pursue this: rent a real stall by spring. Avoid this: Quinn undercutting their street trade.",
-      "secret": "Privately terrified of Quinn undercutting their street trade, and currently entangled with: Sold a 'treasure map' that Mouse Pip later swore matched real tunnels.",
-      "rumor": "Rumor says Wren can tell you anything that happens near fountain steps with a peddler cloth—for a price or a kindness.",
-      "voice": "Speaks like a Gnome street peddler: concrete details first, embellishment only when useful.",
-      "appearance": "Gnome; often near fountain steps with a peddler cloth; look for box of 'lucky' nails that are just nails.",
+      "description": "Familiar face at fountain steps with a peddler cloth; useful, stubborn, and hard to surprise.",
+      "biography": "Wren Pocket's reputation as a street peddler was built one careful errand at a time around fountain steps with a peddler cloth. Age 40 sits lightly on this Gnome, except when old debts creak. Watch long enough and you will see that they turns jokes into discounts. The box of 'lucky' nails that are just nails is part tool, part talisman. Competes lightly with Quinn; knows Mouse. They would trade sleep to rent a real stall by spring, yet stays wary of Quinn undercutting their street trade. Current spark: Sold a 'treasure map' that Mouse Pip later swore matched real tunnels.",
+      "personality": "Proud of competence more than praise; turns jokes into discounts.",
+      "motivation": "Protect their place at fountain steps with a peddler cloth long enough to rent a real stall by spring.",
+      "secret": "Has not told allies that sold a 'treasure map' that Mouse Pip later swore matched real tunnels.",
+      "rumor": "Wren is writing a private list of debts the council will not touch.",
+      "voice": "Measured gnome cadence; concrete nouns before adjectives.",
+      "appearance": "Work-worn gnome garb; box of 'lucky' nails that are just nails always nearby.",
       "portrait": "modules/townforge/assets/portraits/wren-pocket.webp",
       "token": "modules/townforge/assets/tokens/wren-pocket.webp",
-      "relationships": [],
       "actorData": {
         "type": "npc",
         "system": {
@@ -815,17 +809,16 @@
         "crates",
         "strong"
       ],
-      "description": "Dock Hauler associated with the cargo docks.",
-      "biography": "Most days begin the same for Mael Ferry: a 47-year-old Human dock hauler moving through the cargo docks as if the stones themselves keep appointments with them. Mael rolls shoulders before lifting anything proud, and is rarely without hooks and gloves stiff with river salt. Works near Tem Brine; wary of Nedda. What drives them is simple to name and hard to finish: they want to join a river crew with proper shares. What keeps them careful is cranes failing on a crowded quay. To a DM, Mael is ready to roleplay immediately—useful for favors, local color, or trouble. Helped Nedda unload 'grain' that smelled of lamp oil.",
-      "personality": "rolls shoulders before lifting anything proud. Professional demeanor of a seasoned dock hauler.",
-      "motivation": "Pursue this: join a river crew with proper shares. Avoid this: cranes failing on a crowded quay.",
-      "secret": "Privately terrified of cranes failing on a crowded quay, and currently entangled with: Helped Nedda unload 'grain' that smelled of lamp oil.",
-      "rumor": "Rumor says Mael can tell you anything that happens near the cargo docks—for a price or a kindness.",
-      "voice": "Speaks like a Human dock hauler: concrete details first, embellishment only when useful.",
-      "appearance": "Human; often near the cargo docks; look for hooks and gloves stiff with river salt.",
+      "description": "Local dock hauler whose days orbit the cargo docks and small lasting loyalties.",
+      "biography": "Before dawn touches the roofs, Mael is already at the cargo docks, working as a dock hauler with flour, ink, sweat, or steel still on his fingers from yesterday. The habit everyone notices is simple: he rolls shoulders before lifting anything proud. Close by sits his prized hooks and gloves stiff with river salt, a small anchor in a loud town. Works near Tem Brine; wary of Nedda. He wants to join a river crew with proper shares. He fears cranes failing on a crowded quay more than open confrontation. A usable adventure hook trails him: Helped Nedda unload 'grain' that smelled of lamp oil.",
+      "personality": "Dry humor over a careful heart; rolls shoulders before lifting anything proud.",
+      "motivation": "Finish one honest plan: join a river crew with proper shares.",
+      "secret": "Keeps proof related to a problem—Helped Nedda unload 'grain' that smelled of lamp oil.",
+      "rumor": "The hooks and gloves stiff with river salt once belonged to a person who vanished upriver.",
+      "voice": "Storyteller rhythm even when discussing ledgers or latches.",
+      "appearance": "Human features shaped by work at the cargo docks; watch for the hooks and gloves stiff with river salt.",
       "portrait": "modules/townforge/assets/portraits/mael-ferry.webp",
       "token": "modules/townforge/assets/tokens/mael-ferry.webp",
-      "relationships": [],
       "actorData": {
         "type": "npc",
         "system": {
@@ -907,17 +900,16 @@
         "home",
         "thrifty"
       ],
-      "description": "Seamstress associated with a tiny mending shop by the lane.",
-      "biography": "Most days begin the same for Sera Patch: a 35-year-old Human seamstress moving through a tiny mending shop by the lane as if the stones themselves keep appointments with them. Sera bites thread instead of using scissors when nervous, and is rarely without basket of orphaned buttons from Oma. Friend to Pippa; customer of Issy. What drives them is simple to name and hard to finish: they want to sew Pippa's first proper dress for a dance. What keeps them careful is rent rising after Midsummer. To a DM, Sera is ready to roleplay immediately—useful for favors, local color, or trouble. Mended a tear pattern that matched a climb over a spiked wall.",
-      "personality": "bites thread instead of using scissors when nervous. Professional demeanor of a seasoned seamstress.",
-      "motivation": "Pursue this: sew Pippa's first proper dress for a dance. Avoid this: rent rising after Midsummer.",
-      "secret": "Privately terrified of rent rising after Midsummer, and currently entangled with: Mended a tear pattern that matched a climb over a spiked wall.",
-      "rumor": "Rumor says Sera can tell you anything that happens near a tiny mending shop by the lane—for a price or a kindness.",
-      "voice": "Speaks like a Human seamstress: concrete details first, embellishment only when useful.",
-      "appearance": "Human; often near a tiny mending shop by the lane; look for basket of orphaned buttons from Oma.",
+      "description": "The seamstress people recommend when they actually want the job finished.",
+      "biography": "Before dawn touches the roofs, Sera is already at a tiny mending shop by the lane, working as a seamstress with flour, ink, sweat, or steel still on her fingers from yesterday. The habit everyone notices is simple: she bites thread instead of using scissors when nervous. Close by sits her prized basket of orphaned buttons from Oma, a small anchor in a loud town. Friend to Pippa; customer of Issy. She wants to sew Pippa's first proper dress for a dance. She fears rent rising after Midsummer more than open confrontation. A usable adventure hook trails her: Mended a tear pattern that matched a climb over a spiked wall.",
+      "personality": "Soft-spoken until principles are poked; bites thread instead of using scissors when nervous.",
+      "motivation": "Turn today's scrapes into tomorrow's chance to sew Pippa's first proper dress for a dance.",
+      "secret": "Night thoughts keep returning to rent rising after Midsummer, especially since: Mended a tear pattern that matched a climb over a spiked wall.",
+      "rumor": "Someone paid Sera to forget a name connected to a tiny mending shop by the lane.",
+      "voice": "Quick river-town diction, then sudden silences that mean more than words.",
+      "appearance": "Easy to spot near a tiny mending shop by the lane: human, practical layers, and that basket of orphaned buttons from Oma.",
       "portrait": "modules/townforge/assets/portraits/sera-patch.webp",
       "token": "modules/townforge/assets/tokens/sera-patch.webp",
-      "relationships": [],
       "actorData": {
         "type": "npc",
         "system": {
@@ -1033,17 +1025,16 @@
         "dawn",
         "flour"
       ],
-      "description": "Baker's Assistant associated with Moll's bakery before dawn.",
-      "biography": "Odin Crumb works as a baker's assistant out of Moll's bakery before dawn, a 29-year-old Halfling with more town memory than most council minutes. Odin sneaks burnt heels to street kids, and is rarely without flour handprint forever on his cap. Works for Moll; feeds Finn crumbs. What drives them is simple to name and hard to finish: they want to learn the master recipes before he turns thirty. What keeps them careful is the oven fire spreading to the street. To a DM, Odin is ready to roleplay immediately—useful for favors, local color, or trouble. A morning regular paid in a temple seal stamped on wax, not coin.",
-      "personality": "sneaks burnt heels to street kids. Professional demeanor of a seasoned baker's assistant.",
-      "motivation": "Pursue this: learn the master recipes before he turns thirty. Avoid this: the oven fire spreading to the street.",
-      "secret": "Privately terrified of the oven fire spreading to the street, and currently entangled with: A morning regular paid in a temple seal stamped on wax, not coin.",
-      "rumor": "Rumor says Odin can tell you anything that happens near Moll's bakery before dawn—for a price or a kindness.",
-      "voice": "Speaks like a Halfling baker's assistant: concrete details first, embellishment only when useful.",
-      "appearance": "Halfling; often near Moll's bakery before dawn; look for flour handprint forever on his cap.",
+      "description": "Local baker's assistant whose days orbit Moll's bakery before dawn and small lasting loyalties.",
+      "biography": "Walk into Moll's bakery before dawn and you will find Odin Crumb before you find a free chair. A 29-year-old Halfling baker's assistant, Odin greets trouble the way other folk greet weather: with a coat and a plan. He sneaks burnt heels to street kids. The flour handprint forever on his cap travels with him almost everywhere. Works for Moll; feeds Finn crumbs. His ambition is to learn the master recipes before he turns thirty. His nightmare is the oven fire spreading to the street. Right now, A morning regular paid in a temple seal stamped on wax, not coin.",
+      "personality": "Dry humor over a careful heart; sneaks burnt heels to street kids.",
+      "motivation": "Finish one honest plan: learn the master recipes before he turns thirty.",
+      "secret": "Keeps proof related to a problem—A morning regular paid in a temple seal stamped on wax, not coin.",
+      "rumor": "The flour handprint forever on his cap once belonged to a person who vanished upriver.",
+      "voice": "Storyteller rhythm even when discussing ledgers or latches.",
+      "appearance": "Halfling features shaped by work at Moll's bakery before dawn; watch for the flour handprint forever on his cap.",
       "portrait": "modules/townforge/assets/portraits/odin-crumb.webp",
       "token": "modules/townforge/assets/tokens/odin-crumb.webp",
-      "relationships": [],
       "actorData": {
         "type": "npc",
         "system": {
@@ -1125,17 +1116,16 @@
         "woods",
         "baskets"
       ],
-      "description": "Herb Gatherer associated with the tree line beyond the north gate.",
-      "biography": "Yara Moss works as a herb gatherer out of the tree line beyond the north gate, a 26-year-old Half-Elf with more town memory than most council minutes. Yara thanks plants before she cuts them, and is rarely without drying racks of labeled leaves. Supplies Petra; walks trails with Kavi. What drives them is simple to name and hard to finish: they want to publish a simple herbal for midwives. What keeps them careful is overharvesting a rare feverwort patch. To a DM, Yara is ready to roleplay immediately—useful for favors, local color, or trouble. Found bootprints and chalk arrows near her feverwort—heading toward the mill.",
-      "personality": "thanks plants before she cuts them. Professional demeanor of a seasoned herb gatherer.",
-      "motivation": "Pursue this: publish a simple herbal for midwives. Avoid this: overharvesting a rare feverwort patch.",
-      "secret": "Privately terrified of overharvesting a rare feverwort patch, and currently entangled with: Found bootprints and chalk arrows near her feverwort—heading toward the mill.",
-      "rumor": "Rumor says Yara can tell you anything that happens near the tree line beyond the north gate—for a price or a kindness.",
-      "voice": "Speaks like a Half-Elf herb gatherer: concrete details first, embellishment only when useful.",
-      "appearance": "Half-Elf; often near the tree line beyond the north gate; look for drying racks of labeled leaves.",
+      "description": "Local herb gatherer whose days orbit the tree line beyond the north gate and small lasting loyalties.",
+      "biography": "Yara Moss keeps the tree line beyond the north gate running with the stubborn patience of a 26-year-old Half-Elf who has already survived worse seasons than this one. She thanks plants before she cuts them, and the drying racks of labeled leaves is usually within reach when tempers rise. Supplies Petra; walks trails with Kavi. Her private aim is plain enough: publish a simple herbal for midwives. Still, she flinches at the thought of overharvesting a rare feverwort patch. Lately the trouble under her nose is this: Found bootprints and chalk arrows near her feverwort—heading toward the mill.",
+      "personality": "Dry humor over a careful heart; thanks plants before she cuts them.",
+      "motivation": "Finish one honest plan: publish a simple herbal for midwives.",
+      "secret": "Keeps proof related to a problem—Found bootprints and chalk arrows near her feverwort—heading toward the mill.",
+      "rumor": "Yara is writing a private list of debts the council will not touch.",
+      "voice": "Storyteller rhythm even when discussing ledgers or latches.",
+      "appearance": "Half-Elf features shaped by work at the tree line beyond the north gate; watch for the drying racks of labeled leaves.",
       "portrait": "modules/townforge/assets/portraits/yara-moss.webp",
       "token": "modules/townforge/assets/tokens/yara-moss.webp",
-      "relationships": [],
       "actorData": {
         "type": "npc",
         "system": {

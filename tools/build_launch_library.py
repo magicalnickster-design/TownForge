@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Rebuild TownForge launch library packs from roster_snapshot.json + npc_facts.json."""
+"""Build TownForge v0.2 free launch library NPC packs (100 NPCs)."""
 
 from __future__ import annotations
 
@@ -11,112 +11,342 @@ from actor_builders import build_actor_data
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "data" / "npcs"
+LEGACY = ROOT / "data" / "npcs.json"
 ROSTER_PATH = Path(__file__).resolve().parent / "roster_snapshot.json"
 FACTS_PATH = Path(__file__).resolve().parent / "npc_facts.json"
 
 CATEGORIES = [
-    "tavern","shops","guards","nobility","commoners","religious",
-    "criminal","scholars","travelers","craftsmen","government","miscellaneous",
+    "tavern",
+    "shops",
+    "guards",
+    "nobility",
+    "commoners",
+    "religious",
+    "criminal",
+    "scholars",
+    "travelers",
+    "craftsmen",
+    "government",
+    "miscellaneous",
 ]
 
-# Map occupation/category to archetype for rebuilds when needed
 OCC_ARCH = {
-    "Tavern Keeper": "innkeeper", "Cellar Master": "innkeeper", "Barmaid": "civilian",
-    "Bouncer": "guard", "Fireplace Regular": "civilian", "Wine Seller": "merchant",
-    "Taproom Cook": "craftsman", "Evening Singer": "civilian", "Dice Dealer": "criminal",
-    "General Store Owner": "merchant", "Shop Clerk": "merchant", "Moneylender": "merchant",
-    "Clothier": "merchant", "Spice Merchant": "merchant", "Bookstore Owner": "scholar",
-    "Grain Dealer": "merchant", "Haberdasher": "merchant", "Chandler": "craftsman",
-    "Apothecary Clerk": "scholar", "Pawnbroker": "merchant",
-    "City Guard Captain": "guard_captain", "Junior Guard": "guard", "Gate Sergeant": "guard",
-    "Wall Archer": "guard", "Watch Investigator": "guard", "Riot Shield Guard": "guard",
-    "Night Patrol Lead": "guard", "Armory Warden": "guard", "Undercover Watcher": "criminal",
+    "Tavern Keeper": "innkeeper",
+    "Cellar Master": "innkeeper",
+    "Barmaid": "civilian",
+    "Bouncer": "guard",
+    "Fireplace Regular": "civilian",
+    "Wine Seller": "merchant",
+    "Taproom Cook": "craftsman",
+    "Evening Singer": "civilian",
+    "Dice Dealer": "criminal",
+    "General Store Owner": "merchant",
+    "Shop Clerk": "merchant",
+    "Moneylender": "merchant",
+    "Clothier": "merchant",
+    "Spice Merchant": "merchant",
+    "Bookstore Owner": "scholar",
+    "Grain Dealer": "merchant",
+    "Haberdasher": "merchant",
+    "Chandler": "craftsman",
+    "Apothecary Clerk": "scholar",
+    "Pawnbroker": "merchant",
+    "City Guard Captain": "guard_captain",
+    "Junior Guard": "guard",
+    "Gate Sergeant": "guard",
+    "Wall Archer": "guard",
+    "Watch Investigator": "guard",
+    "Riot Shield Guard": "guard",
+    "Night Patrol Lead": "guard",
+    "Armory Warden": "guard",
+    "Undercover Watcher": "criminal",
     "Drill Instructor": "guard",
-    "Noble Patron": "noble", "Estate Hostess": "noble", "Knight Retainer": "guard_captain",
-    "Court Gossip": "noble", "Mining Magnate": "noble", "Lady-in-Waiting": "civilian",
-    "Heir Apparent": "civilian", "Salon Patron": "noble",
-    "Street Sweep": "civilian", "Carter": "civilian", "Laundry Worker": "civilian",
-    "Messenger Boy": "traveler", "Well Keeper": "civilian", "Stable Hand": "civilian",
-    "Chimney Sweep": "civilian", "Street Peddler": "merchant", "Dock Hauler": "civilian",
-    "Seamstress": "craftsman", "Baker's Assistant": "civilian", "Herb Gatherer": "traveler",
-    "Temple Priestess": "priest", "Temple Archivist": "scholar", "Alms Keeper": "priest",
-    "Funeral Priest": "priest", "Acolyte": "civilian", "Oracle": "mage",
-    "Cloister Monk": "priest", "Guard Chaplain": "priest",
-    "Fence": "criminal", "Pickpocket": "criminal", "Lookout": "criminal", "Smuggler": "criminal",
-    "Forgery Clerk": "scholar", "Information Broker": "criminal", "Debt Collector": "guard",
+    "Noble Patron": "noble",
+    "Estate Hostess": "noble",
+    "Knight Retainer": "guard_captain",
+    "Court Gossip": "noble",
+    "Mining Magnate": "noble",
+    "Lady-in-Waiting": "civilian",
+    "Heir Apparent": "civilian",
+    "Salon Patron": "noble",
+    "Street Sweep": "civilian",
+    "Carter": "civilian",
+    "Laundry Worker": "civilian",
+    "Messenger Boy": "traveler",
+    "Well Keeper": "civilian",
+    "Stable Hand": "civilian",
+    "Chimney Sweep": "civilian",
+    "Street Peddler": "merchant",
+    "Dock Hauler": "civilian",
+    "Seamstress": "craftsman",
+    "Baker's Assistant": "civilian",
+    "Herb Gatherer": "traveler",
+    "Temple Priestess": "priest",
+    "Temple Archivist": "scholar",
+    "Alms Keeper": "priest",
+    "Funeral Priest": "priest",
+    "Acolyte": "civilian",
+    "Oracle": "mage",
+    "Cloister Monk": "priest",
+    "Guard Chaplain": "priest",
+    "Fence": "criminal",
+    "Pickpocket": "criminal",
+    "Lookout": "criminal",
+    "Smuggler": "criminal",
+    "Forgery Clerk": "scholar",
+    "Information Broker": "criminal",
+    "Debt Collector": "criminal",
     "Sewer Runner": "criminal",
-    "Town Mage": "mage", "Public Scribe": "scholar", "Library Archivist": "scholar",
-    "Alchemist": "mage", "Children's Tutor": "scholar", "Cartographer": "scholar",
+    "Town Mage": "mage",
+    "Public Scribe": "scholar",
+    "Library Archivist": "scholar",
+    "Alchemist": "scholar",
+    "Children's Tutor": "scholar",
+    "Cartographer": "scholar",
     "Town Historian": "scholar",
-    "Caravan Master": "traveler", "Wilderness Scout": "traveler", "Traveling Minstrel": "civilian",
-    "Pilgrim": "priest", "River Sailor": "traveler", "Game Hunter": "traveler",
+    "Caravan Master": "traveler",
+    "Wilderness Scout": "traveler",
+    "Traveling Minstrel": "civilian",
+    "Pilgrim": "priest",
+    "River Sailor": "traveler",
+    "Game Hunter": "traveler",
     "Long-Road Courier": "traveler",
-    "Blacksmith": "blacksmith", "Cooper": "craftsman", "Potter": "craftsman",
-    "Carpenter": "craftsman", "Cobbler": "craftsman", "Fletcher": "craftsman",
-    "Baker": "civilian", "Tinker": "craftsman", "Weaver": "craftsman", "Stonemason": "craftsman",
-    "Town Mayor": "official", "Town Clerk": "official", "Bailiff": "official",
-    "Tax Assessor": "official", "Magistrate": "official", "Town Herald": "civilian",
-    "Midwife": "civilian", "Gravedigger": "civilian", "Ratcatcher": "criminal", "Matchmaker": "civilian",
+    "Blacksmith": "blacksmith",
+    "Cooper": "craftsman",
+    "Potter": "craftsman",
+    "Carpenter": "craftsman",
+    "Cobbler": "craftsman",
+    "Fletcher": "craftsman",
+    "Baker": "civilian",
+    "Tinker": "craftsman",
+    "Weaver": "craftsman",
+    "Stonemason": "craftsman",
+    "Town Mayor": "official",
+    "Town Clerk": "official",
+    "Bailiff": "official",
+    "Tax Assessor": "official",
+    "Magistrate": "official",
+    "Town Herald": "civilian",
+    "Midwife": "civilian",
+    "Gravedigger": "civilian",
+    "Ratcatcher": "criminal",
+    "Matchmaker": "civilian",
 }
 
 
 def wc(text: str) -> int:
-    return len(re.findall(r"\b[\w']+\b", text or ""))
+    return len(re.findall(r"\b[\w'-]+\b", text or ""))
+
+
+def pronouns(gender: str) -> dict[str, str]:
+    g = (gender or "").strip().lower()
+    if g.startswith("f"):
+        return {"subj": "she", "obj": "her", "poss": "her", "Poss": "Her", "Subj": "She", "refl": "herself"}
+    if g.startswith("m"):
+        return {"subj": "he", "obj": "him", "poss": "his", "Poss": "His", "Subj": "He", "refl": "himself"}
+    return {"subj": "they", "obj": "them", "poss": "their", "Poss": "Their", "Subj": "They", "refl": "themselves"}
+
+
+def seed(s: str) -> int:
+    return sum((i + 1) * ord(c) for i, c in enumerate(s))
 
 
 def compose_biography(n: dict, facts: dict) -> str:
-    name, species, age, occupation = n["name"], n["species"], n["age"], n["occupation"]
-    first = name.split()[0]
+    p = pronouns(n["gender"])
+    first = n["name"].split()[0]
+    age, species, occupation = n["age"], n["species"], n["occupation"].lower()
     place, habit, obj = facts["place"], facts["habit"], facts["object"]
-    fear, hope, hook = facts["fear"], facts["hope"], facts["hook"]
-    tie = facts.get("tie", "").strip()
-    variant = sum(ord(c) for c in name) % 3
-    if variant == 0:
-        opener = (
-            f"Ask around town for a {occupation.lower()} and someone will point you to {first} at {place}. "
-            f"At {age}, this {species} has learned which smiles are currency and which are warnings."
-        )
-    elif variant == 1:
-        opener = (
-            f"{name} works as a {occupation.lower()} out of {place}, a {age}-year-old {species} "
-            f"with more town memory than most council minutes."
-        )
+    fear, hope, hook, tie = facts["fear"], facts["hope"], facts["hook"], facts.get("tie", "").strip()
+    v = seed(n["id"]) % 8
+
+    if v == 0:
+        parts = [
+            f"{n['name']} keeps {place} running with the stubborn patience of a {age}-year-old {species} who has already survived worse seasons than this one.",
+            f"{p['Subj']} {habit}, and the {obj} is usually within reach when tempers rise.",
+            (tie + ".") if tie and not tie.endswith(".") else tie,
+            f"{p['Poss'].capitalize()} private aim is plain enough: {hope}.",
+            f"Still, {p['subj']} flinches at the thought of {fear}.",
+            f"Lately the trouble under {p['poss']} nose is this: {hook}",
+        ]
+    elif v == 1:
+        parts = [
+            f"People looking for a reliable {occupation} are sent to {first}, who claims {place} as home ground.",
+            f"At {age}, this {species} has learned to watch hands before faces.",
+            f"{p['Subj']} {habit}; neighbors joke that {p['subj']} would miss a coronation before misplacing the {obj}.",
+            f"{tie}." if tie else "",
+            f"{p['Subj']} is saving courage and coin alike to {hope}, while trying not to let {fear} decide the ending.",
+            hook,
+        ]
+    elif v == 2:
+        parts = [
+            f"Before dawn touches the roofs, {first} is already at {place}, working as a {occupation} with flour, ink, sweat, or steel still on {p['poss']} fingers from yesterday.",
+            f"The habit everyone notices is simple: {p['subj']} {habit}.",
+            f"Close by sits {p['poss']} prized {obj}, a small anchor in a loud town.",
+            f"{tie}." if tie else f"Townsfolk treat {p['obj']} as a fixture more than a stranger.",
+            f"{p['Subj']} wants to {hope}. {p['Subj']} fears {fear} more than open confrontation.",
+            f"A usable adventure hook trails {p['obj']}: {hook}",
+        ]
+    elif v == 3:
+        parts = [
+            f"{first} did not plan to become the town's go-to {occupation}, yet {place} made the choice sticky.",
+            f"Now {age}, the {species} measures success in quiet evenings and unpaid favors returned.",
+            f"{p['Subj'].capitalize()} {habit}, and keeps the {obj} like a confessor keeps secrets.",
+            f"{tie}." if tie else "",
+            f"Hope pulls one way—{hope}—while caution pulls the other because of {fear}.",
+            hook,
+        ]
+    elif v == 4:
+        parts = [
+            f"Walk into {place} and you will find {n['name']} before you find a free chair.",
+            f"A {age}-year-old {species} {occupation}, {first} greets trouble the way other folk greet weather: with a coat and a plan.",
+            f"{p['Subj'].capitalize()} {habit}. The {obj} travels with {p['obj']} almost everywhere.",
+            f"{tie}." if tie else f"Relationships around {p['obj']} are practical, not ornamental.",
+            f"{p['Poss'].capitalize()} ambition is to {hope}. {p['Poss'].capitalize()} nightmare is {fear}.",
+            f"Right now, {hook}",
+        ]
+    elif v == 5:
+        parts = [
+            f"{n['name']}'s reputation as a {occupation} was built one careful errand at a time around {place}.",
+            f"Age {age} sits lightly on this {species}, except when old debts creak.",
+            f"Watch long enough and you will see that {p['subj']} {habit}.",
+            f"The {obj} is part tool, part talisman.",
+            f"{tie}." if tie else "",
+            f"{p['Subj'].capitalize()} would trade sleep to {hope}, yet stays wary of {fear}. Current spark: {hook}",
+        ]
+    elif v == 6:
+        parts = [
+            f"Some townsfolk swear {first} was born mid-shift at {place}; the truth is only slightly less devoted.",
+            f"This {species} {occupation}, now {age}, treats competence like courtesy.",
+            f"{p['Subj'].capitalize()} {habit}, never far from the {obj}.",
+            f"{tie}." if tie else f"{p['Subj'].capitalize()} knows which doors open after dark and which only pretend to.",
+            f"Ask what {p['subj']} wants and {p['subj']} names it plainly: {hope}.",
+            f"Ask what {p['subj']} dreads and the answer is {fear}. Then comes the fresh problem—{hook}",
+        ]
     else:
-        opener = (
-            f"Most days begin the same for {name}: a {age}-year-old {species} {occupation.lower()} "
-            f"moving through {place} as if the stones themselves keep appointments with them."
-        )
-    middle = (
-        f" {first} {habit}, and keeps {obj} close."
-        f"{' ' + tie if tie else ''} "
-        f"What drives them is simple to name and hard to finish: they want to {hope}. "
-        f"What keeps them careful is {fear}."
-    )
-    closer = (
-        f" To a DM, {first} is ready to roleplay immediately—useful for favors, local color, or trouble. "
-        f"{hook}"
-    )
-    bio = re.sub(r"\s+", " ", (opener + middle + closer).strip())
+        parts = [
+            f"{first} learned the hard corners of town by working them as a {occupation} based out of {place}.",
+            f"At {age}, the {species} has a map of loyalties written in calluses rather than ink.",
+            f"Day after day {p['subj']} {habit}, and the {obj} marks {p['poss']} place in the room.",
+            f"{tie}." if tie else "",
+            f"{p['Poss'].capitalize()} north star is to {hope}. The shadow at {p['poss']} heels is {fear}.",
+            hook,
+        ]
+
+    bio = " ".join(part.strip() for part in parts if part and part.strip())
+    bio = re.sub(r"\s+", " ", bio).strip()
+    bio = re.sub(r"\.\.+", ".", bio)
+    bio = re.sub(r"\s+\.", ".", bio)
+
+    # Soft pad / trim to window without reintroducing global catchphrases.
     if wc(bio) < 75:
-        bio += " They notice when a familiar street goes quiet, and they will trade help for coin, shelter, or protection when the town starts showing its teeth."
+        bio += (
+            f" When pressed, {first} will trade a favor for a favor, provided nobody asks {p['obj']} "
+            f"to pretend the town is kinder than it is."
+        )
         bio = re.sub(r"\s+", " ", bio).strip()
-    if wc(bio) > 150:
-        bio = re.sub(r" To a DM, .+? or trouble\.", " Ready for immediate roleplay.", bio, count=1)
-        bio = re.sub(r"\s+", " ", bio).strip()
+    while wc(bio) > 150:
+        # Drop the shortest clause-like sentence that is not the hook.
+        sentences = re.split(r"(?<=[.!?])\s+", bio)
+        if len(sentences) <= 3:
+            words = bio.split()
+            bio = " ".join(words[:150])
+            break
+        # remove a middle sentence
+        drop_idx = 1 + (seed(n["id"]) % (len(sentences) - 2))
+        sentences.pop(drop_idx)
+        bio = " ".join(sentences).strip()
     return bio
+
+
+def compose_fields(n: dict, facts: dict) -> dict[str, str]:
+    p = pronouns(n["gender"])
+    first = n["name"].split()[0]
+    v = seed(n["id"] + "fields") % 5
+    habit, place, obj = facts["habit"], facts["place"], facts["object"]
+    fear, hope, hook = facts["fear"], facts["hope"], facts["hook"]
+
+    personalities = [
+        f"Steady and sharp-eyed; {habit}.",
+        f"Warm with regulars, curt with wasters; {habit}.",
+        f"Dry humor over a careful heart; {habit}.",
+        f"Proud of competence more than praise; {habit}.",
+        f"Soft-spoken until principles are poked; {habit}.",
+    ]
+    motivations = [
+        f"To {hope} without feeding {fear}.",
+        f"Secure enough ground to {hope}.",
+        f"Finish one honest plan: {hope}.",
+        f"Protect {p['poss']} place at {place} long enough to {hope}.",
+        f"Turn today's scrapes into tomorrow's chance to {hope}.",
+    ]
+    secrets = [
+        f"Knows more about this than {p['subj']} admits: {hook}",
+        f"Quietly arranging matters around: {hook}",
+        f"Keeps proof related to a problem—{hook}",
+        f"Has not told allies that {hook[0].lower() + hook[1:] if hook else fear}",
+        f"Night thoughts keep returning to {fear}, especially since: {hook}",
+    ]
+    rumors = [
+        f"{first} can open doors at {place} after hours—if asked the right way.",
+        f"Someone paid {first} to forget a name connected to {place}.",
+        f"The {obj} once belonged to a person who vanished upriver.",
+        f"{first} is writing a private list of debts the council will not touch.",
+        f"A smugglers' mark was seen near {place} on a night {first} worked late.",
+    ]
+    voices = [
+        f"Measured {n['species'].lower()} cadence; concrete nouns before adjectives.",
+        f"Quick river-town diction, then sudden silences that mean more than words.",
+        f"Low and practical, with a habit of repeating the important clause once.",
+        f"Polite public voice; sharper private asides when trust appears.",
+        f"Storyteller rhythm even when discussing ledgers or latches.",
+    ]
+    appearances = [
+        f"{n['species']} features shaped by work at {place}; watch for the {obj}.",
+        f"Work-worn {n['species'].lower()} garb; {obj} always nearby.",
+        f"Easy to spot near {place}: {n['species'].lower()}, practical layers, and that {obj}.",
+        f"A {n['species'].lower()} silhouette framed by {place}, hands seldom empty of the {obj}.",
+        f"Looks like someone who sleeps lightly; distinctive detail is the {obj}.",
+    ]
+    descriptions = [
+        f"A {n['occupation'].lower()} rooted at {place}, known for how {p['subj']} {habit}.",
+        f"{first} holds down {place} with callused competence and open ears.",
+        f"Local {n['occupation'].lower()} whose days orbit {place} and small lasting loyalties.",
+        f"Familiar face at {place}; useful, stubborn, and hard to surprise.",
+        f"The {n['occupation'].lower()} people recommend when they actually want the job finished.",
+    ]
+
+    return {
+        "description": descriptions[v],
+        "personality": personalities[v],
+        "motivation": motivations[v],
+        "secret": secrets[v],
+        "rumor": rumors[(v + seed(n["id"])) % 5],
+        "voice": voices[(v + 2) % 5],
+        "appearance": appearances[(v + 3) % 5],
+    }
 
 
 def build() -> None:
     roster = json.loads(ROSTER_PATH.read_text(encoding="utf-8"))
     facts_all = json.loads(FACTS_PATH.read_text(encoding="utf-8"))
-    assert len(roster) == 100
+    if len(roster) != 100:
+        raise SystemExit(f"Expected 100 roster entries, got {len(roster)}")
 
-    by_cat = {c: [] for c in CATEGORIES}
+    by_cat: dict[str, list[dict]] = {c: [] for c in CATEGORIES}
     for n in roster:
-        facts = facts_all[n["id"]]
+        npc_id = n["id"]
+        if npc_id not in facts_all:
+            raise SystemExit(f"Missing facts for {npc_id}")
+        facts = facts_all[npc_id]
+        fields = compose_fields(n, facts)
         archetype = OCC_ARCH.get(n["occupation"], "civilian")
+        biography = compose_biography(n, facts)
+        words = wc(biography)
+        if not (75 <= words <= 150):
+            raise SystemExit(f"{npc_id}: biography has {words} words")
+
         npc = {
-            "id": n["id"],
+            "id": npc_id,
             "name": n["name"],
             "species": n["species"],
             "gender": n["gender"],
@@ -124,34 +354,36 @@ def build() -> None:
             "occupation": n["occupation"],
             "category": n["category"],
             "tags": n["tags"],
-            "description": f'{n["occupation"]} associated with {facts["place"]}.',
-            "biography": compose_biography(n, facts),
-            "personality": f'{facts["habit"].rstrip(".")}. Professional demeanor of a seasoned {n["occupation"].lower()}.',
-            "motivation": f'Pursue this: {facts["hope"]}. Avoid this: {facts["fear"]}.',
-            "secret": f'Privately terrified of {facts["fear"]}, and currently entangled with: {facts["hook"]}',
-            "rumor": f'Rumor says {n["name"].split()[0]} can tell you anything that happens near {facts["place"]}—for a price or a kindness.',
-            "voice": f'Speaks like a {n["species"]} {n["occupation"].lower()}: concrete details first, embellishment only when useful.',
-            "appearance": f'{n["species"]}; often near {facts["place"]}; look for {facts["object"]}.',
-            "portrait": f'modules/townforge/assets/portraits/{n["id"]}.webp',
-            "token": f'modules/townforge/assets/tokens/{n["id"]}.webp',
-            "relationships": n.get("relationships") or [],
-            "actorData": n.get("actorData") or build_actor_data(archetype, n["species"]),
+            "description": fields["description"],
+            "biography": biography,
+            "personality": fields["personality"],
+            "motivation": fields["motivation"],
+            "secret": fields["secret"],
+            "rumor": fields["rumor"],
+            "voice": fields["voice"],
+            "appearance": fields["appearance"],
+            "portrait": f"modules/townforge/assets/portraits/{npc_id}.webp",
+            "token": f"modules/townforge/assets/tokens/{npc_id}.webp",
+            "actorData": build_actor_data(archetype, n["species"]),
         }
-        # Ensure actorData type
-        if "type" not in npc["actorData"]:
-            npc["actorData"]["type"] = "npc"
-        w = wc(npc["biography"])
-        if not (75 <= w <= 150):
-            raise SystemExit(f'{npc["id"]} bio words={w}')
-        by_cat[npc["category"]].append(npc)
+        if n.get("relationships"):
+            npc["relationships"] = n["relationships"]
+        by_cat[n["category"]].append(npc)
+
+    if LEGACY.exists():
+        LEGACY.unlink()
+        print(f"Deleted legacy {LEGACY}")
 
     OUT.mkdir(parents=True, exist_ok=True)
-    for category, npcs in by_cat.items():
-        (OUT / f"{category}.json").write_text(
+    for category in CATEGORIES:
+        npcs = by_cat[category]
+        path = OUT / f"{category}.json"
+        path.write_text(
             json.dumps({"category": category, "npcs": npcs}, indent=2, ensure_ascii=False) + "\n",
             encoding="utf-8",
         )
-        print(f"Wrote {category}.json ({len(npcs)})")
+        print(f"Wrote {path.name} ({len(npcs)})")
+
     manifest = {"library": "free", "version": 2, "packs": [f"{c}.json" for c in CATEGORIES]}
     (OUT / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
     print("Wrote manifest.json")

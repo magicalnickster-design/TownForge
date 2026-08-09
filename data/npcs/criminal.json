@@ -14,23 +14,16 @@
         "alleys",
         "wanted"
       ],
-      "description": "Fence associated with back rooms behind a shuttered tannery.",
-      "biography": "Ask around town for a fence and someone will point you to Rook at back rooms behind a shuttered tannery. At 32, this Human has learned which smiles are currency and which are warnings. Rook never sits with his back to a door, and is rarely without ledger written in laundry marks. Hunted by Serra; crew with Silk and Jax; rivals Kitty. What drives them is simple to name and hard to finish: they want to buy legitimacy through a 'respectable' shopfront. What keeps them careful is Serra getting a witness who won't scare. To a DM, Rook is ready to roleplay immediately—useful for favors, local color, or trouble. Claimed ownership of the mill tunnel against Kitty Shade.",
-      "personality": "never sits with his back to a door. Professional demeanor of a seasoned fence.",
-      "motivation": "Pursue this: buy legitimacy through a 'respectable' shopfront. Avoid this: Serra getting a witness who won't scare.",
-      "secret": "Privately terrified of Serra getting a witness who won't scare, and currently entangled with: Claimed ownership of the mill tunnel against Kitty Shade.",
-      "rumor": "Rumor says Rook can tell you anything that happens near back rooms behind a shuttered tannery—for a price or a kindness.",
-      "voice": "Speaks like a Human fence: concrete details first, embellishment only when useful.",
-      "appearance": "Human; often near back rooms behind a shuttered tannery; look for ledger written in laundry marks.",
+      "description": "The fence people recommend when they actually want the job finished.",
+      "biography": "Rook Vell's reputation as a fence was built one careful errand at a time around back rooms behind a shuttered tannery. Age 32 sits lightly on this Human, except when old debts creak. Watch long enough and you will see that he never sits with his back to a door. The ledger written in laundry marks is part tool, part talisman. Hunted by Serra; crew with Silk and Jax; rivals Kitty. He would trade sleep to buy legitimacy through a 'respectable' shopfront, yet stays wary of Serra getting a witness who won't scare. Current spark: Claimed ownership of the mill tunnel against Kitty Shade.",
+      "personality": "Soft-spoken until principles are poked; never sits with his back to a door.",
+      "motivation": "Turn today's scrapes into tomorrow's chance to buy legitimacy through a 'respectable' shopfront.",
+      "secret": "Night thoughts keep returning to Serra getting a witness who won't scare, especially since: Claimed ownership of the mill tunnel against Kitty Shade.",
+      "rumor": "The ledger written in laundry marks once belonged to a person who vanished upriver.",
+      "voice": "Quick river-town diction, then sudden silences that mean more than words.",
+      "appearance": "Easy to spot near back rooms behind a shuttered tannery: human, practical layers, and that ledger written in laundry marks.",
       "portrait": "modules/townforge/assets/portraits/rook-vell.webp",
       "token": "modules/townforge/assets/tokens/rook-vell.webp",
-      "relationships": [
-        {
-          "id": "serra-dawnpike",
-          "type": "hunted-by",
-          "note": "Building a quiet case against Rook's fence ring."
-        }
-      ],
       "actorData": {
         "type": "npc",
         "system": {
@@ -150,7 +143,14 @@
             }
           }
         ]
-      }
+      },
+      "relationships": [
+        {
+          "id": "serra-dawnpike",
+          "type": "hunted-by",
+          "note": "Building a quiet case against Rook's fence ring."
+        }
+      ]
     },
     {
       "id": "silk-mara",
@@ -165,17 +165,16 @@
         "crowd",
         "fleet"
       ],
-      "description": "Pickpocket associated with market crowds and festival lines.",
-      "biography": "Silk Mara works as a pickpocket out of market crowds and festival lines, a 29-year-old Half-Elf with more town memory than most council minutes. Silk apologizes while she steals, and is rarely without fingerless gloves with silk palms. Works for Rook; sells extras to Kitty. What drives them is simple to name and hard to finish: they want to exit the life with one perfect score. What keeps them careful is Rook deciding she's a liability. To a DM, Silk is ready to roleplay immediately—useful for favors, local color, or trouble. Lifted Lina's note about Lysa's ring and sold the tip to Kitty.",
-      "personality": "apologizes while she steals. Professional demeanor of a seasoned pickpocket.",
-      "motivation": "Pursue this: exit the life with one perfect score. Avoid this: Rook deciding she's a liability.",
-      "secret": "Privately terrified of Rook deciding she's a liability, and currently entangled with: Lifted Lina's note about Lysa's ring and sold the tip to Kitty.",
-      "rumor": "Rumor says Silk can tell you anything that happens near market crowds and festival lines—for a price or a kindness.",
-      "voice": "Speaks like a Half-Elf pickpocket: concrete details first, embellishment only when useful.",
-      "appearance": "Half-Elf; often near market crowds and festival lines; look for fingerless gloves with silk palms.",
+      "description": "Silk holds down market crowds and festival lines with callused competence and open ears.",
+      "biography": "Walk into market crowds and festival lines and you will find Silk Mara before you find a free chair. A 29-year-old Half-Elf pickpocket, Silk greets trouble the way other folk greet weather: with a coat and a plan. She apologizes while she steals. The fingerless gloves with silk palms travels with her almost everywhere. Works for Rook; sells extras to Kitty. Her ambition is to exit the life with one perfect score. Her nightmare is Rook deciding she's a liability. Right now, Lifted Lina's note about Lysa's ring and sold the tip to Kitty.",
+      "personality": "Warm with regulars, curt with wasters; apologizes while she steals.",
+      "motivation": "Secure enough ground to exit the life with one perfect score.",
+      "secret": "Quietly arranging matters around: Lifted Lina's note about Lysa's ring and sold the tip to Kitty.",
+      "rumor": "Someone paid Silk to forget a name connected to market crowds and festival lines.",
+      "voice": "Polite public voice; sharper private asides when trust appears.",
+      "appearance": "Looks like someone who sleeps lightly; distinctive detail is the fingerless gloves with silk palms.",
       "portrait": "modules/townforge/assets/portraits/silk-mara.webp",
       "token": "modules/townforge/assets/tokens/silk-mara.webp",
-      "relationships": [],
       "actorData": {
         "type": "npc",
         "system": {
@@ -310,17 +309,16 @@
         "rooftops",
         "whistle"
       ],
-      "description": "Lookout associated with rooftops and gutter runs.",
-      "biography": "Gutter Jax works as a lookout out of rooftops and gutter runs, a 25-year-old Human with more town memory than most council minutes. Gutter sleeps with a whistle between his teeth, and is rarely without chalk for marking safe tiles. Lookout for Rook; spotted by Tomas. What drives them is simple to name and hard to finish: they want to be paid enough to stop running messages. What keeps them careful is Aya's arrows. To a DM, Gutter is ready to roleplay immediately—useful for favors, local color, or trouble. Signaled Tomas's patrol route to Rook's buyers.",
-      "personality": "sleeps with a whistle between his teeth. Professional demeanor of a seasoned lookout.",
-      "motivation": "Pursue this: be paid enough to stop running messages. Avoid this: Aya's arrows.",
-      "secret": "Privately terrified of Aya's arrows, and currently entangled with: Signaled Tomas's patrol route to Rook's buyers.",
-      "rumor": "Rumor says Gutter can tell you anything that happens near rooftops and gutter runs—for a price or a kindness.",
-      "voice": "Speaks like a Human lookout: concrete details first, embellishment only when useful.",
-      "appearance": "Human; often near rooftops and gutter runs; look for chalk for marking safe tiles.",
+      "description": "Gutter holds down rooftops and gutter runs with callused competence and open ears.",
+      "biography": "Some townsfolk swear Gutter was born mid-shift at rooftops and gutter runs; the truth is only slightly less devoted. This Human lookout, now 25, treats competence like courtesy. He sleeps with a whistle between his teeth, never far from the chalk for marking safe tiles. Lookout for Rook; spotted by Tomas. Ask what he wants and he names it plainly: be paid enough to stop running messages. Ask what he dreads and the answer is Aya's arrows. Then comes the fresh problem—Signaled Tomas's patrol route to Rook's buyers.",
+      "personality": "Warm with regulars, curt with wasters; sleeps with a whistle between his teeth.",
+      "motivation": "Secure enough ground to be paid enough to stop running messages.",
+      "secret": "Quietly arranging matters around: Signaled Tomas's patrol route to Rook's buyers.",
+      "rumor": "Gutter can open doors at rooftops and gutter runs after hours—if asked the right way.",
+      "voice": "Polite public voice; sharper private asides when trust appears.",
+      "appearance": "Looks like someone who sleeps lightly; distinctive detail is the chalk for marking safe tiles.",
       "portrait": "modules/townforge/assets/portraits/gutter-jax.webp",
       "token": "modules/townforge/assets/tokens/gutter-jax.webp",
-      "relationships": [],
       "actorData": {
         "type": "npc",
         "system": {
@@ -455,23 +453,16 @@
         "river",
         "crates"
       ],
-      "description": "Smuggler associated with a low river barge.",
-      "biography": "Nedda Blacktooth works as a smuggler out of a low river barge, a 90-year-old Dwarf with more town memory than most council minutes. Nedda grins with the missing tooth facing customs, and is rarely without false-bottom grain sacks. Smuggler eyed by Brannic; paid by Orrin. What drives them is simple to name and hard to finish: they want to retire upriver with a clean name and dirty fortune. What keeps them careful is Brannic measuring her draft again. To a DM, Nedda is ready to roleplay immediately—useful for favors, local color, or trouble. Moved lamp oil under grain manifests with Mael's unknowing help.",
-      "personality": "grins with the missing tooth facing customs. Professional demeanor of a seasoned smuggler.",
-      "motivation": "Pursue this: retire upriver with a clean name and dirty fortune. Avoid this: Brannic measuring her draft again.",
-      "secret": "Privately terrified of Brannic measuring her draft again, and currently entangled with: Moved lamp oil under grain manifests with Mael's unknowing help.",
-      "rumor": "Rumor says Nedda can tell you anything that happens near a low river barge—for a price or a kindness.",
-      "voice": "Speaks like a Dwarf smuggler: concrete details first, embellishment only when useful.",
-      "appearance": "Dwarf; often near a low river barge; look for false-bottom grain sacks.",
+      "description": "Familiar face at a low river barge; useful, stubborn, and hard to surprise.",
+      "biography": "Some townsfolk swear Nedda was born mid-shift at a low river barge; the truth is only slightly less devoted. This Dwarf smuggler, now 90, treats competence like courtesy. She grins with the missing tooth facing customs, never far from the false-bottom grain sacks. Smuggler eyed by Brannic; paid by Orrin. Ask what she wants and she names it plainly: retire upriver with a clean name and dirty fortune. Ask what she dreads and the answer is Brannic measuring her draft again. Then comes the fresh problem—Moved lamp oil under grain manifests with Mael's unknowing help.",
+      "personality": "Proud of competence more than praise; grins with the missing tooth facing customs.",
+      "motivation": "Protect her place at a low river barge long enough to retire upriver with a clean name and dirty fortune.",
+      "secret": "Has not told allies that moved lamp oil under grain manifests with Mael's unknowing help.",
+      "rumor": "Nedda is writing a private list of debts the council will not touch.",
+      "voice": "Measured dwarf cadence; concrete nouns before adjectives.",
+      "appearance": "Work-worn dwarf garb; false-bottom grain sacks always nearby.",
       "portrait": "modules/townforge/assets/portraits/nedda-blacktooth.webp",
       "token": "modules/townforge/assets/tokens/nedda-blacktooth.webp",
-      "relationships": [
-        {
-          "id": "brannic-stonehelm",
-          "type": "watched-by",
-          "note": "Watches her barge draft at the river gate."
-        }
-      ],
       "actorData": {
         "type": "npc",
         "system": {
@@ -591,7 +582,14 @@
             }
           }
         ]
-      }
+      },
+      "relationships": [
+        {
+          "id": "brannic-stonehelm",
+          "type": "watched-by",
+          "note": "Watches her barge draft at the river gate."
+        }
+      ]
     },
     {
       "id": "pale-orin",
@@ -606,17 +604,16 @@
         "docs",
         "neat"
       ],
-      "description": "Forgery Clerk associated with a tidy upstairs room near the clerk's hall.",
-      "biography": "Pale Orin works as a forgery clerk out of a tidy upstairs room near the clerk's hall, a 43-year-old Human with more town memory than most council minutes. Pale washes ink from his hands until they crack, and is rarely without set of copied seals in clay. Forger for Rook; nervous around Penna. What drives them is simple to name and hard to finish: they want to forge one document that buys him out forever. What keeps them careful is Penna Ledgerwell recognizing his pen pressure. To a DM, Pale is ready to roleplay immediately—useful for favors, local color, or trouble. Drafted a fake warehouse writ used in Rook's last shipment.",
-      "personality": "washes ink from his hands until they crack. Professional demeanor of a seasoned forgery clerk.",
-      "motivation": "Pursue this: forge one document that buys him out forever. Avoid this: Penna Ledgerwell recognizing his pen pressure.",
-      "secret": "Privately terrified of Penna Ledgerwell recognizing his pen pressure, and currently entangled with: Drafted a fake warehouse writ used in Rook's last shipment.",
-      "rumor": "Rumor says Pale can tell you anything that happens near a tidy upstairs room near the clerk's hall—for a price or a kindness.",
-      "voice": "Speaks like a Human forgery clerk: concrete details first, embellishment only when useful.",
-      "appearance": "Human; often near a tidy upstairs room near the clerk's hall; look for set of copied seals in clay.",
+      "description": "The forgery clerk people recommend when they actually want the job finished.",
+      "biography": "People looking for a reliable forgery clerk are sent to Pale, who claims a tidy upstairs room near the clerk's hall as home ground. At 43, this Human has learned to watch hands before faces. He washes ink from his hands until they crack; neighbors joke that he would miss a coronation before misplacing the set of copied seals in clay. Forger for Rook; nervous around Penna. He is saving courage and coin alike to forge one document that buys him out forever, while trying not to let Penna Ledgerwell recognizing his pen pressure decide the ending. Drafted a fake warehouse writ used in Rook's last shipment.",
+      "personality": "Soft-spoken until principles are poked; washes ink from his hands until they crack.",
+      "motivation": "Turn today's scrapes into tomorrow's chance to forge one document that buys him out forever.",
+      "secret": "Night thoughts keep returning to Penna Ledgerwell recognizing his pen pressure, especially since: Drafted a fake warehouse writ used in Rook's last shipment.",
+      "rumor": "The set of copied seals in clay once belonged to a person who vanished upriver.",
+      "voice": "Quick river-town diction, then sudden silences that mean more than words.",
+      "appearance": "Easy to spot near a tidy upstairs room near the clerk's hall: human, practical layers, and that set of copied seals in clay.",
       "portrait": "modules/townforge/assets/portraits/pale-orin.webp",
       "token": "modules/townforge/assets/tokens/pale-orin.webp",
-      "relationships": [],
       "actorData": {
         "type": "npc",
         "system": {
@@ -717,17 +714,16 @@
         "secrets",
         "smile"
       ],
-      "description": "Information Broker associated with velvet booths and quiet balconies.",
-      "biography": "Ask around town for a information broker and someone will point you to Kitty at velvet booths and quiet balconies. At 27, this Tiefling has learned which smiles are currency and which are warnings. Kitty tips well and remembers every favor owed, and is rarely without mirror compact with a poisoned pin unused. Rival to Rook; buys from Silk and Cressida. What drives them is simple to name and hard to finish: they want to own the town's secrets market outright. What keeps them careful is Rook unifying the alleys without her. To a DM, Kitty is ready to roleplay immediately—useful for favors, local color, or trouble. Bought Cressida's Lysa rumor and auctioned a softer version to Edric's enemies.",
-      "personality": "tips well and remembers every favor owed. Professional demeanor of a seasoned information broker.",
-      "motivation": "Pursue this: own the town's secrets market outright. Avoid this: Rook unifying the alleys without her.",
-      "secret": "Privately terrified of Rook unifying the alleys without her, and currently entangled with: Bought Cressida's Lysa rumor and auctioned a softer version to Edric's enemies.",
-      "rumor": "Rumor says Kitty can tell you anything that happens near velvet booths and quiet balconies—for a price or a kindness.",
-      "voice": "Speaks like a Tiefling information broker: concrete details first, embellishment only when useful.",
-      "appearance": "Tiefling; often near velvet booths and quiet balconies; look for mirror compact with a poisoned pin unused.",
+      "description": "Familiar face at velvet booths and quiet balconies; useful, stubborn, and hard to surprise.",
+      "biography": "People looking for a reliable information broker are sent to Kitty, who claims velvet booths and quiet balconies as home ground. At 27, this Tiefling has learned to watch hands before faces. She tips well and remembers every favor owed; neighbors joke that she would miss a coronation before misplacing the mirror compact with a poisoned pin unused. Rival to Rook; buys from Silk and Cressida. She is saving courage and coin alike to own the town's secrets market outright, while trying not to let Rook unifying the alleys without her decide the ending. Bought Cressida's Lysa rumor and auctioned a softer version to Edric's enemies.",
+      "personality": "Proud of competence more than praise; tips well and remembers every favor owed.",
+      "motivation": "Protect her place at velvet booths and quiet balconies long enough to own the town's secrets market outright.",
+      "secret": "Has not told allies that bought Cressida's Lysa rumor and auctioned a softer version to Edric's enemies.",
+      "rumor": "Kitty is writing a private list of debts the council will not touch.",
+      "voice": "Measured tiefling cadence; concrete nouns before adjectives.",
+      "appearance": "Work-worn tiefling garb; mirror compact with a poisoned pin unused always nearby.",
       "portrait": "modules/townforge/assets/portraits/kitty-shade.webp",
       "token": "modules/townforge/assets/tokens/kitty-shade.webp",
-      "relationships": [],
       "actorData": {
         "type": "npc",
         "system": {
@@ -862,54 +858,47 @@
         "threats",
         "muscle"
       ],
-      "description": "Debt Collector associated with doorways of debtors.",
-      "biography": "Most days begin the same for Bask Hammer: a 35-year-old Half-Orc debt collector moving through doorways of debtors as if the stones themselves keep appointments with them. Bask knocks politely, then harder, and is rarely without leather gloves lined with coin weights. Marrow's collector; clashed with Dorn. What drives them is simple to name and hard to finish: they want to earn Marrow's partnership, not just wages. What keeps them careful is Dorn catching him in public again. To a DM, Bask is ready to roleplay immediately—useful for favors, local color, or trouble. Warned a baker that 'accidents' happen to ovens behind on interest.",
-      "personality": "knocks politely, then harder. Professional demeanor of a seasoned debt collector.",
-      "motivation": "Pursue this: earn Marrow's partnership, not just wages. Avoid this: Dorn catching him in public again.",
-      "secret": "Privately terrified of Dorn catching him in public again, and currently entangled with: Warned a baker that 'accidents' happen to ovens behind on interest.",
-      "rumor": "Rumor says Bask can tell you anything that happens near doorways of debtors—for a price or a kindness.",
-      "voice": "Speaks like a Half-Orc debt collector: concrete details first, embellishment only when useful.",
-      "appearance": "Half-Orc; often near doorways of debtors; look for leather gloves lined with coin weights.",
+      "description": "Familiar face at doorways of debtors; useful, stubborn, and hard to surprise.",
+      "biography": "Some townsfolk swear Bask was born mid-shift at doorways of debtors; the truth is only slightly less devoted. This Half-Orc debt collector, now 35, treats competence like courtesy. He knocks politely, then harder, never far from the leather gloves lined with coin weights. Marrow's collector; clashed with Dorn. Ask what he wants and he names it plainly: earn Marrow's partnership, not just wages. Ask what he dreads and the answer is Dorn catching him in public again. Then comes the fresh problem—Warned a baker that 'accidents' happen to ovens behind on interest.",
+      "personality": "Proud of competence more than praise; knocks politely, then harder.",
+      "motivation": "Protect his place at doorways of debtors long enough to earn Marrow's partnership, not just wages.",
+      "secret": "Has not told allies that warned a baker that 'accidents' happen to ovens behind on interest.",
+      "rumor": "Bask is writing a private list of debts the council will not touch.",
+      "voice": "Measured half-orc cadence; concrete nouns before adjectives.",
+      "appearance": "Work-worn half-orc garb; leather gloves lined with coin weights always nearby.",
       "portrait": "modules/townforge/assets/portraits/bask-hammer.webp",
       "token": "modules/townforge/assets/tokens/bask-hammer.webp",
-      "relationships": [
-        {
-          "id": "marrow-cline",
-          "type": "employee",
-          "note": "Sends Bask when polite smiles fail."
-        }
-      ],
       "actorData": {
         "type": "npc",
         "system": {
           "abilities": {
             "str": {
-              "value": 14
+              "value": 11
             },
             "dex": {
-              "value": 12
+              "value": 15
             },
             "con": {
-              "value": 14
+              "value": 12
             },
             "int": {
-              "value": 10
+              "value": 12
             },
             "wis": {
               "value": 11
             },
             "cha": {
-              "value": 10
+              "value": 13
             }
           },
           "attributes": {
             "ac": {
-              "flat": 16,
+              "flat": 13,
               "calc": "flat"
             },
             "hp": {
-              "value": 16,
-              "max": 16
+              "value": 11,
+              "max": 11
             },
             "movement": {
               "walk": 30,
@@ -924,8 +913,8 @@
             "prof": 2
           },
           "details": {
-            "cr": 0.5,
-            "alignment": "neutral",
+            "cr": 0.25,
+            "alignment": "chaotic neutral",
             "type": {
               "value": "humanoid",
               "subtype": "half-orc"
@@ -940,36 +929,23 @@
             }
           },
           "skills": {
-            "ath": {
+            "ste": {
+              "value": 1
+            },
+            "slt": {
+              "value": 1
+            },
+            "dec": {
               "value": 1
             },
             "prc": {
-              "value": 1
-            },
-            "intimidation": {
               "value": 1
             }
           }
         },
         "items": [
           {
-            "name": "Chain Shirt",
-            "type": "equipment",
-            "img": "icons/svg/shield.svg",
-            "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "medium"
-              },
-              "armor": {
-                "value": 13,
-                "dex": 0
-              }
-            }
-          },
-          {
-            "name": "Spear",
+            "name": "Dagger",
             "type": "weapon",
             "img": "icons/svg/sword.svg",
             "system": {
@@ -981,7 +957,7 @@
               "damage": {
                 "parts": [
                   [
-                    "1d6",
+                    "1d4",
                     "piercing"
                   ]
                 ]
@@ -1011,7 +987,14 @@
             }
           }
         ]
-      }
+      },
+      "relationships": [
+        {
+          "id": "marrow-cline",
+          "type": "employee",
+          "note": "Sends Bask when polite smiles fail."
+        }
+      ]
     },
     {
       "id": "mouse-pip",
@@ -1026,17 +1009,16 @@
         "maps",
         "timid"
       ],
-      "description": "Sewer Runner associated with sewer mouths and grate shadows.",
-      "biography": "Mouse Pip works as a sewer runner out of sewer mouths and grate shadows, a 21-year-old Halfling with more town memory than most council minutes. Mouse apologizes to rats before he traps them, and is rarely without oilskin map folio of tunnels. Knows sewers; fed by Pola; tracked by Kessa. What drives them is simple to name and hard to finish: they want to sell his maps to someone who won't kill him after. What keeps them careful is being sealed in below during a storm. To a DM, Mouse is ready to roleplay immediately—useful for favors, local color, or trouble. His tunnel sketch matches Wren's joke map and Rina's overheard 'mill tunnel'.",
-      "personality": "apologizes to rats before he traps them. Professional demeanor of a seasoned sewer runner.",
-      "motivation": "Pursue this: sell his maps to someone who won't kill him after. Avoid this: being sealed in below during a storm.",
-      "secret": "Privately terrified of being sealed in below during a storm, and currently entangled with: His tunnel sketch matches Wren's joke map and Rina's overheard 'mill tunnel'.",
-      "rumor": "Rumor says Mouse can tell you anything that happens near sewer mouths and grate shadows—for a price or a kindness.",
-      "voice": "Speaks like a Halfling sewer runner: concrete details first, embellishment only when useful.",
-      "appearance": "Halfling; often near sewer mouths and grate shadows; look for oilskin map folio of tunnels.",
+      "description": "A sewer runner rooted at sewer mouths and grate shadows, known for how he apologizes to rats before he traps them.",
+      "biography": "Mouse Pip's reputation as a sewer runner was built one careful errand at a time around sewer mouths and grate shadows. Age 21 sits lightly on this Halfling, except when old debts creak. Watch long enough and you will see that he apologizes to rats before he traps them. The oilskin map folio of tunnels is part tool, part talisman. Knows sewers; fed by Pola; tracked by Kessa. He would trade sleep to sell his maps to someone who won't kill him after, yet stays wary of being sealed in below during a storm. Current spark: His tunnel sketch matches Wren's joke map and Rina's overheard 'mill tunnel'.",
+      "personality": "Steady and sharp-eyed; apologizes to rats before he traps them.",
+      "motivation": "To sell his maps to someone who won't kill him after without feeding being sealed in below during a storm.",
+      "secret": "Knows more about this than he admits: His tunnel sketch matches Wren's joke map and Rina's overheard 'mill tunnel'.",
+      "rumor": "A smugglers' mark was seen near sewer mouths and grate shadows on a night Mouse worked late.",
+      "voice": "Low and practical, with a habit of repeating the important clause once.",
+      "appearance": "A halfling silhouette framed by sewer mouths and grate shadows, hands seldom empty of the oilskin map folio of tunnels.",
       "portrait": "modules/townforge/assets/portraits/mouse-pip.webp",
       "token": "modules/townforge/assets/tokens/mouse-pip.webp",
-      "relationships": [],
       "actorData": {
         "type": "npc",
         "system": {

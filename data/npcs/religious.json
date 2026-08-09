@@ -14,23 +14,16 @@
         "mercy",
         "leader"
       ],
-      "description": "Temple Priestess associated with the Temple of Kindled Mercy.",
-      "biography": "Ask around town for a temple priestess and someone will point you to Mother at the Temple of Kindled Mercy. At 56, this Human has learned which smiles are currency and which are warnings. Mother lights a candle for strangers before asking their names, and is rarely without prayer beads worn smooth on one side. Leads temple; suspicious of Quen; mentors Pola. What drives them is simple to name and hard to finish: they want to keep the alms kitchen open through winter. What keeps them careful is faith becoming a weapon in council politics. To a DM, Mother is ready to roleplay immediately—useful for favors, local color, or trouble. Received an anonymous donation of black candles and a warning about 'tower fire'.",
-      "personality": "lights a candle for strangers before asking their names. Professional demeanor of a seasoned temple priestess.",
-      "motivation": "Pursue this: keep the alms kitchen open through winter. Avoid this: faith becoming a weapon in council politics.",
-      "secret": "Privately terrified of faith becoming a weapon in council politics, and currently entangled with: Received an anonymous donation of black candles and a warning about 'tower fire'.",
-      "rumor": "Rumor says Mother can tell you anything that happens near the Temple of Kindled Mercy—for a price or a kindness.",
-      "voice": "Speaks like a Human temple priestess: concrete details first, embellishment only when useful.",
-      "appearance": "Human; often near the Temple of Kindled Mercy; look for prayer beads worn smooth on one side.",
+      "description": "Familiar face at the Temple of Kindled Mercy; useful, stubborn, and hard to surprise.",
+      "biography": "Mother Elen Bright keeps the Temple of Kindled Mercy running with the stubborn patience of a 56-year-old Human who has already survived worse seasons than this one. She lights a candle for strangers before asking their names, and the prayer beads worn smooth on one side is usually within reach when tempers rise. Leads temple; suspicious of Quen; mentors Pola. Her private aim is plain enough: keep the alms kitchen open through winter. Still, she flinches at the thought of faith becoming a weapon in council politics. Lately the trouble under her nose is this: Received an anonymous donation of black candles and a warning about 'tower fire'.",
+      "personality": "Proud of competence more than praise; lights a candle for strangers before asking their names.",
+      "motivation": "Protect her place at the Temple of Kindled Mercy long enough to keep the alms kitchen open through winter.",
+      "secret": "Has not told allies that received an anonymous donation of black candles and a warning about 'tower fire'.",
+      "rumor": "Someone paid Mother to forget a name connected to the Temple of Kindled Mercy.",
+      "voice": "Measured human cadence; concrete nouns before adjectives.",
+      "appearance": "Work-worn human garb; prayer beads worn smooth on one side always nearby.",
       "portrait": "modules/townforge/assets/portraits/mother-elen-bright.webp",
       "token": "modules/townforge/assets/tokens/mother-elen-bright.webp",
-      "relationships": [
-        {
-          "id": "magister-quen",
-          "type": "suspicious-of",
-          "note": "Believes Quen's experiments skirt blasphemy."
-        }
-      ],
       "actorData": {
         "type": "npc",
         "system": {
@@ -145,7 +138,14 @@
             }
           }
         ]
-      }
+      },
+      "relationships": [
+        {
+          "id": "magister-quen",
+          "type": "suspicious-of",
+          "note": "Believes Quen's experiments skirt blasphemy."
+        }
+      ]
     },
     {
       "id": "brother-caldus",
@@ -160,23 +160,16 @@
         "suspicious",
         "ink"
       ],
-      "description": "Temple Archivist associated with the temple archive loft.",
-      "biography": "Ask around town for a temple archivist and someone will point you to Brother at the temple archive loft. At 41, this Human has learned which smiles are currency and which are warnings. Brother indexes sins as carefully as saints, and is rarely without key to a cabinet labeled 'disputed miracles'. Reports to Elen; rivals Quen; uses Finn sometimes. What drives them is simple to name and hard to finish: they want to prove Magister Quen's work endangers souls. What keeps them careful is magic without doctrine. To a DM, Brother is ready to roleplay immediately—useful for favors, local color, or trouble. Copied a page from a restricted folio that matches Quen's latest purchase order.",
-      "personality": "indexes sins as carefully as saints. Professional demeanor of a seasoned temple archivist.",
-      "motivation": "Pursue this: prove Magister Quen's work endangers souls. Avoid this: magic without doctrine.",
-      "secret": "Privately terrified of magic without doctrine, and currently entangled with: Copied a page from a restricted folio that matches Quen's latest purchase order.",
-      "rumor": "Rumor says Brother can tell you anything that happens near the temple archive loft—for a price or a kindness.",
-      "voice": "Speaks like a Human temple archivist: concrete details first, embellishment only when useful.",
-      "appearance": "Human; often near the temple archive loft; look for key to a cabinet labeled 'disputed miracles'.",
+      "description": "Familiar face at the temple archive loft; useful, stubborn, and hard to surprise.",
+      "biography": "Brother did not plan to become the town's go-to temple archivist, yet the temple archive loft made the choice sticky. Now 41, the Human measures success in quiet evenings and unpaid favors returned. He indexes sins as carefully as saints, and keeps the key to a cabinet labeled 'disputed miracles' like a confessor keeps secrets. Reports to Elen; rivals Quen; uses Finn sometimes. Hope pulls one way—prove Magister Quen's work endangers souls—while caution pulls the other because of magic without doctrine. Copied a page from a restricted folio that matches Quen's latest purchase order.",
+      "personality": "Proud of competence more than praise; indexes sins as carefully as saints.",
+      "motivation": "Protect his place at the temple archive loft long enough to prove Magister Quen's work endangers souls.",
+      "secret": "Has not told allies that copied a page from a restricted folio that matches Quen's latest purchase order.",
+      "rumor": "Brother can open doors at the temple archive loft after hours—if asked the right way.",
+      "voice": "Measured human cadence; concrete nouns before adjectives.",
+      "appearance": "Work-worn human garb; key to a cabinet labeled 'disputed miracles' always nearby.",
       "portrait": "modules/townforge/assets/portraits/brother-caldus.webp",
       "token": "modules/townforge/assets/tokens/brother-caldus.webp",
-      "relationships": [
-        {
-          "id": "magister-quen",
-          "type": "rival",
-          "note": "Collects evidence of unsafe private magic."
-        }
-      ],
       "actorData": {
         "type": "npc",
         "system": {
@@ -262,7 +255,14 @@
             }
           }
         ]
-      }
+      },
+      "relationships": [
+        {
+          "id": "magister-quen",
+          "type": "rival",
+          "note": "Collects evidence of unsafe private magic."
+        }
+      ]
     },
     {
       "id": "sister-pola",
@@ -277,17 +277,16 @@
         "soup",
         "gentle"
       ],
-      "description": "Alms Keeper associated with the alms yard.",
-      "biography": "Ask around town for a alms keeper and someone will point you to Sister at the alms yard. At 34, this Halfling has learned which smiles are currency and which are warnings. Sister remembers every hungry face by stew preference, and is rarely without ladle polished brighter than the altar plate. Trained by Elen; feeds Mouse when he looks starved. What drives them is simple to name and hard to finish: they want to start a skills school for street children. What keeps them careful is running out of barley before Midwinter. To a DM, Sister is ready to roleplay immediately—useful for favors, local color, or trouble. A 'beggar' with soft hands asked questions about temple vault schedules.",
-      "personality": "remembers every hungry face by stew preference. Professional demeanor of a seasoned alms keeper.",
-      "motivation": "Pursue this: start a skills school for street children. Avoid this: running out of barley before Midwinter.",
-      "secret": "Privately terrified of running out of barley before Midwinter, and currently entangled with: A 'beggar' with soft hands asked questions about temple vault schedules.",
-      "rumor": "Rumor says Sister can tell you anything that happens near the alms yard—for a price or a kindness.",
-      "voice": "Speaks like a Halfling alms keeper: concrete details first, embellishment only when useful.",
-      "appearance": "Halfling; often near the alms yard; look for ladle polished brighter than the altar plate.",
+      "description": "Familiar face at the alms yard; useful, stubborn, and hard to surprise.",
+      "biography": "Sister Pola keeps the alms yard running with the stubborn patience of a 34-year-old Halfling who has already survived worse seasons than this one. She remembers every hungry face by stew preference, and the ladle polished brighter than the altar plate is usually within reach when tempers rise. Trained by Elen; feeds Mouse when he looks starved. Her private aim is plain enough: start a skills school for street children. Still, she flinches at the thought of running out of barley before Midwinter. Lately the trouble under her nose is this: A 'beggar' with soft hands asked questions about temple vault schedules.",
+      "personality": "Proud of competence more than praise; remembers every hungry face by stew preference.",
+      "motivation": "Protect her place at the alms yard long enough to start a skills school for street children.",
+      "secret": "Has not told allies that a 'beggar' with soft hands asked questions about temple vault schedules.",
+      "rumor": "Sister is writing a private list of debts the council will not touch.",
+      "voice": "Measured halfling cadence; concrete nouns before adjectives.",
+      "appearance": "Work-worn halfling garb; ladle polished brighter than the altar plate always nearby.",
       "portrait": "modules/townforge/assets/portraits/sister-pola.webp",
       "token": "modules/townforge/assets/tokens/sister-pola.webp",
-      "relationships": [],
       "actorData": {
         "type": "npc",
         "system": {
@@ -417,17 +416,16 @@
         "solemn",
         "stone"
       ],
-      "description": "Funeral Priest associated with the graveyard chapel.",
-      "biography": "Ask around town for a funeral priest and someone will point you to Father at the graveyard chapel. At 102, this Dwarf has learned which smiles are currency and which are warnings. Father speaks to headstones as neighbors, and is rarely without stone chisel blessed for names. Works with Mol Deeprow; quiet observer of nobles. What drives them is simple to name and hard to finish: they want to finish the memorial wall for flood victims. What keeps them careful is unmarked graves becoming a fashion for the wealthy. To a DM, Father is ready to roleplay immediately—useful for favors, local color, or trouble. Paid extra to bury a 'nobody' whose boots were Vale-cobbled.",
-      "personality": "speaks to headstones as neighbors. Professional demeanor of a seasoned funeral priest.",
-      "motivation": "Pursue this: finish the memorial wall for flood victims. Avoid this: unmarked graves becoming a fashion for the wealthy.",
-      "secret": "Privately terrified of unmarked graves becoming a fashion for the wealthy, and currently entangled with: Paid extra to bury a 'nobody' whose boots were Vale-cobbled.",
-      "rumor": "Rumor says Father can tell you anything that happens near the graveyard chapel—for a price or a kindness.",
-      "voice": "Speaks like a Dwarf funeral priest: concrete details first, embellishment only when useful.",
-      "appearance": "Dwarf; often near the graveyard chapel; look for stone chisel blessed for names.",
+      "description": "Father holds down the graveyard chapel with callused competence and open ears.",
+      "biography": "Father learned the hard corners of town by working them as a funeral priest based out of the graveyard chapel. At 102, the Dwarf has a map of loyalties written in calluses rather than ink. Day after day he speaks to headstones as neighbors, and the stone chisel blessed for names marks his place in the room. Works with Mol Deeprow; quiet observer of nobles. His north star is to finish the memorial wall for flood victims. The shadow at his heels is unmarked graves becoming a fashion for the wealthy. Paid extra to bury a 'nobody' whose boots were Vale-cobbled.",
+      "personality": "Warm with regulars, curt with wasters; speaks to headstones as neighbors.",
+      "motivation": "Secure enough ground to finish the memorial wall for flood victims.",
+      "secret": "Quietly arranging matters around: Paid extra to bury a 'nobody' whose boots were Vale-cobbled.",
+      "rumor": "A smugglers' mark was seen near the graveyard chapel on a night Father worked late.",
+      "voice": "Polite public voice; sharper private asides when trust appears.",
+      "appearance": "Looks like someone who sleeps lightly; distinctive detail is the stone chisel blessed for names.",
       "portrait": "modules/townforge/assets/portraits/father-bram.webp",
       "token": "modules/townforge/assets/tokens/father-bram.webp",
-      "relationships": [],
       "actorData": {
         "type": "npc",
         "system": {
@@ -557,17 +555,16 @@
         "earnest",
         "bells"
       ],
-      "description": "Acolyte associated with bell tower and candle niches.",
-      "biography": "Ask around town for a acolyte and someone will point you to Ren at bell tower and candle niches. At 18, this Human has learned which smiles are currency and which are warnings. Ren practices sermons to empty pews, and is rarely without taper box with one lucky stub. Earnest junior under Elen and Caldus. What drives them is simple to name and hard to finish: they want to be trusted to hold the dawn service alone. What keeps them careful is failing his vows by gossiping. To a DM, Ren is ready to roleplay immediately—useful for favors, local color, or trouble. Saw Brother Caldus meet a cloaked figure behind the charnel hedge.",
-      "personality": "practices sermons to empty pews. Professional demeanor of a seasoned acolyte.",
-      "motivation": "Pursue this: be trusted to hold the dawn service alone. Avoid this: failing his vows by gossiping.",
-      "secret": "Privately terrified of failing his vows by gossiping, and currently entangled with: Saw Brother Caldus meet a cloaked figure behind the charnel hedge.",
-      "rumor": "Rumor says Ren can tell you anything that happens near bell tower and candle niches—for a price or a kindness.",
-      "voice": "Speaks like a Human acolyte: concrete details first, embellishment only when useful.",
-      "appearance": "Human; often near bell tower and candle niches; look for taper box with one lucky stub.",
+      "description": "Local acolyte whose days orbit bell tower and candle niches and small lasting loyalties.",
+      "biography": "Before dawn touches the roofs, Ren is already at bell tower and candle niches, working as a acolyte with flour, ink, sweat, or steel still on his fingers from yesterday. The habit everyone notices is simple: he practices sermons to empty pews. Close by sits his prized taper box with one lucky stub, a small anchor in a loud town. Earnest junior under Elen and Caldus. He wants to be trusted to hold the dawn service alone. He fears failing his vows by gossiping more than open confrontation. A usable adventure hook trails him: Saw Brother Caldus meet a cloaked figure behind the charnel hedge.",
+      "personality": "Dry humor over a careful heart; practices sermons to empty pews.",
+      "motivation": "Finish one honest plan: be trusted to hold the dawn service alone.",
+      "secret": "Keeps proof related to a problem—Saw Brother Caldus meet a cloaked figure behind the charnel hedge.",
+      "rumor": "Someone paid Ren to forget a name connected to bell tower and candle niches.",
+      "voice": "Storyteller rhythm even when discussing ledgers or latches.",
+      "appearance": "Human features shaped by work at bell tower and candle niches; watch for the taper box with one lucky stub.",
       "portrait": "modules/townforge/assets/portraits/acolyte-ren.webp",
       "token": "modules/townforge/assets/tokens/acolyte-ren.webp",
-      "relationships": [],
       "actorData": {
         "type": "npc",
         "system": {
@@ -649,17 +646,16 @@
         "visions",
         "controversial"
       ],
-      "description": "Oracle associated with a rented room above the candle shop.",
-      "biography": "Ivra Glass-Eye works as a oracle out of a rented room above the candle shop, a 39-year-old Tiefling with more town memory than most council minutes. Ivra covers her glass eye when the visions itch, and is rarely without bowl of river stones for casting. Controversial; Rold rents her the room; Elen half-believes her. What drives them is simple to name and hard to finish: they want to warn the town of a real fire before it happens. What keeps them careful is being used as a party trick by nobles. To a DM, Ivra is ready to roleplay immediately—useful for favors, local color, or trouble. Predicted 'iron in grain and blood in cloaks' a week before Mira's stool seven mystery.",
-      "personality": "covers her glass eye when the visions itch. Professional demeanor of a seasoned oracle.",
-      "motivation": "Pursue this: warn the town of a real fire before it happens. Avoid this: being used as a party trick by nobles.",
-      "secret": "Privately terrified of being used as a party trick by nobles, and currently entangled with: Predicted 'iron in grain and blood in cloaks' a week before Mira's stool seven mystery.",
-      "rumor": "Rumor says Ivra can tell you anything that happens near a rented room above the candle shop—for a price or a kindness.",
-      "voice": "Speaks like a Tiefling oracle: concrete details first, embellishment only when useful.",
-      "appearance": "Tiefling; often near a rented room above the candle shop; look for bowl of river stones for casting.",
+      "description": "Familiar face at a rented room above the candle shop; useful, stubborn, and hard to surprise.",
+      "biography": "Some townsfolk swear Ivra was born mid-shift at a rented room above the candle shop; the truth is only slightly less devoted. This Tiefling oracle, now 39, treats competence like courtesy. She covers her glass eye when the visions itch, never far from the bowl of river stones for casting. Controversial; Rold rents her the room; Elen half-believes her. Ask what she wants and she names it plainly: warn the town of a real fire before it happens. Ask what she dreads and the answer is being used as a party trick by nobles. Then comes the fresh problem—Predicted 'iron in grain and blood in cloaks' a week before Mira's stool seven mystery.",
+      "personality": "Proud of competence more than praise; covers her glass eye when the visions itch.",
+      "motivation": "Protect her place at a rented room above the candle shop long enough to warn the town of a real fire before it happens.",
+      "secret": "Has not told allies that predicted 'iron in grain and blood in cloaks' a week before Mira's stool seven mystery.",
+      "rumor": "Ivra can open doors at a rented room above the candle shop after hours—if asked the right way.",
+      "voice": "Measured tiefling cadence; concrete nouns before adjectives.",
+      "appearance": "Work-worn tiefling garb; bowl of river stones for casting always nearby.",
       "portrait": "modules/townforge/assets/portraits/seer-ivra.webp",
       "token": "modules/townforge/assets/tokens/seer-ivra.webp",
-      "relationships": [],
       "actorData": {
         "type": "npc",
         "system": {
@@ -778,17 +774,16 @@
         "silence",
         "garden"
       ],
-      "description": "Cloister Monk associated with the cloister herb garden.",
-      "biography": "Most days begin the same for Sol Quietstep: a 44-year-old Human cloister monk moving through the cloister herb garden as if the stones themselves keep appointments with them. Sol answers questions with another hour of weeding, and is rarely without kneeling pad stuffed with lavender. Shares garden knowledge with Yara; peaceful counterweight to Caldus. What drives them is simple to name and hard to finish: they want to teach silence as a craft, not a punishment. What keeps them careful is violence entering sacred quiet. To a DM, Sol is ready to roleplay immediately—useful for favors, local color, or trouble. Found chalk sigils under the cloister bench matching Nym's survey marks.",
-      "personality": "answers questions with another hour of weeding. Professional demeanor of a seasoned cloister monk.",
-      "motivation": "Pursue this: teach silence as a craft, not a punishment. Avoid this: violence entering sacred quiet.",
-      "secret": "Privately terrified of violence entering sacred quiet, and currently entangled with: Found chalk sigils under the cloister bench matching Nym's survey marks.",
-      "rumor": "Rumor says Sol can tell you anything that happens near the cloister herb garden—for a price or a kindness.",
-      "voice": "Speaks like a Human cloister monk: concrete details first, embellishment only when useful.",
-      "appearance": "Human; often near the cloister herb garden; look for kneeling pad stuffed with lavender.",
+      "description": "A cloister monk rooted at the cloister herb garden, known for how he answers questions with another hour of weeding.",
+      "biography": "Sol Quietstep's reputation as a cloister monk was built one careful errand at a time around the cloister herb garden. Age 44 sits lightly on this Human, except when old debts creak. Watch long enough and you will see that he answers questions with another hour of weeding. The kneeling pad stuffed with lavender is part tool, part talisman. Shares garden knowledge with Yara; peaceful counterweight to Caldus. He would trade sleep to teach silence as a craft, not a punishment, yet stays wary of violence entering sacred quiet. Current spark: Found chalk sigils under the cloister bench matching Nym's survey marks.",
+      "personality": "Steady and sharp-eyed; answers questions with another hour of weeding.",
+      "motivation": "To teach silence as a craft, not a punishment without feeding violence entering sacred quiet.",
+      "secret": "Knows more about this than he admits: Found chalk sigils under the cloister bench matching Nym's survey marks.",
+      "rumor": "Sol can open doors at the cloister herb garden after hours—if asked the right way.",
+      "voice": "Low and practical, with a habit of repeating the important clause once.",
+      "appearance": "A human silhouette framed by the cloister herb garden, hands seldom empty of the kneeling pad stuffed with lavender.",
       "portrait": "modules/townforge/assets/portraits/monk-sol.webp",
       "token": "modules/townforge/assets/tokens/monk-sol.webp",
-      "relationships": [],
       "actorData": {
         "type": "npc",
         "system": {
@@ -918,17 +913,16 @@
         "guards",
         "comfort"
       ],
-      "description": "Guard Chaplain associated with the barracks shrine nook.",
-      "biography": "Ask around town for a guard chaplain and someone will point you to Chaplain at the barracks shrine nook. At 37, this Half-Orc has learned which smiles are currency and which are warnings. Chaplain sits with shaking guards until their hands still, and is rarely without portable altar cloth stained with polish oil. Chaplain to Serra's guards. What drives them is simple to name and hard to finish: they want to keep Serra's watch human when the case hardens. What keeps them careful is blessing a raid that kills the wrong people. To a DM, Chaplain is ready to roleplay immediately—useful for favors, local color, or trouble. Heard Dorn admit he almost killed Bask—and wants penance, not praise.",
-      "personality": "sits with shaking guards until their hands still. Professional demeanor of a seasoned guard chaplain.",
-      "motivation": "Pursue this: keep Serra's watch human when the case hardens. Avoid this: blessing a raid that kills the wrong people.",
-      "secret": "Privately terrified of blessing a raid that kills the wrong people, and currently entangled with: Heard Dorn admit he almost killed Bask—and wants penance, not praise.",
-      "rumor": "Rumor says Chaplain can tell you anything that happens near the barracks shrine nook—for a price or a kindness.",
-      "voice": "Speaks like a Half-Orc guard chaplain: concrete details first, embellishment only when useful.",
-      "appearance": "Half-Orc; often near the barracks shrine nook; look for portable altar cloth stained with polish oil.",
+      "description": "The guard chaplain people recommend when they actually want the job finished.",
+      "biography": "Chaplain did not plan to become the town's go-to guard chaplain, yet the barracks shrine nook made the choice sticky. Now 37, the Half-Orc measures success in quiet evenings and unpaid favors returned. He sits with shaking guards until their hands still, and keeps the portable altar cloth stained with polish oil like a confessor keeps secrets. Chaplain to Serra's guards. Hope pulls one way—keep Serra's watch human when the case hardens—while caution pulls the other because of blessing a raid that kills the wrong people. Heard Dorn admit he almost killed Bask—and wants penance, not praise.",
+      "personality": "Soft-spoken until principles are poked; sits with shaking guards until their hands still.",
+      "motivation": "Turn today's scrapes into tomorrow's chance to keep Serra's watch human when the case hardens.",
+      "secret": "Night thoughts keep returning to blessing a raid that kills the wrong people, especially since: Heard Dorn admit he almost killed Bask—and wants penance, not praise.",
+      "rumor": "Chaplain is writing a private list of debts the council will not touch.",
+      "voice": "Quick river-town diction, then sudden silences that mean more than words.",
+      "appearance": "Easy to spot near the barracks shrine nook: half-orc, practical layers, and that portable altar cloth stained with polish oil.",
       "portrait": "modules/townforge/assets/portraits/chaplain-dorr.webp",
       "token": "modules/townforge/assets/tokens/chaplain-dorr.webp",
-      "relationships": [],
       "actorData": {
         "type": "npc",
         "system": {

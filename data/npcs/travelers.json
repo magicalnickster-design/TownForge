@@ -14,17 +14,16 @@
         "routes",
         "deals"
       ],
-      "description": "Caravan Master associated with the caravan yard outside the north gate.",
-      "biography": "Most days begin the same for Jor Sandline: a 39-year-old Human caravan master moving through the caravan yard outside the north gate as if the stones themselves keep appointments with them. Jor pays in mixed coin to learn who notices, and is rarely without route book bound in camel hide. Deals with Orrin; uses Skog's stables; hires Jab. What drives them is simple to name and hard to finish: they want to secure Orrin's spice contract exclusively. What keeps them careful is losing a season to bandits or tariffs. To a DM, Jor is ready to roleplay immediately—useful for favors, local color, or trouble. Offered Jab double to deliver to the mill without a waybill copy.",
-      "personality": "pays in mixed coin to learn who notices. Professional demeanor of a seasoned caravan master.",
-      "motivation": "Pursue this: secure Orrin's spice contract exclusively. Avoid this: losing a season to bandits or tariffs.",
-      "secret": "Privately terrified of losing a season to bandits or tariffs, and currently entangled with: Offered Jab double to deliver to the mill without a waybill copy.",
-      "rumor": "Rumor says Jor can tell you anything that happens near the caravan yard outside the north gate—for a price or a kindness.",
-      "voice": "Speaks like a Human caravan master: concrete details first, embellishment only when useful.",
-      "appearance": "Human; often near the caravan yard outside the north gate; look for route book bound in camel hide.",
+      "description": "Jor holds down the caravan yard outside the north gate with callused competence and open ears.",
+      "biography": "Jor did not plan to become the town's go-to caravan master, yet the caravan yard outside the north gate made the choice sticky. Now 39, the Human measures success in quiet evenings and unpaid favors returned. He pays in mixed coin to learn who notices, and keeps the route book bound in camel hide like a confessor keeps secrets. Deals with Orrin; uses Skog's stables; hires Jab. Hope pulls one way—secure Orrin's spice contract exclusively—while caution pulls the other because of losing a season to bandits or tariffs. Offered Jab double to deliver to the mill without a waybill copy.",
+      "personality": "Warm with regulars, curt with wasters; pays in mixed coin to learn who notices.",
+      "motivation": "Secure enough ground to secure Orrin's spice contract exclusively.",
+      "secret": "Quietly arranging matters around: Offered Jab double to deliver to the mill without a waybill copy.",
+      "rumor": "A smugglers' mark was seen near the caravan yard outside the north gate on a night Jor worked late.",
+      "voice": "Polite public voice; sharper private asides when trust appears.",
+      "appearance": "Looks like someone who sleeps lightly; distinctive detail is the route book bound in camel hide.",
       "portrait": "modules/townforge/assets/portraits/caravan-jor.webp",
       "token": "modules/townforge/assets/tokens/caravan-jor.webp",
-      "relationships": [],
       "actorData": {
         "type": "npc",
         "system": {
@@ -143,17 +142,16 @@
         "forest",
         "trails"
       ],
-      "description": "Wilderness Scout associated with forest margins and game trails.",
-      "biography": "Ask around town for a wilderness scout and someone will point you to Kavi at forest margins and game trails. At 128, this Elf has learned which smiles are currency and which are warnings. Kavi leaves stacked stones as silent letters, and is rarely without green hood faded almost gray. Walks with Yara; reports odd trails to Serra sometimes. What drives them is simple to name and hard to finish: they want to keep a safe trail for pilgrims and herbalists. What keeps them careful is town politics spilling into the woods. To a DM, Kavi is ready to roleplay immediately—useful for favors, local color, or trouble. Found Yara's feverwort patch flagged with chalk arrows toward the mill.",
-      "personality": "leaves stacked stones as silent letters. Professional demeanor of a seasoned wilderness scout.",
-      "motivation": "Pursue this: keep a safe trail for pilgrims and herbalists. Avoid this: town politics spilling into the woods.",
-      "secret": "Privately terrified of town politics spilling into the woods, and currently entangled with: Found Yara's feverwort patch flagged with chalk arrows toward the mill.",
-      "rumor": "Rumor says Kavi can tell you anything that happens near forest margins and game trails—for a price or a kindness.",
-      "voice": "Speaks like a Elf wilderness scout: concrete details first, embellishment only when useful.",
-      "appearance": "Elf; often near forest margins and game trails; look for green hood faded almost gray.",
+      "description": "Familiar face at forest margins and game trails; useful, stubborn, and hard to surprise.",
+      "biography": "People looking for a reliable wilderness scout are sent to Kavi, who claims forest margins and game trails as home ground. At 128, this Elf has learned to watch hands before faces. She leaves stacked stones as silent letters; neighbors joke that she would miss a coronation before misplacing the green hood faded almost gray. Walks with Yara; reports odd trails to Serra sometimes. She is saving courage and coin alike to keep a safe trail for pilgrims and herbalists, while trying not to let town politics spilling into the woods decide the ending. Found Yara's feverwort patch flagged with chalk arrows toward the mill.",
+      "personality": "Proud of competence more than praise; leaves stacked stones as silent letters.",
+      "motivation": "Protect her place at forest margins and game trails long enough to keep a safe trail for pilgrims and herbalists.",
+      "secret": "Has not told allies that found Yara's feverwort patch flagged with chalk arrows toward the mill.",
+      "rumor": "A smugglers' mark was seen near forest margins and game trails on a night Kavi worked late.",
+      "voice": "Measured elf cadence; concrete nouns before adjectives.",
+      "appearance": "Work-worn elf garb; green hood faded almost gray always nearby.",
       "portrait": "modules/townforge/assets/portraits/scout-kavi.webp",
       "token": "modules/townforge/assets/tokens/scout-kavi.webp",
-      "relationships": [],
       "actorData": {
         "type": "npc",
         "system": {
@@ -272,17 +270,16 @@
         "news",
         "charm"
       ],
-      "description": "Traveling Minstrel associated with roads, fairs, and Mira's stage.",
-      "biography": "Rilo Songpenny works as a traveling minstrel out of roads, fairs, and Mira's stage, a 27-year-old Half-Elf with more town memory than most council minutes. Rilo collects rumors the way others collect coins, and is rarely without cape lined with song scraps. Sometimes rooms with Nessa; carries news. What drives them is simple to name and hard to finish: they want to be hired by Dame Orla for a full season. What keeps them careful is singing the wrong satire in the wrong hall. To a DM, Rilo is ready to roleplay immediately—useful for favors, local color, or trouble. Heard sailors say Nedda's barge 'rides light and smells bright'.",
-      "personality": "collects rumors the way others collect coins. Professional demeanor of a seasoned traveling minstrel.",
-      "motivation": "Pursue this: be hired by Dame Orla for a full season. Avoid this: singing the wrong satire in the wrong hall.",
-      "secret": "Privately terrified of singing the wrong satire in the wrong hall, and currently entangled with: Heard sailors say Nedda's barge 'rides light and smells bright'.",
-      "rumor": "Rumor says Rilo can tell you anything that happens near roads, fairs, and Mira's stage—for a price or a kindness.",
-      "voice": "Speaks like a Half-Elf traveling minstrel: concrete details first, embellishment only when useful.",
-      "appearance": "Half-Elf; often near roads, fairs, and Mira's stage; look for cape lined with song scraps.",
+      "description": "Familiar face at roads, fairs, and Mira's stage; useful, stubborn, and hard to surprise.",
+      "biography": "Rilo learned the hard corners of town by working them as a traveling minstrel based out of roads, fairs, and Mira's stage. At 27, the Half-Elf has a map of loyalties written in calluses rather than ink. Day after day he collects rumors the way others collect coins, and the cape lined with song scraps marks his place in the room. Sometimes rooms with Nessa; carries news. His north star is to be hired by Dame Orla for a full season. The shadow at his heels is singing the wrong satire in the wrong hall. Heard sailors say Nedda's barge 'rides light and smells bright'.",
+      "personality": "Proud of competence more than praise; collects rumors the way others collect coins.",
+      "motivation": "Protect his place at roads, fairs, and Mira's stage long enough to be hired by Dame Orla for a full season.",
+      "secret": "Has not told allies that heard sailors say Nedda's barge 'rides light and smells bright'.",
+      "rumor": "Someone paid Rilo to forget a name connected to roads, fairs, and Mira's stage.",
+      "voice": "Measured half-elf cadence; concrete nouns before adjectives.",
+      "appearance": "Work-worn half-elf garb; cape lined with song scraps always nearby.",
       "portrait": "modules/townforge/assets/portraits/minstrel-rilo.webp",
       "token": "modules/townforge/assets/tokens/minstrel-rilo.webp",
-      "relationships": [],
       "actorData": {
         "type": "npc",
         "system": {
@@ -364,17 +361,16 @@
         "faith",
         "walking"
       ],
-      "description": "Pilgrim associated with temple steps and road shrines.",
-      "biography": "Most days begin the same for Asha Roadbless: a 50-year-old Human pilgrim moving through temple steps and road shrines as if the stones themselves keep appointments with them. Asha washes her feet before every gate, and is rarely without walking staff carved with mercy marks. Guest of Elen's temple; rejected Orin. What drives them is simple to name and hard to finish: they want to reach three temples before winter. What keeps them careful is faithful folk turned away for being poor. To a DM, Asha is ready to roleplay immediately—useful for favors, local color, or trouble. Was offered 'safe passage' papers by Pale Orin for a 'donation'.",
-      "personality": "washes her feet before every gate. Professional demeanor of a seasoned pilgrim.",
-      "motivation": "Pursue this: reach three temples before winter. Avoid this: faithful folk turned away for being poor.",
-      "secret": "Privately terrified of faithful folk turned away for being poor, and currently entangled with: Was offered 'safe passage' papers by Pale Orin for a 'donation'.",
-      "rumor": "Rumor says Asha can tell you anything that happens near temple steps and road shrines—for a price or a kindness.",
-      "voice": "Speaks like a Human pilgrim: concrete details first, embellishment only when useful.",
-      "appearance": "Human; often near temple steps and road shrines; look for walking staff carved with mercy marks.",
+      "description": "Asha holds down temple steps and road shrines with callused competence and open ears.",
+      "biography": "Asha Roadbless keeps temple steps and road shrines running with the stubborn patience of a 50-year-old Human who has already survived worse seasons than this one. She washes her feet before every gate, and the walking staff carved with mercy marks is usually within reach when tempers rise. Guest of Elen's temple; rejected Orin. Her private aim is plain enough: reach three temples before winter. Still, she flinches at the thought of faithful folk turned away for being poor. Lately the trouble under her nose is this: Was offered 'safe passage' papers by Pale Orin for a 'donation'.",
+      "personality": "Warm with regulars, curt with wasters; washes her feet before every gate.",
+      "motivation": "Secure enough ground to reach three temples before winter.",
+      "secret": "Quietly arranging matters around: Was offered 'safe passage' papers by Pale Orin for a 'donation'.",
+      "rumor": "Asha is writing a private list of debts the council will not touch.",
+      "voice": "Polite public voice; sharper private asides when trust appears.",
+      "appearance": "Looks like someone who sleeps lightly; distinctive detail is the walking staff carved with mercy marks.",
       "portrait": "modules/townforge/assets/portraits/pilgrim-asha.webp",
       "token": "modules/townforge/assets/tokens/pilgrim-asha.webp",
-      "relationships": [],
       "actorData": {
         "type": "npc",
         "system": {
@@ -504,17 +500,16 @@
         "boat",
         "cargo"
       ],
-      "description": "River Sailor associated with river wharf and midstream.",
-      "biography": "Ask around town for a river sailor and someone will point you to Tem at river wharf and midstream. At 34, this Human has learned which smiles are currency and which are warnings. Tem reads water the way scholars read books, and is rarely without rope calluses like badges. Works docks with Mael; cleaner than Nedda. What drives them is simple to name and hard to finish: they want to captain his own flatboat next year. What keeps them careful is fog collisions near the mill race. To a DM, Tem is ready to roleplay immediately—useful for favors, local color, or trouble. Refused to tow Nedda after smelling her 'grain'.",
-      "personality": "reads water the way scholars read books. Professional demeanor of a seasoned river sailor.",
-      "motivation": "Pursue this: captain his own flatboat next year. Avoid this: fog collisions near the mill race.",
-      "secret": "Privately terrified of fog collisions near the mill race, and currently entangled with: Refused to tow Nedda after smelling her 'grain'.",
-      "rumor": "Rumor says Tem can tell you anything that happens near river wharf and midstream—for a price or a kindness.",
-      "voice": "Speaks like a Human river sailor: concrete details first, embellishment only when useful.",
-      "appearance": "Human; often near river wharf and midstream; look for rope calluses like badges.",
+      "description": "The river sailor people recommend when they actually want the job finished.",
+      "biography": "People looking for a reliable river sailor are sent to Tem, who claims river wharf and midstream as home ground. At 34, this Human has learned to watch hands before faces. He reads water the way scholars read books; neighbors joke that he would miss a coronation before misplacing the rope calluses like badges. Works docks with Mael; cleaner than Nedda. He is saving courage and coin alike to captain his own flatboat next year, while trying not to let fog collisions near the mill race decide the ending. Refused to tow Nedda after smelling her 'grain'.",
+      "personality": "Soft-spoken until principles are poked; reads water the way scholars read books.",
+      "motivation": "Turn today's scrapes into tomorrow's chance to captain his own flatboat next year.",
+      "secret": "Night thoughts keep returning to fog collisions near the mill race, especially since: Refused to tow Nedda after smelling her 'grain'.",
+      "rumor": "Someone paid Tem to forget a name connected to river wharf and midstream.",
+      "voice": "Quick river-town diction, then sudden silences that mean more than words.",
+      "appearance": "Easy to spot near river wharf and midstream: human, practical layers, and that rope calluses like badges.",
       "portrait": "modules/townforge/assets/portraits/sailor-tem.webp",
       "token": "modules/townforge/assets/tokens/sailor-tem.webp",
-      "relationships": [],
       "actorData": {
         "type": "npc",
         "system": {
@@ -633,17 +628,16 @@
         "furs",
         "camp"
       ],
-      "description": "Game Hunter associated with cold camps beyond the tree line.",
-      "biography": "Most days begin the same for Vessa Coldtrail: a 31-year-old Half-Orc game hunter moving through cold camps beyond the tree line as if the stones themselves keep appointments with them. Vessa shares meat before she shares names, and is rarely without fur roll tied with sinew. Friends with Skog; confirms Kavi's trail signs. What drives them is simple to name and hard to finish: they want to sell honest furs without guild bribes. What keeps them careful is overhunting for noble fashion. To a DM, Vessa is ready to roleplay immediately—useful for favors, local color, or trouble. Tracked armed strangers caching rope near the mill at dusk.",
-      "personality": "shares meat before she shares names. Professional demeanor of a seasoned game hunter.",
-      "motivation": "Pursue this: sell honest furs without guild bribes. Avoid this: overhunting for noble fashion.",
-      "secret": "Privately terrified of overhunting for noble fashion, and currently entangled with: Tracked armed strangers caching rope near the mill at dusk.",
-      "rumor": "Rumor says Vessa can tell you anything that happens near cold camps beyond the tree line—for a price or a kindness.",
-      "voice": "Speaks like a Half-Orc game hunter: concrete details first, embellishment only when useful.",
-      "appearance": "Half-Orc; often near cold camps beyond the tree line; look for fur roll tied with sinew.",
+      "description": "Local game hunter whose days orbit cold camps beyond the tree line and small lasting loyalties.",
+      "biography": "Walk into cold camps beyond the tree line and you will find Vessa Coldtrail before you find a free chair. A 31-year-old Half-Orc game hunter, Vessa greets trouble the way other folk greet weather: with a coat and a plan. She shares meat before she shares names. The fur roll tied with sinew travels with her almost everywhere. Friends with Skog; confirms Kavi's trail signs. Her ambition is to sell honest furs without guild bribes. Her nightmare is overhunting for noble fashion. Right now, Tracked armed strangers caching rope near the mill at dusk.",
+      "personality": "Dry humor over a careful heart; shares meat before she shares names.",
+      "motivation": "Finish one honest plan: sell honest furs without guild bribes.",
+      "secret": "Keeps proof related to a problem—Tracked armed strangers caching rope near the mill at dusk.",
+      "rumor": "Vessa can open doors at cold camps beyond the tree line after hours—if asked the right way.",
+      "voice": "Storyteller rhythm even when discussing ledgers or latches.",
+      "appearance": "Half-Orc features shaped by work at cold camps beyond the tree line; watch for the fur roll tied with sinew.",
       "portrait": "modules/townforge/assets/portraits/hunter-vessa.webp",
       "token": "modules/townforge/assets/tokens/hunter-vessa.webp",
-      "relationships": [],
       "actorData": {
         "type": "npc",
         "system": {
@@ -762,23 +756,16 @@
         "letters",
         "speed"
       ],
-      "description": "Long-Road Courier associated with the long road in all weather.",
-      "biography": "Blink Feather works as a long-road courier out of the long road in all weather, a 23-year-old Halfling with more town memory than most council minutes. Blink never sleeps in the same loft twice, and is rarely without sealable message tube worn as a belt. Idol for Finn; professional pride. What drives them is simple to name and hard to finish: they want to hire Finn as a second when the boy is ready. What keeps them careful is being forced to open a letter. To a DM, Blink is ready to roleplay immediately—useful for favors, local color, or trouble. Carried a sealed note from Kitty Shade to someone inside Vale Manor.",
-      "personality": "never sleeps in the same loft twice. Professional demeanor of a seasoned long-road courier.",
-      "motivation": "Pursue this: hire Finn as a second when the boy is ready. Avoid this: being forced to open a letter.",
-      "secret": "Privately terrified of being forced to open a letter, and currently entangled with: Carried a sealed note from Kitty Shade to someone inside Vale Manor.",
-      "rumor": "Rumor says Blink can tell you anything that happens near the long road in all weather—for a price or a kindness.",
-      "voice": "Speaks like a Halfling long-road courier: concrete details first, embellishment only when useful.",
-      "appearance": "Halfling; often near the long road in all weather; look for sealable message tube worn as a belt.",
+      "description": "A long-road courier rooted at the long road in all weather, known for how he never sleeps in the same loft twice.",
+      "biography": "Blink Feather's reputation as a long-road courier was built one careful errand at a time around the long road in all weather. Age 23 sits lightly on this Halfling, except when old debts creak. Watch long enough and you will see that he never sleeps in the same loft twice. The sealable message tube worn as a belt is part tool, part talisman. Idol for Finn; professional pride. He would trade sleep to hire Finn as a second when the boy is ready, yet stays wary of being forced to open a letter. Current spark: Carried a sealed note from Kitty Shade to someone inside Vale Manor.",
+      "personality": "Steady and sharp-eyed; never sleeps in the same loft twice.",
+      "motivation": "To hire Finn as a second when the boy is ready without feeding being forced to open a letter.",
+      "secret": "Knows more about this than he admits: Carried a sealed note from Kitty Shade to someone inside Vale Manor.",
+      "rumor": "Blink can open doors at the long road in all weather after hours—if asked the right way.",
+      "voice": "Low and practical, with a habit of repeating the important clause once.",
+      "appearance": "A halfling silhouette framed by the long road in all weather, hands seldom empty of the sealable message tube worn as a belt.",
       "portrait": "modules/townforge/assets/portraits/courier-blink.webp",
       "token": "modules/townforge/assets/tokens/courier-blink.webp",
-      "relationships": [
-        {
-          "id": "finn-cobble",
-          "type": "admirer",
-          "note": "Wants to become a real long-road courier."
-        }
-      ],
       "actorData": {
         "type": "npc",
         "system": {
@@ -882,7 +869,14 @@
             }
           }
         ]
-      }
+      },
+      "relationships": [
+        {
+          "id": "finn-cobble",
+          "type": "admirer",
+          "note": "Wants to become a real long-road courier."
+        }
+      ]
     }
   ]
 }
