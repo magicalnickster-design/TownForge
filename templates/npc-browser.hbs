@@ -1,36 +1,22 @@
-<header class="townforge-header">
-  <div class="townforge-brand">
-    <h1>{{title}}</h1>
-    <p class="townforge-subtitle">Browse pre-built NPCs and place them into your scene.</p>
-  </div>
-
-  {{#unless showingDetails}}
-  <div class="townforge-toolbar">
-    <label class="townforge-search">
-      <span class="townforge-sr-only">Search NPCs</span>
-      <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
-      <input
-        type="search"
-        name="query"
-        value="{{query}}"
-        placeholder="Search by name, species, occupation, tags…"
-        data-townforge-search
-        autocomplete="off"
-      />
-    </label>
-
-    <div class="townforge-categories" role="toolbar" aria-label="NPC categories">
-      {{#each categories}}
-      <button
-        type="button"
-        class="townforge-category{{#if active}} is-active{{/if}}"
-        data-action="setCategory"
-        data-category="{{id}}"
-      >
-        {{label}}
-      </button>
-      {{/each}}
+<div class="townforge-shell">
+  <header class="townforge-topbar">
+    <div class="townforge-brand">
+      <span class="townforge-brand-mark" aria-hidden="true">
+        <i class="fa-solid fa-chess-rook"></i>
+      </span>
+      <div class="townforge-brand-text">
+        <span class="townforge-brand-title">{{title}}</span>
+        <span class="townforge-brand-sub">NPC Library</span>
+      </div>
     </div>
+  </header>
+
+  <div class="townforge-split">
+    {{> "modules/townforge/templates/npc-content.hbs"}}
+    {{> "modules/townforge/templates/npc-details.hbs"}}
   </div>
-  {{/unless}}
-</header>
+
+  <footer class="townforge-footer">
+    <span class="townforge-footer-brand">Gambits Forge</span>
+  </footer>
+</div>

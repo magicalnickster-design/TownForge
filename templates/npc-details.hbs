@@ -1,66 +1,166 @@
-<article class="townforge-details">
-  <button type="button" class="townforge-back" data-action="backToList">
-    <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
-    Back to library
-  </button>
+<section class="townforge-details">
+  {{#if selectedNpc}}
+  {{#with selectedNpc}}
+  <div class="townforge-detail-scroll">
+    <div class="townforge-detail-hero">
+      <div class="townforge-detail-portrait">
+        <img
+          src="{{portrait}}"
+          alt="{{name}}"
+          data-townforge-img
+          data-fallback="{{fallbackPortrait}}"
+        />
+      </div>
 
-  <div class="townforge-details-layout">
-    <div class="townforge-details-portrait">
-      <img
-        src="{{npc.portrait}}"
-        alt="{{npc.name}}"
-        data-townforge-img
-        data-fallback="{{npc.fallbackPortrait}}"
-      />
-    </div>
-
-    <div class="townforge-details-body">
-      <h2 class="townforge-details-name">{{npc.name}}</h2>
-      <p class="townforge-details-meta">{{npc.species}} · {{npc.occupation}}</p>
-      <p class="townforge-details-category">{{npc.category}}</p>
-
-      <section class="townforge-detail-block">
-        <h3>Biography</h3>
-        <p>{{npc.biography}}</p>
-      </section>
-
-      <section class="townforge-detail-grid">
-        <div class="townforge-detail-block">
-          <h3>Personality</h3>
-          <p>{{npc.personality}}</p>
+      <div class="townforge-detail-identity">
+        <div class="townforge-detail-identity-top">
+          <div>
+            <h2 class="townforge-detail-name">{{name}}</h2>
+            <p class="townforge-detail-meta">{{metaLine}}</p>
+            <span class="townforge-pill" style="--tf-cat: {{categoryColor}}">{{categoryLabel}}</span>
+          </div>
+          <button
+            type="button"
+            class="townforge-favorite{{#if favorite}} is-active{{/if}}"
+            data-action="toggleFavorite"
+            data-npc-id="{{id}}"
+            title="Favorite"
+          >
+            <i class="fa-solid fa-star" aria-hidden="true"></i>
+          </button>
         </div>
-        <div class="townforge-detail-block">
-          <h3>Motivation</h3>
-          <p>{{npc.motivation}}</p>
-        </div>
-        <div class="townforge-detail-block">
-          <h3>Rumor</h3>
-          <p>{{npc.rumor}}</p>
-        </div>
-        <div class="townforge-detail-block townforge-secret">
-          <h3>Secret <span class="townforge-gm-only">GM Only</span></h3>
-          <p>{{npc.secret}}</p>
-        </div>
-      </section>
-
-      {{#if npc.voice}}
-      <section class="townforge-detail-block">
-        <h3>Voice</h3>
-        <p>{{npc.voice}}</p>
-      </section>
-      {{/if}}
-
-      <div class="townforge-details-actions">
-        <button
-          type="button"
-          class="townforge-add-button"
-          data-action="addToScene"
-          data-npc-id="{{npc.id}}"
-        >
-          <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
-          Add to Scene
-        </button>
+        <p class="townforge-detail-flavor">{{description}}</p>
       </div>
     </div>
+
+    <div class="townforge-detail-main">
+      <dl class="townforge-attr-list">
+        <div><dt>Age</dt><dd>{{age}}</dd></div>
+        <div><dt>Occupation</dt><dd>{{occupation}}</dd></div>
+        <div><dt>Location</dt><dd>{{location}}</dd></div>
+        <div><dt>Personality</dt><dd>{{personality}}</dd></div>
+        <div><dt>Motivation</dt><dd>{{motivation}}</dd></div>
+        <div><dt>Rumor</dt><dd>{{rumor}}</dd></div>
+        <div class="is-secret"><dt>Secret <span class="townforge-gm-only">GM</span></dt><dd>{{secret}}</dd></div>
+      </dl>
+
+      <aside class="townforge-statblock" aria-label="D&D 5e stats">
+        <div class="townforge-statblock-top">
+          <div><span>AC</span><strong>{{stats.ac}}</strong></div>
+          <div><span>HP</span><strong>{{stats.hp}}</strong></div>
+          <div><span>Speed</span><strong>{{stats.speed}} ft.</strong></div>
+        </div>
+        <div class="townforge-statblock-abilities">
+          {{#each stats.abilities}}
+          <div>
+            <span>{{key}}</span>
+            <strong>{{value}}</strong>
+            <em>{{mod}}</em>
+          </div>
+          {{/each}}
+        </div>
+        <div class="townforge-statblock-foot">
+          <span>Proficiency Bonus</span>
+          <strong>+{{stats.proficiency}}</strong>
+        </div>
+      </aside>
+    </div>
+
+    <div class="townforge-detail-tabs" role="tablist">
+      {{#each detailTabs}}
+      <button
+        type="button"
+        class="townforge-detail-tab{{#if active}} is-active{{/if}}{{#if gmOnly}} is-gm{{/if}}"
+        data-action="setDetailTab"
+        data-tab="{{id}}"
+        role="tab"
+        aria-selected="{{active}}"
+      >{{label}}</button>
+      {{/each}}
+    </div>
+
+    <div class="townforge-detail-panels">
+      <div class="townforge-detail-panel">
+        {{#if activeTabContent.isSecret}}
+        <div class="townforge-secret-panel">
+          <h3>Secret <span class="townforge-gm-only">GM Only</span></h3>
+          <p>{{activeTabContent.text}}</p>
+        </div>
+        {{else}}
+          {{#if activeTabContent.isStats}}
+          <div class="townforge-stats-panel">
+            <p><strong>CR</strong> {{activeTabContent.stats.cr}}</p>
+            <p><strong>AC</strong> {{activeTabContent.stats.ac}} · <strong>HP</strong> {{activeTabContent.stats.hp}}/{{activeTabContent.stats.hpMax}} · <strong>Speed</strong> {{activeTabContent.stats.speed}} ft.</p>
+            <div class="townforge-stats-abilities">
+              {{#each activeTabContent.stats.abilities}}
+              <div><span>{{key}}</span><strong>{{value}}</strong> ({{mod}})</div>
+              {{/each}}
+            </div>
+          </div>
+          {{else}}
+            {{#if activeTabContent.isInventory}}
+            <div class="townforge-inventory-panel">
+              {{#if activeTabContent.inventory.length}}
+              <ul>
+                {{#each activeTabContent.inventory}}
+                <li><strong>{{name}}</strong> <span>{{type}}</span></li>
+                {{/each}}
+              </ul>
+              {{else}}
+              <p class="townforge-muted">No inventory items listed for this NPC.</p>
+              {{/if}}
+            </div>
+            {{else}}
+            <p class="townforge-panel-text">{{activeTabContent.text}}</p>
+            {{/if}}
+          {{/if}}
+        {{/if}}
+      </div>
+
+      {{#if tags.length}}
+      <aside class="townforge-tags-box">
+        <h3>Tags</h3>
+        <div class="townforge-tags">
+          {{#each tags}}
+          <span class="townforge-tag">{{this}}</span>
+          {{/each}}
+        </div>
+      </aside>
+      {{/if}}
+    </div>
   </div>
-</article>
+
+  <div class="townforge-detail-actions">
+    <button
+      type="button"
+      class="townforge-btn townforge-btn-secondary"
+      data-action="importActor"
+      data-npc-id="{{id}}"
+    >
+      <i class="fa-solid fa-user-plus" aria-hidden="true"></i>
+      <span>
+        <strong>Import Actor</strong>
+        <small>Add to Actors Directory</small>
+      </span>
+    </button>
+    <button
+      type="button"
+      class="townforge-btn townforge-btn-primary"
+      data-action="addToScene"
+      data-npc-id="{{id}}"
+    >
+      <i class="fa-solid fa-chess-pawn" aria-hidden="true"></i>
+      <span>
+        <strong>Add to Scene</strong>
+        <small>Create actor and place token</small>
+      </span>
+    </button>
+    <p class="townforge-action-note">Actor will be created if it doesn't already exist.</p>
+  </div>
+  {{/with}}
+  {{else}}
+  <div class="townforge-details-empty">
+    <p>Select an NPC to preview details.</p>
+  </div>
+  {{/if}}
+</section>

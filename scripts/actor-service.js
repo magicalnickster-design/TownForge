@@ -15,6 +15,38 @@ export class ActorService {
   #creatingNpcIds = new Set();
 
   /**
+   * Create/reuse the Actor in the Actors directory without placing a token.
+   * @param {object} npc
+   * @returns {Promise<{actor: Actor|null, createdActor: boolean}>}
+   */
+  async importActor(npc) {
+    if (!npc?.id) {
+      console.error(`${LOG_PREFIX} Import Actor aborted — NPC is missing an id`);
+      ui.notifications?.error("TownForge cannot import an NPC without a stable id.");
+      return { actor: null, createdActor: false };
+    }
+
+    if (!game.user?.isGM) {
+      ui.notifications?.warn("Only the GM can import TownForge NPCs.");
+      return { actor: null, createdActor: false };
+    }
+
+    try {
+      const { actor, created } = await this.ensureActor(npc);
+      ui.notifications?.info(
+        created
+          ? `TownForge imported ${npc.name} into the Actors directory.`
+          : `TownForge found existing Actor for ${npc.name}.`
+      );
+      return { actor, createdActor: created };
+    } catch (error) {
+      console.error(`${LOG_PREFIX} Actor import failed for "${npc.id}"`, error);
+      ui.notifications?.error(`TownForge could not import ${npc.name}.`);
+      return { actor: null, createdActor: false };
+    }
+  }
+
+  /**
    * Ensure an Actor exists for the given TownForge NPC, then place a token.
    * @param {object} npc Normalized TownForge NPC record
    * @returns {Promise<{actor: Actor|null, token: TokenDocument|null, createdActor: boolean}>}

@@ -1,22 +1,71 @@
-<section class="townforge-content">
-  {{#if showingDetails}}
-    {{> "modules/townforge/templates/npc-details.hbs" npc=selectedNpc}}
-  {{else}}
-    <div class="townforge-results-meta">
-      <span>{{resultCount}} NPCs</span>
-    </div>
+<aside class="townforge-library">
+  <div class="townforge-library-toolbar">
+    <label class="townforge-search">
+      <span class="townforge-sr-only">Search NPCs</span>
+      <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+      <input
+        type="search"
+        value="{{query}}"
+        placeholder="Search NPCs..."
+        data-townforge-search
+        autocomplete="off"
+      />
+    </label>
+  </div>
 
+  <div class="townforge-category-row" role="toolbar" aria-label="NPC categories">
+    {{#each primaryCategories}}
+    <button
+      type="button"
+      class="townforge-cat-tab{{#if active}} is-active{{/if}}"
+      data-action="setCategory"
+      data-category="{{id}}"
+    >{{label}}</button>
+    {{/each}}
+
+    <div class="townforge-more{{#if moreOpen}} is-open{{/if}}{{#if moreActive}} has-active{{/if}}">
+      <button type="button" class="townforge-cat-tab townforge-more-toggle" data-action="toggleMore">
+        More <i class="fa-solid fa-caret-down" aria-hidden="true"></i>
+      </button>
+      {{#if moreOpen}}
+      <div class="townforge-more-menu">
+        {{#each moreCategories}}
+        <button
+          type="button"
+          class="townforge-more-item{{#if active}} is-active{{/if}}"
+          data-action="setCategory"
+          data-category="{{id}}"
+        >{{label}}</button>
+        {{/each}}
+      </div>
+      {{/if}}
+    </div>
+  </div>
+
+  <div class="townforge-library-meta">
+    <span>{{resultCount}} NPCs</span>
+    <label class="townforge-sort">
+      <span>Sort:</span>
+      <select data-townforge-sort>
+        <option value="name-asc"{{#if sortAsc}} selected{{/if}}>Name (A-Z)</option>
+        <option value="name-desc"{{#if sortDesc}} selected{{/if}}>Name (Z-A)</option>
+      </select>
+    </label>
+  </div>
+
+  <div class="townforge-library-scroll">
     {{#if npcs.length}}
     <div class="townforge-card-grid" role="list">
       {{#each npcs}}
       <button
         type="button"
-        class="townforge-card"
-        data-action="openNpc"
+        class="townforge-card{{#if selected}} is-selected{{/if}}"
+        data-action="selectNpc"
         data-npc-id="{{id}}"
         role="listitem"
+        style="--tf-cat: {{categoryColor}}"
       >
-        <div class="townforge-card-portrait">
+        <div class="townforge-card-media">
           <img
             src="{{portrait}}"
             alt=""
@@ -24,11 +73,11 @@
             data-townforge-img
             data-fallback="{{fallbackPortrait}}"
           />
-        </div>
-        <div class="townforge-card-body">
-          <h2 class="townforge-card-name">{{name}}</h2>
-          <p class="townforge-card-meta">{{species}} · {{occupation}}</p>
-          <span class="townforge-card-category">{{category}}</span>
+          <div class="townforge-card-overlay">
+            <h2 class="townforge-card-name">{{name}}</h2>
+            <p class="townforge-card-meta">{{metaLine}}</p>
+            <span class="townforge-pill">{{categoryLabel}}</span>
+          </div>
         </div>
       </button>
       {{/each}}
@@ -38,5 +87,34 @@
       <p>{{#if loadFailed}}TownForge could not load its NPC library.{{else}}No NPCs match your search.{{/if}}</p>
     </div>
     {{/if}}
+  </div>
+
+  {{#if pages.length}}
+  <nav class="townforge-pagination" aria-label="NPC pages">
+    <button
+      type="button"
+      class="townforge-page-btn"
+      data-action="setPage"
+      data-page="{{prevPage}}"
+      {{#if isFirstPage}}disabled{{/if}}
+    ><i class="fa-solid fa-chevron-left"></i></button>
+
+    {{#each pages}}
+    <button
+      type="button"
+      class="townforge-page-btn{{#if active}} is-active{{/if}}"
+      data-action="setPage"
+      data-page="{{number}}"
+    >{{label}}</button>
+    {{/each}}
+
+    <button
+      type="button"
+      class="townforge-page-btn"
+      data-action="setPage"
+      data-page="{{nextPage}}"
+      {{#if isLastPage}}disabled{{/if}}
+    ><i class="fa-solid fa-chevron-right"></i></button>
+  </nav>
   {{/if}}
-</section>
+</aside>
