@@ -1,17 +1,15 @@
 import { LOG_PREFIX, MODULE_ID, MODULE_TITLE } from "./constants.js";
 import { NpcBrowser } from "./npc-browser.js";
 import { npcService } from "./npc-service.js";
+import { registerShopHooks, shopApi } from "./shop-hooks.js";
+import { shopService } from "./shop-service.js";
 
 /**
  * TownForge module entrypoint.
- *
- * - preload Free NPC data
- * - register a GM-only Scene Controls button
- * - expose a small API for future Free/Pro / auth features
  */
 
 Hooks.once("init", () => {
-  console.log(`${LOG_PREFIX} Initializing ${MODULE_TITLE} v0.2`);
+  console.log(`${LOG_PREFIX} Initializing ${MODULE_TITLE} v0.3`);
 });
 
 Hooks.once("ready", async () => {
@@ -21,21 +19,22 @@ Hooks.once("ready", async () => {
     console.error(`${LOG_PREFIX} Ready hook failed while loading NPC library`, error);
   }
 
+  registerShopHooks();
   console.log(`${LOG_PREFIX} Module ready`);
 
-  // Lightweight public API; Free/Pro auth hooks can attach later.
   globalThis.townforge = Object.freeze({
     id: MODULE_ID,
     title: MODULE_TITLE,
     openBrowser: () => NpcBrowser.show(),
     npcService,
-    version: game.modules.get(MODULE_ID)?.version ?? "0.1.0"
+    shopService,
+    shop: shopApi,
+    version: game.modules.get(MODULE_ID)?.version ?? "0.3.0"
   });
 });
 
 /**
  * Foundry v13+ Scene Controls use a keyed Record, not an array.
- * Add a GM-only button tool under the Tokens control.
  */
 Hooks.on("getSceneControlButtons", (controls) => {
   const tokens = controls.tokens;

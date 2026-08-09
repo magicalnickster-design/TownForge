@@ -771,3 +771,238 @@
     gap: 0.2rem;
   }
 }
+
+/* -------- Shopkeeper / Merchant -------- */
+
+.townforge-shop-config,
+.townforge-merchant-shell {
+  padding: 0.9rem 1rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-height: 0;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.townforge-shop-config-scroll {
+  overflow: auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.townforge-shop-config-header h2,
+.townforge-merchant-header h2 {
+  margin: 0;
+  font-family: var(--tf-display);
+  font-size: 1.7rem;
+}
+
+.townforge-shop-config-header p,
+.townforge-merchant-header p {
+  margin: 0.2rem 0 0;
+  color: var(--tf-muted);
+}
+
+.townforge-check {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-weight: 600;
+}
+
+.townforge-shop-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.65rem;
+}
+
+.townforge-shop-grid label,
+.townforge-buyer {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.townforge-shop-grid span,
+.townforge-buyer span {
+  color: var(--tf-muted);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.townforge-shop-grid input,
+.townforge-shop-grid select,
+.townforge-manual-add input,
+.townforge-buyer select {
+  border: 1px solid var(--tf-border);
+  background: rgba(0, 0, 0, 0.25);
+  color: var(--tf-text);
+  border-radius: 0.55rem;
+  padding: 0.45rem 0.55rem;
+  font: inherit;
+}
+
+.townforge-shop-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.55rem;
+}
+
+.townforge-manage-inventory h3 {
+  margin: 0 0 0.45rem;
+  font-size: 0.95rem;
+}
+
+.townforge-manual-add {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.45rem;
+  margin-bottom: 0.65rem;
+}
+
+.townforge-manual-add button {
+  border: 1px solid var(--tf-border);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--tf-text);
+  border-radius: 0.55rem;
+  padding: 0.45rem 0.7rem;
+  cursor: pointer;
+  font: inherit;
+}
+
+.townforge-stock-list,
+.townforge-merchant-rows {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.4rem;
+}
+
+.townforge-stock-list li {
+  display: grid;
+  grid-template-columns: 40px 1fr auto auto;
+  gap: 0.45rem;
+  align-items: center;
+  padding: 0.45rem 0.55rem;
+  border: 1px solid var(--tf-border);
+  border-radius: 0.65rem;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.townforge-merchant-row {
+  display: grid;
+  grid-template-columns: 40px 1fr auto auto;
+  gap: 0.65rem;
+  align-items: center;
+  padding: 0.45rem 0.55rem;
+  border: 1px solid var(--tf-border);
+  border-radius: 0.65rem;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.townforge-stock-list img,
+.townforge-merchant-row img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  border-radius: 0.35rem;
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.townforge-stock-list small,
+.townforge-merchant-row small {
+  display: block;
+  color: var(--tf-muted);
+}
+
+.townforge-stock-list button {
+  border: none;
+  background: transparent;
+  color: var(--tf-muted);
+  cursor: pointer;
+}
+
+.townforge-stock-list button:hover {
+  color: var(--tf-danger);
+}
+
+.townforge-merchant-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: end;
+}
+
+.townforge-merchant-header-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  align-items: end;
+  justify-content: flex-end;
+}
+
+.townforge-open-sheet-btn {
+  white-space: nowrap;
+}
+
+.townforge-merchant-toolbar {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.townforge-merchant-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+.townforge-merchant-list {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+}
+
+.townforge-merchant-row-price {
+  font-weight: 700;
+  color: var(--tf-accent-strong);
+  white-space: nowrap;
+}
+
+.townforge-buy-btn {
+  border: none;
+  border-radius: 999px;
+  background: linear-gradient(180deg, var(--tf-accent-strong), var(--tf-accent));
+  color: var(--tf-ink);
+  font: inherit;
+  font-weight: 700;
+  padding: 0.4rem 0.8rem;
+  cursor: pointer;
+}
+
+.townforge-buy-btn:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+@media (max-width: 720px) {
+  .townforge-shop-grid,
+  .townforge-shop-actions,
+  .townforge-merchant-header {
+    grid-template-columns: 1fr;
+    display: grid;
+  }
+
+  .townforge-stock-list li,
+  .townforge-merchant-row {
+    grid-template-columns: 40px 1fr;
+  }
+
+  .townforge-merchant-row-price,
+  .townforge-buy-btn {
+    grid-column: 2;
+  }
+}

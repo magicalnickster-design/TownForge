@@ -230,7 +230,8 @@ export class ActorService {
           [MODULE_ID]: {
             [FLAGS.NPC_ID]: npc.id,
             [FLAGS.LIBRARY]: npc.library ?? "free",
-            [FLAGS.SOURCE]: "townforge"
+            [FLAGS.SOURCE]: "townforge",
+            [FLAGS.OCCUPATION]: npc.occupation ?? ""
           }
         }
       },
@@ -244,6 +245,11 @@ export class ActorService {
       npc.library ?? "free"
     );
     foundry.utils.setProperty(data, `flags.${MODULE_ID}.${FLAGS.SOURCE}`, "townforge");
+    foundry.utils.setProperty(
+      data,
+      `flags.${MODULE_ID}.${FLAGS.OCCUPATION}`,
+      npc.occupation ?? ""
+    );
 
     return data;
   }

@@ -17,7 +17,8 @@ export const LIBRARY_PRO = "pro";
 export const FLAGS = Object.freeze({
   NPC_ID: "npcId",
   LIBRARY: "library",
-  SOURCE: "source"
+  SOURCE: "source",
+  OCCUPATION: "occupation"
 });
 
 /**

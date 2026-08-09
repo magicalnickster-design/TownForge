@@ -1,0 +1,117 @@
+<div class="townforge-shop-config">
+  <div class="townforge-shop-config-scroll">
+    <header class="townforge-shop-config-header">
+      <h2>{{actorName}}</h2>
+      <p>Configure automatic merchant stock for this NPC.</p>
+    </header>
+
+    <label class="townforge-check">
+      <input type="checkbox" name="enabled" {{#if shop.enabled}}checked{{/if}} />
+      <span>Enable TownForge Shopkeeper</span>
+    </label>
+
+    <div class="townforge-shop-grid">
+      <label>
+        <span>Shop Name</span>
+        <input type="text" name="shopName" value="{{shop.shopName}}" placeholder="{{actorName}}'s Shop" />
+      </label>
+
+      <label>
+        <span>Shop Type</span>
+        <select name="shopType">
+          {{#each shopTypes}}
+          <option value="{{id}}" {{#if selected}}selected{{/if}}>{{label}}</option>
+          {{/each}}
+        </select>
+      </label>
+
+      <label>
+        <span>Inventory</span>
+        <select name="inventoryMode">
+          {{#each inventoryModes}}
+          <option value="{{id}}" {{#if selected}}selected{{/if}}>{{label}}</option>
+          {{/each}}
+        </select>
+      </label>
+
+      <label>
+        <span>Economy Tier</span>
+        <select name="economyTier">
+          {{#each economyTiers}}
+          <option value="{{id}}" {{#if selected}}selected{{/if}}>{{label}}</option>
+          {{/each}}
+        </select>
+      </label>
+
+      <label>
+        <span>Party Level</span>
+        <select name="partyLevelMode">
+          {{#each partyLevelModes}}
+          <option value="{{id}}" {{#if selected}}selected{{/if}}>{{label}}</option>
+          {{/each}}
+        </select>
+      </label>
+
+      <label>
+        <span>Fixed Level</span>
+        <input type="number" name="fixedPartyLevel" min="1" max="20" step="1" value="{{shop.fixedPartyLevel}}" placeholder="{{partyLevel}}" />
+      </label>
+
+      <label>
+        <span>Price Multiplier</span>
+        <input type="number" name="priceMultiplier" min="0.1" max="10" step="0.1" value="{{shop.priceMultiplier}}" />
+      </label>
+    </div>
+
+    <p class="townforge-muted">Effective party level: <strong>{{partyLevel}}</strong> · Type: <strong>{{shopTypeLabel}}</strong></p>
+
+    <div class="townforge-shop-actions">
+      <button type="submit" class="townforge-btn townforge-btn-primary">
+        <i class="fa-solid fa-floppy-disk"></i>
+        <span><strong>Save</strong><small>Apply shopkeeper settings</small></span>
+      </button>
+      <button type="button" class="townforge-btn townforge-btn-secondary" data-action="regenerate">
+        <i class="fa-solid fa-rotate"></i>
+        <span><strong>Regenerate Inventory</strong><small>Keep manual items</small></span>
+      </button>
+      <button type="button" class="townforge-btn townforge-btn-secondary" data-action="resetAutomatic">
+        <i class="fa-solid fa-eraser"></i>
+        <span><strong>Reset to Automatic</strong><small>Clear manual overrides</small></span>
+      </button>
+      <button type="button" class="townforge-btn townforge-btn-secondary" data-action="openMerchant">
+        <i class="fa-solid fa-store"></i>
+        <span><strong>Preview Shop</strong><small>Open merchant window</small></span>
+      </button>
+    </div>
+
+    <section class="townforge-manage-inventory">
+      <h3>Manage Inventory</h3>
+      <div class="townforge-manual-add">
+        <input type="text" data-townforge-manual-uuid placeholder="Paste Item UUID to add manually" />
+        <button type="button" data-action="addSelectedItem">Add Manual Item</button>
+      </div>
+
+      {{#if inventory.length}}
+      <ul class="townforge-stock-list">
+        {{#each inventory}}
+        <li>
+          <img src="{{img}}" alt="" width="28" height="28" />
+          <div>
+            <strong>{{name}}</strong>
+            <small>{{priceLabel}} · {{sourceLabel}} · Qty {{#if quantity}}{{quantity}}{{else}}∞{{/if}}</small>
+          </div>
+          <button type="button" data-action="editStock" data-stock-id="{{id}}" title="Edit price/quantity">
+            <i class="fa-solid fa-pen"></i>
+          </button>
+          <button type="button" data-action="removeStock" data-stock-id="{{id}}" title="Remove">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        </li>
+        {{/each}}
+      </ul>
+      {{else}}
+      <p class="townforge-muted">No stock yet. Enable the shopkeeper and save/regenerate.</p>
+      {{/if}}
+    </section>
+  </div>
+</div>
