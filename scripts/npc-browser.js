@@ -3,14 +3,27 @@ import {
   BROWSER_PAGE_SIZE,
   CATEGORY_COLORS,
   CATEGORY_LOCATIONS,
-  OCCUPATION_LOCATIONS,
   FAVORITES_KEY,
   LOG_PREFIX,
   MODULE_ID,
   MODULE_TITLE,
+  OCCUPATION_LOCATIONS,
   PRIMARY_CATEGORY_IDS
 } from "./constants.js";
 import { npcService } from "./npc-service.js";
+import {
+  LIBRARY_FILTERS,
+  filterLibraryNpcs,
+  loadUserFavorites,
+  loadUserRecent,
+  pruneFavorites,
+  pruneRecent,
+  recordUserRecentNpc,
+  saveUserFavorites,
+  saveUserRecent,
+  sortLibraryNpcs,
+  toggleUserFavorite
+} from "./user-library-state.js";
 
 const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
 
@@ -30,7 +43,7 @@ export class NpcBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
   /** @type {number} */
   #page = 1;
 
-  /** @type {"name-asc"|"name-desc"} */
+  /** @type {"name-asc"|"name-desc"|"recent"|"occupation"|"category"} */
   #sort = "name-asc";
 
   /** @type {"bio"|"personality"|"motivation"|"secret"|"stats"|"inventory"} */
@@ -40,7 +53,13 @@ export class NpcBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
   #moreOpen = false;
 
   /** @type {Set<string>} */
-  #favorites = NpcBrowser.#loadFavorites();
+  #favorites = new Set();
+
+  /** @type {{id:string,lastUsed:number}[]} */
+  #recent = [];
+
+  /** @type {boolean} */
+  #stateLoaded = false;
 
   static DEFAULT_OPTIONS = {
     id: "townforge-npc-browser",
@@ -100,16 +119,29 @@ export class NpcBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
   async _prepareContext(options) {
     const context = await super._prepareContext(options);
     await npcService.ready();
+    await this.#ensureUserState(npcService);
 
-    let npcs = await npcService.searchNpcs({
-      category: this.#category,
-      query: this.#query
+    const allNpcs = await npcService.getAllNpcs();
+    const mode = this.#resolveFilterMode();
+    let npcs = filterLibraryNpcs(allNpcs, {
+      mode,
+      query: this.#query,
+      favoriteIds: [...this.#favorites],
+      recentEntries: this.#recent,
+      category: this.#category
     });
 
-    npcs = this.#sortNpcs(npcs);
+    // Recently Used filter always shows newest → oldest regardless of sort dropdown,
+    // unless the user explicitly chose another sort.
+    const sortForView =
+      mode === LIBRARY_FILTERS.RECENT && this.#sort === "name-asc" ? "recent" : this.#sort;
+    npcs = sortLibraryNpcs(npcs, sortForView, this.#recent);
+
     const totalCount = npcs.length;
-    const pageCount = Math.max(1, Math.ceil(totalCount / BROWSER_PAGE_SIZE));
-    if (this.#page > pageCount) this.#page = pageCount;
+    const pageCount =
+      totalCount > 0 ? Math.max(1, Math.ceil(totalCount / BROWSER_PAGE_SIZE)) : 0;
+    if (pageCount > 0 && this.#page > pageCount) this.#page = pageCount;
+    if (this.#page < 1) this.#page = 1;
 
     const start = (this.#page - 1) * BROWSER_PAGE_SIZE;
     const pageNpcs = npcs.slice(start, start + BROWSER_PAGE_SIZE).map((npc) =>
@@ -124,7 +156,6 @@ export class NpcBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
       this.#selectedNpcId = null;
     }
 
-    // Auto-select first visible NPC so the right pane is never empty when results exist.
     if (!selectedNpc && pageNpcs.length) {
       this.#selectedNpcId = pageNpcs[0].id;
       selectedNpc = await npcService.getNpcById(this.#selectedNpcId);
@@ -139,14 +170,27 @@ export class NpcBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
         active: category.id === this.#category
       }));
 
-    const moreCategories = allCategories
-      .filter((category) => category.id !== "all" && !PRIMARY_CATEGORY_IDS.includes(category.id))
-      .map((category) => ({
-        ...category,
-        active: category.id === this.#category
-      }));
+    const moreCategories = [
+      {
+        id: LIBRARY_FILTERS.FAVORITES,
+        label: "Favorites",
+        active: this.#category === LIBRARY_FILTERS.FAVORITES
+      },
+      {
+        id: LIBRARY_FILTERS.RECENT,
+        label: "Recently Used",
+        active: this.#category === LIBRARY_FILTERS.RECENT
+      },
+      ...allCategories
+        .filter((category) => category.id !== "all" && !PRIMARY_CATEGORY_IDS.includes(category.id))
+        .map((category) => ({
+          ...category,
+          active: category.id === this.#category
+        }))
+    ];
 
     const moreActive = moreCategories.some((category) => category.active);
+    const emptyState = this.#emptyState(totalCount);
 
     return Object.assign(context, {
       title: MODULE_TITLE,
@@ -168,8 +212,12 @@ export class NpcBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
       isLastPage: this.#page >= pageCount,
       sortAsc: this.#sort === "name-asc",
       sortDesc: this.#sort === "name-desc",
+      sortRecent: this.#sort === "recent",
+      sortOccupation: this.#sort === "occupation",
+      sortCategory: this.#sort === "category",
       detailTab: this.#detailTab,
-      loadFailed: npcService.loadFailed
+      loadFailed: npcService.loadFailed,
+      emptyState
     });
   }
 
@@ -179,6 +227,94 @@ export class NpcBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
     this.#bindSearchInput();
     this.#bindSortSelect();
     this.#bindImageFallbacks();
+  }
+
+  #resolveFilterMode() {
+    if (this.#category === LIBRARY_FILTERS.FAVORITES) return LIBRARY_FILTERS.FAVORITES;
+    if (this.#category === LIBRARY_FILTERS.RECENT) return LIBRARY_FILTERS.RECENT;
+    if (!this.#category || this.#category === "all") return "all";
+    return "category";
+  }
+
+  #emptyState(totalCount) {
+    if (totalCount > 0) return null;
+    if (npcService.loadFailed) {
+      return {
+        title: "Library Unavailable",
+        body: "TownForge could not load its NPC library."
+      };
+    }
+    if (this.#category === LIBRARY_FILTERS.FAVORITES) {
+      return {
+        title: "No Favorites Yet",
+        body: "Click the star on an NPC to add them here."
+      };
+    }
+    if (this.#category === LIBRARY_FILTERS.RECENT) {
+      return {
+        title: "No Recently Used NPCs",
+        body: "NPCs you import or add to a scene will appear here."
+      };
+    }
+    if (this.#query.trim()) {
+      return {
+        title: "No Matches",
+        body: "No NPCs match your search."
+      };
+    }
+    return {
+      title: "No NPCs",
+      body: "No NPCs are available in this view."
+    };
+  }
+
+  async #ensureUserState(service) {
+    if (this.#stateLoaded) return;
+    const all = await service.getAllNpcs();
+    const knownIds = new Set(all.map((npc) => npc.id));
+
+    let favorites = loadUserFavorites();
+    let recent = loadUserRecent();
+
+    // One-time migration from legacy localStorage favorites.
+    if (!favorites.length) {
+      const legacy = NpcBrowser.#loadLegacyLocalFavorites();
+      if (legacy.length) {
+        favorites = pruneFavorites(legacy, knownIds);
+        await saveUserFavorites(favorites);
+        try {
+          localStorage.removeItem(FAVORITES_KEY);
+        } catch (_error) {
+          // ignore
+        }
+      }
+    } else {
+      const pruned = pruneFavorites(favorites, knownIds);
+      if (pruned.length !== favorites.length) {
+        favorites = pruned;
+        await saveUserFavorites(favorites);
+      }
+    }
+
+    const prunedRecent = pruneRecent(recent, knownIds);
+    if (prunedRecent.length !== recent.length) {
+      recent = prunedRecent;
+      await saveUserRecent(recent);
+    }
+
+    this.#favorites = new Set(favorites);
+    this.#recent = recent;
+    this.#stateLoaded = true;
+  }
+
+  static #loadLegacyLocalFavorites() {
+    try {
+      const raw = localStorage.getItem(FAVORITES_KEY);
+      const parsed = raw ? JSON.parse(raw) : [];
+      return Array.isArray(parsed) ? parsed.map(String) : [];
+    } catch {
+      return [];
+    }
   }
 
   #bindSearchInput() {
@@ -208,7 +344,9 @@ export class NpcBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
     if (!sortSelect || sortSelect.dataset.townforgeBound) return;
     sortSelect.dataset.townforgeBound = "1";
     sortSelect.addEventListener("change", (event) => {
-      this.#sort = event.currentTarget.value === "name-desc" ? "name-desc" : "name-asc";
+      const value = event.currentTarget.value;
+      const allowed = new Set(["name-asc", "name-desc", "recent", "occupation", "category"]);
+      this.#sort = allowed.has(value) ? value : "name-asc";
       this.#page = 1;
       void this.render({ force: false });
     });
@@ -228,21 +366,12 @@ export class NpcBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
   }
 
   /**
-   * @param {object[]} npcs
-   * @returns {object[]}
-   */
-  #sortNpcs(npcs) {
-    const sorted = npcs.slice().sort((a, b) => a.name.localeCompare(b.name));
-    if (this.#sort === "name-desc") sorted.reverse();
-    return sorted;
-  }
-
-  /**
    * @param {number} current
    * @param {number} pageCount
    * @returns {{number: number, active: boolean, label: string}[]}
    */
   #buildPages(current, pageCount) {
+    if (pageCount <= 0) return [];
     const windowSize = Math.min(5, pageCount);
     let start = Math.max(1, current - Math.floor(windowSize / 2));
     let end = start + windowSize - 1;
@@ -298,10 +427,6 @@ export class NpcBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
     return decorated;
   }
 
-  /**
-   * @param {object} npc
-   * @returns {object}
-   */
   #extractStats(npc) {
     const system = npc.actorData?.system ?? {};
     const abilities = system.abilities ?? {};
@@ -327,10 +452,6 @@ export class NpcBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
     };
   }
 
-  /**
-   * @param {object} npc
-   * @returns {{name: string, type: string}[]}
-   */
   #extractInventory(npc) {
     const items = Array.isArray(npc.actorData?.items) ? npc.actorData.items : [];
     return items.map((item) => ({
@@ -339,11 +460,6 @@ export class NpcBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
     }));
   }
 
-  /**
-   * @param {object} npc
-   * @param {object} decorated
-   * @returns {object}
-   */
   #tabContent(npc, decorated) {
     switch (this.#detailTab) {
       case "personality":
@@ -362,18 +478,8 @@ export class NpcBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
     }
   }
 
-  static #loadFavorites() {
-    try {
-      const raw = localStorage.getItem(FAVORITES_KEY);
-      const parsed = raw ? JSON.parse(raw) : [];
-      return new Set(Array.isArray(parsed) ? parsed.map(String) : []);
-    } catch {
-      return new Set();
-    }
-  }
-
-  #persistFavorites() {
-    localStorage.setItem(FAVORITES_KEY, JSON.stringify([...this.#favorites]));
+  async #touchRecent(npcId) {
+    this.#recent = await recordUserRecentNpc(npcId);
   }
 
   /** @this {NpcBrowser} */
@@ -425,9 +531,8 @@ export class NpcBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
   static async #onToggleFavorite(_event, target) {
     const npcId = target.dataset.npcId ?? this.#selectedNpcId;
     if (!npcId) return;
-    if (this.#favorites.has(npcId)) this.#favorites.delete(npcId);
-    else this.#favorites.add(npcId);
-    this.#persistFavorites();
+    const result = await toggleUserFavorite(npcId);
+    this.#favorites = new Set(result.favorites);
     await this.render({ force: false });
   }
 
@@ -442,7 +547,11 @@ export class NpcBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
     }
     target.disabled = true;
     try {
-      await actorService.importActor(npc);
+      const result = await actorService.importActor(npc);
+      if (result?.actor) {
+        await this.#touchRecent(npc.id);
+        await this.render({ force: false });
+      }
     } finally {
       target.disabled = false;
     }
@@ -459,7 +568,11 @@ export class NpcBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
     }
     target.disabled = true;
     try {
-      await actorService.addNpcToScene(npc);
+      const result = await actorService.addNpcToScene(npc);
+      if (result?.token) {
+        await this.#touchRecent(npc.id);
+        await this.render({ force: false });
+      }
     } finally {
       target.disabled = false;
     }

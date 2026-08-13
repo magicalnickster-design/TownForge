@@ -68,7 +68,11 @@ export const REQUIRED_NPC_FIELDS = Object.freeze([
 export const FALLBACK_PORTRAIT = "icons/svg/mystery-man.svg";
 export const FALLBACK_TOKEN = "icons/svg/mystery-man.svg";
 
-/** Categories shown as primary tabs; the rest live under More. */
+/** @deprecated Prefer per-user flags.townforge.favorites; kept for one-time migration. */
+export const FAVORITES_KEY = "townforge.favorites";
+
+/** Max recently-used NPC entries stored per user. */
+export const RECENT_NPC_LIMIT = 20;
 export const PRIMARY_CATEGORY_IDS = Object.freeze([
   "all",
   "tavern",
@@ -216,4 +220,3 @@ export const CATEGORY_COLORS = Object.freeze({
 });
 
 export const BROWSER_PAGE_SIZE = 9;
-export const FAVORITES_KEY = "townforge.favorites";

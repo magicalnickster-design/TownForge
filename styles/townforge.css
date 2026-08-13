@@ -313,11 +313,38 @@
 .townforge-empty,
 .townforge-details-empty {
   display: grid;
+  gap: 0.35rem;
   place-items: center;
+  place-content: center;
+  text-align: center;
   min-height: 12rem;
+  padding: 1.5rem 1rem;
   color: var(--tf-muted);
   border: 1px dashed var(--tf-border);
   border-radius: var(--tf-radius);
+}
+
+.townforge-empty h3 {
+  margin: 0;
+  color: var(--tf-text);
+  font-family: var(--tf-display);
+  font-size: 1.35rem;
+}
+
+.townforge-empty p {
+  margin: 0;
+  max-width: 18rem;
+}
+
+.townforge-card-favorite {
+  position: absolute;
+  top: 0.45rem;
+  right: 0.45rem;
+  z-index: 2;
+  color: var(--tf-accent-strong);
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.55));
+  font-size: 0.85rem;
+  pointer-events: none;
 }
 
 .townforge-pagination {

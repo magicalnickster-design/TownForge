@@ -49,6 +49,9 @@
       <select data-townforge-sort>
         <option value="name-asc"{{#if sortAsc}} selected{{/if}}>Name (A-Z)</option>
         <option value="name-desc"{{#if sortDesc}} selected{{/if}}>Name (Z-A)</option>
+        <option value="recent"{{#if sortRecent}} selected{{/if}}>Recently Used</option>
+        <option value="occupation"{{#if sortOccupation}} selected{{/if}}>Occupation</option>
+        <option value="category"{{#if sortCategory}} selected{{/if}}>Category</option>
       </select>
     </label>
   </div>
@@ -59,7 +62,7 @@
       {{#each npcs}}
       <button
         type="button"
-        class="townforge-card{{#if selected}} is-selected{{/if}}"
+        class="townforge-card{{#if selected}} is-selected{{/if}}{{#if favorite}} is-favorite{{/if}}"
         data-action="selectNpc"
         data-npc-id="{{id}}"
         role="listitem"
@@ -73,6 +76,11 @@
             data-townforge-img
             data-fallback="{{fallbackPortrait}}"
           />
+          {{#if favorite}}
+          <span class="townforge-card-favorite" title="Favorite" aria-hidden="true">
+            <i class="fa-solid fa-star"></i>
+          </span>
+          {{/if}}
           <div class="townforge-card-overlay">
             <h2 class="townforge-card-name">{{name}}</h2>
             <p class="townforge-card-meta">{{metaLine}}</p>
@@ -84,7 +92,12 @@
     </div>
     {{else}}
     <div class="townforge-empty">
-      <p>{{#if loadFailed}}TownForge could not load its NPC library.{{else}}No NPCs match your search.{{/if}}</p>
+      {{#if emptyState}}
+      <h3>{{emptyState.title}}</h3>
+      <p>{{emptyState.body}}</p>
+      {{else}}
+      <p>No NPCs match your search.</p>
+      {{/if}}
     </div>
     {{/if}}
   </div>
