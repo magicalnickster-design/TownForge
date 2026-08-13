@@ -1113,6 +1113,96 @@
   border-color: color-mix(in srgb, var(--tf-accent) 40%, var(--tf-border));
 }
 
+.townforge-link-btn {
+  border: none;
+  background: transparent;
+  color: var(--tf-accent-strong);
+  text-decoration: underline;
+  cursor: pointer;
+  font: inherit;
+  padding: 0;
+}
+
+.townforge-sources {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 0.9rem 1rem 1rem;
+  min-height: 0;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.townforge-sources-header h2 {
+  margin: 0;
+  font-family: var(--tf-display);
+  font-size: 1.55rem;
+}
+
+.townforge-sources-header p {
+  margin: 0.35rem 0 0;
+  color: var(--tf-muted);
+}
+
+.townforge-sources-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  align-items: center;
+}
+
+.townforge-sources-toolbar button {
+  border: 1px solid var(--tf-border);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--tf-text);
+  border-radius: 0.55rem;
+  padding: 0.35rem 0.65rem;
+  cursor: pointer;
+  font: inherit;
+}
+
+.townforge-sources-list {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  display: grid;
+  gap: 0.35rem;
+  padding-right: 0.15rem;
+}
+
+.townforge-source-row {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 0.65rem;
+  align-items: center;
+  padding: 0.5rem 0.6rem;
+  border: 1px solid var(--tf-border);
+  border-radius: 0.65rem;
+  background: rgba(255, 255, 255, 0.03);
+  cursor: pointer;
+}
+
+.townforge-source-row:hover {
+  border-color: color-mix(in srgb, var(--tf-accent) 45%, var(--tf-border));
+}
+
+.townforge-source-main {
+  display: grid;
+  gap: 0.1rem;
+  min-width: 0;
+}
+
+.townforge-source-main small,
+.townforge-source-meta {
+  color: var(--tf-muted);
+  font-size: 0.78rem;
+}
+
+.townforge-sources-footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
 @media (max-width: 860px) {
   .townforge-merchant-layout {
     grid-template-columns: 1fr;

@@ -8,7 +8,6 @@ import {
 } from "./shop-currency.js";
 import {
   COIN_CP,
-  DND5E_ITEM_PACK_CANDIDATES,
   ECONOMY_TIERS,
   INVENTORY_MODES,
   OCCUPATION_SHOP_MAP,
@@ -18,6 +17,7 @@ import {
   SHOPKEEPER_FLAG,
   defaultShopkeeperFlags
 } from "./shop-constants.js";
+import { resolveSelectedItemPacks } from "./shop-sources.js";
 
 /**
  * TownForge shop generation, pricing, and purchase validation.
@@ -134,6 +134,13 @@ export class ShopService {
   }
 
   /**
+   * Clear cached item indexes (e.g. after source setting changes).
+   */
+  clearItemIndexCache() {
+    this.#packIndexCache.clear();
+  }
+
+  /**
    * Enable shopkeeper and generate automatic inventory when needed.
    * @param {Actor} actor
    * @param {object} [options]
@@ -191,17 +198,31 @@ export class ShopService {
 
     const partyLevel = this.getEffectivePartyLevel(shop);
     const economy = ECONOMY_TIERS[shop.economyTier] ?? ECONOMY_TIERS.standard;
+    const { selectedIds } = resolveSelectedItemPacks();
     const generationKey = [
       shop.shopType,
       shop.economyTier,
       shop.partyLevelMode,
       partyLevel,
       shop.priceMultiplier,
+      selectedIds.join(","),
       actor.id
     ].join("|");
 
     if (!force && shop.generationKey === generationKey && Array.isArray(shop.inventory)) {
       return shop;
+    }
+
+    if (!selectedIds.length) {
+      ui.notifications?.warn(
+        "TownForge has no Shopkeeper Item Sources selected. Open Configure Settings → Module Settings → TownForge → Shopkeeper Item Sources."
+      );
+      console.warn(`${LOG_PREFIX} Shop inventory generation blocked: no item sources selected`);
+      return this.updateShopkeeper(actor, {
+        inventory: (shop.inventory ?? []).filter((entry) => entry?.source === "manual"),
+        generatedAt: Date.now(),
+        generationKey
+      });
     }
 
     const manual = (shop.inventory ?? []).filter((entry) => entry?.source === "manual");
@@ -667,7 +688,16 @@ export class ShopService {
   async #generateAutomaticStock(actor, shop, partyLevel, economy) {
     const index = await this.#loadItemIndex();
     if (!index.length) {
-      ui.notifications?.warn("TownForge could not find dnd5e item compendiums for shop stock.");
+      const { selectedIds } = resolveSelectedItemPacks();
+      if (!selectedIds.length) {
+        ui.notifications?.warn(
+          "TownForge has no Shopkeeper Item Sources selected. Open Configure Settings → Module Settings → TownForge → Shopkeeper Item Sources."
+        );
+      } else {
+        ui.notifications?.warn(
+          "TownForge could not load items from the selected Shopkeeper Item Sources."
+        );
+      }
       return [];
     }
 
@@ -846,10 +876,16 @@ export class ShopService {
   }
 
   async #loadItemIndex() {
-    const packs = this.#resolveItemPacks();
-    if (!packs.length) return [];
+    const { packs, selectedIds, missingIds } = resolveSelectedItemPacks();
+    if (missingIds.length) {
+      console.warn(
+        `${LOG_PREFIX} Ignoring removed/unavailable shop source pack(s):`,
+        missingIds.join(", ")
+      );
+    }
+    if (!selectedIds.length || !packs.length) return [];
 
-    const cacheKey = packs.map((pack) => pack.collection).join("|");
+    const cacheKey = selectedIds.join("|");
     if (this.#packIndexCache.has(cacheKey)) return this.#packIndexCache.get(cacheKey);
 
     const index = [];
@@ -886,7 +922,9 @@ export class ShopService {
     }
 
     this.#packIndexCache.set(cacheKey, index);
-    console.log(`${LOG_PREFIX} Indexed ${index.length} dnd5e item(s) from ${packs.length} pack(s)`);
+    console.log(
+      `${LOG_PREFIX} Indexed ${index.length} item(s) from ${packs.length} selected source pack(s)`
+    );
     return index;
   }
 
@@ -906,23 +944,6 @@ export class ShopService {
       console.warn(`${LOG_PREFIX} Failed enriching item ${item.uuid}`, error);
       return null;
     }
-  }
-
-  #resolveItemPacks() {
-    const packs = [];
-    for (const id of DND5E_ITEM_PACK_CANDIDATES) {
-      const pack = game.packs.get(id);
-      if (pack && pack.documentName === "Item") packs.push(pack);
-    }
-
-    if (packs.length) return packs;
-
-    return [...game.packs].filter((pack) => {
-      if (pack.metadata?.packageName !== "dnd5e") return false;
-      if (pack.documentName !== "Item") return false;
-      const key = `${pack.metadata.id} ${pack.metadata.label}`.toLowerCase();
-      return /item|equipment|weapon|armor|trade/.test(key);
-    });
   }
 
   #normalizeIndexEntry(entry, pack) {

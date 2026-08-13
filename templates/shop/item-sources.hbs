@@ -1,0 +1,48 @@
+<div class="townforge-sources">
+  <header class="townforge-sources-header">
+    <h2>Shopkeeper Item Sources</h2>
+    <p>
+      Choose which installed Item compendiums TownForge may search when generating merchant stock.
+      Shop-type, mundane, economy, and party-level filters still apply after source selection.
+    </p>
+  </header>
+
+  {{#unless hasSaved}}
+  <p class="townforge-warn">
+    No sources are saved yet. Select packs below and click Save before generating shop inventory.
+  </p>
+  {{/unless}}
+
+  <div class="townforge-sources-toolbar">
+    <button type="button" data-action="selectAll">Select All</button>
+    <button type="button" data-action="clearAll">Clear All</button>
+    <button type="button" data-action="selectRecommended">Recommended dnd5e</button>
+    <span class="townforge-muted">{{selectedCount}} selected</span>
+  </div>
+
+  {{#if hasPacks}}
+  <div class="townforge-sources-list">
+    {{#each packs}}
+    <label class="townforge-source-row">
+      <input type="checkbox" name="pack.{{id}}" {{#if checked}}checked{{/if}} />
+      <span class="townforge-source-main">
+        <strong>{{label}}</strong>
+        <small>{{id}}</small>
+      </span>
+      <span class="townforge-source-meta">{{sourceLabel}}</span>
+    </label>
+    {{/each}}
+  </div>
+  {{else}}
+  <div class="townforge-empty">
+    <p>No Item compendiums are installed in this world.</p>
+  </div>
+  {{/if}}
+
+  <footer class="townforge-sources-footer">
+    <button type="submit" class="townforge-btn townforge-btn-primary">
+      <i class="fa-solid fa-floppy-disk"></i>
+      <span><strong>Save</strong><small>Store selected pack IDs</small></span>
+    </button>
+  </footer>
+</div>

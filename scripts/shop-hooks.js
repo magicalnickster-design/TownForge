@@ -201,6 +201,10 @@ function patchTokenDoubleClick() {
 export const shopApi = Object.freeze({
   openConfig: (actor) => ShopkeeperConfig.show(actor),
   openMerchant: (actor) => MerchantApp.show(actor),
+  openItemSources: async () => {
+    const { ShopItemSourcesApp } = await import("./settings.js");
+    return ShopItemSourcesApp.show();
+  },
   enable: (actor, options) => shopService.enableShopkeeper(actor, options),
   regenerate: (actor) => shopService.regenerateInventory(actor, { force: true }),
   shouldDeferTokenClick,

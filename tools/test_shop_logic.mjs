@@ -261,4 +261,135 @@ test("deterministic filter presence logic", () => {
   assertEqual(shown, ["all", "weapons", "armor", "shields"], "hide empty tools tab");
 });
 
+console.log("\nTownForge shop item source tests");
+
+const {
+  filterPacksBySelection,
+  isSelectableItemPack,
+  mapDiscoverableItemPacks,
+  recommendedPackIds,
+  resolveConfiguredSourceIds,
+  sanitizeSelectedPackIds
+} = await import("../scripts/shop-sources.js");
+
+const availablePacks = [
+  { id: "dnd5e.items", documentName: "Item", label: "Items", packageName: "dnd5e" },
+  { id: "dnd5e.equipment24", documentName: "Item", label: "Equipment", packageName: "dnd5e" },
+  { id: "some-module.custom-items", documentName: "Item", label: "Custom", packageName: "some-module" },
+  { id: "dnd5e.monsters", documentName: "Actor", label: "Monsters", packageName: "dnd5e" },
+  { id: "world.notes", documentName: "JournalEntry", label: "Notes", packageName: "world" }
+];
+
+test("selected compendiums are used", () => {
+  const selected = ["dnd5e.items", "some-module.custom-items"];
+  const used = filterPacksBySelection(availablePacks, selected).map((p) => p.id);
+  assertEqual(used, selected, "only selected item packs");
+});
+
+test("unselected compendiums are ignored", () => {
+  const used = filterPacksBySelection(availablePacks, ["dnd5e.items"]).map((p) => p.id);
+  assert(!used.includes("dnd5e.equipment24"), "equipment24 ignored");
+  assert(!used.includes("some-module.custom-items"), "custom ignored");
+});
+
+test("removed pack IDs are ignored safely", () => {
+  const sanitized = sanitizeSelectedPackIds(
+    ["dnd5e.items", "missing.pack", "old-module.gone"],
+    availablePacks
+  );
+  assertEqual(sanitized, ["dnd5e.items"], "missing removed");
+});
+
+test("non-Item packs cannot be selected/used", () => {
+  assert(!isSelectableItemPack(availablePacks.find((p) => p.id === "dnd5e.monsters")), "actor pack");
+  const sanitized = sanitizeSelectedPackIds(["dnd5e.monsters", "world.notes", "dnd5e.items"], availablePacks);
+  assertEqual(sanitized, ["dnd5e.items"], "non-item dropped");
+  const used = filterPacksBySelection(availablePacks, ["dnd5e.monsters"]).map((p) => p.id);
+  assertEqual(used, [], "non-item unused");
+});
+
+test("no selected sources produces empty usable set", () => {
+  const sanitized = sanitizeSelectedPackIds([], availablePacks);
+  assertEqual(sanitized, [], "empty selection");
+  const used = filterPacksBySelection(availablePacks, []).map((p) => p.id);
+  assertEqual(used, [], "no fallback to all packs");
+  const message =
+    "TownForge has no Shopkeeper Item Sources selected. Open Configure Settings → Module Settings → TownForge → Shopkeeper Item Sources.";
+  assert(message.includes("Shopkeeper Item Sources"), "useful GM error text");
+});
+
+test("blacksmith filtering still applies across multiple selected packs", () => {
+  const index = [
+    { name: "Longsword", type: "weapon", pack: "dnd5e.items", armorType: "", weaponType: "martialM" },
+    { name: "Potion of Healing", type: "consumable", pack: "some-module.custom-items", armorType: "", weaponType: "" },
+    { name: "Shield", type: "equipment", pack: "dnd5e.equipment24", armorType: "shield", weaponType: "" },
+    { name: "Longbow", type: "weapon", pack: "dnd5e.items", armorType: "", weaponType: "martialR" }
+  ];
+  const selectedPacks = new Set(["dnd5e.items", "dnd5e.equipment24", "some-module.custom-items"]);
+  const fromSelected = index.filter((item) => selectedPacks.has(item.pack));
+
+  const isBlacksmith = (item) => {
+    const name = item.name.toLowerCase();
+    if (item.type === "weapon") {
+      if (/bow|crossbow|sling|net|blowgun|dart|firearm|gun/i.test(name)) return false;
+      if (String(item.weaponType).includes("r") && !String(item.weaponType).includes("m")) return false;
+      return true;
+    }
+    if (item.type === "equipment" && ["shield", "light", "medium", "heavy"].includes(item.armorType)) {
+      return true;
+    }
+    return false;
+  };
+
+  const blacksmithStock = fromSelected.filter(isBlacksmith).map((item) => item.name);
+  assert(blacksmithStock.includes("Longsword"), "weapon from pack A");
+  assert(blacksmithStock.includes("Shield"), "shield from pack B");
+  assert(!blacksmithStock.includes("Potion of Healing"), "potion excluded by shop filter");
+  assert(!blacksmithStock.includes("Longbow"), "ranged excluded");
+});
+
+test("discover mapper only returns Item packs", () => {
+  const mapped = mapDiscoverableItemPacks([
+    {
+      collection: "dnd5e.items",
+      documentName: "Item",
+      metadata: { label: "Items", packageName: "dnd5e", packageType: "system" }
+    },
+    {
+      collection: "dnd5e.heroes",
+      documentName: "Actor",
+      metadata: { label: "Heroes", packageName: "dnd5e", packageType: "system" }
+    }
+  ]);
+  assertEqual(
+    mapped.map((p) => p.id),
+    ["dnd5e.items"],
+    "actors excluded from discovery"
+  );
+  assert(mapped[0].sourceLabel.includes("System"), "source label");
+});
+
+test("recommended packs only include installed candidates", () => {
+  const recommended = recommendedPackIds(availablePacks);
+  assert(recommended.includes("dnd5e.items"), "items recommended");
+  assert(recommended.includes("dnd5e.equipment24"), "equipment24 recommended");
+  assert(!recommended.includes("some-module.custom-items"), "third-party not auto-recommended");
+});
+
+test("future source object shape resolves default list", () => {
+  const ids = resolveConfiguredSourceIds({
+    default: ["dnd5e.items"],
+    byShopType: { blacksmith: ["dnd5e.equipment24"] }
+  });
+  assertEqual(ids, ["dnd5e.items"], "default shape");
+  const typed = resolveConfiguredSourceIds(
+    {
+      default: ["dnd5e.items"],
+      byShopType: { blacksmith: ["dnd5e.equipment24"] }
+    },
+    { shopType: "blacksmith" }
+  );
+  assertEqual(typed, ["dnd5e.equipment24"], "future per-shop-type shape");
+});
+
 console.log(`\n${passed} tests passed`);

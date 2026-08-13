@@ -1,6 +1,7 @@
 import { LOG_PREFIX, MODULE_ID, MODULE_TITLE } from "./constants.js";
 import { NpcBrowser } from "./npc-browser.js";
 import { npcService } from "./npc-service.js";
+import { registerTownForgeSettings } from "./settings.js";
 import { registerShopHooks, shopApi } from "./shop-hooks.js";
 import { shopService } from "./shop-service.js";
 
@@ -10,6 +11,7 @@ import { shopService } from "./shop-service.js";
 
 Hooks.once("init", () => {
   console.log(`${LOG_PREFIX} Initializing ${MODULE_TITLE} v0.3`);
+  registerTownForgeSettings();
 });
 
 Hooks.once("ready", async () => {
@@ -29,7 +31,7 @@ Hooks.once("ready", async () => {
     npcService,
     shopService,
     shop: shopApi,
-    version: game.modules.get(MODULE_ID)?.version ?? "0.3.1"
+    version: game.modules.get(MODULE_ID)?.version ?? "0.3.2"
   });
 });
 

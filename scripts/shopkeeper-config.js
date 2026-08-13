@@ -40,6 +40,7 @@ export class ShopkeeperConfig extends HandlebarsApplicationMixin(ApplicationV2) 
       removeStock: this.#onRemoveStock,
       editStock: this.#onEditStock,
       openMerchant: this.#onOpenMerchant,
+      openItemSources: this.#onOpenItemSources,
       addSelectedItem: this.#onAddSelectedItem
     }
   };
@@ -224,6 +225,12 @@ export class ShopkeeperConfig extends HandlebarsApplicationMixin(ApplicationV2) 
   static async #onOpenMerchant() {
     const { MerchantApp } = await import("./merchant-app.js");
     await MerchantApp.show(this.#actor);
+  }
+
+  /** @this {ShopkeeperConfig} */
+  static async #onOpenItemSources() {
+    const { ShopItemSourcesApp } = await import("./settings.js");
+    await ShopItemSourcesApp.show();
   }
 
   /** @this {ShopkeeperConfig} */
