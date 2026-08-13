@@ -16,7 +16,7 @@
       {
         "id": "bren-ashkettle",
         "type": "spouse",
-        "note": "Run the Hearth & Barrel together."
+        "note": "Run the local tavern together."
       },
       {
         "id": "pippa-reed",
@@ -43,7 +43,7 @@
       {
         "id": "mira-ashkettle",
         "type": "spouse",
-        "note": "Run the Hearth & Barrel together."
+        "note": "Run the local tavern together."
       }
     ],
     "archetype_hint": "Cellar Master"
@@ -457,7 +457,7 @@
       {
         "id": "nedda-blacktooth",
         "type": "suspects",
-        "note": "Watches her barge draft at the river gate."
+        "note": "Watches her barge draft at the the town gate."
       }
     ],
     "archetype_hint": "Gate Sergeant"
@@ -1151,7 +1151,7 @@
       {
         "id": "brannic-stonehelm",
         "type": "watched-by",
-        "note": "Watches her barge draft at the river gate."
+        "note": "Watches her barge draft at the the town gate."
       }
     ],
     "archetype_hint": "Smuggler"
@@ -1650,7 +1650,7 @@
       {
         "id": "clerk-penna",
         "type": "depends-on",
-        "note": "Cannot run council paperwork without Penna."
+        "note": "Cannot run local officials paperwork without Penna."
       }
     ],
     "archetype_hint": "Town Mayor"
@@ -1672,7 +1672,7 @@
       {
         "id": "mayor-haldrin",
         "type": "supports",
-        "note": "Cannot run council paperwork without Penna."
+        "note": "Cannot run local officials paperwork without Penna."
       }
     ],
     "archetype_hint": "Town Clerk"

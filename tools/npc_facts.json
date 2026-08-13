@@ -1,6 +1,6 @@
 {
   "mira-ashkettle": {
-    "place": "the Hearth & Barrel",
+    "place": "a busy local tavern",
     "habit": "polishes a dented copper mug between orders",
     "object": "chalk tally board behind the bar",
     "fear": "debt collectors spooking her evening crowd",
@@ -18,7 +18,7 @@
     "tie": "Mira's spouse and cellar master."
   },
   "pippa-reed": {
-    "place": "the busy taproom floor",
+    "place": "the tavern floor",
     "habit": "hums while she stacks tankards too fast",
     "object": "ribbon from her sister tied on her wrist",
     "fear": "being sent back to the mill if she breaks too many mugs",
@@ -36,19 +36,19 @@
     "tie": "Mira's bouncer; once served under Serra's predecessor."
   },
   "old-tallow": {
-    "place": "the fireside bench",
+    "place": "a fireside bench in the tavern",
     "habit": "taps the hearthstones when a story turns true",
     "object": "pipe carved like a sleeping hound",
     "fear": "dying with his best stories untold",
-    "hope": "see the Midsummer fair one more year",
-    "hook": "Swears he saw lanterns moving under the old mill three nights running.",
+    "hope": "see the the summer fair one more year",
+    "hook": "Swears he saw lanterns moving under the an abandoned mill three nights running.",
     "tie": "Retired carter; friend to Nell and Jab."
   },
   "sela-vintner": {
-    "place": "the wine corner of the tavern",
+    "place": "a wine corner in the local tavern",
     "habit": "rolls corks between her fingers while she listens",
     "object": "travel-stained sample case of rare vintages",
-    "fear": "her upriver supplier being replaced by smugglers",
+    "fear": "her along the trade road supplier being replaced by smugglers",
     "hope": "open a tasting room with Mira next spring",
     "hook": "A bottle she sold as orchard white tasted of river silt and iron.",
     "tie": "Supplies Mira; trades rumors with Jor Sandline."
@@ -63,7 +63,7 @@
     "tie": "Cook for Mira; buys barrels from Cooper Brenwick."
   },
   "nessa-brightcup": {
-    "place": "the tavern stage plank",
+    "place": "a small stage in the local tavern",
     "habit": "tunes her lute to the room's mood before she smiles",
     "object": "songbook with pages swapped for maps",
     "fear": "a past patron recognizing her from another town's scandal",
@@ -72,7 +72,7 @@
     "tie": "Performs at Mira's; shares rooms sometimes with Rilo."
   },
   "cal-drownwick": {
-    "place": "the corner dice table",
+    "place": "a corner dice table",
     "habit": "laughs one beat late when the dice betray him",
     "object": "weighted knucklebone die he never uses in his own tavern",
     "fear": "Marrow Cline collecting more than coin",
@@ -81,7 +81,7 @@
     "tie": "Debtor to Marrow; acquaintance of Rook."
   },
   "tovin-brassbarrow": {
-    "place": "Brassbarrow General",
+    "place": "a general store",
     "habit": "taps the ledger thrice before he trusts a total",
     "object": "brass abacus older than the shop sign",
     "fear": "losing the store to Marrow's interest rates",
@@ -90,34 +90,34 @@
     "tie": "Father to Lina; debtor to Marrow."
   },
   "lina-brassbarrow": {
-    "place": "the shop counter",
-    "habit": "corrects prices under her breath in Khuzdul",
+    "place": "the general store counter",
+    "habit": "corrects prices under her breath in Dwarvish",
     "object": "ink-stained apron with secret pockets for disputed notes",
     "fear": "her father making another handshake loan",
-    "hope": "modernize inventory before the autumn fair",
+    "hope": "modernize inventory before the the harvest fair",
     "hook": "Matched a pawn ticket description to a ring Lysa Thorne tried to sell quietly.",
     "tie": "Tovin's daughter and clerk."
   },
   "marrow-cline": {
-    "place": "a narrow credit office above the grain street",
+    "place": "a cramped credit office",
     "habit": "smiles with his mouth and not his eyes",
     "object": "velvet pouch of signed markers",
     "fear": "the watch linking him to Bask's broken fingers",
-    "hope": "own a seat on the town council through 'gifts'",
+    "hope": "own a seat on the town local officials through 'gifts'",
     "hook": "Keeps a second book of debts the mayor would not want read aloud.",
     "tie": "Creditor to Tovin and Cal; employs Bask."
   },
   "hedda-loom": {
-    "place": "Hedda's Fine Cloth",
+    "place": "a clothier's shop",
     "habit": "pins patterns while reading faces",
     "object": "mannequin wearing last season's scandalous sleeve",
     "fear": "Lady Mirelle learning who ordered mourning-black in secret",
-    "hope": "dress the Midsummer court and set taste for a year",
+    "hope": "dress the midsummer court and set taste for a year",
     "hook": "Altered a cloak with orangery perfume still in the lining for Lysa.",
     "tie": "Client relationship with Lysa Thorne."
   },
   "orrin-spice": {
-    "place": "the spice stall near the fountain",
+    "place": "a spice stall in the market",
     "habit": "sneezes into a silk handkerchief with theatrical timing",
     "object": "locked saffron box that is usually half-full of dyed powder",
     "fear": "customs opening the wrong crate",
@@ -126,7 +126,7 @@
     "tie": "Trades with Jor; buys silence from Nedda."
   },
   "vela-inkwell": {
-    "place": "the Quiet Quire bookstore",
+    "place": "a quiet bookstore",
     "habit": "shelves by smell of paper as much as subject",
     "object": "reading ladder with a hidden compartment for banned pamphlets",
     "fear": "Brother Caldus demanding a purge of her arcane shelf",
@@ -135,7 +135,7 @@
     "tie": "Seller to Quen; watched by Caldus."
   },
   "garr-hopsack": {
-    "place": "the grain yard",
+    "place": "a grain yard",
     "habit": "kicks sacks to judge dampness",
     "object": "wagon chalked with route ciphers",
     "fear": "blight rumors collapsing prices",
@@ -144,7 +144,7 @@
     "tie": "Delivers to Moll Ovenheart and Mira."
   },
   "issy-needle": {
-    "place": "a bright notions shop",
+    "place": "a notions shop",
     "habit": "gifts free buttons to children who bring gossip",
     "object": "tin of mother-of-pearl toggles from a wrecked ship",
     "fear": "being blamed for a noble's torn gown",
@@ -153,16 +153,16 @@
     "tie": "Gossips with Bea Heartstring."
   },
   "rold-candlewick": {
-    "place": "the chandler's workshop",
+    "place": "a chandler's workshop",
     "habit": "trims wicks as if pruning roses",
     "object": "mold set engraved with a forgotten house crest",
     "fear": "fire insurance inspectors",
-    "hope": "light the mayor's hall for Winterfest",
+    "hope": "light the mayor's hall for the winter festival",
     "hook": "A customer ordered fifty unscented black candles 'for accounting nights'.",
     "tie": "Supplies temple and government offices."
   },
   "petra-glass": {
-    "place": "the apothecary front",
+    "place": "an apothecary shopfront",
     "habit": "labels jars twice, once for customers and once for truth",
     "object": "mortar cracked and wired with silver",
     "fear": "selling the wrong draft to a pregnant mother",
@@ -171,16 +171,16 @@
     "tie": "Consults Yara Moss for wild herbs; respects Ora."
   },
   "quinn-pawn": {
-    "place": "the pawn lattice window",
+    "place": "a pawn shop",
     "habit": "never asks names, always asks stories",
     "object": "tray of wedding rings with dates scratched out",
     "fear": "fencing something that brings Serra's investigators",
     "hope": "stay useful to everyone and owned by no one",
-    "hook": "Took in a watch badge filed smooth\u2014and logged it under 'costume jewelry'.",
+    "hook": "Took in a watch badge filed smooth—and logged it under 'costume jewelry'.",
     "tie": "Sometimes buys from Silk Mara; tip-toes around Rook."
   },
   "serra-dawnpike": {
-    "place": "the watch barracks office",
+    "place": "the watch barracks",
     "habit": "oils her scabbard while she thinks",
     "object": "sister's braid-token tied inside her bracer",
     "fear": "losing Tomas the way she lost his mother",
@@ -189,7 +189,7 @@
     "tie": "Investigates Rook; mentors Tomas; ally to Dara."
   },
   "tomas-reedpike": {
-    "place": "the south gate rotation",
+    "place": "a town gate rotation",
     "habit": "polishes his spearhead until it blinds him",
     "object": "lunch tin Pippa packed once and he still keeps",
     "fear": "freezing in his first real fight",
@@ -198,7 +198,7 @@
     "tie": "Serra's junior; sweet on Pippa."
   },
   "brannic-stonehelm": {
-    "place": "the river gate",
+    "place": "the town gate",
     "habit": "records wagon counts in a slate book",
     "object": "gate key as thick as a thumb",
     "fear": "another flood year and panicked stampedes",
@@ -207,7 +207,7 @@
     "tie": "Reports to Serra; eyes Nedda."
   },
   "aya-swiftquiver": {
-    "place": "the eastern wall walk",
+    "place": "the wall walk",
     "habit": "names constellations after petty criminals she spots",
     "object": "yew bow with an elf-mark scraped half off",
     "fear": "night fogs that hide grapples",
@@ -216,7 +216,7 @@
     "tie": "Night partner to Kessa Lantern."
   },
   "merrick-coal": {
-    "place": "alley corners and quiet inns",
+    "place": "quiet inns and alley corners",
     "habit": "writes interviews in a private shorthand",
     "object": "charcoal stubs and a dog-eared case folio",
     "fear": "convicting the wrong poor soul for a rich man's crime",
@@ -225,12 +225,12 @@
     "tie": "Works cases for Serra; pays Nell in tea."
   },
   "dorn-ironstep": {
-    "place": "market square during crowds",
+    "place": "crowded market patrols",
     "habit": "plants his shield like a doorframe",
     "object": "dent in his helm from a festival riot",
     "fear": "crushing someone smaller in a shove",
     "hope": "be known as the guard who ends fights early",
-    "hook": "Pulled Bask Hammer off a debtor before bones broke\u2014and got a warning look.",
+    "hook": "Pulled Bask Hammer off a debtor before bones broke—and got a warning look.",
     "tie": "Respects Serra; hates Bask's methods."
   },
   "kessa-lantern": {
@@ -270,16 +270,16 @@
     "tie": "Trains Tomas; scolded Perrin."
   },
   "lord-edric-vale": {
-    "place": "Vale Manor's receiving hall",
+    "place": "an upper-district receiving hall",
     "habit": "offers wine before answers",
     "object": "signet he twists when lying politely",
-    "fear": "scandal costing him council influence",
-    "hope": "place Perrin in a marriage that secures river rights",
+    "fear": "scandal costing him local officials influence",
+    "hope": "place Perrin in a marriage that secures docking privileges",
     "hook": "Misplaced a spare signet the same week Mira found one in a cloak hem.",
     "tie": "Married to Mirelle; affair with Lysa; patron to Mayor."
   },
   "lady-mirelle-vale": {
-    "place": "the manor salon",
+    "place": "a noble estate's guest rooms",
     "habit": "rearranges flowers when displeased",
     "object": "invitation ledger with coded dots",
     "fear": "becoming a punchline in Cressida's circle",
@@ -288,16 +288,16 @@
     "tie": "Edric's spouse; confides in Cressida."
   },
   "sir-halden-rook": {
-    "place": "the manor gate and tourneys",
+    "place": "a noble household's side hall",
     "habit": "checks his reflection in his blade",
     "object": "favor ribbon he pretends is from a lady of standing",
     "fear": "being ordered to cover Edric's sins",
     "hope": "earn land of his own through honest service",
-    "hook": "Saw Edric and Lysa in the orangery and chose silence\u2014for now.",
+    "hook": "Saw Edric and Lysa in the orangery and chose silence—for now.",
     "tie": "Retainer to the Vales; uneasy."
   },
   "cressida-fenn": {
-    "place": "tea tables and balcony whispers",
+    "place": "fashionable parlors",
     "habit": "laughs softly at secrets she already knew",
     "object": "fan with a hollow rivet for notes",
     "fear": "backing the wrong Vale in a house split",
@@ -306,7 +306,7 @@
     "tie": "Confidante to Mirelle; plays both sides."
   },
   "baron-torvald-ash": {
-    "place": "a stone townhouse smelling of ore",
+    "place": "a counting room above the market",
     "habit": "weighs coins on a pocket scale mid-conversation",
     "object": "nugget pendant from his first profitable shaft",
     "fear": "sabotage in the mines blamed on 'adventurers'",
@@ -315,7 +315,7 @@
     "tie": "Business rival/partner talks with Edric."
   },
   "lysa-thorne": {
-    "place": "side corridors of Vale Manor",
+    "place": "side corridors of a noble house",
     "habit": "checks over her shoulder before she smiles",
     "object": "locket with a blank painted face",
     "fear": "Mirelle's private listener",
@@ -324,7 +324,7 @@
     "tie": "Affair with Edric; client of Hedda."
   },
   "young-perrin-vale": {
-    "place": "fencing yards and tavern galleries",
+    "place": "tutoring rooms and estate gardens",
     "habit": "challenges anyone who calls him 'boy'",
     "object": "practice rapier with a noble wire wrap",
     "fear": "being married off before he sees the world",
@@ -333,7 +333,7 @@
     "tie": "Heir; trained illicitly by Hobb's yard."
   },
   "dame-orla-quince": {
-    "place": "an old elf-owned townhouse gallery",
+    "place": "an evening salon",
     "habit": "corrects pronunciation of dead poets",
     "object": "portrait collection with one face turned to the wall",
     "fear": "mortality fashion among humans rushing her into patronage mistakes",
@@ -342,7 +342,7 @@
     "tie": "Patron of arts; employs Cressida's gossip."
   },
   "nell-riverwick": {
-    "place": "dawn streets with a rush broom",
+    "place": "market lanes at dawn",
     "habit": "listens more than she sweeps",
     "object": "pocket full of lost buttons she means to return",
     "fear": "being noticed by the wrong people for noticing too much",
@@ -351,16 +351,16 @@
     "tie": "Friend to Finn; informant to Merrick."
   },
   "jab-millroad": {
-    "place": "the mill road with his two-mule cart",
+    "place": "warehouse yards and wagon rows",
     "habit": "names his mules after bad decisions",
     "object": "waybill clipboard chewed at the corners",
     "fear": "highway 'tolls' that aren't official",
     "hope": "buy a covered wagon before winter rain",
-    "hook": "Was paid double to deliver an unmarked crate to the old mill and ask nothing.",
+    "hook": "Was paid double to deliver an unmarked crate to the an abandoned mill and ask nothing.",
     "tie": "Hauls for Garr; drinks with Old Tallow."
   },
   "oma-kettle": {
-    "place": "the washhouse steam",
+    "place": "wash lines behind town houses",
     "habit": "hums lullabies to stained sheets",
     "object": "cake of soap scented with river mint",
     "fear": "illness spreading through shared basins",
@@ -369,8 +369,8 @@
     "tie": "Washes for manor staff; knows Ora."
   },
   "finn-cobble": {
-    "place": "shortcuts between market and manor",
-    "habit": "runs messages before he reads them\u2014usually",
+    "place": "doorsteps across town",
+    "habit": "runs messages before he reads them—usually",
     "object": "scuffed satchel with a false seam",
     "fear": "delivering something that gets a friend hanged",
     "hope": "become a long-road courier like Blink",
@@ -378,7 +378,7 @@
     "tie": "Idolizes Blink; friends with Nell."
   },
   "bera-wells": {
-    "place": "the town well square",
+    "place": "the public well",
     "habit": "rations buckets fairly when drought talk starts",
     "object": "iron well key on a red cord",
     "fear": "poison or panic at the water",
@@ -387,7 +387,7 @@
     "tie": "Community voice; speaks to Mayor Haldrin."
   },
   "skog-rake": {
-    "place": "the public stables",
+    "place": "a busy stable yard",
     "habit": "speaks to horses before people",
     "object": "curry comb worn to a crescent",
     "fear": "fire in the hayloft",
@@ -396,7 +396,7 @@
     "tie": "Stables Jor's caravan beasts; quiet friend to Vessa."
   },
   "tilda-ashpan": {
-    "place": "rooftops and chimneys",
+    "place": "rooftops and chimney stacks",
     "habit": "spits soot and blessings in the same breath",
     "object": "rope harness inked with chimney marks",
     "fear": "falling through a rotten stack",
@@ -405,7 +405,7 @@
     "tie": "Confirms Old Tallow's lantern story."
   },
   "wren-pocket": {
-    "place": "fountain steps with a peddler cloth",
+    "place": "a market corner",
     "habit": "turns jokes into discounts",
     "object": "box of 'lucky' nails that are just nails",
     "fear": "Quinn undercutting their street trade",
@@ -414,7 +414,7 @@
     "tie": "Competes lightly with Quinn; knows Mouse."
   },
   "mael-ferry": {
-    "place": "the cargo docks",
+    "place": "the docks",
     "habit": "rolls shoulders before lifting anything proud",
     "object": "hooks and gloves stiff with river salt",
     "fear": "cranes failing on a crowded quay",
@@ -423,16 +423,16 @@
     "tie": "Works near Tem Brine; wary of Nedda."
   },
   "sera-patch": {
-    "place": "a tiny mending shop by the lane",
+    "place": "a sewing room above a shop",
     "habit": "bites thread instead of using scissors when nervous",
     "object": "basket of orphaned buttons from Oma",
-    "fear": "rent rising after Midsummer",
+    "fear": "rent rising after midsummer",
     "hope": "sew Pippa's first proper dress for a dance",
     "hook": "Mended a tear pattern that matched a climb over a spiked wall.",
     "tie": "Friend to Pippa; customer of Issy."
   },
   "odin-crumb": {
-    "place": "Moll's bakery before dawn",
+    "place": "a bakery kitchen",
     "habit": "sneaks burnt heels to street kids",
     "object": "flour handprint forever on his cap",
     "fear": "the oven fire spreading to the street",
@@ -441,25 +441,25 @@
     "tie": "Works for Moll; feeds Finn crumbs."
   },
   "yara-moss": {
-    "place": "the tree line beyond the north gate",
+    "place": "roadside hedges and garden edges",
     "habit": "thanks plants before she cuts them",
     "object": "drying racks of labeled leaves",
     "fear": "overharvesting a rare feverwort patch",
     "hope": "publish a simple herbal for midwives",
-    "hook": "Found bootprints and chalk arrows near her feverwort\u2014heading toward the mill.",
+    "hook": "Found bootprints and chalk arrows near her feverwort—heading toward the mill.",
     "tie": "Supplies Petra; walks trails with Kavi."
   },
   "mother-elen-bright": {
-    "place": "the Temple of Kindled Mercy",
+    "place": "a local temple",
     "habit": "lights a candle for strangers before asking their names",
     "object": "prayer beads worn smooth on one side",
-    "fear": "faith becoming a weapon in council politics",
+    "fear": "faith being twisted into a political weapon",
     "hope": "keep the alms kitchen open through winter",
     "hook": "Received an anonymous donation of black candles and a warning about 'tower fire'.",
     "tie": "Leads temple; suspicious of Quen; mentors Pola."
   },
   "brother-caldus": {
-    "place": "the temple archive loft",
+    "place": "a temple archive room",
     "habit": "indexes sins as carefully as saints",
     "object": "key to a cabinet labeled 'disputed miracles'",
     "fear": "magic without doctrine",
@@ -468,16 +468,16 @@
     "tie": "Reports to Elen; rivals Quen; uses Finn sometimes."
   },
   "sister-pola": {
-    "place": "the alms yard",
+    "place": "a temple alms porch",
     "habit": "remembers every hungry face by stew preference",
     "object": "ladle polished brighter than the altar plate",
-    "fear": "running out of barley before Midwinter",
+    "fear": "running out of barley before midwinter",
     "hope": "start a skills school for street children",
     "hook": "A 'beggar' with soft hands asked questions about temple vault schedules.",
     "tie": "Trained by Elen; feeds Mouse when he looks starved."
   },
   "father-bram": {
-    "place": "the graveyard chapel",
+    "place": "a quiet funeral chapel",
     "habit": "speaks to headstones as neighbors",
     "object": "stone chisel blessed for names",
     "fear": "unmarked graves becoming a fashion for the wealthy",
@@ -486,7 +486,7 @@
     "tie": "Works with Mol Deeprow; quiet observer of nobles."
   },
   "acolyte-ren": {
-    "place": "bell tower and candle niches",
+    "place": "temple aisles before dawn",
     "habit": "practices sermons to empty pews",
     "object": "taper box with one lucky stub",
     "fear": "failing his vows by gossiping",
@@ -495,7 +495,7 @@
     "tie": "Earnest junior under Elen and Caldus."
   },
   "seer-ivra": {
-    "place": "a rented room above the candle shop",
+    "place": "a curtained reading chamber",
     "habit": "covers her glass eye when the visions itch",
     "object": "bowl of river stones for casting",
     "fear": "being used as a party trick by nobles",
@@ -504,7 +504,7 @@
     "tie": "Controversial; Rold rents her the room; Elen half-believes her."
   },
   "monk-sol": {
-    "place": "the cloister herb garden",
+    "place": "a cloister garden",
     "habit": "answers questions with another hour of weeding",
     "object": "kneeling pad stuffed with lavender",
     "fear": "violence entering sacred quiet",
@@ -513,16 +513,16 @@
     "tie": "Shares garden knowledge with Yara; peaceful counterweight to Caldus."
   },
   "chaplain-dorr": {
-    "place": "the barracks shrine nook",
+    "place": "a small chapel near the barracks",
     "habit": "sits with shaking guards until their hands still",
     "object": "portable altar cloth stained with polish oil",
     "fear": "blessing a raid that kills the wrong people",
     "hope": "keep Serra's watch human when the case hardens",
-    "hook": "Heard Dorn admit he almost killed Bask\u2014and wants penance, not praise.",
+    "hook": "Heard Dorn admit he almost killed Bask—and wants penance, not praise.",
     "tie": "Chaplain to Serra's guards."
   },
   "rook-vell": {
-    "place": "back rooms behind a shuttered tannery",
+    "place": "a respectable-looking back-room shop",
     "habit": "never sits with his back to a door",
     "object": "ledger written in laundry marks",
     "fear": "Serra getting a witness who won't scare",
@@ -531,7 +531,7 @@
     "tie": "Hunted by Serra; crew with Silk and Jax; rivals Kitty."
   },
   "silk-mara": {
-    "place": "market crowds and festival lines",
+    "place": "crowded market aisles",
     "habit": "apologizes while she steals",
     "object": "fingerless gloves with silk palms",
     "fear": "Rook deciding she's a liability",
@@ -540,7 +540,7 @@
     "tie": "Works for Rook; sells extras to Kitty."
   },
   "gutter-jax": {
-    "place": "rooftops and gutter runs",
+    "place": "rooftops above the alleys",
     "habit": "sleeps with a whistle between his teeth",
     "object": "chalk for marking safe tiles",
     "fear": "Aya's arrows",
@@ -549,16 +549,16 @@
     "tie": "Lookout for Rook; spotted by Tomas."
   },
   "nedda-blacktooth": {
-    "place": "a low river barge",
+    "place": "river barges and warehouse doors",
     "habit": "grins with the missing tooth facing customs",
     "object": "false-bottom grain sacks",
     "fear": "Brannic measuring her draft again",
-    "hope": "retire upriver with a clean name and dirty fortune",
+    "hope": "retire along the trade road with a clean name and dirty fortune",
     "hook": "Moved lamp oil under grain manifests with Mael's unknowing help.",
     "tie": "Smuggler eyed by Brannic; paid by Orrin."
   },
   "pale-orin": {
-    "place": "a tidy upstairs room near the clerk's hall",
+    "place": "a desk piled with blank forms",
     "habit": "washes ink from his hands until they crack",
     "object": "set of copied seals in clay",
     "fear": "Penna Ledgerwell recognizing his pen pressure",
@@ -567,7 +567,7 @@
     "tie": "Forger for Rook; nervous around Penna."
   },
   "kitty-shade": {
-    "place": "velvet booths and quiet balconies",
+    "place": "shadowed booths and tea rooms",
     "habit": "tips well and remembers every favor owed",
     "object": "mirror compact with a poisoned pin unused",
     "fear": "Rook unifying the alleys without her",
@@ -576,7 +576,7 @@
     "tie": "Rival to Rook; buys from Silk and Cressida."
   },
   "bask-hammer": {
-    "place": "doorways of debtors",
+    "place": "doorways after dark",
     "habit": "knocks politely, then harder",
     "object": "leather gloves lined with coin weights",
     "fear": "Dorn catching him in public again",
@@ -585,7 +585,7 @@
     "tie": "Marrow's collector; clashed with Dorn."
   },
   "mouse-pip": {
-    "place": "sewer mouths and grate shadows",
+    "place": "storm drains and undercroft tunnels",
     "habit": "apologizes to rats before he traps them",
     "object": "oilskin map folio of tunnels",
     "fear": "being sealed in below during a storm",
@@ -594,7 +594,7 @@
     "tie": "Knows sewers; fed by Pola; tracked by Kessa."
   },
   "magister-quen": {
-    "place": "a narrow tower with copper gutters",
+    "place": "a tower workroom",
     "habit": "answers practical questions with theory first",
     "object": "focus crystal cracked and still used",
     "fear": "a temple-led ban on private laboratories",
@@ -603,7 +603,7 @@
     "tie": "Watched by Caldus; trades with Pire; buys from Vela."
   },
   "scribe-hala": {
-    "place": "a public writing desk by the fountain",
+    "place": "a writing desk in the square",
     "habit": "offers fair rates and unfair honesty",
     "object": "traveling inkwell on a chain",
     "fear": "being forced to copy forgeries",
@@ -612,7 +612,7 @@
     "tie": "Honest counterpoint to Orin; helps Penna overflow work."
   },
   "archivist-vonn": {
-    "place": "the town library stacks",
+    "place": "a town library stack",
     "habit": "dusts spines like soothing animals",
     "object": "catalog cards in three conflicting systems",
     "fear": "damp destroying the flood-year records",
@@ -621,7 +621,7 @@
     "tie": "Works near Vela's rare shelf; aids Olda."
   },
   "alchemist-pire": {
-    "place": "a fume-stained shop with open windows",
+    "place": "an alchemy bench",
     "habit": "labels explosions as 'educational'",
     "object": "goggles with one lens tinted rose",
     "fear": "Quen's ward drawing lightning to the street",
@@ -630,7 +630,7 @@
     "tie": "Colleague to Quen; evidence path to Nedda."
   },
   "tutor-essa": {
-    "place": "manor schoolrooms and kitchen tables",
+    "place": "a tutoring room",
     "habit": "turns chores into lessons",
     "object": "slate of multiplication dragons",
     "fear": "Perrin learning only pride",
@@ -639,16 +639,16 @@
     "tie": "Tutors Perrin; friend to Hala."
   },
   "cartographer-nym": {
-    "place": "survey posts outside the walls",
+    "place": "a map table littered with chalk",
     "habit": "humming while measuring angles",
     "object": "case of chalk sticks in coded colors",
     "fear": "their maps being used for invasion or crime",
     "hope": "publish a public town map that settles property fights",
-    "hook": "Chalk marks in the cloister matched a survey line aimed at the old mill.",
+    "hook": "Chalk marks in the cloister matched a survey line aimed at the an abandoned mill.",
     "tie": "Marks confused Sol; maps desired by Mouse and Jor."
   },
   "historian-olda": {
-    "place": "stone benches and foundation corners",
+    "place": "a records loft",
     "habit": "rubs inscriptions with reverent thumbs",
     "object": "rubbing charcoal and rice paper",
     "fear": "new money paving over old truths",
@@ -657,7 +657,7 @@
     "tie": "Works with Vonn; theory supports Mouse's maps."
   },
   "caravan-jor": {
-    "place": "the caravan yard outside the north gate",
+    "place": "a caravan yard",
     "habit": "pays in mixed coin to learn who notices",
     "object": "route book bound in camel hide",
     "fear": "losing a season to bandits or tariffs",
@@ -666,7 +666,7 @@
     "tie": "Deals with Orrin; uses Skog's stables; hires Jab."
   },
   "scout-kavi": {
-    "place": "forest margins and game trails",
+    "place": "trailheads outside town",
     "habit": "leaves stacked stones as silent letters",
     "object": "green hood faded almost gray",
     "fear": "town politics spilling into the woods",
@@ -675,7 +675,7 @@
     "tie": "Walks with Yara; reports odd trails to Serra sometimes."
   },
   "minstrel-rilo": {
-    "place": "roads, fairs, and Mira's stage",
+    "place": "inn common rooms along the road",
     "habit": "collects rumors the way others collect coins",
     "object": "cape lined with song scraps",
     "fear": "singing the wrong satire in the wrong hall",
@@ -684,7 +684,7 @@
     "tie": "Sometimes rooms with Nessa; carries news."
   },
   "pilgrim-asha": {
-    "place": "temple steps and road shrines",
+    "place": "roadside shrines",
     "habit": "washes her feet before every gate",
     "object": "walking staff carved with mercy marks",
     "fear": "faithful folk turned away for being poor",
@@ -693,7 +693,7 @@
     "tie": "Guest of Elen's temple; rejected Orin."
   },
   "sailor-tem": {
-    "place": "river wharf and midstream",
+    "place": "river landings and flatboats",
     "habit": "reads water the way scholars read books",
     "object": "rope calluses like badges",
     "fear": "fog collisions near the mill race",
@@ -702,7 +702,7 @@
     "tie": "Works docks with Mael; cleaner than Nedda."
   },
   "hunter-vessa": {
-    "place": "cold camps beyond the tree line",
+    "place": "woodland trails near town",
     "habit": "shares meat before she shares names",
     "object": "fur roll tied with sinew",
     "fear": "overhunting for noble fashion",
@@ -711,25 +711,25 @@
     "tie": "Friends with Skog; confirms Kavi's trail signs."
   },
   "courier-blink": {
-    "place": "the long road in all weather",
+    "place": "waystations and courier posts",
     "habit": "never sleeps in the same loft twice",
     "object": "sealable message tube worn as a belt",
     "fear": "being forced to open a letter",
     "hope": "hire Finn as a second when the boy is ready",
-    "hook": "Carried a sealed note from Kitty Shade to someone inside Vale Manor.",
+    "hook": "Carried a sealed note from Kitty Shade to someone inside the noble estate.",
     "tie": "Idol for Finn; professional pride."
   },
   "smith-dara": {
-    "place": "Ironbloom Forge",
+    "place": "a smithy",
     "habit": "tests steel with a thumbnail and a prayer",
     "object": "hammer named 'Deadline'",
     "fear": "watch steel leaking to alleys",
     "hope": "forge a gate hinge that outlasts gossip",
-    "hook": "Told Ulf a returned spear wasn't hers\u2014and stamped a covert mark on new watch blades.",
+    "hook": "Told Ulf a returned spear wasn't hers—and stamped a covert mark on new watch blades.",
     "tie": "Ally to Serra; supplier to Ulf."
   },
   "cooper-brenwick": {
-    "place": "a yard of oak staves",
+    "place": "a cooperage",
     "habit": "rolls barrels to hear their honesty",
     "object": "adze older than his apprenticeship",
     "fear": "taverns switching to cheap imported casks",
@@ -738,7 +738,7 @@
     "tie": "Supplies Mira/Bren; uneasy about the special order."
   },
   "potter-umi": {
-    "place": "a kiln yard scented with wet clay",
+    "place": "a pottery shed",
     "habit": "names pots after moods",
     "object": "glaze recipes in a cipher only she enjoys",
     "fear": "a kiln fire jumping to thatch",
@@ -747,7 +747,7 @@
     "tie": "Sells to Petra for ointment pots."
   },
   "carpenter-jod": {
-    "place": "half-built scaffolds and repair jobs",
+    "place": "a timber yard",
     "habit": "measures twice, jokes once",
     "object": "chalk line stained blue",
     "fear": "rot in the mill beams being ignored",
@@ -756,7 +756,7 @@
     "tie": "Potential mill work; evidence for Olda's theory."
   },
   "cobbler-pax": {
-    "place": "a shoe-scented corner shop",
+    "place": "a cobbler's bench",
     "habit": "guesses a customer's miles from their soles",
     "object": "lasts lined up like little soldiers",
     "fear": "noble boots made elsewhere forever",
@@ -765,7 +765,7 @@
     "tie": "Gossip node; connects to Bram's mystery corpse."
   },
   "fletcher-ira": {
-    "place": "a quiet fletching loft",
+    "place": "a fletcher's loft",
     "habit": "spins shafts to hear truth in the wobble",
     "object": "goose feathers sorted by mood",
     "fear": "her arrows used in alley murders",
@@ -774,16 +774,16 @@
     "tie": "Supplies Aya; IOU ties to Rook."
   },
   "baker-moll": {
-    "place": "Ovenheart Bakery at first light",
+    "place": "a bakery at first light",
     "habit": "feeds anyone who sweeps her step",
     "object": "recipe board with flour ghosts of old menus",
     "fear": "Bask's 'oven accidents'",
     "hope": "keep prices fair when grain spikes",
-    "hook": "Told Dorn when Bask threatened her\u2014and hid a debtor's child in the flour room.",
+    "hook": "Told Dorn when Bask threatened her—and hid a debtor's child in the flour room.",
     "tie": "Employer of Odin; threatened by Bask; helped by Dorn."
   },
   "tinker-zib": {
-    "place": "a bench of gears and kettles",
+    "place": "a tinker's cart and workbench",
     "habit": "talks to broken things until they confess",
     "object": "multi-tool that unfolds into too many blades",
     "fear": "being blamed for traps he didn't build",
@@ -792,7 +792,7 @@
     "tie": "Helped Mouse unintentionally; curious about mill tech."
   },
   "weaver-sala": {
-    "place": "a loom room loud with rhythm",
+    "place": "a weaving room",
     "habit": "weaves worries into border patterns",
     "object": "pattern book with a locked clasp",
     "fear": "Hedda stealing her festival design",
@@ -801,7 +801,7 @@
     "tie": "Rival/colleague to Hedda; kind to Pola."
   },
   "stonemason-kor": {
-    "place": "quarry carts and wall scaffolds",
+    "place": "a stone yard",
     "habit": "listens to stone for hidden cracks",
     "object": "chisel set wrapped in oilcloth",
     "fear": "rush jobs on sacred foundations",
@@ -810,16 +810,16 @@
     "tie": "Works with Bram; confirms undercroft."
   },
   "mayor-haldrin": {
-    "place": "the council chamber and festival platforms",
+    "place": "the mayor's office",
     "habit": "clears his throat before every compromise",
     "object": "chain of office that pinches when he lies",
-    "fear": "a scandal collapsing Midsummer trade",
+    "fear": "a scandal collapsing midsummer trade",
     "hope": "leave town richer in goodwill than coin",
     "hook": "Accepted Edric's festival funding with fewer questions than Penna liked.",
     "tie": "Patronized by Edric; depends on Penna; peers with Sava."
   },
   "clerk-penna": {
-    "place": "the records hall",
+    "place": "a records desk",
     "habit": "alphabetizes emergencies",
     "object": "ribbon tags for 'urgent', 'political', and 'do not lose'",
     "fear": "forged seals passing her desk",
@@ -828,7 +828,7 @@
     "tie": "Essential to Mayor; threat to Orin; overflow to Hala."
   },
   "bailiff-crowe": {
-    "place": "collection rounds and holding cells",
+    "place": "the magistrate's outer office",
     "habit": "recites fine schedules like scripture",
     "object": "baton he has never raised and always shows",
     "fear": "becoming Marrow's public face",
@@ -837,7 +837,7 @@
     "tie": "Works with Judge Sava; pressured by alleys."
   },
   "taxer-miln": {
-    "place": "doorsteps with a counting board",
+    "place": "ledgers and warehouse doors",
     "habit": "apologizes and assesses in the same breath",
     "object": "folding abacus and a rainproof satchel",
     "fear": "being drowned in a well 'accident' of popularity",
@@ -846,7 +846,7 @@
     "tie": "Unpopular; useful against Nedda; supports Bera."
   },
   "judge-sava": {
-    "place": "the magistrate's bench",
+    "place": "a modest courtroom",
     "habit": "makes eye contact with the poorest person first",
     "object": "gavel with a softened rim",
     "fear": "nobles buying outcomes through festival gifts",
@@ -855,7 +855,7 @@
     "tie": "Peer to Mayor; works with Crowe and Merrick."
   },
   "herald-bol": {
-    "place": "corners, steps, and market cries",
+    "place": "the public square",
     "habit": "projects news until windows open",
     "object": "brass bell with a cracked throat",
     "fear": "reading a proclamation that starts a riot",
@@ -864,7 +864,7 @@
     "tie": "Voice of government; confused by mill intrigue."
   },
   "midwife-ora": {
-    "place": "bedside lamps across town",
+    "place": "homes across town",
     "habit": "washes her hands as ritual and science",
     "object": "kit bag with lavender and clean linen",
     "fear": "losing a mother to pride or poverty",
@@ -873,7 +873,7 @@
     "tie": "Trusted by many; link to Petra; saw Vale jewelry."
   },
   "gravedigger-mol": {
-    "place": "the laddered graves behind chapel",
+    "place": "the graveyard",
     "habit": "whistles off-key to keep spirits uninterested",
     "object": "shovel with measurement notches",
     "fear": "burying someone still claimed by the living",
@@ -882,16 +882,16 @@
     "tie": "Works with Bram; holds physical evidence."
   },
   "ratcatcher-skit": {
-    "place": "alleys, cellars, and pantries",
+    "place": "cellars and undercroft runs",
     "habit": "names rats before he catches them",
     "object": "cage of squeaks and a crooked grin",
     "fear": "plague talk turning into torch talk",
-    "hope": "be paid on contract by the council, not in scraps",
+    "hope": "be paid on contract by local officials, not in scraps",
     "hook": "Followed rat runs that revealed a chewed opening into the mill undercroft.",
     "tie": "Knows Mouse's world from below; evidence for undercroft."
   },
   "matchmaker-bea": {
-    "place": "tea shops and festival dances",
+    "place": "parlors and tea shops",
     "habit": "asks about siblings before asking about love",
     "object": "ribbon ledger of almost-engagements",
     "fear": "arranging a match that hides abuse",

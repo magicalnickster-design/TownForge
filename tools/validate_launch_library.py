@@ -111,8 +111,8 @@ def validate_npc(npc: dict, pack_category: str) -> list[str]:
         errors.append("biography must be string")
     else:
         wc = word_count(bio)
-        if wc < 75 or wc > 150:
-            errors.append(f"biography word count {wc} outside 75-150")
+        if wc < 75 or wc > 125:
+            errors.append(f"biography word count {wc} outside 75-125")
 
     for field in ("personality", "motivation", "secret", "rumor", "voice", "appearance"):
         if not isinstance(npc.get(field), str) or not str(npc.get(field, "")).strip():
@@ -195,7 +195,7 @@ def main() -> int:
                 actor_ok += 1
 
             wc = word_count(npc.get("biography", "")) if isinstance(npc.get("biography"), str) else -1
-            if wc < 75 or wc > 150:
+            if wc < 75 or wc > 125:
                 bio_outliers.append((str(npc_id), wc))
 
             for rel in npc.get("relationships") or []:

@@ -151,47 +151,60 @@ def seed(s: str) -> int:
     return sum((i + 1) * ord(c) for i, c in enumerate(s))
 
 
+def article(noun: str) -> str:
+    text = (noun or "").strip()
+    if not text:
+        return text
+    if re.match(r"^(a|an|the)\b", text, flags=re.I):
+        return text
+    return f"the {text}"
+
+
 def compose_biography(n: dict, facts: dict) -> str:
     p = pronouns(n["gender"])
     first = n["name"].split()[0]
+    # Prefer given name over titles like Mother/Lord/Sir.
+    parts_name = n["name"].split()
+    if parts_name[0] in {"Mother", "Father", "Brother", "Sister", "Lord", "Lady", "Sir", "Dame", "Mayor", "Judge", "Bailiff", "Chaplain", "Magister"} and len(parts_name) > 1:
+        first = parts_name[1]
     age, species, occupation = n["age"], n["species"], n["occupation"].lower()
-    place, habit, obj = facts["place"], facts["habit"], facts["object"]
+    place, habit, obj = facts["place"], facts["habit"], article(facts["object"])
     fear, hope, hook, tie = facts["fear"], facts["hope"], facts["hook"], facts.get("tie", "").strip()
     v = seed(n["id"]) % 8
 
     if v == 0:
         parts = [
-            f"{n['name']} keeps {place} running with the stubborn patience of a {age}-year-old {species} who has already survived worse seasons than this one.",
-            f"{p['Subj']} {habit}, and the {obj} is usually within reach when tempers rise.",
-            (tie + ".") if tie and not tie.endswith(".") else tie,
-            f"{p['Poss'].capitalize()} private aim is plain enough: {hope}.",
+            f"{n['name']} works from {place} with the stubborn patience of a {age}-year-old {species} who has already survived harder seasons.",
+            f"{p['Subj']} {habit}, and keeps {obj} close when tempers rise.",
+            (tie if tie.endswith(".") else f"{tie}.") if tie else "",
+            f"{p['Poss'].capitalize()} private aim is simple: {hope}.",
             f"Still, {p['subj']} flinches at the thought of {fear}.",
-            f"Lately the trouble under {p['poss']} nose is this: {hook}",
+            f"Lately a fresh problem has landed in {p['poss']} lap: {hook}",
         ]
     elif v == 1:
         parts = [
-            f"People looking for a reliable {occupation} are sent to {first}, who claims {place} as home ground.",
+            f"People looking for a reliable {occupation} are often sent to {first}, who claims {place} as familiar ground.",
             f"At {age}, this {species} has learned to watch hands before faces.",
-            f"{p['Subj']} {habit}; neighbors joke that {p['subj']} would miss a coronation before misplacing the {obj}.",
-            f"{tie}." if tie else "",
+            f"{p['Subj']} {habit}; neighbors joke that {p['subj']} would miss a festival before misplacing {obj}.",
+            f"{tie}." if tie and not tie.endswith(".") else tie,
             f"{p['Subj']} is saving courage and coin alike to {hope}, while trying not to let {fear} decide the ending.",
             hook,
         ]
     elif v == 2:
         parts = [
-            f"Before dawn touches the roofs, {first} is already at {place}, working as a {occupation} with flour, ink, sweat, or steel still on {p['poss']} fingers from yesterday.",
+            f"Before dawn, {first} is already at {place}, working as a {occupation} with yesterday's work still on {p['poss']} fingers.",
             f"The habit everyone notices is simple: {p['subj']} {habit}.",
-            f"Close by sits {p['poss']} prized {obj}, a small anchor in a loud town.",
-            f"{tie}." if tie else f"Townsfolk treat {p['obj']} as a fixture more than a stranger.",
+            f"Close by sits {p['poss']} prized {obj}, a small anchor in a loud settlement.",
+            f"{tie}." if tie and not tie.endswith(".") else (tie or f"Locals treat {p['obj']} as a fixture more than a stranger."),
             f"{p['Subj']} wants to {hope}. {p['Subj']} fears {fear} more than open confrontation.",
-            f"A usable adventure hook trails {p['obj']}: {hook}",
+            f"A useful adventure hook trails {p['obj']}: {hook}",
         ]
     elif v == 3:
         parts = [
-            f"{first} did not plan to become the town's go-to {occupation}, yet {place} made the choice sticky.",
+            f"{first} did not plan to become the neighborhood's go-to {occupation}, yet {place} made the choice stick.",
             f"Now {age}, the {species} measures success in quiet evenings and unpaid favors returned.",
-            f"{p['Subj'].capitalize()} {habit}, and keeps the {obj} like a confessor keeps secrets.",
-            f"{tie}." if tie else "",
+            f"{p['Subj'].capitalize()} {habit}, and keeps {obj} the way a confessor keeps secrets.",
+            f"{tie}." if tie and not tie.endswith(".") else tie,
             f"Hope pulls one way—{hope}—while caution pulls the other because of {fear}.",
             hook,
         ]
@@ -200,7 +213,7 @@ def compose_biography(n: dict, facts: dict) -> str:
             f"Walk into {place} and you will find {n['name']} before you find a free chair.",
             f"A {age}-year-old {species} {occupation}, {first} greets trouble the way other folk greet weather: with a coat and a plan.",
             f"{p['Subj'].capitalize()} {habit}. The {obj} travels with {p['obj']} almost everywhere.",
-            f"{tie}." if tie else f"Relationships around {p['obj']} are practical, not ornamental.",
+            f"{tie}." if tie and not tie.endswith(".") else (tie or f"Relationships around {p['obj']} are practical, not ornamental."),
             f"{p['Poss'].capitalize()} ambition is to {hope}. {p['Poss'].capitalize()} nightmare is {fear}.",
             f"Right now, {hook}",
         ]
@@ -210,24 +223,24 @@ def compose_biography(n: dict, facts: dict) -> str:
             f"Age {age} sits lightly on this {species}, except when old debts creak.",
             f"Watch long enough and you will see that {p['subj']} {habit}.",
             f"The {obj} is part tool, part talisman.",
-            f"{tie}." if tie else "",
+            f"{tie}." if tie and not tie.endswith(".") else tie,
             f"{p['Subj'].capitalize()} would trade sleep to {hope}, yet stays wary of {fear}. Current spark: {hook}",
         ]
     elif v == 6:
         parts = [
-            f"Some townsfolk swear {first} was born mid-shift at {place}; the truth is only slightly less devoted.",
-            f"This {species} {occupation}, now {age}, treats competence like courtesy.",
-            f"{p['Subj'].capitalize()} {habit}, never far from the {obj}.",
-            f"{tie}." if tie else f"{p['Subj'].capitalize()} knows which doors open after dark and which only pretend to.",
+            f"Some locals swear {first} was born mid-shift at {place}; the truth is only slightly less devoted.",
+            f"This {species.lower()} {occupation}, now {age}, treats competence like courtesy.",
+            f"{p['Subj'].capitalize()} {habit}, never far from {obj}.",
+            f"{tie}." if tie and not tie.endswith(".") else (tie or f"{p['Subj'].capitalize()} knows which doors open after dark and which only pretend to."),
             f"Ask what {p['subj']} wants and {p['subj']} names it plainly: {hope}.",
             f"Ask what {p['subj']} dreads and the answer is {fear}. Then comes the fresh problem—{hook}",
         ]
     else:
         parts = [
-            f"{first} learned the hard corners of town by working them as a {occupation} based out of {place}.",
+            f"{first} learned the hard corners of settlement life by working them as a {occupation} based out of {place}.",
             f"At {age}, the {species} has a map of loyalties written in calluses rather than ink.",
-            f"Day after day {p['subj']} {habit}, and the {obj} marks {p['poss']} place in the room.",
-            f"{tie}." if tie else "",
+            f"Day after day {p['subj']} {habit}, and {obj} marks {p['poss']} place in the room.",
+            f"{tie}." if tie and not tie.endswith(".") else tie,
             f"{p['Poss'].capitalize()} north star is to {hope}. The shadow at {p['poss']} heels is {fear}.",
             hook,
         ]
@@ -236,22 +249,21 @@ def compose_biography(n: dict, facts: dict) -> str:
     bio = re.sub(r"\s+", " ", bio).strip()
     bio = re.sub(r"\.\.+", ".", bio)
     bio = re.sub(r"\s+\.", ".", bio)
+    bio = re.sub(r"\bThe the\b", "The", bio)
+    bio = re.sub(r"\bthe the\b", "the", bio)
 
-    # Soft pad / trim to window without reintroducing global catchphrases.
     if wc(bio) < 75:
         bio += (
             f" When pressed, {first} will trade a favor for a favor, provided nobody asks {p['obj']} "
-            f"to pretend the town is kinder than it is."
+            f"to pretend every stranger means well."
         )
         bio = re.sub(r"\s+", " ", bio).strip()
-    while wc(bio) > 150:
-        # Drop the shortest clause-like sentence that is not the hook.
+    while wc(bio) > 125:
         sentences = re.split(r"(?<=[.!?])\s+", bio)
         if len(sentences) <= 3:
             words = bio.split()
-            bio = " ".join(words[:150])
+            bio = " ".join(words[:125])
             break
-        # remove a middle sentence
         drop_idx = 1 + (seed(n["id"]) % (len(sentences) - 2))
         sentences.pop(drop_idx)
         bio = " ".join(sentences).strip()
@@ -260,9 +272,12 @@ def compose_biography(n: dict, facts: dict) -> str:
 
 def compose_fields(n: dict, facts: dict) -> dict[str, str]:
     p = pronouns(n["gender"])
-    first = n["name"].split()[0]
+    parts_name = n["name"].split()
+    first = parts_name[0]
+    if first in {"Mother", "Father", "Brother", "Sister", "Lord", "Lady", "Sir", "Dame", "Mayor", "Judge", "Bailiff", "Chaplain", "Magister"} and len(parts_name) > 1:
+        first = parts_name[1]
     v = seed(n["id"] + "fields") % 5
-    habit, place, obj = facts["habit"], facts["place"], facts["object"]
+    habit, place, obj = facts["habit"], facts["place"], article(facts["object"])
     fear, hope, hook = facts["fear"], facts["hope"], facts["hook"]
 
     personalities = [
@@ -273,39 +288,39 @@ def compose_fields(n: dict, facts: dict) -> dict[str, str]:
         f"Soft-spoken until principles are poked; {habit}.",
     ]
     motivations = [
-        f"To {hope} without feeding {fear}.",
+        f"To {hope}, even while fearing {fear}.",
         f"Secure enough ground to {hope}.",
         f"Finish one honest plan: {hope}.",
-        f"Protect {p['poss']} place at {place} long enough to {hope}.",
+        f"Protect {p['poss']} livelihood long enough to {hope}.",
         f"Turn today's scrapes into tomorrow's chance to {hope}.",
     ]
     secrets = [
         f"Knows more about this than {p['subj']} admits: {hook}",
-        f"Quietly arranging matters around: {hook}",
+        f"Quietly arranging matters around this problem: {hook}",
         f"Keeps proof related to a problem—{hook}",
-        f"Has not told allies that {hook[0].lower() + hook[1:] if hook else fear}",
+        f"Has not told allies the truth: {hook}",
         f"Night thoughts keep returning to {fear}, especially since: {hook}",
     ]
     rumors = [
-        f"{first} can open doors at {place} after hours—if asked the right way.",
-        f"Someone paid {first} to forget a name connected to {place}.",
-        f"The {obj} once belonged to a person who vanished upriver.",
-        f"{first} is writing a private list of debts the council will not touch.",
+        f"Customers claim {first} knows which doors open after hours—if asked the right way.",
+        f"Someone paid {first} to forget a name connected to recent trouble near {place}.",
+        f"Locals whisper that {obj} once belonged to a traveler who vanished on the road.",
+        f"{first} is said to keep a private list of debts local officials will not touch.",
         f"A smugglers' mark was seen near {place} on a night {first} worked late.",
     ]
     voices = [
         f"Measured {n['species'].lower()} cadence; concrete nouns before adjectives.",
-        f"Quick river-town diction, then sudden silences that mean more than words.",
+        f"Quick local diction, then sudden silences that mean more than words.",
         f"Low and practical, with a habit of repeating the important clause once.",
         f"Polite public voice; sharper private asides when trust appears.",
         f"Storyteller rhythm even when discussing ledgers or latches.",
     ]
     appearances = [
-        f"{n['species']} features shaped by work at {place}; watch for the {obj}.",
+        f"{n['species']} features shaped by work at {place}; watch for {obj}.",
         f"Work-worn {n['species'].lower()} garb; {obj} always nearby.",
-        f"Easy to spot near {place}: {n['species'].lower()}, practical layers, and that {obj}.",
-        f"A {n['species'].lower()} silhouette framed by {place}, hands seldom empty of the {obj}.",
-        f"Looks like someone who sleeps lightly; distinctive detail is the {obj}.",
+        f"Easy to spot near {place}: {n['species'].lower()}, practical layers, and {obj}.",
+        f"A {n['species'].lower()} silhouette framed by {place}, hands seldom empty of {obj}.",
+        f"Looks like someone who sleeps lightly; distinctive detail is {obj}.",
     ]
     descriptions = [
         f"A {n['occupation'].lower()} rooted at {place}, known for how {p['subj']} {habit}.",
@@ -342,7 +357,7 @@ def build() -> None:
         archetype = OCC_ARCH.get(n["occupation"], "civilian")
         biography = compose_biography(n, facts)
         words = wc(biography)
-        if not (75 <= words <= 150):
+        if not (75 <= words <= 125):
             raise SystemExit(f"{npc_id}: biography has {words} words")
 
         npc = {

@@ -3,6 +3,7 @@ import {
   BROWSER_PAGE_SIZE,
   CATEGORY_COLORS,
   CATEGORY_LOCATIONS,
+  OCCUPATION_LOCATIONS,
   FAVORITES_KEY,
   LOG_PREFIX,
   MODULE_ID,
@@ -273,7 +274,10 @@ export class NpcBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
       favorite: this.#favorites.has(npc.id),
       categoryColor,
       categoryLabel,
-      location: CATEGORY_LOCATIONS[npc.category] ?? "Town",
+      location:
+        OCCUPATION_LOCATIONS[npc.occupation] ??
+        CATEGORY_LOCATIONS[npc.category] ??
+        "Around Town",
       metaLine: `${npc.species} • ${npc.occupation}`
     };
 
