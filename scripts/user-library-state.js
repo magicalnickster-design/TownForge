@@ -221,13 +221,17 @@ export function sortLibraryNpcs(npcs, sort = "name-asc", recentEntries = []) {
   return list.sort(byNameAsc);
 }
 
+function moduleId() {
+  return MODULE_ID;
+}
+
 /**
  * Read favorites from the active Foundry user.
  * @returns {string[]}
  */
 export function loadUserFavorites() {
   try {
-    const raw = game.user?.getFlag?.(MODULE_ID_SAFE(), USER_FLAGS.FAVORITES);
+    const raw = game.user?.getFlag?.(moduleId(), USER_FLAGS.FAVORITES);
     return normalizeFavorites(raw);
   } catch (_error) {
     return [];
@@ -241,7 +245,7 @@ export function loadUserFavorites() {
 export async function saveUserFavorites(favorites) {
   const next = normalizeFavorites(favorites);
   if (!game.user) return next;
-  await game.user.setFlag(MODULE_ID_SAFE(), USER_FLAGS.FAVORITES, next);
+  await game.user.setFlag(moduleId(), USER_FLAGS.FAVORITES, next);
   return next;
 }
 
@@ -250,7 +254,7 @@ export async function saveUserFavorites(favorites) {
  */
 export function loadUserRecent() {
   try {
-    const raw = game.user?.getFlag?.(MODULE_ID_SAFE(), USER_FLAGS.RECENT_NPCS);
+    const raw = game.user?.getFlag?.(moduleId(), USER_FLAGS.RECENT_NPCS);
     return normalizeRecent(raw);
   } catch (_error) {
     return [];
@@ -264,7 +268,7 @@ export function loadUserRecent() {
 export async function saveUserRecent(recent) {
   const next = normalizeRecent(recent);
   if (!game.user) return next;
-  await game.user.setFlag(MODULE_ID_SAFE(), USER_FLAGS.RECENT_NPCS, next);
+  await game.user.setFlag(moduleId(), USER_FLAGS.RECENT_NPCS, next);
   return next;
 }
 
@@ -288,13 +292,4 @@ export async function toggleUserFavorite(npcId) {
 export async function recordUserRecentNpc(npcId) {
   const next = recordRecentNpcId(loadUserRecent(), npcId, Date.now());
   return saveUserRecent(next);
-}
-
-function MODULE_ID_SAFE() {
-  try {
-    // Prefer live constant when available; fall back for tests.
-    return "townforge";
-  } catch (_error) {
-    return "townforge";
-  }
 }
