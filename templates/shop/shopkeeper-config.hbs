@@ -86,15 +86,16 @@
 
     <section class="townforge-manage-inventory">
       <h3>Manage Inventory</h3>
+      <p class="townforge-muted">Manual items survive Regenerate. Reset to Automatic clears them after confirmation.</p>
       <div class="townforge-manual-add">
-        <input type="text" data-townforge-manual-uuid placeholder="Paste Item UUID to add manually" />
+        <input type="text" data-townforge-manual-uuid placeholder="Paste Foundry Item UUID" />
         <button type="button" data-action="addSelectedItem">Add Manual Item</button>
       </div>
 
       {{#if inventory.length}}
       <ul class="townforge-stock-list">
         {{#each inventory}}
-        <li>
+        <li class="{{#if isManual}}is-manual{{/if}}">
           <img src="{{img}}" alt="" width="28" height="28" />
           <div>
             <strong>{{name}}</strong>

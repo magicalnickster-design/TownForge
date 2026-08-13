@@ -17,11 +17,20 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
   /** @type {string} */
   #query = "";
 
-  /** @type {"all"|"weapons"|"armor"|"gear"} */
+  /** @type {string} */
   #filter = "all";
 
   /** @type {string|null} */
   #buyerUuid = null;
+
+  /** @type {string|null} */
+  #selectedStockId = null;
+
+  /** @type {string} */
+  #selectedDescription = "";
+
+  /** @type {boolean} */
+  #buyerPromptNeeded = false;
 
   static DEFAULT_OPTIONS = {
     id: "townforge-merchant",
@@ -32,11 +41,13 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
       resizable: true,
       contentClasses: ["townforge-window-content"]
     },
-    position: { width: 720, height: 720 },
+    position: { width: 900, height: 720 },
     actions: {
       setFilter: this.#onSetFilter,
+      selectItem: this.#onSelectItem,
       buyItem: this.#onBuyItem,
-      openActorSheet: this.#onOpenActorSheet
+      openActorSheet: this.#onOpenActorSheet,
+      configureShop: this.#onConfigureShop
     }
   };
 
@@ -57,11 +68,10 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
     if (!merchant) return null;
     const shop = shopService.getShopkeeper(merchant);
     if (!shop.enabled) {
-      ui.notifications?.warn("This NPC is not an active TownForge shopkeeper.");
+      ui.notifications?.warn("Shop unavailable.");
       return null;
     }
 
-    // Only the GM may generate stock. Players just browse persisted flags.
     if (
       game.user.isGM &&
       shop.inventoryMode !== "manual" &&
@@ -80,6 +90,7 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
     }
 
     const app = new MerchantApp(merchant);
+    app.#initializeBuyer();
     console.log(`${LOG_PREFIX} Merchant window opened for ${merchant.name}`);
     await app.render({ force: true });
     return app;
@@ -90,11 +101,43 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
     return shop.shopName || `${this.#merchant.name}'s Shop`;
   }
 
+  #initializeBuyer() {
+    const owned = this.#ownedCharacters();
+    const assigned = game.user?.character;
+    if (assigned?.isOwner && assigned.type === "character") {
+      this.#buyerUuid = assigned.uuid;
+      this.#buyerPromptNeeded = false;
+      return;
+    }
+    if (owned.length === 1) {
+      this.#buyerUuid = owned[0].uuid;
+      this.#buyerPromptNeeded = false;
+      return;
+    }
+    if (owned.length > 1) {
+      this.#buyerUuid = null;
+      this.#buyerPromptNeeded = true;
+      ui.notifications?.warn("Choose which character is shopping.");
+      return;
+    }
+    this.#buyerUuid = null;
+    this.#buyerPromptNeeded = false;
+    ui.notifications?.warn("No owned character available for shopping.");
+  }
+
   async _prepareContext(options) {
     const context = await super._prepareContext(options);
     const shop = shopService.getShopkeeper(this.#merchant);
-    const inventory = shopService.getSellableInventory(this.#merchant);
+    const inventory = shopService.getDisplayInventory(this.#merchant);
     const query = this.#query.trim().toLowerCase();
+    const filters = shopService.getAvailableFilters(this.#merchant).map((entry) => ({
+      ...entry,
+      active: entry.id === this.#filter
+    }));
+
+    if (this.#filter !== "all" && !filters.some((entry) => entry.id === this.#filter)) {
+      this.#filter = "all";
+    }
 
     const items = inventory
       .filter((entry) => this.#filter === "all" || entry.filter === this.#filter)
@@ -102,15 +145,41 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
         if (!query) return true;
         return `${entry.name} ${entry.type}`.toLowerCase().includes(query);
       })
-      .map((entry) => ({
-        ...entry,
-        quantityLabel: entry.quantity == null ? "∞" : String(entry.quantity)
-      }));
+      .map((entry) => {
+        const soldOut = entry.quantity != null && Number(entry.quantity) <= 0;
+        return {
+          ...entry,
+          quantityLabel: entry.quantity == null ? "∞" : String(entry.quantity),
+          soldOut,
+          selected: entry.id === this.#selectedStockId,
+          canBuy: !soldOut
+        };
+      });
 
     const buyers = this.#ownedCharacters();
-    if (!this.#buyerUuid && buyers.length === 1) this.#buyerUuid = buyers[0].uuid;
     if (this.#buyerUuid && !buyers.some((buyer) => buyer.uuid === this.#buyerUuid)) {
-      this.#buyerUuid = buyers[0]?.uuid ?? null;
+      this.#buyerUuid = null;
+    }
+
+    const buyerActor = this.#buyerUuid ? await fromUuid(this.#buyerUuid) : null;
+    const walletLabel = buyerActor
+      ? shopService.formatWallet(buyerActor.system?.currency ?? {})
+      : "—";
+
+    let selected = items.find((entry) => entry.id === this.#selectedStockId) ?? null;
+    if (!selected && items.length) {
+      // Keep prior selection only if still visible; otherwise clear.
+      if (this.#selectedStockId) {
+        const stillExists = inventory.some((entry) => entry.id === this.#selectedStockId);
+        if (!stillExists) {
+          this.#selectedStockId = null;
+          this.#selectedDescription = "";
+        }
+      }
+    }
+
+    if (selected && !this.#selectedDescription) {
+      // Description may still be loading; template can show a placeholder.
     }
 
     return Object.assign(context, {
@@ -119,22 +188,24 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
       shopTypeLabel: getShopTypeLabel(shop.shopType),
       query: this.#query,
       filter: this.#filter,
-      filters: [
-        { id: "all", label: "All", active: this.#filter === "all" },
-        { id: "weapons", label: "Weapons", active: this.#filter === "weapons" },
-        { id: "armor", label: "Armor", active: this.#filter === "armor" },
-        { id: "gear", label: "Gear", active: this.#filter === "gear" }
-      ],
+      filters,
       items,
       buyers,
       buyerUuid: this.#buyerUuid,
+      buyerName: buyerActor?.name ?? null,
       hasBuyer: Boolean(this.#buyerUuid),
+      needsBuyerChoice: this.#buyerPromptNeeded && buyers.length > 1 && !this.#buyerUuid,
+      noCharacters: buyers.length === 0,
+      walletLabel,
+      selected,
+      selectedDescription: this.#selectedDescription,
       isGM: game.user.isGM
     });
   }
 
   _onRender(context, options) {
     super._onRender?.(context, options);
+
     const search = this.element.querySelector("[data-townforge-merchant-search]");
     if (search && !search.dataset.bound) {
       search.dataset.bound = "1";
@@ -149,6 +220,8 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
       buyerSelect.dataset.bound = "1";
       buyerSelect.addEventListener("change", (event) => {
         this.#buyerUuid = event.currentTarget.value || null;
+        this.#buyerPromptNeeded = false;
+        void this.render({ force: false });
       });
     }
   }
@@ -173,35 +246,63 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
   }
 
   /** @this {MerchantApp} */
+  static async #onSelectItem(_event, target) {
+    const stockId = target.dataset.stockId;
+    if (!stockId) return;
+    this.#selectedStockId = stockId;
+    this.#selectedDescription = "";
+    await this.render({ force: false });
+
+    const shop = shopService.getShopkeeper(this.#merchant);
+    const stock = (shop.inventory ?? []).find((entry) => entry.id === stockId);
+    if (!stock) return;
+    this.#selectedDescription = await shopService.getStockDescription(stock);
+    if (this.#selectedStockId === stockId) {
+      await this.render({ force: false });
+    }
+  }
+
+  /** @this {MerchantApp} */
   static async #onOpenActorSheet() {
     if (!game.user.isGM) return;
     await this.#merchant.sheet?.render(true);
   }
 
   /** @this {MerchantApp} */
+  static async #onConfigureShop() {
+    if (!game.user.isGM) return;
+    const { ShopkeeperConfig } = await import("./shopkeeper-config.js");
+    await ShopkeeperConfig.show(this.#merchant);
+  }
+
+  /** @this {MerchantApp} */
   static async #onBuyItem(event, target) {
     event.preventDefault();
-    const stockId = target.dataset.stockId;
+    event.stopPropagation?.();
+    const stockId = target.dataset.stockId || this.#selectedStockId;
     if (!stockId) return;
 
     const buyers = this.#ownedCharacters();
     if (!buyers.length) {
-      ui.notifications?.warn("You need an owned character to buy items.");
+      ui.notifications?.warn("No owned character available for shopping.");
       return;
     }
 
-    // Prefer the dropdown selection; fall back to the only owned character.
     let buyerUuid = this.#buyerUuid || this.element.querySelector("[data-townforge-buyer]")?.value;
     if (!buyerUuid) {
       if (buyers.length > 1) {
-        ui.notifications?.warn("Choose a buyer character in the shop window first.");
+        ui.notifications?.warn("Character not selected.");
         return;
       }
       buyerUuid = buyers[0].uuid;
     }
     this.#buyerUuid = buyerUuid;
 
+    if (target.disabled) return;
     target.disabled = true;
+    const label = target.textContent;
+    target.textContent = "…";
+
     try {
       const result = await shopService.purchaseItem({
         merchantUuid: this.#merchant.uuid,
@@ -216,6 +317,7 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
       await this.render({ force: false });
     } finally {
       target.disabled = false;
+      target.textContent = label || "Buy";
     }
   }
 }

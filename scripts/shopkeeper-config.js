@@ -120,7 +120,8 @@ export class ShopkeeperConfig extends HandlebarsApplicationMixin(ApplicationV2) 
       ],
       inventory: (shop.inventory ?? []).map((entry) => ({
         ...entry,
-        sourceLabel: entry.source === "manual" ? "Manual" : "Auto"
+        sourceLabel: entry.source === "manual" ? "Manual" : "Auto",
+        isManual: entry.source === "manual"
       })),
       shopTypeLabel: getShopTypeLabel(shop.shopType)
     });
@@ -172,6 +173,14 @@ export class ShopkeeperConfig extends HandlebarsApplicationMixin(ApplicationV2) 
 
   /** @this {ShopkeeperConfig} */
   static async #onResetAutomatic() {
+    const shop = shopService.getShopkeeper(this.#actor);
+    const manualCount = (shop.inventory ?? []).filter((entry) => entry.source === "manual").length;
+    const confirmed = window.confirm(
+      manualCount
+        ? `Reset to automatic inventory?\n\nThis will remove ${manualCount} manual item(s) and regenerate stock.`
+        : "Reset to automatic inventory and regenerate stock?"
+    );
+    if (!confirmed) return;
     await shopService.resetToAutomatic(this.#actor);
     ui.notifications?.info("TownForge reset shop inventory to automatic.");
     await this.render({ force: false });

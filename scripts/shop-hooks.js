@@ -41,12 +41,10 @@ export function registerShopHooks() {
     });
   });
 
-  // Directory / sidebar actor context menu (when available).
   Hooks.on("getActorContextOptions", (actor, menuItems) => {
     addShopContextOptions(actor, menuItems);
   });
 
-  // Token right-click context menu (Foundry v13+).
   Hooks.on("getTokenContextOptions", (application, menuItems) => {
     const actor = application?.document?.actor ?? application?.actor;
     addShopContextOptions(actor, menuItems);
@@ -56,7 +54,6 @@ export function registerShopHooks() {
     patchTokenDoubleClick();
   });
 
-  // If canvas is already ready (hot reload), patch immediately.
   if (canvas?.ready) patchTokenDoubleClick();
 
   console.log(`${LOG_PREFIX} Shopkeeper hooks registered`);
@@ -93,9 +90,60 @@ function addShopContextOptions(actor, menuItems) {
 }
 
 /**
- * Intercept token double-click for enabled shopkeepers.
+ * Defer to LootForge / core for corpses and LootForge-managed tokens.
+ * Living enabled shopkeepers open the TownForge merchant window.
+ *
+ * @param {Token} token
+ * @param {Actor|null} actor
+ * @returns {boolean}
+ */
+export function shouldDeferTokenClick(token, actor) {
+  if (!actor) return true;
+
+  // Dead creatures should remain available to LootForge corpse looting.
+  const hp = actor.system?.attributes?.hp?.value;
+  if (hp != null && Number(hp) <= 0) return true;
+
+  const tokenDoc = token?.document;
+  if (hasLootForgeMark(actor) || hasLootForgeMark(tokenDoc)) return true;
+
+  // If LootForge exposes a known helper, respect it when present.
+  try {
+    const lootforge = game.modules?.get("lootforge");
+    if (lootforge?.active) {
+      const api = game.lootforge ?? globalThis.LootForge ?? null;
+      if (typeof api?.isLootable === "function" && api.isLootable(tokenDoc ?? actor)) {
+        return true;
+      }
+      if (typeof api?.shouldHandleTokenClick === "function" && api.shouldHandleTokenClick(token)) {
+        return true;
+      }
+    }
+  } catch (_error) {
+    // Ignore LootForge probe failures and continue with TownForge logic.
+  }
+
+  return false;
+}
+
+function hasLootForgeMark(doc) {
+  if (!doc?.flags) return false;
+  const flags = doc.flags;
+  if (flags.lootforge || flags.LootForge) return true;
+  // Common loot-module markers.
+  if (flags["item-piles"]?.data?.enabled && doc.actor?.system?.attributes?.hp?.value <= 0) {
+    return true;
+  }
+  return false;
+}
+
+/**
+ * Intercept token double-click for living enabled shopkeepers only.
  * Players always open the merchant UI.
  * GM opens merchant UI unless Shift is held (then Actor sheet).
+ *
+ * Remaining risk: other modules that also wrap Token#_onClickLeft2 may race
+ * depending on load order. TownForge only short-circuits living shopkeepers.
  */
 function patchTokenDoubleClick() {
   if (tokenClickPatched) return;
@@ -111,9 +159,19 @@ function patchTokenDoubleClick() {
     return;
   }
 
-  TokenClass.prototype._onClickLeft2 = function townforgeOnClickLeft2(event) {
+  // Avoid double-wrapping if hot-reloaded.
+  if (original.__townforgeShopWrapped) {
+    tokenClickPatched = true;
+    return;
+  }
+
+  function townforgeOnClickLeft2(event) {
     try {
       const actor = this.actor;
+      if (shouldDeferTokenClick(this, actor)) {
+        return original.call(this, event);
+      }
+
       const shop = actor ? shopService.getShopkeeper(actor) : null;
       if (actor && shop?.enabled) {
         const openSheet = game.user.isGM && Boolean(event?.shiftKey);
@@ -128,7 +186,10 @@ function patchTokenDoubleClick() {
       console.error(`${LOG_PREFIX} Token double-click interceptor failed`, error);
     }
     return original.call(this, event);
-  };
+  }
+
+  townforgeOnClickLeft2.__townforgeShopWrapped = true;
+  TokenClass.prototype._onClickLeft2 = townforgeOnClickLeft2;
 
   tokenClickPatched = true;
   console.log(`${LOG_PREFIX} Token double-click interceptor installed`);
@@ -142,5 +203,6 @@ export const shopApi = Object.freeze({
   openMerchant: (actor) => MerchantApp.show(actor),
   enable: (actor, options) => shopService.enableShopkeeper(actor, options),
   regenerate: (actor) => shopService.regenerateInventory(actor, { force: true }),
+  shouldDeferTokenClick,
   service: shopService
 });

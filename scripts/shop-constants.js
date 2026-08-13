@@ -49,13 +49,7 @@ export const PARTY_LEVEL_MODES = Object.freeze({
 });
 
 /** Denomination values in copper pieces. */
-export const COIN_CP = Object.freeze({
-  pp: 1000,
-  gp: 100,
-  ep: 50,
-  sp: 10,
-  cp: 1
-});
+export { COIN_CP, COIN_ORDER } from "./shop-currency.js";
 
 /**
  * Candidate dnd5e Item pack ids across common system versions.
@@ -67,6 +61,68 @@ export const DND5E_ITEM_PACK_CANDIDATES = Object.freeze([
   "dnd5e.equipment",
   "dnd5e.tradegoods"
 ]);
+
+/**
+ * Shop-type filter tabs. Only tabs present in actual stock are shown in the UI.
+ */
+export const SHOP_FILTERS = Object.freeze({
+  blacksmith: [
+    { id: "all", label: "All" },
+    { id: "weapons", label: "Weapons" },
+    { id: "armor", label: "Armor" },
+    { id: "shields", label: "Shields" },
+    { id: "tools", label: "Tools" }
+  ],
+  armorer: [
+    { id: "all", label: "All" },
+    { id: "armor", label: "Armor" },
+    { id: "shields", label: "Shields" }
+  ],
+  "general-store": [
+    { id: "all", label: "All" },
+    { id: "gear", label: "Adventuring Gear" },
+    { id: "tools", label: "Tools" },
+    { id: "containers", label: "Containers" },
+    { id: "supplies", label: "Supplies" },
+    { id: "weapons", label: "Weapons" },
+    { id: "armor", label: "Armor" }
+  ],
+  "adventuring-supplies": [
+    { id: "all", label: "All" },
+    { id: "gear", label: "Adventuring Gear" },
+    { id: "tools", label: "Tools" },
+    { id: "supplies", label: "Supplies" },
+    { id: "containers", label: "Containers" }
+  ],
+  alchemist: [
+    { id: "all", label: "All" },
+    { id: "potions", label: "Potions" },
+    { id: "ingredients", label: "Ingredients" },
+    { id: "supplies", label: "Supplies" },
+    { id: "tools", label: "Tools" }
+  ],
+  inn: [
+    { id: "all", label: "All" },
+    { id: "supplies", label: "Supplies" },
+    { id: "gear", label: "Gear" }
+  ],
+  temple: [
+    { id: "all", label: "All" },
+    { id: "potions", label: "Potions" },
+    { id: "gear", label: "Gear" },
+    { id: "supplies", label: "Supplies" }
+  ],
+  tailor: [
+    { id: "all", label: "All" },
+    { id: "armor", label: "Clothing / Armor" },
+    { id: "gear", label: "Gear" }
+  ],
+  stable: [
+    { id: "all", label: "All" },
+    { id: "gear", label: "Gear" },
+    { id: "supplies", label: "Supplies" }
+  ]
+});
 
 /** Occupation keywords used to infer a default shop type. */
 export const OCCUPATION_SHOP_MAP = Object.freeze([

@@ -1,11 +1,19 @@
 import { FLAGS, LOG_PREFIX, MODULE_ID } from "./constants.js";
 import {
+  currencyToCopper as currencyToCopperPure,
+  deductCopper as deductCopperPure,
+  formatCopper,
+  formatWallet,
+  validatePurchaseRequest
+} from "./shop-currency.js";
+import {
   COIN_CP,
   DND5E_ITEM_PACK_CANDIDATES,
   ECONOMY_TIERS,
   INVENTORY_MODES,
   OCCUPATION_SHOP_MAP,
   PARTY_LEVEL_MODES,
+  SHOP_FILTERS,
   SHOP_TYPES,
   SHOPKEEPER_FLAG,
   defaultShopkeeperFlags
@@ -18,6 +26,7 @@ import {
  * - Prices/stock are always read from Actor flags on the merchant
  * - Clients cannot invent stock entries or override prices
  * - Shop configuration mutations require GM permissions
+ * - Player purchases are fulfilled by an active GM when possible
  */
 export class ShopService {
   /** @type {Map<string, object[]>} */
@@ -25,6 +34,12 @@ export class ShopService {
 
   /** @type {Set<string>} */
   #purchaseLocks = new Set();
+
+  /** @type {Map<string, {resolve: Function, timeout: any}>} */
+  #pendingPurchases = new Map();
+
+  /** @type {Map<string, {description: string, loadedAt: number}>} */
+  #detailCache = new Map();
 
   /**
    * @param {Actor} actor
@@ -205,22 +220,70 @@ export class ShopService {
   }
 
   /**
+   * Inventory rows for merchant UI (includes sold-out finite items).
+   * @param {Actor} actor
+   * @returns {object[]}
+   */
+  getDisplayInventory(actor) {
+    const shop = this.getShopkeeper(actor);
+    if (!shop.enabled) return [];
+    return (shop.inventory ?? []).filter((entry) => entry?.id && entry?.uuid && entry?.name);
+  }
+
+  /**
    * @param {Actor} actor
    * @returns {object[]}
    */
   getSellableInventory(actor) {
-    const shop = this.getShopkeeper(actor);
-    if (!shop.enabled) return [];
-    return (shop.inventory ?? []).filter((entry) => {
-      if (!entry?.id || !entry?.uuid || !entry?.name) return false;
+    return this.getDisplayInventory(actor).filter((entry) => {
       if (entry.quantity == null) return true;
       return Number(entry.quantity) > 0;
     });
   }
 
   /**
-   * Authoritative purchase validation + fulfillment.
-   * Player may only mutate their own Actor; merchant stock updates require GM.
+   * Build filter tabs that actually appear in stock.
+   * @param {Actor} actor
+   * @returns {{id:string,label:string}[]}
+   */
+  getAvailableFilters(actor) {
+    const shop = this.getShopkeeper(actor);
+    const inventory = this.getDisplayInventory(actor);
+    const present = new Set(inventory.map((entry) => entry.filter).filter(Boolean));
+    const defs = SHOP_FILTERS[shop.shopType] ?? SHOP_FILTERS["general-store"];
+    return defs.filter((def) => def.id === "all" || present.has(def.id));
+  }
+
+  /**
+   * Lightweight item description for the detail panel (cached).
+   * @param {object} stock
+   * @returns {Promise<string>}
+   */
+  async getStockDescription(stock) {
+    if (!stock?.uuid) return "";
+    const cached = this.#detailCache.get(stock.uuid);
+    if (cached && Date.now() - cached.loadedAt < 5 * 60 * 1000) {
+      return cached.description;
+    }
+    try {
+      const item = await fromUuid(stock.uuid);
+      const raw =
+        item?.system?.description?.value ??
+        item?.system?.description ??
+        item?.system?.unidentified?.description ??
+        "";
+      const description = this.#stripHtml(String(raw)).slice(0, 600);
+      this.#detailCache.set(stock.uuid, { description, loadedAt: Date.now() });
+      return description;
+    } catch (error) {
+      console.warn(`${LOG_PREFIX} Failed loading item detail for ${stock.uuid}`, error);
+      return "";
+    }
+  }
+
+  /**
+   * Entry point for UI purchases.
+   * Players prefer GM-authoritative fulfillment via socket.
    * @param {{merchantUuid: string, buyerUuid: string, stockId: string}} request
    * @returns {Promise<{ok: boolean, message?: string}>}
    */
@@ -232,57 +295,116 @@ export class ShopService {
     this.#purchaseLocks.add(lockKey);
 
     try {
+      // Ignore any client-supplied price/uuid fields if present.
+      const clean = {
+        merchantUuid: String(request.merchantUuid || ""),
+        buyerUuid: String(request.buyerUuid || ""),
+        stockId: String(request.stockId || "")
+      };
+
+      if (game.user?.isGM) {
+        return await this.#fulfillPurchase(clean, game.user.id);
+      }
+
+      const activeGM = game.users?.find((user) => user.isGM && user.active);
+      if (activeGM) {
+        return await this.#requestPurchaseViaSocket(clean);
+      }
+
+      // No GM online: allow self-fulfill only when merchant flags need no mutation,
+      // or the player owns the merchant Actor.
+      const merchant = await fromUuid(clean.merchantUuid);
+      const shop = merchant ? this.getShopkeeper(merchant) : null;
+      const stock = (shop?.inventory ?? []).find((entry) => entry.id === clean.stockId);
+      const needsStockMutation = stock && stock.quantity != null;
+      if (needsStockMutation && !merchant?.isOwner) {
+        return {
+          ok: false,
+          message: "Shop unavailable."
+        };
+      }
+      return await this.#fulfillPurchase(clean, game.user.id);
+    } finally {
+      this.#purchaseLocks.delete(lockKey);
+    }
+  }
+
+  /**
+   * Authoritative purchase fulfillment (GM or permitted local owner).
+   * @param {{merchantUuid:string,buyerUuid:string,stockId:string}} request
+   * @param {string} requesterId
+   * @returns {Promise<{ok:boolean,message?:string}>}
+   */
+  async #fulfillPurchase(request, requesterId) {
+    const fulfillKey = `fulfill:${request.merchantUuid}:${request.stockId}`;
+    if (this.#purchaseLocks.has(fulfillKey)) {
+      return { ok: false, message: "Purchase already in progress." };
+    }
+    this.#purchaseLocks.add(fulfillKey);
+
+    try {
       const merchant = await fromUuid(request.merchantUuid);
       const buyer = await fromUuid(request.buyerUuid);
       if (!merchant || merchant.documentName !== "Actor") {
-        return { ok: false, message: "Merchant not found." };
+        return { ok: false, message: "Shop unavailable." };
       }
       if (!buyer || buyer.documentName !== "Actor") {
-        return { ok: false, message: "Buyer not found." };
+        return { ok: false, message: "Character not selected." };
       }
 
-      if (!buyer.isOwner) {
-        return { ok: false, message: "You do not own that character." };
+      const requester = game.users?.get(requesterId);
+      if (!requester) {
+        return { ok: false, message: "Character not selected." };
       }
-      if (buyer.type !== "character") {
-        return { ok: false, message: "Buyer must be a player character." };
+
+      const owned = this.#userOwnsActor(requester, buyer);
+      if (!owned) {
+        return { ok: false, message: "Character not selected." };
       }
 
       const shop = this.getShopkeeper(merchant);
-      if (!shop.enabled) {
-        return { ok: false, message: "This shopkeeper is not open for business." };
+      const check = validatePurchaseRequest({
+        shop,
+        stockId: request.stockId,
+        buyerOwned: true,
+        buyerType: buyer.type,
+        buyerCurrency: buyer.system?.currency ?? {},
+        clientPriceCP: request.priceCP,
+        clientUuid: request.uuid
+      });
+      if (!check.ok) return { ok: false, message: check.message };
+
+      const stock = check.stock;
+      const priceCP = check.priceCP;
+
+      // Resolve source BEFORE charging currency.
+      const sourceItem = await fromUuid(stock.uuid);
+      if (!sourceItem || sourceItem.documentName !== "Item") {
+        console.warn(`${LOG_PREFIX} Shop item source could not be resolved`, stock.uuid);
+        return { ok: false, message: "Item unavailable." };
       }
 
-      // Always re-read stock from merchant flags — never trust client item/price payloads.
-      const stock = (shop.inventory ?? []).find((entry) => entry.id === request.stockId);
-      if (!stock) {
-        return { ok: false, message: "That item is not in this shop's stock." };
+      // Re-check stock after async gap (finite inventory race).
+      const latestShop = this.getShopkeeper(merchant);
+      if (!latestShop.enabled) {
+        return { ok: false, message: "Shop unavailable." };
       }
-      if (stock.quantity != null && Number(stock.quantity) <= 0) {
-        return { ok: false, message: "That item is out of stock." };
+      const latestStock = (latestShop.inventory ?? []).find((entry) => entry.id === stock.id);
+      if (!latestStock) {
+        return { ok: false, message: "Item unavailable." };
       }
-
-      const priceCP = Math.max(0, Number(stock.priceCP) || 0);
-      if (!priceCP) {
-        return { ok: false, message: "That item has an invalid price." };
+      if (latestStock.quantity != null && Number(latestStock.quantity) <= 0) {
+        return { ok: false, message: "Item sold out." };
       }
 
       const currency = foundry.utils.deepClone(buyer.system?.currency ?? {});
-      const totalCP = this.currencyToCopper(currency);
-      if (totalCP < priceCP) {
-        return { ok: false, message: "Insufficient funds." };
+      if (this.currencyToCopper(currency) < priceCP) {
+        return { ok: false, message: "Not enough gold." };
       }
-
-      const sourceItem = await fromUuid(stock.uuid);
-      if (!sourceItem || sourceItem.documentName !== "Item") {
-        return { ok: false, message: "Source item no longer exists." };
-      }
-
       const nextCurrency = this.deductCopper(currency, priceCP);
       const itemData = sourceItem.toObject();
       delete itemData._id;
-      itemData.name = stock.name || itemData.name;
-      if (stock.img) itemData.img = stock.img;
+      // Preserve full dnd5e item data; only normalize purchased quantity to 1.
       if (itemData.system && "quantity" in itemData.system) {
         itemData.system.quantity = 1;
       }
@@ -290,72 +412,79 @@ export class ShopService {
       await buyer.update({ "system.currency": nextCurrency });
       await buyer.createEmbeddedDocuments("Item", [itemData]);
 
-      if (stock.quantity != null && merchant.isOwner) {
-        const inventory = (shop.inventory ?? []).map((entry) => {
-          if (entry.id !== stock.id) return entry;
-          return { ...entry, quantity: Math.max(0, Number(entry.quantity) - 1) };
-        });
-        await this.updateShopkeeper(merchant, { inventory }, { allowNonGM: true });
-      } else if (stock.quantity != null && !merchant.isOwner) {
-        this.#emitStockDecrement(merchant.uuid, stock.id);
+      if (latestStock.quantity != null) {
+        if (game.user.isGM || merchant.isOwner) {
+          const inventory = (latestShop.inventory ?? []).map((entry) => {
+            if (entry.id !== latestStock.id) return entry;
+            return { ...entry, quantity: Math.max(0, Number(entry.quantity) - 1) };
+          });
+          await this.updateShopkeeper(
+            merchant,
+            { inventory },
+            { allowNonGM: Boolean(merchant.isOwner) }
+          );
+        } else {
+          this.#emitStockDecrement(merchant.uuid, latestStock.id);
+        }
       }
 
+      const priceLabel = this.formatPrice(priceCP);
       console.log(
-        `${LOG_PREFIX} Purchase OK: ${buyer.name} bought ${stock.name} for ${priceCP} cp from ${merchant.name}`
+        `${LOG_PREFIX} Purchase OK: ${buyer.name} bought ${latestStock.name} for ${priceCP} cp from ${merchant.name}`
       );
-      return { ok: true, message: `Purchased ${stock.name}.` };
+      return { ok: true, message: `Purchased ${latestStock.name} for ${priceLabel}.` };
     } catch (error) {
       console.error(`${LOG_PREFIX} Purchase failed`, error);
       return { ok: false, message: "Purchase failed." };
     } finally {
-      this.#purchaseLocks.delete(lockKey);
+      this.#purchaseLocks.delete(fulfillKey);
     }
   }
 
   /**
-   * @param {object} currency
-   * @returns {number}
+   * Ask the active GM to fulfill a purchase authoritatively.
+   * @param {{merchantUuid:string,buyerUuid:string,stockId:string}} request
    */
+  #requestPurchaseViaSocket(request) {
+    const requestId = `${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+    return new Promise((resolve) => {
+      const timeout = setTimeout(() => {
+        this.#pendingPurchases.delete(requestId);
+        resolve({ ok: false, message: "Shop unavailable." });
+      }, 15000);
+
+      this.#pendingPurchases.set(requestId, { resolve, timeout });
+      game.socket.emit(`module.${MODULE_ID}`, {
+        type: "purchaseRequest",
+        requestId,
+        userId: game.user.id,
+        merchantUuid: request.merchantUuid,
+        buyerUuid: request.buyerUuid,
+        stockId: request.stockId
+      });
+    });
+  }
+
   currencyToCopper(currency = {}) {
-    return Object.entries(COIN_CP).reduce((sum, [denom, value]) => {
-      return sum + (Number(currency[denom]) || 0) * value;
-    }, 0);
+    return currencyToCopperPure(currency);
   }
 
   /**
-   * Deduct copper-equivalent, then rebuild denominations largest-first.
-   * Note: this may convert mixed coin piles into a normalized purse.
+   * Deduct copper-equivalent while preserving denominations.
    * @param {object} currency
    * @param {number} priceCP
    * @returns {object}
    */
   deductCopper(currency, priceCP) {
-    let remaining = this.currencyToCopper(currency) - priceCP;
-    if (remaining < 0) throw new Error("Insufficient funds");
-
-    const next = { pp: 0, gp: 0, ep: 0, sp: 0, cp: 0 };
-    for (const denom of ["pp", "gp", "ep", "sp", "cp"]) {
-      const coinValue = COIN_CP[denom];
-      next[denom] = Math.floor(remaining / coinValue);
-      remaining -= next[denom] * coinValue;
-    }
-    return next;
+    return deductCopperPure(currency, priceCP);
   }
 
-  /**
-   * Format copper as a compact gp-focused label.
-   * @param {number} priceCP
-   * @returns {string}
-   */
   formatPrice(priceCP) {
-    const gp = Math.floor(priceCP / 100);
-    const sp = Math.floor((priceCP % 100) / 10);
-    const cp = priceCP % 10;
-    const parts = [];
-    if (gp) parts.push(`${gp} gp`);
-    if (sp) parts.push(`${sp} sp`);
-    if (cp || !parts.length) parts.push(`${cp} cp`);
-    return parts.join(", ");
+    return formatCopper(priceCP);
+  }
+
+  formatWallet(currency) {
+    return formatWallet(currency);
   }
 
   /**
@@ -439,9 +568,45 @@ export class ShopService {
   registerSockets() {
     game.socket.on(`module.${MODULE_ID}`, (payload) => {
       if (!payload || typeof payload !== "object") return;
+
+      if (payload.type === "purchaseRequest" && game.user.isGM) {
+        void this.#handlePurchaseRequest(payload);
+        return;
+      }
+
+      if (payload.type === "purchaseResult") {
+        const pending = this.#pendingPurchases.get(payload.requestId);
+        if (!pending) return;
+        clearTimeout(pending.timeout);
+        this.#pendingPurchases.delete(payload.requestId);
+        pending.resolve({
+          ok: Boolean(payload.ok),
+          message: payload.message || (payload.ok ? "Purchase complete." : "Purchase failed.")
+        });
+        return;
+      }
+
       if (payload.type === "stockDecrement" && game.user.isGM) {
         void this.#handleStockDecrement(payload);
       }
+    });
+  }
+
+  async #handlePurchaseRequest(payload) {
+    if (!game.user.isActiveGM) return;
+    const result = await this.#fulfillPurchase(
+      {
+        merchantUuid: payload.merchantUuid,
+        buyerUuid: payload.buyerUuid,
+        stockId: payload.stockId
+      },
+      payload.userId
+    );
+    game.socket.emit(`module.${MODULE_ID}`, {
+      type: "purchaseResult",
+      requestId: payload.requestId,
+      ok: result.ok,
+      message: result.message
     });
   }
 
@@ -463,6 +628,40 @@ export class ShopService {
       return { ...entry, quantity: Math.max(0, Number(entry.quantity) - 1) };
     });
     await this.updateShopkeeper(merchant, { inventory });
+  }
+
+  #stripHtml(html = "") {
+    return String(html)
+      .replace(/<[^>]*>/g, " ")
+      .replace(/&nbsp;/g, " ")
+      .replace(/&amp;/g, "&")
+      .replace(/&lt;/g, "<")
+      .replace(/&gt;/g, ">")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
+  /**
+   * @param {User} user
+   * @param {Actor} actor
+   * @returns {boolean}
+   */
+  #userOwnsActor(user, actor) {
+    if (!user || !actor) return false;
+    try {
+      if (typeof actor.testUserPermission === "function") {
+        const level =
+          CONST?.DOCUMENT_OWNERSHIP_LEVELS?.OWNER ??
+          CONST?.DOCUMENT_PERMISSION_LEVELS?.OWNER ??
+          3;
+        return actor.testUserPermission(user, level);
+      }
+    } catch (_error) {
+      // fall through
+    }
+    const ownership = actor.ownership ?? actor.data?.ownership ?? {};
+    const value = ownership[user.id];
+    return Number(value) >= 3 || value === "OWNER";
   }
 
   async #generateAutomaticStock(actor, shop, partyLevel, economy) {
@@ -786,8 +985,18 @@ export class ShopService {
   }
 
   #filterBucket(item) {
-    if (item.type === "weapon") return "weapons";
-    if (item.type === "equipment") return "armor";
+    const type = item.type;
+    const name = String(item.name ?? "").toLowerCase();
+    const armorType = String(item.armorType ?? "").toLowerCase();
+
+    if (type === "weapon") return "weapons";
+    if (type === "equipment" && (armorType === "shield" || /shield/.test(name))) return "shields";
+    if (type === "equipment") return "armor";
+    if (type === "tool") return "tools";
+    if (type === "container") return "containers";
+    if (type === "consumable" && /potion|elixir|philter/i.test(name)) return "potions";
+    if (/ingredient|component|herb|reagent/i.test(name)) return "ingredients";
+    if (type === "consumable" || /ration|oil|torch|tinder|soap|feed/i.test(name)) return "supplies";
     return "gear";
   }
 
