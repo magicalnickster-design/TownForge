@@ -19,6 +19,15 @@ export class ShopkeeperConfig extends HandlebarsApplicationMixin(ApplicationV2) 
   /** @type {string} */
   actorId = "";
 
+  /** @type {"setup"|"inventory"|"advanced"} */
+  #tab = "setup";
+
+  /** @type {string} */
+  #inventoryQuery = "";
+
+  /** @type {boolean} */
+  #showAddItem = false;
+
   static DEFAULT_OPTIONS = {
     id: "townforge-shopkeeper-config",
     classes: ["townforge", "townforge-shopkeeper-config"],
@@ -33,8 +42,11 @@ export class ShopkeeperConfig extends HandlebarsApplicationMixin(ApplicationV2) 
       resizable: true,
       contentClasses: ["townforge-window-content"]
     },
-    position: { width: 520, height: "auto" },
+    position: { width: 640, height: 760 },
     actions: {
+      setTab: this.#onSetTab,
+      selectShopType: this.#onSelectShopType,
+      toggleAddItem: this.#onToggleAddItem,
       regenerate: this.#onRegenerate,
       resetAutomatic: this.#onResetAutomatic,
       removeStock: this.#onRemoveStock,
@@ -104,13 +116,31 @@ export class ShopkeeperConfig extends HandlebarsApplicationMixin(ApplicationV2) 
       1,
       Math.min(20, Number(shop.fixedPartyLevel) || partyLevel || 1)
     );
+    const inventoryQuery = this.#inventoryQuery.trim().toLowerCase();
+    const inventoryAll = (shop.inventory ?? []).map((entry) => ({
+      ...entry,
+      sourceLabel: entry.source === "manual" ? "Manual" : "Auto",
+      isManual: entry.source === "manual"
+    }));
+    const inventory = inventoryAll.filter((entry) => {
+      if (!inventoryQuery) return true;
+      return `${entry.name} ${entry.type} ${entry.sourceLabel}`.toLowerCase().includes(inventoryQuery);
+    });
 
     return Object.assign(context, {
       actorId: this.#actor.id,
       actorName: this.#actor.name,
+      actorImg: this.#actor.img || "icons/svg/mystery-man.svg",
       shop,
       partyLevel,
       isFixedPartyLevel,
+      tabSetup: this.#tab === "setup",
+      tabInventory: this.#tab === "inventory",
+      tabAdvanced: this.#tab === "advanced",
+      showAddItem: this.#showAddItem,
+      inventoryQuery: this.#inventoryQuery,
+      inventoryCount: inventoryAll.length,
+      inventory,
       fixedPartyLevels: Array.from({ length: 20 }, (_, index) => {
         const value = index + 1;
         return {
@@ -151,11 +181,6 @@ export class ShopkeeperConfig extends HandlebarsApplicationMixin(ApplicationV2) 
           selected: isFixedPartyLevel
         }
       ],
-      inventory: (shop.inventory ?? []).map((entry) => ({
-        ...entry,
-        sourceLabel: entry.source === "manual" ? "Manual" : "Auto",
-        isManual: entry.source === "manual"
-      })),
       shopTypeLabel: getShopTypeLabel(shop.shopType)
     });
   }
@@ -163,6 +188,8 @@ export class ShopkeeperConfig extends HandlebarsApplicationMixin(ApplicationV2) 
   _onRender(context, options) {
     super._onRender?.(context, options);
     this.#bindPartyLevelControls();
+    this.#bindInventorySearch();
+    this.#bindItemDropZone();
   }
 
   #bindPartyLevelControls() {
@@ -177,7 +204,9 @@ export class ShopkeeperConfig extends HandlebarsApplicationMixin(ApplicationV2) 
       fixedSelect.disabled = !fixed;
       fixedLabel?.classList.toggle("is-disabled", !fixed);
       if (fixed && !fixedSelect.value) {
-        fixedSelect.value = String(shopService.getEffectivePartyLevel(shopService.getShopkeeper(this.#actor)));
+        fixedSelect.value = String(
+          shopService.getEffectivePartyLevel(shopService.getShopkeeper(this.#actor))
+        );
       }
     };
 
@@ -185,10 +214,56 @@ export class ShopkeeperConfig extends HandlebarsApplicationMixin(ApplicationV2) 
     sync();
   }
 
-  /**
-   * Read current form fields into a shopkeeper patch.
-   * @returns {object|null}
-   */
+  #bindInventorySearch() {
+    const search = this.element?.querySelector?.("[data-townforge-inventory-search]");
+    if (!search || search.dataset.bound === "1") return;
+    search.dataset.bound = "1";
+    search.addEventListener("input", (event) => {
+      this.#inventoryQuery = event.currentTarget.value ?? "";
+      void this.render({ force: false });
+    });
+  }
+
+  #bindItemDropZone() {
+    const zone = this.element?.querySelector?.("[data-townforge-drop-zone]");
+    if (!zone || zone.dataset.dropBound === "1") return;
+    zone.dataset.dropBound = "1";
+
+    zone.addEventListener("dragover", (event) => {
+      event.preventDefault();
+      zone.classList.add("is-drop-target");
+    });
+    zone.addEventListener("dragleave", () => {
+      zone.classList.remove("is-drop-target");
+    });
+    zone.addEventListener("drop", (event) => {
+      event.preventDefault();
+      zone.classList.remove("is-drop-target");
+      void this.#handleItemDrop(event);
+    });
+  }
+
+  async #handleItemDrop(event) {
+    try {
+      const raw = event.dataTransfer?.getData("text/plain");
+      if (!raw) return;
+      const data = JSON.parse(raw);
+      const uuid = data.uuid || data.data?.uuid;
+      if (!uuid || (data.type && data.type !== "Item")) {
+        ui.notifications?.warn("Drop a Foundry Item onto Add Item.");
+        return;
+      }
+      await shopService.addManualItem(this.#actor, uuid);
+      ui.notifications?.info("Added manual shop item.");
+      this.#showAddItem = true;
+      this.#tab = "inventory";
+      await this.render({ force: false });
+    } catch (error) {
+      console.error(`${LOG_PREFIX} Item drop failed`, error);
+      ui.notifications?.error("Could not add dropped Item.");
+    }
+  }
+
   #readFormPatch() {
     const form = this.element;
     if (!form) return null;
@@ -199,7 +274,15 @@ export class ShopkeeperConfig extends HandlebarsApplicationMixin(ApplicationV2) 
     const fixedPartyLevel =
       partyLevelMode === PARTY_LEVEL_MODES.fixed
         ? Math.max(1, Math.min(20, Number(fixedRaw) || 1))
-        : Math.max(1, Math.min(20, Number(fixedRaw) || shopService.getEffectivePartyLevel(shopService.getShopkeeper(this.#actor)) || 1));
+        : Math.max(
+            1,
+            Math.min(
+              20,
+              Number(fixedRaw) ||
+                shopService.getEffectivePartyLevel(shopService.getShopkeeper(this.#actor)) ||
+                1
+            )
+          );
 
     return {
       enabled: Boolean(enabledInput?.checked),
@@ -213,10 +296,6 @@ export class ShopkeeperConfig extends HandlebarsApplicationMixin(ApplicationV2) 
     };
   }
 
-  /**
-   * Persist the visible form settings to the actor (without inventing shop type).
-   * @param {{regenerate?: boolean, reshuffle?: boolean}} [options]
-   */
   async #persistFormSettings(options = {}) {
     if (!game.user.isGM) return shopService.getShopkeeper(this.#actor);
     const patch = this.#readFormPatch();
@@ -239,12 +318,35 @@ export class ShopkeeperConfig extends HandlebarsApplicationMixin(ApplicationV2) 
     return shopService.getShopkeeper(this.#actor);
   }
 
-  /**
-   * @this {ShopkeeperConfig}
-   */
+  /** @this {ShopkeeperConfig} */
+  static async #onSetTab(_event, target) {
+    const tab = target.dataset.tab;
+    if (!tab || tab === this.#tab) return;
+    this.#tab = tab;
+    await this.render({ force: false });
+  }
+
+  /** @this {ShopkeeperConfig} */
+  static async #onSelectShopType(_event, target) {
+    const shopType = target.dataset.shopType;
+    if (!shopType) return;
+    const input = this.element.querySelector("[data-townforge-shop-type-value]");
+    if (input) input.value = shopType;
+    this.element.querySelectorAll(".townforge-shop-type-card").forEach((card) => {
+      card.classList.toggle("is-selected", card.dataset.shopType === shopType);
+    });
+  }
+
+  /** @this {ShopkeeperConfig} */
+  static async #onToggleAddItem() {
+    this.#showAddItem = !this.#showAddItem;
+    this.#tab = "inventory";
+    await this.render({ force: false });
+  }
+
+  /** @this {ShopkeeperConfig} */
   static async #onSubmit(_event, _form, _formData) {
     if (!game.user.isGM) return;
-    // Always honor the Shop Type selected in the form (no occupation override).
     await this.#persistFormSettings({ regenerate: true, reshuffle: true });
     console.log(`${LOG_PREFIX} Shopkeeper config saved for ${this.#actor.name}`);
     ui.notifications?.info(`TownForge shopkeeper settings saved for ${this.#actor.name}.`);
@@ -254,10 +356,10 @@ export class ShopkeeperConfig extends HandlebarsApplicationMixin(ApplicationV2) 
   /** @this {ShopkeeperConfig} */
   static async #onRegenerate() {
     if (!game.user.isGM) return;
-    // Apply Shop Type / party level / etc. from the form first, then wipe + re-roll.
     await this.#persistFormSettings({ regenerate: false });
     await shopService.regenerateInventory(this.#actor, { force: true, reshuffle: true });
     ui.notifications?.info("TownForge regenerated shop inventory.");
+    this.#tab = "inventory";
     await this.render({ force: false });
   }
 
@@ -274,6 +376,7 @@ export class ShopkeeperConfig extends HandlebarsApplicationMixin(ApplicationV2) 
     await this.#persistFormSettings({ regenerate: false });
     await shopService.resetToAutomatic(this.#actor);
     ui.notifications?.info("TownForge reset shop inventory to automatic.");
+    this.#tab = "inventory";
     await this.render({ force: false });
   }
 
@@ -333,6 +436,7 @@ export class ShopkeeperConfig extends HandlebarsApplicationMixin(ApplicationV2) 
     try {
       await shopService.addManualItem(this.#actor, uuid);
       ui.notifications?.info("Added manual shop item.");
+      this.#showAddItem = false;
       await this.render({ force: false });
     } catch (error) {
       console.error(`${LOG_PREFIX} Manual item add failed`, error);

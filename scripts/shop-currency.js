@@ -182,7 +182,8 @@ export function validatePurchaseRequest({
   buyerType,
   buyerCurrency,
   clientPriceCP = null,
-  clientUuid = null
+  clientUuid = null,
+  quantity = 1
 }) {
   if (!shop?.enabled) {
     return { ok: false, message: "Shop unavailable." };
@@ -202,18 +203,24 @@ export function validatePurchaseRequest({
     return { ok: false, message: "Item sold out." };
   }
 
+  const qty = Math.max(1, Math.min(99, Math.floor(Number(quantity) || 1)));
+  if (stock.quantity != null && Number(stock.quantity) < qty) {
+    return { ok: false, message: "Not enough stock." };
+  }
+
   // Authoritative price/uuid always come from stock — ignore client tampering.
   void clientPriceCP;
   void clientUuid;
-  const priceCP = Math.max(0, Number(stock.priceCP) || 0);
-  if (!priceCP) {
+  const unitPriceCP = Math.max(0, Number(stock.priceCP) || 0);
+  if (!unitPriceCP) {
     return { ok: false, message: "Item unavailable." };
   }
+  const priceCP = unitPriceCP * qty;
 
   const totalCP = currencyToCopper(buyerCurrency);
   if (totalCP < priceCP) {
     return { ok: false, message: "Not enough gold." };
   }
 
-  return { ok: true, priceCP, stock };
+  return { ok: true, priceCP, unitPriceCP, quantity: qty, stock };
 }

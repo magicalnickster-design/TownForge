@@ -364,10 +364,23 @@ export class ShopService {
    * @returns {Promise<string>}
    */
   async getStockDescription(stock) {
-    if (!stock?.uuid) return "";
+    const detail = await this.getStockDetail(stock);
+    return detail.description;
+  }
+
+  /**
+   * Richer item detail for the merchant card (description + light properties).
+   * @param {object} stock
+   * @returns {Promise<{description:string, properties:string[]}>}
+   */
+  async getStockDetail(stock) {
+    if (!stock?.uuid) return { description: "", properties: [] };
     const cached = this.#detailCache.get(stock.uuid);
     if (cached && Date.now() - cached.loadedAt < 5 * 60 * 1000) {
-      return cached.description;
+      return {
+        description: cached.description,
+        properties: cached.properties ?? []
+      };
     }
     try {
       const item = await fromUuid(stock.uuid);
@@ -377,12 +390,44 @@ export class ShopService {
         item?.system?.unidentified?.description ??
         "";
       const description = this.#stripHtml(String(raw)).slice(0, 600);
-      this.#detailCache.set(stock.uuid, { description, loadedAt: Date.now() });
-      return description;
+      const properties = this.#extractItemProperties(item);
+      this.#detailCache.set(stock.uuid, { description, properties, loadedAt: Date.now() });
+      return { description, properties };
     } catch (error) {
       console.warn(`${LOG_PREFIX} Failed loading item detail for ${stock.uuid}`, error);
-      return "";
+      return { description: "", properties: [] };
     }
+  }
+
+  /**
+   * @param {Item|null|undefined} item
+   * @returns {string[]}
+   */
+  #extractItemProperties(item) {
+    if (!item?.system) return [];
+    const props = [];
+    const system = item.system;
+    if (system.rarity) props.push(String(system.rarity));
+    if (system.armor?.type) props.push(`${system.armor.type} armor`);
+    if (system.armor?.value != null) props.push(`AC ${system.armor.value}`);
+    if (system.damage?.parts?.length) {
+      const dmg = system.damage.parts
+        .map((part) => (Array.isArray(part) ? part.filter(Boolean).join(" ") : String(part)))
+        .filter(Boolean)
+        .join(", ");
+      if (dmg) props.push(dmg);
+    }
+    if (system.weight?.value != null) props.push(`${system.weight.value} lb`);
+    if (Array.isArray(system.properties)) {
+      for (const prop of system.properties.slice(0, 4)) {
+        if (prop) props.push(String(prop));
+      }
+    } else if (system.properties && typeof system.properties === "object") {
+      for (const [key, enabled] of Object.entries(system.properties)) {
+        if (enabled) props.push(String(key));
+      }
+    }
+    return [...new Set(props.map((entry) => entry.trim()).filter(Boolean))].slice(0, 6);
   }
 
   /**
@@ -403,7 +448,8 @@ export class ShopService {
       const clean = {
         merchantUuid: String(request.merchantUuid || ""),
         buyerUuid: String(request.buyerUuid || ""),
-        stockId: String(request.stockId || "")
+        stockId: String(request.stockId || ""),
+        quantity: Math.max(1, Math.min(99, Math.floor(Number(request.quantity) || 1)))
       };
 
       if (game.user?.isGM) {
@@ -474,12 +520,14 @@ export class ShopService {
         buyerType: buyer.type,
         buyerCurrency: buyer.system?.currency ?? {},
         clientPriceCP: request.priceCP,
-        clientUuid: request.uuid
+        clientUuid: request.uuid,
+        quantity: request.quantity
       });
       if (!check.ok) return { ok: false, message: check.message };
 
       const stock = check.stock;
       const priceCP = check.priceCP;
+      const qty = check.quantity || 1;
 
       // Resolve source BEFORE charging currency.
       const sourceItem = await fromUuid(stock.uuid);
@@ -497,8 +545,8 @@ export class ShopService {
       if (!latestStock) {
         return { ok: false, message: "Item unavailable." };
       }
-      if (latestStock.quantity != null && Number(latestStock.quantity) <= 0) {
-        return { ok: false, message: "Item sold out." };
+      if (latestStock.quantity != null && Number(latestStock.quantity) < qty) {
+        return { ok: false, message: Number(latestStock.quantity) <= 0 ? "Item sold out." : "Not enough stock." };
       }
 
       const currency = foundry.utils.deepClone(buyer.system?.currency ?? {});
@@ -508,9 +556,9 @@ export class ShopService {
       const nextCurrency = this.deductCopper(currency, priceCP);
       const itemData = sourceItem.toObject();
       delete itemData._id;
-      // Preserve full dnd5e item data; only normalize purchased quantity to 1.
+      // Preserve full dnd5e item data; set purchased quantity.
       if (itemData.system && "quantity" in itemData.system) {
-        itemData.system.quantity = 1;
+        itemData.system.quantity = qty;
       }
 
       await buyer.update({ "system.currency": nextCurrency });
@@ -520,7 +568,7 @@ export class ShopService {
         if (game.user.isGM || merchant.isOwner) {
           const inventory = (latestShop.inventory ?? []).map((entry) => {
             if (entry.id !== latestStock.id) return entry;
-            return { ...entry, quantity: Math.max(0, Number(entry.quantity) - 1) };
+            return { ...entry, quantity: Math.max(0, Number(entry.quantity) - qty) };
           });
           await this.updateShopkeeper(
             merchant,
@@ -528,15 +576,21 @@ export class ShopService {
             { allowNonGM: Boolean(merchant.isOwner) }
           );
         } else {
-          this.#emitStockDecrement(merchant.uuid, latestStock.id);
+          for (let i = 0; i < qty; i += 1) {
+            this.#emitStockDecrement(merchant.uuid, latestStock.id);
+          }
         }
       }
 
       const priceLabel = this.formatPrice(priceCP);
+      const qtyLabel = qty > 1 ? `${qty}× ` : "";
       console.log(
-        `${LOG_PREFIX} Purchase OK: ${buyer.name} bought ${latestStock.name} for ${priceCP} cp from ${merchant.name}`
+        `${LOG_PREFIX} Purchase OK: ${buyer.name} bought ${qtyLabel}${latestStock.name} for ${priceCP} cp from ${merchant.name}`
       );
-      return { ok: true, message: `Purchased ${latestStock.name} for ${priceLabel}.` };
+      return {
+        ok: true,
+        message: `Purchased ${qtyLabel}${latestStock.name} for ${priceLabel}.`
+      };
     } catch (error) {
       console.error(`${LOG_PREFIX} Purchase failed`, error);
       return { ok: false, message: "Purchase failed." };
@@ -564,7 +618,8 @@ export class ShopService {
         userId: game.user.id,
         merchantUuid: request.merchantUuid,
         buyerUuid: request.buyerUuid,
-        stockId: request.stockId
+        stockId: request.stockId,
+        quantity: request.quantity
       });
     });
   }
@@ -724,7 +779,8 @@ export class ShopService {
       {
         merchantUuid: payload.merchantUuid,
         buyerUuid: payload.buyerUuid,
-        stockId: payload.stockId
+        stockId: payload.stockId,
+        quantity: payload.quantity
       },
       payload.userId
     );

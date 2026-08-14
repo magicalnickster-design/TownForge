@@ -1,4 +1,5 @@
 import { LOG_PREFIX, MODULE_ID } from "./constants.js";
+import { currencyToCopper, normalizeCurrency } from "./shop-currency.js";
 import { getShopTypeLabel, shopService } from "./shop-service.js";
 
 const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
@@ -29,8 +30,14 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
   /** @type {string} */
   #selectedDescription = "";
 
+  /** @type {string[]} */
+  #selectedProperties = [];
+
   /** @type {boolean} */
   #buyerPromptNeeded = false;
+
+  /** @type {number} */
+  #buyQuantity = 1;
 
   static DEFAULT_OPTIONS = {
     id: "townforge-merchant",
@@ -41,10 +48,11 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
       resizable: true,
       contentClasses: ["townforge-window-content"]
     },
-    position: { width: 900, height: 720 },
+    position: { width: 980, height: 760 },
     actions: {
       setFilter: this.#onSetFilter,
       selectItem: this.#onSelectItem,
+      adjustQty: this.#onAdjustQty,
       buyItem: this.#onBuyItem,
       openActorSheet: this.#onOpenActorSheet,
       configureShop: this.#onConfigureShop
@@ -54,7 +62,7 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
   static PARTS = {
     body: {
       template: `modules/${MODULE_ID}/templates/shop/merchant.hbs`,
-      scrollable: [".townforge-merchant-list"]
+      scrollable: [".townforge-merchant-list", ".townforge-item-card-body"]
     }
   };
 
@@ -102,11 +110,6 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
     }
   }
 
-  /**
-   * Used by live shop sync to match open windows by id or uuid.
-   * @param {Set<string>|string[]|string|Actor} merchantRef
-   * @returns {boolean}
-   */
   matchesMerchant(merchantRef) {
     const keys =
       merchantRef instanceof Set
@@ -121,10 +124,6 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
     return keys.has(this.merchantId) || keys.has(this.#merchant?.id) || keys.has(this.#merchant?.uuid);
   }
 
-  /**
-   * @param {Set<string>} buyerKeys
-   * @returns {boolean}
-   */
   refreshIfBuyer(buyerKeys) {
     if (!this.#buyerUuid || !buyerKeys?.size) return false;
     return buyerKeys.has(this.#buyerUuid);
@@ -159,6 +158,44 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
     ui.notifications?.warn("No owned character available for shopping.");
   }
 
+  #merchantGreeting() {
+    const raw =
+      this.#merchant.system?.details?.biography?.value ??
+      this.#merchant.system?.details?.biography ??
+      "";
+    const text = String(raw)
+      .replace(/<[^>]*>/g, " ")
+      .replace(/&nbsp;/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+    if (!text) return "";
+    return text.slice(0, 180) + (text.length > 180 ? "…" : "");
+  }
+
+  #walletContext(currency) {
+    const normalized = normalizeCurrency(currency);
+    const coins = [
+      { key: "pp", label: "PP", count: normalized.pp },
+      { key: "gp", label: "GP", count: normalized.gp },
+      { key: "ep", label: "EP", count: normalized.ep },
+      { key: "sp", label: "SP", count: normalized.sp },
+      { key: "cp", label: "CP", count: normalized.cp }
+    ].map((coin) => ({ ...coin, empty: coin.count <= 0 }));
+
+    let walletPrimary = "0 gp";
+    if (normalized.pp > 0) walletPrimary = `${normalized.pp} pp`;
+    else if (normalized.gp > 0) walletPrimary = `${normalized.gp} gp`;
+    else if (normalized.ep > 0) walletPrimary = `${normalized.ep} ep`;
+    else if (normalized.sp > 0) walletPrimary = `${normalized.sp} sp`;
+    else if (normalized.cp > 0) walletPrimary = `${normalized.cp} cp`;
+
+    return {
+      walletPrimary,
+      walletCoins: coins,
+      walletCP: currencyToCopper(normalized)
+    };
+  }
+
   async _prepareContext(options) {
     const context = await super._prepareContext(options);
     const shop = shopService.getShopkeeper(this.#merchant);
@@ -173,6 +210,14 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
       this.#filter = "all";
     }
 
+    const buyers = this.#ownedCharacters();
+    if (this.#buyerUuid && !buyers.some((buyer) => buyer.uuid === this.#buyerUuid)) {
+      this.#buyerUuid = null;
+    }
+
+    const buyerActor = this.#buyerUuid ? await fromUuid(this.#buyerUuid) : null;
+    const wallet = this.#walletContext(buyerActor?.system?.currency ?? {});
+
     const items = inventory
       .filter((entry) => this.#filter === "all" || entry.filter === this.#filter)
       .filter((entry) => {
@@ -181,43 +226,53 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
       })
       .map((entry) => {
         const soldOut = entry.quantity != null && Number(entry.quantity) <= 0;
+        const unitPrice = Math.max(0, Number(entry.priceCP) || 0);
+        const unaffordable = !soldOut && Boolean(buyerActor) && wallet.walletCP < unitPrice;
         return {
           ...entry,
           quantityLabel: entry.quantity == null ? "∞" : String(entry.quantity),
           soldOut,
+          unaffordable,
           selected: entry.id === this.#selectedStockId,
-          canBuy: !soldOut
+          canBuy: !soldOut && !unaffordable
         };
       });
 
-    const buyers = this.#ownedCharacters();
-    if (this.#buyerUuid && !buyers.some((buyer) => buyer.uuid === this.#buyerUuid)) {
-      this.#buyerUuid = null;
-    }
-
-    const buyerActor = this.#buyerUuid ? await fromUuid(this.#buyerUuid) : null;
-    const walletLabel = buyerActor
-      ? shopService.formatWallet(buyerActor.system?.currency ?? {})
-      : "—";
-
     let selected = items.find((entry) => entry.id === this.#selectedStockId) ?? null;
-    if (!selected && items.length) {
-      // Keep prior selection only if still visible; otherwise clear.
-      if (this.#selectedStockId) {
-        const stillExists = inventory.some((entry) => entry.id === this.#selectedStockId);
-        if (!stillExists) {
-          this.#selectedStockId = null;
-          this.#selectedDescription = "";
-        }
+    if (this.#selectedStockId) {
+      const stillExists = inventory.some((entry) => entry.id === this.#selectedStockId);
+      if (!stillExists) {
+        this.#selectedStockId = null;
+        this.#selectedDescription = "";
+        this.#selectedProperties = [];
+        this.#buyQuantity = 1;
+        selected = null;
       }
     }
 
-    if (selected && !this.#selectedDescription) {
-      // Description may still be loading; template can show a placeholder.
+    let buyQuantity = Math.max(1, Math.floor(Number(this.#buyQuantity) || 1));
+    let canIncreaseQty = false;
+    let canDecreaseQty = false;
+    let totalPriceLabel = "—";
+    if (selected && !selected.soldOut) {
+      const maxQty =
+        selected.quantity == null ? 99 : Math.max(1, Math.min(99, Number(selected.quantity) || 1));
+      buyQuantity = Math.max(1, Math.min(maxQty, buyQuantity));
+      this.#buyQuantity = buyQuantity;
+      canDecreaseQty = buyQuantity > 1;
+      canIncreaseQty = buyQuantity < maxQty;
+      const totalCP = Math.max(0, Number(selected.priceCP) || 0) * buyQuantity;
+      totalPriceLabel = shopService.formatPrice(totalCP);
+      selected = {
+        ...selected,
+        unaffordable: Boolean(buyerActor) && wallet.walletCP < totalCP
+      };
     }
 
     return Object.assign(context, {
       merchantName: this.#merchant.name,
+      merchantImg: this.#merchant.img || "icons/svg/mystery-man.svg",
+      merchantGreeting: this.#merchantGreeting(),
       shopName: shop.shopName || `${this.#merchant.name}'s Shop`,
       shopTypeLabel: getShopTypeLabel(shop.shopType),
       query: this.#query,
@@ -230,9 +285,15 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
       hasBuyer: Boolean(this.#buyerUuid),
       needsBuyerChoice: this.#buyerPromptNeeded && buyers.length > 1 && !this.#buyerUuid,
       noCharacters: buyers.length === 0,
-      walletLabel,
+      walletPrimary: wallet.walletPrimary,
+      walletCoins: wallet.walletCoins,
       selected,
       selectedDescription: this.#selectedDescription,
+      selectedProperties: this.#selectedProperties,
+      buyQuantity,
+      canIncreaseQty,
+      canDecreaseQty,
+      totalPriceLabel,
       isGM: game.user.isGM
     });
   }
@@ -285,15 +346,26 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
     if (!stockId) return;
     this.#selectedStockId = stockId;
     this.#selectedDescription = "";
+    this.#selectedProperties = [];
+    this.#buyQuantity = 1;
     await this.render({ force: false });
 
     const shop = shopService.getShopkeeper(this.#merchant);
     const stock = (shop.inventory ?? []).find((entry) => entry.id === stockId);
     if (!stock) return;
-    this.#selectedDescription = await shopService.getStockDescription(stock);
+    const detail = await shopService.getStockDetail(stock);
     if (this.#selectedStockId === stockId) {
+      this.#selectedDescription = detail.description;
+      this.#selectedProperties = detail.properties ?? [];
       await this.render({ force: false });
     }
+  }
+
+  /** @this {MerchantApp} */
+  static async #onAdjustQty(_event, target) {
+    const delta = Number(target.dataset.delta) || 0;
+    this.#buyQuantity = Math.max(1, Math.min(99, (this.#buyQuantity || 1) + delta));
+    await this.render({ force: false });
   }
 
   /** @this {MerchantApp} */
@@ -341,13 +413,15 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
       const result = await shopService.purchaseItem({
         merchantUuid: this.#merchant.uuid,
         buyerUuid,
-        stockId
+        stockId,
+        quantity: this.#buyQuantity
       });
       if (!result.ok) {
         ui.notifications?.warn(result.message || "Purchase failed.");
         return;
       }
       ui.notifications?.info(result.message || "Purchase complete.");
+      this.#buyQuantity = 1;
       await this.render({ force: false });
     } finally {
       target.disabled = false;

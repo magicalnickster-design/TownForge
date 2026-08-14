@@ -3,15 +3,15 @@ import { MODULE_ID } from "./constants.js";
 export const SHOPKEEPER_FLAG = "shopkeeper";
 
 export const SHOP_TYPES = Object.freeze([
-  { id: "blacksmith", label: "Blacksmith", ready: true },
-  { id: "armorer", label: "Armorer", ready: true },
-  { id: "general-store", label: "General Store", ready: true },
-  { id: "adventuring-supplies", label: "Adventuring Supplies", ready: true },
-  { id: "alchemist", label: "Alchemist", ready: true },
-  { id: "inn", label: "Inn", ready: true },
-  { id: "temple", label: "Temple", ready: true },
-  { id: "tailor", label: "Tailor", ready: true },
-  { id: "stable", label: "Stable", ready: true }
+  { id: "blacksmith", label: "Blacksmith", ready: true, icon: "fa-solid fa-hammer" },
+  { id: "armorer", label: "Armorer", ready: true, icon: "fa-solid fa-shield-halved" },
+  { id: "general-store", label: "General Store", ready: true, icon: "fa-solid fa-box-open" },
+  { id: "adventuring-supplies", label: "Adventuring Supplies", ready: true, icon: "fa-solid fa-compass" },
+  { id: "alchemist", label: "Alchemist", ready: true, icon: "fa-solid fa-flask" },
+  { id: "inn", label: "Inn", ready: true, icon: "fa-solid fa-mug-saucer" },
+  { id: "temple", label: "Temple", ready: true, icon: "fa-solid fa-place-of-worship" },
+  { id: "tailor", label: "Tailor", ready: true, icon: "fa-solid fa-scissors" },
+  { id: "stable", label: "Stable", ready: true, icon: "fa-solid fa-horse" }
 ]);
 
 export const ECONOMY_TIERS = Object.freeze({
