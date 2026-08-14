@@ -137,8 +137,31 @@ export const OCCUPATION_SHOP_MAP = Object.freeze([
   { shopType: "general-store", keywords: ["merchant", "shop", "general", "store", "trader", "chandler"] }
 ]);
 
+/**
+ * Coerce shop inventory to a real Array.
+ * Foundry mergeObject() merges arrays by numeric index and can leave an
+ * object-like `{0: item, 1: item}` instead of an Array. Callers that then
+ * do `Array.isArray(inventory) ? inventory : []` would wipe the shelf.
+ * @param {unknown} value
+ * @returns {object[]}
+ */
+export function coerceInventoryArray(value) {
+  if (Array.isArray(value)) return value.filter((row) => row && typeof row === "object");
+  if (!value || typeof value !== "object") return [];
+  return Object.keys(value)
+    .filter((key) => /^\d+$/.test(key))
+    .sort((a, b) => Number(a) - Number(b))
+    .map((key) => value[key])
+    .filter((row) => row && typeof row === "object");
+}
+
 export function defaultShopkeeperFlags(overrides = {}) {
-  return foundry.utils.mergeObject(
+  const source = foundry.utils.deepClone(overrides ?? {});
+  // Never mergeObject() the inventory array: Foundry merges arrays by index
+  // and can turn a real Array into an object-like `{0: item, 1: item}`.
+  const savedInventory = source.inventory;
+  delete source.inventory;
+  const merged = foundry.utils.mergeObject(
     {
       enabled: false,
       shopType: "general-store",
@@ -154,9 +177,11 @@ export function defaultShopkeeperFlags(overrides = {}) {
       generationKey: null,
       inventory: []
     },
-    overrides,
+    source,
     { inplace: false }
   );
+  merged.inventory = coerceInventoryArray(savedInventory);
+  return merged;
 }
 
 /**
