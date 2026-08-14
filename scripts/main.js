@@ -10,7 +10,7 @@ import { shopService } from "./shop-service.js";
  */
 
 Hooks.once("init", () => {
-  console.log(`${LOG_PREFIX} Initializing ${MODULE_TITLE} v0.3.5`);
+  console.log(`${LOG_PREFIX} Initializing ${MODULE_TITLE} v0.3.6`);
   registerTownForgeSettings();
 });
 

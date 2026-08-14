@@ -42,9 +42,29 @@ export function seededPick(list, count, seedText) {
 }
 
 /**
+ * Non-deterministic shuffle-and-take for Regenerate clicks.
+ * @template T
+ * @param {T[]} list
+ * @param {number} count
+ * @returns {T[]}
+ */
+export function randomPick(list, count) {
+  if (!Array.isArray(list) || !list.length || count <= 0) return [];
+  const arr = list.slice();
+  for (let i = arr.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr.slice(0, Math.min(count, arr.length));
+}
+
+/**
  * Build a fresh salt so force-regenerate produces a new assortment.
  * @returns {string}
  */
 export function newGenerationSalt() {
-  return `${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+  const rand =
+    globalThis.crypto?.getRandomValues?.(new Uint32Array(2)) ??
+    [Math.floor(Math.random() * 0xffffffff), Math.floor(Math.random() * 0xffffffff)];
+  return `${Date.now()}-${rand[0].toString(36)}-${rand[1].toString(36)}`;
 }

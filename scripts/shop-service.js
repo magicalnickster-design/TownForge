@@ -19,7 +19,7 @@ import {
 } from "./shop-constants.js";
 import { resolveSelectedItemPacks } from "./shop-sources.js";
 import { refreshOpenShopUIs } from "./shop-sync.js";
-import { newGenerationSalt, seededPick, stableHash } from "./shop-random.js";
+import { newGenerationSalt, randomPick, seededPick, stableHash } from "./shop-random.js";
 
 /**
  * TownForge shop generation, pricing, and purchase validation.
@@ -70,8 +70,16 @@ export class ShopService {
     if (next.fixedPartyLevel != null) {
       next.fixedPartyLevel = Math.max(1, Math.min(20, Number(next.fixedPartyLevel) || 1));
     }
-    if (!Array.isArray(next.inventory)) next.inventory = [];
-    await actor.setFlag(MODULE_ID, SHOPKEEPER_FLAG, next);
+    // Always replace inventory by assignment. Foundry setFlag/mergeObject otherwise
+    // merges arrays by index and can preserve prior stock/order across regenerates.
+    if (Object.prototype.hasOwnProperty.call(patch, "inventory")) {
+      next.inventory = Array.isArray(patch.inventory) ? patch.inventory.slice() : [];
+    } else if (!Array.isArray(next.inventory)) {
+      next.inventory = [];
+    }
+
+    await this.#writeShopkeeperFlag(actor, next);
+
     if (next.enabled) {
       await this.ensurePlayerShopAccess(actor);
     }
@@ -79,6 +87,21 @@ export class ShopService {
     refreshOpenShopUIs(actor, { immediate: true });
     this.#broadcastShopInventoryChanged(actor);
     return this.getShopkeeper(actor);
+  }
+
+  /**
+   * Atomically replace the shopkeeper flag so nested inventory arrays do not merge.
+   * @param {Actor} actor
+   * @param {object} next
+   */
+  async #writeShopkeeperFlag(actor, next) {
+    const flagPath = `flags.${MODULE_ID}.${SHOPKEEPER_FLAG}`;
+    const clearPath = `flags.${MODULE_ID}.-=${SHOPKEEPER_FLAG}`;
+    // Delete then set in one update so mergeObject cannot keep old inventory slots.
+    await actor.update({
+      [clearPath]: null,
+      [flagPath]: next
+    });
   }
 
   /**
@@ -811,41 +834,40 @@ export class ShopService {
 
     const pool = [...affordable];
     const stretchCount = Math.floor(economy.stockCount * economy.expensiveChance);
-    const seededStretch = seededPick(
-      stretch,
-      stretchCount,
-      `${actor.id}:${shop.shopType}:stretch:${partyLevel}:${seedSalt}`
-    );
+    const pick = reshuffle
+      ? (list, count) => randomPick(list, count)
+      : (list, count, label) =>
+          seededPick(list, count, `${actor.id}:${shop.shopType}:${label}:${partyLevel}:${seedSalt}`);
+
+    const seededStretch = pick(stretch, stretchCount, "stretch");
     pool.push(...seededStretch);
 
     const unique = new Map();
     for (const item of pool) unique.set(item.uuid, item);
 
-    const picked = seededPick(
-      [...unique.values()],
-      economy.stockCount,
-      `${actor.id}:${shop.shopType}:${economy.id}:${partyLevel}:${seedSalt}`
-    );
+    const picked = pick([...unique.values()], economy.stockCount, economy.id);
 
-    if (shop.shopType === "blacksmith" || shop.shopType === "armorer") {
-      const staples = [
-        "Dagger",
-        "Handaxe",
-        "Light Hammer",
-        "Mace",
-        "Spear",
-        "Longsword",
-        "Battleaxe",
-        "Warhammer",
-        "Shield",
-        "Chain Shirt",
-        "Scale Mail"
-      ];
-      // On reshuffle, only inject a few random staples so stock can vary.
-      const stapleNames = reshuffle
-        ? seededPick(staples, 3, `${seedSalt}:staples:${shop.shopType}`)
-        : staples;
-      this.#ensureNamedItems(picked, unique, stapleNames, economy.stockCount);
+    // Do not force staple weapons/armor back in on reshuffle — that made every
+    // regenerate look like the same list in the same order.
+    if (!reshuffle && (shop.shopType === "blacksmith" || shop.shopType === "armorer")) {
+      this.#ensureNamedItems(
+        picked,
+        unique,
+        [
+          "Dagger",
+          "Handaxe",
+          "Light Hammer",
+          "Mace",
+          "Spear",
+          "Longsword",
+          "Battleaxe",
+          "Warhammer",
+          "Shield",
+          "Chain Shirt",
+          "Scale Mail"
+        ],
+        economy.stockCount
+      );
     }
 
     return picked.map((item) =>

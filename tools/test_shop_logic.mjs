@@ -394,7 +394,7 @@ test("future source object shape resolves default list", () => {
 
 console.log("\nTownForge shop random reshuffle tests");
 
-const { seededPick, stableHash, newGenerationSalt } = await import("../scripts/shop-random.js");
+const { seededPick, stableHash, newGenerationSalt, randomPick } = await import("../scripts/shop-random.js");
 
 test("stable hash is deterministic", () => {
   assert(stableHash("abc") === stableHash("abc"), "same input");
@@ -418,6 +418,46 @@ test("different salts reshuffle to different assortments", () => {
 test("newGenerationSalt produces unique values", () => {
   const salts = new Set([newGenerationSalt(), newGenerationSalt(), newGenerationSalt()]);
   assert(salts.size === 3, "unique salts");
+});
+
+test("randomPick returns requested count from the source list", () => {
+  const list = Array.from({ length: 25 }, (_, i) => `item-${i}`);
+  const picked = randomPick(list, 7);
+  assert(picked.length === 7, "count");
+  assert(picked.every((entry) => list.includes(entry)), "subset");
+});
+
+test("randomPick can change order across calls", () => {
+  const list = Array.from({ length: 40 }, (_, i) => `item-${i}`);
+  let changed = false;
+  const first = randomPick(list, 15);
+  for (let i = 0; i < 12; i += 1) {
+    const next = randomPick(list, 15);
+    if (JSON.stringify(next) !== JSON.stringify(first)) {
+      changed = true;
+      break;
+    }
+  }
+  assert(changed, "expected at least one different shuffle");
+});
+
+test("inventory patch assignment replaces prior rows conceptually", () => {
+  const prior = [
+    { id: "a", name: "Longsword" },
+    { id: "b", name: "Dagger" },
+    { id: "c", name: "Shield" }
+  ];
+  const patch = {
+    inventory: [
+      { id: "x", name: "Mace" },
+      { id: "y", name: "Spear" }
+    ]
+  };
+  const next = { inventory: prior };
+  if (Object.prototype.hasOwnProperty.call(patch, "inventory")) {
+    next.inventory = Array.isArray(patch.inventory) ? patch.inventory.slice() : [];
+  }
+  assertEqual(next.inventory.map((row) => row.name), ["Mace", "Spear"], "full replace");
 });
 
 console.log(`\n${passed} tests passed`);
