@@ -49,7 +49,7 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
       resizable: true,
       contentClasses: ["townforge-window-content"]
     },
-    position: { width: 1100, height: 720 },
+    position: { width: 840, height: 560 },
     actions: {
       setFilter: MerchantApp.#onSetFilter,
       toggleBuy: MerchantApp.#onToggleBuy,

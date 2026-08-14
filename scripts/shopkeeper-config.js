@@ -42,7 +42,7 @@ export class ShopkeeperConfig extends HandlebarsApplicationMixin(ApplicationV2) 
       resizable: true,
       contentClasses: ["townforge-window-content"]
     },
-    position: { width: 640, height: 760 },
+    position: { width: 520, height: 620 },
     actions: {
       setTab: this.#onSetTab,
       selectShopType: this.#onSelectShopType,

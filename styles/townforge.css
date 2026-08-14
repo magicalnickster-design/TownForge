@@ -700,11 +700,12 @@
 .townforge-btn {
   display: inline-flex;
   align-items: center;
-  gap: 0.65rem;
-  border-radius: 0.75rem;
+  gap: 0.45rem;
+  border-radius: 0.55rem;
   border: 1px solid var(--tf-border);
-  padding: 0.7rem 0.85rem;
+  padding: 0.45rem 0.65rem;
   font: inherit;
+  font-size: 0.85rem;
   cursor: pointer;
   text-align: left;
 }
@@ -803,14 +804,15 @@
 
 .townforge-shop-config,
 .townforge-merchant-shell {
-  padding: 0.85rem 1rem 1rem;
+  padding: 0.65rem 0.75rem 0.75rem;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.55rem;
   min-height: 0;
   height: 100%;
   box-sizing: border-box;
   font-family: var(--tf-sans);
+  font-size: 0.92rem;
 }
 
 .townforge-shop-config-scroll {
@@ -826,18 +828,18 @@
 .townforge-merchant-hero {
   display: grid;
   grid-template-columns: auto 1fr auto;
-  gap: 0.85rem;
+  gap: 0.65rem;
   align-items: center;
-  padding: 0.75rem 0.85rem;
+  padding: 0.55rem 0.65rem;
   border: 1px solid var(--tf-border);
-  border-radius: 0.9rem;
+  border-radius: 0.7rem;
   background:
     linear-gradient(135deg, rgba(196, 163, 90, 0.1), transparent 55%),
     rgba(0, 0, 0, 0.22);
 }
 
 .townforge-trade .townforge-merchant-hero {
-  grid-template-columns: auto minmax(0, 1.2fr) minmax(220px, 0.9fr) auto;
+  grid-template-columns: auto minmax(0, 1.2fr) minmax(180px, 0.9fr) auto;
   align-items: start;
 }
 
@@ -849,8 +851,8 @@
 
 .townforge-trade-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(240px, 0.85fr) minmax(0, 1fr);
-  gap: 0.75rem;
+  grid-template-columns: minmax(0, 1fr) minmax(200px, 0.8fr) minmax(0, 1fr);
+  gap: 0.55rem;
   min-height: 0;
   flex: 1;
 }
@@ -859,12 +861,19 @@
 .townforge-trade-center {
   display: flex;
   flex-direction: column;
-  gap: 0.55rem;
+  gap: 0.4rem;
   min-height: 0;
   border: 1px solid var(--tf-border);
-  border-radius: 0.85rem;
+  border-radius: 0.65rem;
   background: rgba(0, 0, 0, 0.18);
-  padding: 0.65rem 0.7rem;
+  padding: 0.5rem 0.55rem;
+}
+
+.townforge-trade-pane-header h3,
+.townforge-trade-center h3 {
+  margin: 0;
+  font-family: var(--tf-display);
+  font-size: 1.05rem;
 }
 
 .townforge-trade-offer-scroll {
@@ -889,14 +898,7 @@
 
 .townforge-trade-pane-header {
   display: grid;
-  gap: 0.45rem;
-}
-
-.townforge-trade-pane-header h3,
-.townforge-trade-center h3 {
-  margin: 0;
-  font-family: var(--tf-display);
-  font-size: 1.25rem;
+  gap: 0.35rem;
 }
 
 .townforge-trade-list {
@@ -935,19 +937,19 @@
 .townforge-offer-list li {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto auto;
-  gap: 0.4rem;
+  gap: 0.3rem;
   align-items: center;
-  padding: 0.4rem 0.5rem;
+  padding: 0.3rem 0.4rem;
   border: 1px solid var(--tf-border);
-  border-radius: 0.55rem;
+  border-radius: 0.45rem;
   background: rgba(255, 255, 255, 0.03);
-  font-size: 0.88rem;
+  font-size: 0.78rem;
 }
 
 .townforge-offer-qty {
   display: flex;
   align-items: center;
-  gap: 0.35rem;
+  gap: 0.25rem;
   min-width: 0;
 }
 
@@ -963,13 +965,14 @@
   border: 1px solid var(--tf-border);
   background: rgba(0, 0, 0, 0.25);
   color: var(--tf-text);
-  border-radius: 0.35rem;
-  width: 1.55rem;
-  height: 1.55rem;
+  border-radius: 0.3rem;
+  width: 1.35rem;
+  height: 1.35rem;
   line-height: 1;
   cursor: pointer;
   padding: 0;
   flex: 0 0 auto;
+  font-size: 0.8rem;
 }
 
 .townforge-offer-qty button:disabled {
@@ -1019,31 +1022,31 @@
 
 .townforge-buy-btn-lg {
   width: 100%;
-  margin-top: 0.35rem;
-  padding: 0.85rem 1rem;
-  font-size: 1.05rem;
+  margin-top: 0.25rem;
+  padding: 0.6rem 0.75rem;
+  font-size: 0.9rem;
 }
 
 .townforge-shop-hero-portrait,
 .townforge-merchant-portrait {
-  width: 72px;
-  height: 72px;
+  width: 54px;
+  height: 54px;
   object-fit: cover;
-  border-radius: 0.75rem;
+  border-radius: 0.55rem;
   border: 1px solid color-mix(in srgb, var(--tf-accent) 40%, var(--tf-border));
   background: rgba(0, 0, 0, 0.35);
 }
 
 .townforge-merchant-portrait {
-  width: 88px;
-  height: 88px;
+  width: 66px;
+  height: 66px;
 }
 
 .townforge-shop-hero-copy h2,
 .townforge-merchant-hero-copy h2 {
   margin: 0;
   font-family: var(--tf-display);
-  font-size: 1.7rem;
+  font-size: 1.28rem;
   line-height: 1.1;
 }
 
@@ -1059,7 +1062,7 @@
 .townforge-merchant-greeting {
   margin: 0.15rem 0 0;
   color: var(--tf-muted);
-  font-size: 0.9rem;
+  font-size: 0.78rem;
 }
 
 .townforge-merchant-greeting {
@@ -1095,10 +1098,10 @@
 .townforge-shop-tabs {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.35rem;
-  padding: 0.25rem;
+  gap: 0.25rem;
+  padding: 0.2rem;
   border: 1px solid var(--tf-border);
-  border-radius: 0.8rem;
+  border-radius: 0.65rem;
   background: rgba(0, 0, 0, 0.2);
 }
 
@@ -1106,11 +1109,15 @@
   border: none;
   background: transparent;
   color: var(--tf-muted);
-  border-radius: 0.6rem;
-  padding: 0.55rem 0.7rem;
+  border-radius: 0.5rem;
+  padding: 0.4rem 0.5rem;
   font: inherit;
+  font-size: 0.85rem;
   font-weight: 600;
   cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .townforge-shop-tab.is-active {
@@ -1178,33 +1185,41 @@
 .townforge-shop-type-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.45rem;
+  gap: 0.35rem;
 }
 
 .townforge-shop-type-card {
   display: grid;
-  gap: 0.35rem;
+  gap: 0.25rem;
   justify-items: center;
+  align-content: center;
   text-align: center;
   border: 1px solid var(--tf-border);
   background: rgba(255, 255, 255, 0.03);
   color: var(--tf-text);
-  border-radius: 0.75rem;
-  padding: 0.7rem 0.45rem;
+  border-radius: 0.55rem;
+  padding: 0.45rem 0.3rem;
+  min-height: 3.6rem;
   cursor: pointer;
   font: inherit;
+  overflow: hidden;
   transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
 }
 
 .townforge-shop-type-card i {
   color: var(--tf-accent-strong);
-  font-size: 1.05rem;
+  font-size: 0.85rem;
+  line-height: 1;
 }
 
 .townforge-shop-type-card span {
-  font-size: 0.78rem;
+  font-size: 0.62rem;
   font-weight: 600;
-  line-height: 1.2;
+  line-height: 1.15;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  hyphens: auto;
 }
 
 .townforge-shop-type-card:hover {
@@ -1246,9 +1261,9 @@
 }
 
 .townforge-btn-save {
-  min-width: 10rem;
-  padding: 0.75rem 1.1rem;
-  font-size: 1rem;
+  min-width: 7.5rem;
+  padding: 0.55rem 0.85rem;
+  font-size: 0.88rem;
 }
 
 .townforge-btn-danger-ghost {
@@ -1267,7 +1282,33 @@
 .townforge-inventory-header h3 {
   margin: 0;
   font-family: var(--tf-display);
-  font-size: 1.35rem;
+  font-size: 1.1rem;
+}
+
+.townforge-field input,
+.townforge-field select,
+.townforge-manual-add input,
+.townforge-buyer select,
+.townforge-add-item-panel input {
+  border: 1px solid var(--tf-border);
+  background: rgba(0, 0, 0, 0.25);
+  color: var(--tf-text);
+  border-radius: 0.45rem;
+  padding: 0.4rem 0.5rem;
+  font: inherit;
+  font-size: 0.85rem;
+}
+
+.townforge-enable-toggle {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.55rem;
+  align-items: center;
+  padding: 0.6rem 0.7rem;
+  border: 1px solid color-mix(in srgb, var(--tf-accent) 35%, var(--tf-border));
+  border-radius: 0.65rem;
+  background: rgba(196, 163, 90, 0.08);
+  cursor: pointer;
 }
 
 .townforge-inventory-search {
@@ -1310,12 +1351,12 @@
 
 .townforge-stock-list li {
   display: grid;
-  grid-template-columns: 44px minmax(0, 1fr) auto auto;
-  gap: 0.55rem;
+  grid-template-columns: 34px minmax(0, 1fr) auto auto;
+  gap: 0.45rem;
   align-items: center;
-  padding: 0.55rem 0.65rem;
+  padding: 0.4rem 0.5rem;
   border: 1px solid var(--tf-border);
-  border-radius: 0.75rem;
+  border-radius: 0.55rem;
   background: rgba(255, 255, 255, 0.03);
 }
 
@@ -1325,10 +1366,10 @@
 
 .townforge-stock-list img,
 .townforge-merchant-row img {
-  width: 44px;
-  height: 44px;
+  width: 34px;
+  height: 34px;
   object-fit: contain;
-  border-radius: 0.4rem;
+  border-radius: 0.35rem;
   background: rgba(0, 0, 0, 0.25);
 }
 
@@ -1399,7 +1440,25 @@
 .townforge-merchant-filters {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.3rem;
+  gap: 0.25rem;
+}
+
+.townforge-merchant-filters .townforge-cat-tab {
+  font-size: 0.72rem;
+  padding: 0.22rem 0.4rem;
+  border: 1px solid var(--tf-border);
+  border-radius: 0.4rem;
+  border-bottom-width: 1px;
+  background: rgba(255, 255, 255, 0.03);
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.townforge-merchant-filters .townforge-cat-tab.is-active {
+  border-color: var(--tf-accent);
+  background: rgba(196, 163, 90, 0.14);
 }
 
 .townforge-merchant-list {
@@ -1410,12 +1469,12 @@
 
 .townforge-merchant-row {
   display: grid;
-  grid-template-columns: 44px minmax(0, 1fr) auto;
-  gap: 0.7rem;
+  grid-template-columns: 34px minmax(0, 1fr) auto;
+  gap: 0.5rem;
   align-items: center;
-  padding: 0.55rem 0.65rem;
+  padding: 0.4rem 0.5rem;
   border: 1px solid var(--tf-border);
-  border-radius: 0.75rem;
+  border-radius: 0.55rem;
   background: rgba(255, 255, 255, 0.03);
   cursor: pointer;
   transition: border-color 0.15s ease, background 0.15s ease, opacity 0.15s ease;
@@ -1451,10 +1510,10 @@
 
 .townforge-wallet-card {
   display: grid;
-  gap: 0.45rem;
-  margin-bottom: 0.65rem;
-  padding: 0.65rem 0.7rem;
-  border-radius: 0.7rem;
+  gap: 0.3rem;
+  margin-bottom: 0;
+  padding: 0.45rem 0.5rem;
+  border-radius: 0.55rem;
   border: 1px solid color-mix(in srgb, var(--tf-accent) 35%, var(--tf-border));
   background: rgba(196, 163, 90, 0.08);
 }
@@ -1463,35 +1522,35 @@
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  gap: 0.5rem;
+  gap: 0.4rem;
 }
 
 .townforge-wallet-primary span {
   color: var(--tf-muted);
-  font-size: 0.75rem;
+  font-size: 0.65rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
 
 .townforge-wallet-primary strong {
   color: var(--tf-accent-strong);
-  font-size: 1.2rem;
+  font-size: 0.95rem;
 }
 
 .townforge-wallet-denoms {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.35rem;
+  gap: 0.2rem;
 }
 
 .townforge-wallet-coin {
   display: inline-flex;
-  gap: 0.25rem;
+  gap: 0.2rem;
   align-items: baseline;
-  padding: 0.15rem 0.4rem;
-  border-radius: 999px;
+  padding: 0.1rem 0.3rem;
+  border-radius: 0.35rem;
   background: rgba(0, 0, 0, 0.25);
-  font-size: 0.78rem;
+  font-size: 0.68rem;
 }
 
 .townforge-wallet-coin em {
@@ -1640,12 +1699,12 @@
 
 .townforge-buy-btn {
   border: none;
-  border-radius: 0.7rem;
+  border-radius: 0.55rem;
   background: linear-gradient(180deg, var(--tf-accent-strong), var(--tf-accent));
   color: var(--tf-ink);
   font: inherit;
   font-weight: 700;
-  padding: 0.55rem 0.9rem;
+  padding: 0.45rem 0.7rem;
   cursor: pointer;
 }
 
@@ -1663,8 +1722,9 @@
 
 .townforge-buy-btn-lg {
   width: 100%;
-  padding: 0.8rem 0.9rem;
-  font-size: 1rem;
+  margin-top: 0.2rem;
+  padding: 0.55rem 0.7rem;
+  font-size: 0.88rem;
 }
 
 .townforge-link-btn {

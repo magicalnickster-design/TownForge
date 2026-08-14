@@ -5,8 +5,8 @@ export const SHOPKEEPER_FLAG = "shopkeeper";
 export const SHOP_TYPES = Object.freeze([
   { id: "blacksmith", label: "Blacksmith", ready: true, icon: "fa-solid fa-hammer" },
   { id: "armorer", label: "Armorer", ready: true, icon: "fa-solid fa-shield-halved" },
-  { id: "general-store", label: "General Store", ready: true, icon: "fa-solid fa-box-open" },
-  { id: "adventuring-supplies", label: "Adventuring Supplies", ready: true, icon: "fa-solid fa-compass" },
+  { id: "general-store", label: "General", ready: true, icon: "fa-solid fa-box-open" },
+  { id: "adventuring-supplies", label: "Adventuring", ready: true, icon: "fa-solid fa-compass" },
   { id: "alchemist", label: "Alchemist", ready: true, icon: "fa-solid fa-flask" },
   { id: "inn", label: "Inn", ready: true, icon: "fa-solid fa-mug-saucer" },
   { id: "temple", label: "Temple", ready: true, icon: "fa-solid fa-place-of-worship" },
