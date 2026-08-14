@@ -68,11 +68,25 @@ export function registerShopHooks() {
     addShopContextOptions(actor, menuItems);
   });
 
-  Hooks.once("canvasReady", () => {
+  // Backup: Token HUD store button (works even if double-click is blocked elsewhere).
+  Hooks.on("renderTokenHUD", (app, html) => {
+    try {
+      addShopHudButton(app, html);
+    } catch (error) {
+      console.error(`${LOG_PREFIX} Failed adding Token HUD shop button`, error);
+    }
+  });
+
+  Hooks.on("canvasReady", () => {
     patchTokenDoubleClick();
   });
 
   if (canvas?.ready) patchTokenDoubleClick();
+
+  // Migrate existing enabled shopkeepers so players can observe/open them.
+  if (game.user?.isGM) {
+    void shopService.ensureAllEnabledShopAccess();
+  }
 
   console.log(`${LOG_PREFIX} Shopkeeper hooks registered`);
 }
@@ -105,6 +119,52 @@ function addShopContextOptions(actor, menuItems) {
       });
     }
   }
+}
+
+/**
+ * @param {TokenHUD} app
+ * @param {HTMLElement|JQuery} html
+ */
+function addShopHudButton(app, html) {
+  const token = app.object ?? app.token ?? canvas?.tokens?.controlled?.[0];
+  const actor = token?.actor;
+  if (!isOpenableShopkeeper(token, actor)) return;
+
+  const root = html?.jquery ? html[0] : html;
+  if (!root?.querySelector) return;
+  if (root.querySelector("[data-townforge-open-shop]")) return;
+
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = "control-icon";
+  button.dataset.townforgeOpenShop = "1";
+  button.title = "Open Shop";
+  button.setAttribute("aria-label", "Open Shop");
+  button.innerHTML = `<i class="fa-solid fa-store"></i>`;
+  button.addEventListener("click", (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    void MerchantApp.show(actor);
+  });
+
+  const column =
+    root.querySelector(".col.right") ||
+    root.querySelector(".col.left") ||
+    root.querySelector(".col") ||
+    root;
+  column.append(button);
+}
+
+/**
+ * Living enabled shopkeeper that should open the TownForge merchant UI.
+ * @param {Token|null|undefined} token
+ * @param {Actor|null|undefined} actor
+ * @returns {boolean}
+ */
+export function isOpenableShopkeeper(token, actor) {
+  if (!actor) return false;
+  if (shouldDeferTokenClick(token, actor)) return false;
+  return Boolean(shopService.getShopkeeper(actor)?.enabled);
 }
 
 /**
@@ -160,16 +220,39 @@ function hasLootForgeMark(doc) {
  * Players always open the merchant UI.
  * GM opens merchant UI unless Shift is held (then Actor sheet).
  *
- * Remaining risk: other modules that also wrap Token#_onClickLeft2 may race
- * depending on load order. TownForge only short-circuits living shopkeepers.
+ * Foundry stores clickLeft2 permission/callback refs on each Token's
+ * MouseInteractionManager at draw time, so we patch the prototype AND
+ * rebind every existing/new token manager. Without the permission rebind,
+ * players get no double-click event at all on unowned NPCs.
  */
 function patchTokenDoubleClick() {
-  if (tokenClickPatched) return;
   const TokenClass = CONFIG.Token?.objectClass ?? foundry.canvas?.placeables?.Token;
   if (!TokenClass?.prototype) {
     console.warn(`${LOG_PREFIX} Token class unavailable; shop double-click not patched`);
     return;
   }
+
+  patchTokenCanView(TokenClass);
+  patchTokenClickLeft2(TokenClass);
+
+  // Rebind managers for tokens already on the canvas.
+  for (const token of canvas?.tokens?.placeables ?? []) {
+    bindTokenShopInteraction(token);
+  }
+
+  if (!patchTokenDoubleClick._drawHooked) {
+    Hooks.on("drawToken", (token) => {
+      bindTokenShopInteraction(token);
+    });
+    patchTokenDoubleClick._drawHooked = true;
+  }
+}
+
+/**
+ * @param {typeof Token} TokenClass
+ */
+function patchTokenClickLeft2(TokenClass) {
+  if (tokenClickPatched) return;
 
   const original = TokenClass.prototype._onClickLeft2;
   if (typeof original !== "function") {
@@ -177,40 +260,109 @@ function patchTokenDoubleClick() {
     return;
   }
 
-  // Avoid double-wrapping if hot-reloaded.
   if (original.__townforgeShopWrapped) {
     tokenClickPatched = true;
     return;
   }
 
   function townforgeOnClickLeft2(event) {
-    try {
-      const actor = this.actor;
-      if (shouldDeferTokenClick(this, actor)) {
-        return original.call(this, event);
-      }
-
-      const shop = actor ? shopService.getShopkeeper(actor) : null;
-      if (actor && shop?.enabled) {
-        const openSheet = game.user.isGM && Boolean(event?.shiftKey);
-        if (!openSheet) {
-          event?.preventDefault?.();
-          event?.stopPropagation?.();
-          void MerchantApp.show(actor);
-          return;
-        }
-      }
-    } catch (error) {
-      console.error(`${LOG_PREFIX} Token double-click interceptor failed`, error);
-    }
+    if (tryOpenShopFromToken(this, event)) return;
     return original.call(this, event);
   }
 
   townforgeOnClickLeft2.__townforgeShopWrapped = true;
   TokenClass.prototype._onClickLeft2 = townforgeOnClickLeft2;
-
   tokenClickPatched = true;
   console.log(`${LOG_PREFIX} Token double-click interceptor installed`);
+}
+
+/**
+ * Allow all users to "view" (double-click) living enabled shopkeepers.
+ * @param {typeof Token} TokenClass
+ */
+function patchTokenCanView(TokenClass) {
+  const original = TokenClass.prototype._canView;
+  if (typeof original !== "function") {
+    console.warn(`${LOG_PREFIX} Token#_canView missing; player shop clicks may stay blocked`);
+    return;
+  }
+  if (original.__townforgeShopCanViewWrapped) return;
+
+  function townforgeCanView(user, event) {
+    try {
+      if (isOpenableShopkeeper(this, this.actor)) return true;
+    } catch (error) {
+      console.error(`${LOG_PREFIX} Token#_canView shop check failed`, error);
+    }
+    return original.call(this, user, event);
+  }
+
+  townforgeCanView.__townforgeShopCanViewWrapped = true;
+  TokenClass.prototype._canView = townforgeCanView;
+  console.log(`${LOG_PREFIX} Token#_canView interceptor installed for shopkeepers`);
+}
+
+/**
+ * Rebind a Token's MouseInteractionManager so player double-clicks reach TownForge.
+ * @param {Token} token
+ */
+function bindTokenShopInteraction(token) {
+  const mim = token?.mouseInteractionManager;
+  if (!mim) return;
+
+  // Permission: Foundry ignores clickLeft2 unless this returns true.
+  if (!mim.permissions?.clickLeft2?.__townforgeShopCanViewWrapped) {
+    const previous = mim.permissions?.clickLeft2;
+    const wrappedPerm = function townforgeShopCanView(user, event) {
+      try {
+        if (isOpenableShopkeeper(this, this.actor)) return true;
+      } catch (error) {
+        console.error(`${LOG_PREFIX} MIM clickLeft2 permission failed`, error);
+      }
+      if (typeof previous === "function") return previous.call(this, user, event);
+      return Boolean(previous);
+    };
+    wrappedPerm.__townforgeShopCanViewWrapped = true;
+    mim.permissions.clickLeft2 = wrappedPerm;
+  }
+
+  // Callback: open merchant UI for shopkeepers.
+  if (!mim.callbacks?.clickLeft2?.__townforgeShopWrapped) {
+    const previous = mim.callbacks?.clickLeft2;
+    const wrappedClick = function townforgeShopClickLeft2(event) {
+      if (tryOpenShopFromToken(this, event)) return false;
+      if (typeof previous === "function") return previous.call(this, event);
+    };
+    wrappedClick.__townforgeShopWrapped = true;
+    // Keep token as `this` for Foundry's manager invocation patterns.
+    mim.callbacks.clickLeft2 = wrappedClick;
+  }
+}
+
+/**
+ * @param {Token} token
+ * @param {Event} event
+ * @returns {boolean} true when TownForge handled the click
+ */
+function tryOpenShopFromToken(token, event) {
+  try {
+    const actor = token?.actor;
+    if (!isOpenableShopkeeper(token, actor)) return false;
+    const openSheet = game.user.isGM && Boolean(event?.shiftKey);
+    if (openSheet) return false;
+
+    event?.preventDefault?.();
+    event?.stopPropagation?.();
+    event?.stopImmediatePropagation?.();
+    void MerchantApp.show(actor).catch((error) => {
+      console.error(`${LOG_PREFIX} Failed opening merchant from token double-click`, error);
+      ui.notifications?.error("TownForge could not open the shop.");
+    });
+    return true;
+  } catch (error) {
+    console.error(`${LOG_PREFIX} Token double-click interceptor failed`, error);
+    return false;
+  }
 }
 
 /**
@@ -226,6 +378,7 @@ export const shopApi = Object.freeze({
   enable: (actor, options) => shopService.enableShopkeeper(actor, options),
   regenerate: (actor) => shopService.regenerateInventory(actor, { force: true }),
   shouldDeferTokenClick,
+  isOpenableShopkeeper,
   refreshOpenShopUIs,
   service: shopService
 });

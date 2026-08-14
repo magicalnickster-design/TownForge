@@ -66,34 +66,40 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
 
   static async show(merchant) {
     if (!merchant) return null;
-    const shop = shopService.getShopkeeper(merchant);
-    if (!shop.enabled) {
-      ui.notifications?.warn("Shop unavailable.");
+    try {
+      const shop = shopService.getShopkeeper(merchant);
+      if (!shop.enabled) {
+        ui.notifications?.warn("Shop unavailable.");
+        return null;
+      }
+
+      if (
+        game.user.isGM &&
+        shop.inventoryMode !== "manual" &&
+        !(shop.inventory ?? []).length
+      ) {
+        await shopService.regenerateInventory(merchant, { force: true });
+      }
+
+      const existing = [...foundry.applications.instances.values()].find(
+        (app) => app instanceof MerchantApp && app.merchantId === merchant.id
+      );
+      if (existing) {
+        await existing.render({ force: true });
+        existing.bringToFront?.();
+        return existing;
+      }
+
+      const app = new MerchantApp(merchant);
+      app.#initializeBuyer();
+      console.log(`${LOG_PREFIX} Merchant window opened for ${merchant.name}`);
+      await app.render({ force: true });
+      return app;
+    } catch (error) {
+      console.error(`${LOG_PREFIX} MerchantApp.show failed`, error);
+      ui.notifications?.error("TownForge could not open the shop.");
       return null;
     }
-
-    if (
-      game.user.isGM &&
-      shop.inventoryMode !== "manual" &&
-      !(shop.inventory ?? []).length
-    ) {
-      await shopService.regenerateInventory(merchant, { force: true });
-    }
-
-    const existing = [...foundry.applications.instances.values()].find(
-      (app) => app instanceof MerchantApp && app.merchantId === merchant.id
-    );
-    if (existing) {
-      await existing.render({ force: true });
-      existing.bringToFront?.();
-      return existing;
-    }
-
-    const app = new MerchantApp(merchant);
-    app.#initializeBuyer();
-    console.log(`${LOG_PREFIX} Merchant window opened for ${merchant.name}`);
-    await app.render({ force: true });
-    return app;
   }
 
   /**

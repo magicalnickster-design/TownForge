@@ -71,6 +71,9 @@ export class ShopService {
     }
     if (!Array.isArray(next.inventory)) next.inventory = [];
     await actor.setFlag(MODULE_ID, SHOPKEEPER_FLAG, next);
+    if (next.enabled) {
+      await this.ensurePlayerShopAccess(actor);
+    }
     // Local clients refresh immediately; remote clients also get updateActor + socket.
     refreshOpenShopUIs(actor, { immediate: true });
     this.#broadcastShopInventoryChanged(actor);
@@ -171,7 +174,7 @@ export class ShopService {
     });
 
     // Players need at least OBSERVER to read live shop inventory flags.
-    await this.#ensurePlayerShopAccess(actor);
+    await this.ensurePlayerShopAccess(actor);
 
     if (enabled.inventoryMode === INVENTORY_MODES.automatic) {
       return this.regenerateInventory(actor, { force: true });
@@ -182,9 +185,10 @@ export class ShopService {
   /**
    * Ensure default ownership is at least OBSERVER so all players can browse
    * and live-sync shop stock from the merchant Actor flags.
+   * Without this, Foundry blocks player double-clicks via Token#_canView.
    * @param {Actor} actor
    */
-  async #ensurePlayerShopAccess(actor) {
+  async ensurePlayerShopAccess(actor) {
     if (!game.user?.isGM || !actor) return;
     try {
       const OBSERVER =
@@ -197,6 +201,20 @@ export class ShopService {
       console.log(`${LOG_PREFIX} Granted OBSERVER default ownership for shopkeeper ${actor.name}`);
     } catch (error) {
       console.warn(`${LOG_PREFIX} Could not update shopkeeper ownership for player access`, error);
+    }
+  }
+
+  /**
+   * One-time / ready migration: grant player access on every enabled shopkeeper.
+   */
+  async ensureAllEnabledShopAccess() {
+    if (!game.user?.isGM) return;
+    const actors = game.actors?.contents ?? game.actors ?? [];
+    for (const actor of actors) {
+      if (!actor || actor.type !== "npc") continue;
+      const shop = this.getShopkeeper(actor);
+      if (!shop.enabled) continue;
+      await this.ensurePlayerShopAccess(actor);
     }
   }
 

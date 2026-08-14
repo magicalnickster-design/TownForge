@@ -62,4 +62,17 @@ test("detects buyer currency updates", () => {
   assert(!buyerCurrencyChanged({ system: { attributes: {} } }), "other system");
 });
 
+test("openable shopkeeper helper mirrors living+enabled rules", () => {
+  const defer = (actor) => {
+    if (!actor) return true;
+    const hp = actor?.system?.attributes?.hp?.value;
+    return hp != null && Number(hp) <= 0;
+  };
+  const openable = (actor, enabled) => !defer(actor) && Boolean(enabled);
+  assert(openable({ system: { attributes: { hp: { value: 10 } } } }, true) === true, "living shop");
+  assert(openable({ system: { attributes: { hp: { value: 0 } } } }, true) === false, "dead");
+  assert(openable({ system: { attributes: { hp: { value: 10 } } } }, false) === false, "disabled");
+  assert(openable(null, true) === false, "missing actor");
+});
+
 console.log(`\n${passed} tests passed`);

@@ -10,7 +10,7 @@ import { shopService } from "./shop-service.js";
  */
 
 Hooks.once("init", () => {
-  console.log(`${LOG_PREFIX} Initializing ${MODULE_TITLE} v0.3.3`);
+  console.log(`${LOG_PREFIX} Initializing ${MODULE_TITLE} v0.3.4`);
   registerTownForgeSettings();
 });
 
@@ -31,7 +31,7 @@ Hooks.once("ready", async () => {
     npcService,
     shopService,
     shop: shopApi,
-    version: game.modules.get(MODULE_ID)?.version ?? "0.3.3"
+    version: game.modules.get(MODULE_ID)?.version ?? "0.3.4"
   });
 });
 
