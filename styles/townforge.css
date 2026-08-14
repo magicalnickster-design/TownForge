@@ -872,6 +872,11 @@
   font: inherit;
 }
 
+.townforge-fixed-level.is-disabled select {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
 .townforge-shop-actions {
   display: grid;
   grid-template-columns: 1fr 1fr;

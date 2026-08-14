@@ -99,12 +99,26 @@ export class ShopkeeperConfig extends HandlebarsApplicationMixin(ApplicationV2) 
     const context = await super._prepareContext(options);
     const shop = shopService.getShopkeeper(this.#actor);
     const partyLevel = shopService.getEffectivePartyLevel(shop);
+    const isFixedPartyLevel = shop.partyLevelMode === PARTY_LEVEL_MODES.fixed;
+    const fixedLevelValue = Math.max(
+      1,
+      Math.min(20, Number(shop.fixedPartyLevel) || partyLevel || 1)
+    );
 
     return Object.assign(context, {
       actorId: this.#actor.id,
       actorName: this.#actor.name,
       shop,
       partyLevel,
+      isFixedPartyLevel,
+      fixedPartyLevels: Array.from({ length: 20 }, (_, index) => {
+        const value = index + 1;
+        return {
+          value,
+          label: `Level ${value}`,
+          selected: value === fixedLevelValue
+        };
+      }),
       shopTypes: SHOP_TYPES.map((entry) => ({
         ...entry,
         selected: entry.id === shop.shopType
@@ -134,7 +148,7 @@ export class ShopkeeperConfig extends HandlebarsApplicationMixin(ApplicationV2) 
         {
           id: PARTY_LEVEL_MODES.fixed,
           label: "Fixed Level",
-          selected: shop.partyLevelMode === PARTY_LEVEL_MODES.fixed
+          selected: isFixedPartyLevel
         }
       ],
       inventory: (shop.inventory ?? []).map((entry) => ({
@@ -146,38 +160,92 @@ export class ShopkeeperConfig extends HandlebarsApplicationMixin(ApplicationV2) 
     });
   }
 
-  /**
-   * @this {ShopkeeperConfig}
-   */
-  static async #onSubmit(_event, form, formData) {
-    if (!game.user.isGM) return;
-    const data = formData.object;
-    const enabled = Boolean(data.enabled);
-    const current = shopService.getShopkeeper(this.#actor);
-    let shopType = String(data.shopType || current.shopType || "general-store");
+  _onRender(context, options) {
+    super._onRender?.(context, options);
+    this.#bindPartyLevelControls();
+  }
 
-    // First enable: infer shop type from occupation when still on the default store type.
-    if (enabled && !current.enabled && shopType === "general-store") {
-      shopType = shopService.inferShopType(shopService.getOccupationHint(this.#actor));
-    }
+  #bindPartyLevelControls() {
+    const modeSelect = this.element?.querySelector?.("[data-townforge-party-mode]");
+    const fixedSelect = this.element?.querySelector?.("[data-townforge-fixed-level]");
+    const fixedLabel = this.element?.querySelector?.(".townforge-fixed-level");
+    if (!modeSelect || !fixedSelect || modeSelect.dataset.bound === "1") return;
+    modeSelect.dataset.bound = "1";
 
-    const patch = {
-      enabled,
-      shopType,
-      shopName: String(data.shopName || ""),
-      inventoryMode: String(data.inventoryMode || INVENTORY_MODES.automatic),
-      economyTier: String(data.economyTier || "standard"),
-      partyLevelMode: String(data.partyLevelMode || PARTY_LEVEL_MODES.auto),
-      fixedPartyLevel: data.fixedPartyLevel ? Number(data.fixedPartyLevel) : null,
-      priceMultiplier: Number(data.priceMultiplier) || 1
+    const sync = () => {
+      const fixed = modeSelect.value === PARTY_LEVEL_MODES.fixed;
+      fixedSelect.disabled = !fixed;
+      fixedLabel?.classList.toggle("is-disabled", !fixed);
+      if (fixed && !fixedSelect.value) {
+        fixedSelect.value = String(shopService.getEffectivePartyLevel(shopService.getShopkeeper(this.#actor)));
+      }
     };
+
+    modeSelect.addEventListener("change", sync);
+    sync();
+  }
+
+  /**
+   * Read current form fields into a shopkeeper patch.
+   * @returns {object|null}
+   */
+  #readFormPatch() {
+    const form = this.element;
+    if (!form) return null;
+    const get = (name) => form.querySelector(`[name="${name}"]`);
+    const enabledInput = get("enabled");
+    const partyLevelMode = String(get("partyLevelMode")?.value || PARTY_LEVEL_MODES.auto);
+    const fixedRaw = get("fixedPartyLevel")?.value;
+    const fixedPartyLevel =
+      partyLevelMode === PARTY_LEVEL_MODES.fixed
+        ? Math.max(1, Math.min(20, Number(fixedRaw) || 1))
+        : Math.max(1, Math.min(20, Number(fixedRaw) || shopService.getEffectivePartyLevel(shopService.getShopkeeper(this.#actor)) || 1));
+
+    return {
+      enabled: Boolean(enabledInput?.checked),
+      shopType: String(get("shopType")?.value || "general-store"),
+      shopName: String(get("shopName")?.value || ""),
+      inventoryMode: String(get("inventoryMode")?.value || INVENTORY_MODES.automatic),
+      economyTier: String(get("economyTier")?.value || "standard"),
+      partyLevelMode,
+      fixedPartyLevel,
+      priceMultiplier: Number(get("priceMultiplier")?.value) || 1
+    };
+  }
+
+  /**
+   * Persist the visible form settings to the actor (without inventing shop type).
+   * @param {{regenerate?: boolean, reshuffle?: boolean}} [options]
+   */
+  async #persistFormSettings(options = {}) {
+    if (!game.user.isGM) return shopService.getShopkeeper(this.#actor);
+    const patch = this.#readFormPatch();
+    if (!patch) return shopService.getShopkeeper(this.#actor);
 
     await shopService.updateShopkeeper(this.#actor, patch);
 
-    if (enabled && patch.inventoryMode === INVENTORY_MODES.automatic) {
-      await shopService.regenerateInventory(this.#actor, { force: true });
+    const shouldGenerate =
+      Boolean(options.regenerate) &&
+      patch.enabled &&
+      patch.inventoryMode === INVENTORY_MODES.automatic;
+
+    if (shouldGenerate) {
+      await shopService.regenerateInventory(this.#actor, {
+        force: true,
+        reshuffle: Boolean(options.reshuffle)
+      });
     }
 
+    return shopService.getShopkeeper(this.#actor);
+  }
+
+  /**
+   * @this {ShopkeeperConfig}
+   */
+  static async #onSubmit(_event, _form, _formData) {
+    if (!game.user.isGM) return;
+    // Always honor the Shop Type selected in the form (no occupation override).
+    await this.#persistFormSettings({ regenerate: true, reshuffle: true });
     console.log(`${LOG_PREFIX} Shopkeeper config saved for ${this.#actor.name}`);
     ui.notifications?.info(`TownForge shopkeeper settings saved for ${this.#actor.name}.`);
     await this.render({ force: false });
@@ -185,7 +253,10 @@ export class ShopkeeperConfig extends HandlebarsApplicationMixin(ApplicationV2) 
 
   /** @this {ShopkeeperConfig} */
   static async #onRegenerate() {
-    await shopService.regenerateInventory(this.#actor, { force: true });
+    if (!game.user.isGM) return;
+    // Apply Shop Type / party level / etc. from the form first, then wipe + re-roll.
+    await this.#persistFormSettings({ regenerate: false });
+    await shopService.regenerateInventory(this.#actor, { force: true, reshuffle: true });
     ui.notifications?.info("TownForge regenerated shop inventory.");
     await this.render({ force: false });
   }
@@ -200,6 +271,7 @@ export class ShopkeeperConfig extends HandlebarsApplicationMixin(ApplicationV2) 
         : "Reset to automatic inventory and regenerate stock?"
     );
     if (!confirmed) return;
+    await this.#persistFormSettings({ regenerate: false });
     await shopService.resetToAutomatic(this.#actor);
     ui.notifications?.info("TownForge reset shop inventory to automatic.");
     await this.render({ force: false });

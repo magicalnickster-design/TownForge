@@ -392,4 +392,32 @@ test("future source object shape resolves default list", () => {
   assertEqual(typed, ["dnd5e.equipment24"], "future per-shop-type shape");
 });
 
+console.log("\nTownForge shop random reshuffle tests");
+
+const { seededPick, stableHash, newGenerationSalt } = await import("../scripts/shop-random.js");
+
+test("stable hash is deterministic", () => {
+  assert(stableHash("abc") === stableHash("abc"), "same input");
+  assert(stableHash("abc") !== stableHash("abcd"), "different input");
+});
+
+test("same seed returns same picks", () => {
+  const list = Array.from({ length: 30 }, (_, i) => `item-${i}`);
+  const a = seededPick(list, 8, "merchant:blacksmith:1:stable");
+  const b = seededPick(list, 8, "merchant:blacksmith:1:stable");
+  assertEqual(a, b, "deterministic");
+});
+
+test("different salts reshuffle to different assortments", () => {
+  const list = Array.from({ length: 40 }, (_, i) => `item-${i}`);
+  const a = seededPick(list, 10, "merchant:blacksmith:1:salt-a");
+  const b = seededPick(list, 10, "merchant:blacksmith:1:salt-b");
+  assert(JSON.stringify(a) !== JSON.stringify(b), "reshuffle differs");
+});
+
+test("newGenerationSalt produces unique values", () => {
+  const salts = new Set([newGenerationSalt(), newGenerationSalt(), newGenerationSalt()]);
+  assert(salts.size === 3, "unique salts");
+});
+
 console.log(`\n${passed} tests passed`);

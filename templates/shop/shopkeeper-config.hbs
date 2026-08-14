@@ -18,7 +18,7 @@
 
       <label>
         <span>Shop Type</span>
-        <select name="shopType">
+        <select name="shopType" data-townforge-shop-type>
           {{#each shopTypes}}
           <option value="{{id}}" {{#if selected}}selected{{/if}}>{{label}}</option>
           {{/each}}
@@ -45,16 +45,20 @@
 
       <label>
         <span>Party Level</span>
-        <select name="partyLevelMode">
+        <select name="partyLevelMode" data-townforge-party-mode>
           {{#each partyLevelModes}}
           <option value="{{id}}" {{#if selected}}selected{{/if}}>{{label}}</option>
           {{/each}}
         </select>
       </label>
 
-      <label>
-        <span>Fixed Level</span>
-        <input type="number" name="fixedPartyLevel" min="1" max="20" step="1" value="{{shop.fixedPartyLevel}}" placeholder="{{partyLevel}}" />
+      <label class="townforge-fixed-level{{#unless isFixedPartyLevel}} is-disabled{{/unless}}">
+        <span>Fixed Level (1–20)</span>
+        <select name="fixedPartyLevel" data-townforge-fixed-level {{#unless isFixedPartyLevel}}disabled{{/unless}}>
+          {{#each fixedPartyLevels}}
+          <option value="{{value}}" {{#if selected}}selected{{/if}}>{{label}}</option>
+          {{/each}}
+        </select>
       </label>
 
       <label>
@@ -68,15 +72,18 @@
       Inventory is generated only from packs selected in
       <button type="button" class="townforge-link-btn" data-action="openItemSources">Shopkeeper Item Sources</button>.
     </p>
+    <p class="townforge-muted">
+      Choose a Shop Type, then Save or Regenerate to build stock for that store (blacksmith, alchemist, etc.).
+    </p>
 
     <div class="townforge-shop-actions">
       <button type="submit" class="townforge-btn townforge-btn-primary">
         <i class="fa-solid fa-floppy-disk"></i>
-        <span><strong>Save</strong><small>Apply shopkeeper settings</small></span>
+        <span><strong>Save</strong><small>Apply settings + generate stock</small></span>
       </button>
       <button type="button" class="townforge-btn townforge-btn-secondary" data-action="regenerate">
         <i class="fa-solid fa-rotate"></i>
-        <span><strong>Regenerate Inventory</strong><small>Keep manual items</small></span>
+        <span><strong>Regenerate Inventory</strong><small>Wipe auto stock &amp; re-roll</small></span>
       </button>
       <button type="button" class="townforge-btn townforge-btn-secondary" data-action="resetAutomatic">
         <i class="fa-solid fa-eraser"></i>
@@ -90,7 +97,7 @@
 
     <section class="townforge-manage-inventory">
       <h3>Manage Inventory</h3>
-      <p class="townforge-muted">Manual items survive Regenerate. Reset to Automatic clears them after confirmation.</p>
+      <p class="townforge-muted">Regenerate deletes automatic items and rolls a new assortment for the current Shop Type. Manual items are kept unless you Reset to Automatic.</p>
       <div class="townforge-manual-add">
         <input type="text" data-townforge-manual-uuid placeholder="Paste Foundry Item UUID" />
         <button type="button" data-action="addSelectedItem">Add Manual Item</button>

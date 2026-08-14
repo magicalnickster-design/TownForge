@@ -19,6 +19,7 @@ import {
 } from "./shop-constants.js";
 import { resolveSelectedItemPacks } from "./shop-sources.js";
 import { refreshOpenShopUIs } from "./shop-sync.js";
+import { newGenerationSalt, seededPick, stableHash } from "./shop-random.js";
 
 /**
  * TownForge shop generation, pricing, and purchase validation.
@@ -228,12 +229,14 @@ export class ShopService {
   }
 
   /**
-   * Regenerate automatic stock, preserving manual entries.
+   * Regenerate automatic stock from scratch.
+   * Always replaces automatic entries. Manual entries are kept unless clearManual.
+   * When reshuffle/force regenerate, a new random salt produces a different assortment.
    * @param {Actor} actor
-   * @param {{force?: boolean}} [options]
+   * @param {{force?: boolean, reshuffle?: boolean, clearManual?: boolean}} [options]
    * @returns {Promise<object>}
    */
-  async regenerateInventory(actor, { force = false } = {}) {
+  async regenerateInventory(actor, { force = false, reshuffle = false, clearManual = false } = {}) {
     if (!game.user?.isGM) {
       console.warn(`${LOG_PREFIX} Ignoring inventory regenerate from non-GM user`);
       return this.getShopkeeper(actor);
@@ -245,6 +248,8 @@ export class ShopService {
     const partyLevel = this.getEffectivePartyLevel(shop);
     const economy = ECONOMY_TIERS[shop.economyTier] ?? ECONOMY_TIERS.standard;
     const { selectedIds } = resolveSelectedItemPacks();
+    const shouldReshuffle = Boolean(force || reshuffle);
+    const seedSalt = shouldReshuffle ? newGenerationSalt() : "stable";
     const generationKey = [
       shop.shopType,
       shop.economyTier,
@@ -252,10 +257,11 @@ export class ShopService {
       partyLevel,
       shop.priceMultiplier,
       selectedIds.join(","),
-      actor.id
+      actor.id,
+      shouldReshuffle ? seedSalt : "stable"
     ].join("|");
 
-    if (!force && shop.generationKey === generationKey && Array.isArray(shop.inventory)) {
+    if (!force && !reshuffle && shop.generationKey === generationKey && Array.isArray(shop.inventory)) {
       return shop;
     }
 
@@ -265,18 +271,26 @@ export class ShopService {
       );
       console.warn(`${LOG_PREFIX} Shop inventory generation blocked: no item sources selected`);
       return this.updateShopkeeper(actor, {
-        inventory: (shop.inventory ?? []).filter((entry) => entry?.source === "manual"),
+        inventory: clearManual
+          ? []
+          : (shop.inventory ?? []).filter((entry) => entry?.source === "manual"),
         generatedAt: Date.now(),
         generationKey
       });
     }
 
-    const manual = (shop.inventory ?? []).filter((entry) => entry?.source === "manual");
-    const automatic = await this.#generateAutomaticStock(actor, shop, partyLevel, economy);
+    // Delete previous automatic stock, then build a fresh list for the current shop type.
+    const manual = clearManual
+      ? []
+      : (shop.inventory ?? []).filter((entry) => entry?.source === "manual");
+    const automatic = await this.#generateAutomaticStock(actor, shop, partyLevel, economy, {
+      seedSalt,
+      reshuffle: shouldReshuffle
+    });
     const inventory = [...automatic, ...manual];
 
     console.log(
-      `${LOG_PREFIX} Generated ${automatic.length} automatic stock item(s) for ${actor.name} (${shop.shopType}, lvl ${partyLevel}, ${economy.id})`
+      `${LOG_PREFIX} Generated ${automatic.length} automatic stock item(s) for ${actor.name} (${shop.shopType}, lvl ${partyLevel}, ${economy.id}, salt ${seedSalt})`
     );
 
     return this.updateShopkeeper(actor, {
@@ -629,7 +643,7 @@ export class ShopService {
       inventoryMode: INVENTORY_MODES.automatic,
       inventory: []
     });
-    return this.regenerateInventory(merchant, { force: true });
+    return this.regenerateInventory(merchant, { force: true, reshuffle: true, clearManual: true });
   }
 
   registerSockets() {
@@ -753,7 +767,9 @@ export class ShopService {
     return Number(value) >= 3 || value === "OWNER";
   }
 
-  async #generateAutomaticStock(actor, shop, partyLevel, economy) {
+  async #generateAutomaticStock(actor, shop, partyLevel, economy, options = {}) {
+    const seedSalt = options.seedSalt || "stable";
+    const reshuffle = Boolean(options.reshuffle);
     const index = await this.#loadItemIndex();
     if (!index.length) {
       const { selectedIds } = resolveSelectedItemPacks();
@@ -795,41 +811,41 @@ export class ShopService {
 
     const pool = [...affordable];
     const stretchCount = Math.floor(economy.stockCount * economy.expensiveChance);
-    const seededStretch = this.#seededPick(
+    const seededStretch = seededPick(
       stretch,
       stretchCount,
-      `${actor.id}:${shop.shopType}:stretch:${partyLevel}`
+      `${actor.id}:${shop.shopType}:stretch:${partyLevel}:${seedSalt}`
     );
     pool.push(...seededStretch);
 
     const unique = new Map();
     for (const item of pool) unique.set(item.uuid, item);
 
-    const picked = this.#seededPick(
+    const picked = seededPick(
       [...unique.values()],
       economy.stockCount,
-      `${actor.id}:${shop.shopType}:${economy.id}:${partyLevel}`
+      `${actor.id}:${shop.shopType}:${economy.id}:${partyLevel}:${seedSalt}`
     );
 
     if (shop.shopType === "blacksmith" || shop.shopType === "armorer") {
-      this.#ensureNamedItems(
-        picked,
-        unique,
-        [
-          "Dagger",
-          "Handaxe",
-          "Light Hammer",
-          "Mace",
-          "Spear",
-          "Longsword",
-          "Battleaxe",
-          "Warhammer",
-          "Shield",
-          "Chain Shirt",
-          "Scale Mail"
-        ],
-        economy.stockCount
-      );
+      const staples = [
+        "Dagger",
+        "Handaxe",
+        "Light Hammer",
+        "Mace",
+        "Spear",
+        "Longsword",
+        "Battleaxe",
+        "Warhammer",
+        "Shield",
+        "Chain Shirt",
+        "Scale Mail"
+      ];
+      // On reshuffle, only inject a few random staples so stock can vary.
+      const stapleNames = reshuffle
+        ? seededPick(staples, 3, `${seedSalt}:staples:${shop.shopType}`)
+        : staples;
+      this.#ensureNamedItems(picked, unique, stapleNames, economy.stockCount);
     }
 
     return picked.map((item) =>
@@ -1057,7 +1073,7 @@ export class ShopService {
 
   #toStockEntry(item, { source, priceCP, quantity }) {
     const uuid = item.uuid;
-    const id = `tfstock-${source}-${this.#stableHash(uuid)}`;
+    const id = `tfstock-${source}-${stableHash(uuid)}`;
     return {
       id,
       uuid,
@@ -1087,35 +1103,6 @@ export class ShopService {
     if (/ingredient|component|herb|reagent/i.test(name)) return "ingredients";
     if (type === "consumable" || /ration|oil|torch|tinder|soap|feed/i.test(name)) return "supplies";
     return "gear";
-  }
-
-  #seededPick(list, count, seedText) {
-    if (!list.length || count <= 0) return [];
-    const arr = list.slice();
-    let seed = this.#stableHash(seedText);
-    // Convert hex hash string to numeric seed.
-    if (typeof seed === "string") {
-      seed = Number.parseInt(seed.slice(0, 8), 16) || 1;
-    }
-    const rand = () => {
-      seed = (Math.imul(seed >>> 0, 1664525) + 1013904223) >>> 0;
-      return seed / 0xffffffff;
-    };
-    for (let i = arr.length - 1; i > 0; i -= 1) {
-      const j = Math.floor(rand() * (i + 1));
-      [arr[i], arr[j]] = [arr[j], arr[i]];
-    }
-    return arr.slice(0, Math.min(count, arr.length));
-  }
-
-  #stableHash(text) {
-    let hash = 2166136261;
-    const str = String(text ?? "");
-    for (let i = 0; i < str.length; i += 1) {
-      hash ^= str.charCodeAt(i);
-      hash = Math.imul(hash, 16777619);
-    }
-    return (hash >>> 0).toString(16);
   }
 }
 
