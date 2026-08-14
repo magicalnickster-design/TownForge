@@ -1,4 +1,4 @@
-import { LOG_PREFIX, MODULE_ID } from "./constants.js";
+import { LOG_PREFIX } from "./constants.js";
 import { MerchantApp } from "./merchant-app.js";
 import { shopService } from "./shop-service.js";
 import { ShopkeeperConfig } from "./shopkeeper-config.js";
