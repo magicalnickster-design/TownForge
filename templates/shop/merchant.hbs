@@ -53,7 +53,10 @@
   <div class="townforge-trade-grid">
     <section class="townforge-trade-pane">
       <header class="townforge-trade-pane-header">
-        <h3>Your Items</h3>
+        <div class="townforge-trade-pane-title">
+          <h3>Your Items</h3>
+          <span class="townforge-pane-gold">{{walletPrimary}}</span>
+        </div>
         <label class="townforge-search">
           <span class="townforge-sr-only">Search your items</span>
           <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
@@ -62,18 +65,28 @@
       </header>
       <div class="townforge-trade-list" data-townforge-player-list>
         {{#if playerItems.length}}
-        <ul class="townforge-merchant-rows">
+        <div class="townforge-item-grid" role="list">
           {{#each playerItems}}
-          <li class="townforge-merchant-row townforge-trade-row{{#if inOffer}} is-in-offer{{/if}}" data-action="toggleSell" data-item-id="{{id}}">
-            <img src="{{img}}" alt="" width="40" height="40" />
-            <div class="townforge-merchant-row-main">
-              <strong>{{name}}</strong>
-              <small>{{type}} · Qty {{quantity}}</small>
-            </div>
-            <div class="townforge-merchant-row-price">{{sellPriceLabel}}</div>
-          </li>
+          <button type="button"
+            class="townforge-item-cell rarity-{{rarityClass}}{{#if inOffer}} is-in-offer{{/if}}"
+            role="listitem"
+            data-action="toggleSell"
+            data-townforge-item-cell
+            data-kind="player"
+            data-item-id="{{id}}"
+            data-name="{{name}}"
+            data-type="{{type}}"
+            data-price="{{sellPriceLabel}}"
+            data-qty="{{quantity}}"
+            data-rarity="{{rarityClass}}"
+            data-img="{{img}}"
+            aria-label="{{name}}, {{sellPriceLabel}}, qty {{quantity}}">
+            <img src="{{img}}" alt="" />
+            {{#if qtyBadge}}<span class="townforge-item-qty">{{qtyBadge}}</span>{{/if}}
+            {{#if inOffer}}<span class="townforge-item-offered" aria-hidden="true"></span>{{/if}}
+          </button>
           {{/each}}
-        </ul>
+        </div>
         {{else}}
         <div class="townforge-empty"><p>No sellable items.</p></div>
         {{/if}}
@@ -84,41 +97,65 @@
       <h3>Trade Offer</h3>
       <div class="townforge-trade-offer-scroll">
         <div class="townforge-offer-block">
-          <h4>Buying</h4>
+          <div class="townforge-offer-heading">
+            <h4>Buying</h4>
+            <strong>{{buyTotalLabel}}</strong>
+          </div>
           {{#if buyOffer.length}}
-          <ul class="townforge-offer-list">
+          <div class="townforge-item-grid townforge-offer-grid">
             {{#each buyOffer}}
-            <li>
-              <div class="townforge-offer-qty">
+            <div class="townforge-item-cell townforge-offer-cell rarity-{{rarityClass}}"
+              data-townforge-item-cell
+              data-kind="offer-buy"
+              data-stock-id="{{stockId}}"
+              data-name="{{name}}"
+              data-type="{{type}}"
+              data-price="{{linePriceLabel}}"
+              data-qty="{{quantity}}"
+              data-rarity="{{rarityClass}}"
+              data-img="{{img}}">
+              <img src="{{img}}" alt="" />
+              <span class="townforge-item-qty">{{quantity}}</span>
+              <div class="townforge-offer-cell-controls">
                 <button type="button" data-action="adjustBuyQty" data-stock-id="{{stockId}}" data-delta="-1" {{#unless canDecrease}}disabled{{/unless}} aria-label="Decrease">−</button>
-                <span>{{quantity}}× {{name}}</span>
                 <button type="button" data-action="adjustBuyQty" data-stock-id="{{stockId}}" data-delta="1" {{#unless canIncrease}}disabled{{/unless}} aria-label="Increase">+</button>
+                <button type="button" class="townforge-offer-remove" data-action="removeBuy" data-stock-id="{{stockId}}" title="Remove" aria-label="Remove">×</button>
               </div>
-              <strong>{{linePriceLabel}}</strong>
-              <button type="button" class="townforge-offer-remove" data-action="removeBuy" data-stock-id="{{stockId}}" title="Remove">×</button>
-            </li>
+            </div>
             {{/each}}
-          </ul>
+          </div>
           {{else}}
           <p class="townforge-muted">Click merchant wares to buy.</p>
           {{/if}}
         </div>
         <div class="townforge-offer-block">
-          <h4>Selling</h4>
+          <div class="townforge-offer-heading">
+            <h4>Selling</h4>
+            <strong>{{sellTotalLabel}}</strong>
+          </div>
           {{#if sellOffer.length}}
-          <ul class="townforge-offer-list">
+          <div class="townforge-item-grid townforge-offer-grid">
             {{#each sellOffer}}
-            <li>
-              <div class="townforge-offer-qty">
+            <div class="townforge-item-cell townforge-offer-cell rarity-{{rarityClass}}"
+              data-townforge-item-cell
+              data-kind="offer-sell"
+              data-item-id="{{itemId}}"
+              data-name="{{name}}"
+              data-type="{{type}}"
+              data-price="{{linePriceLabel}}"
+              data-qty="{{quantity}}"
+              data-rarity="{{rarityClass}}"
+              data-img="{{img}}">
+              <img src="{{img}}" alt="" />
+              <span class="townforge-item-qty">{{quantity}}</span>
+              <div class="townforge-offer-cell-controls">
                 <button type="button" data-action="adjustSellQty" data-item-id="{{itemId}}" data-delta="-1" {{#unless canDecrease}}disabled{{/unless}} aria-label="Decrease">−</button>
-                <span>{{quantity}}× {{name}}</span>
                 <button type="button" data-action="adjustSellQty" data-item-id="{{itemId}}" data-delta="1" {{#unless canIncrease}}disabled{{/unless}} aria-label="Increase">+</button>
+                <button type="button" class="townforge-offer-remove" data-action="removeSell" data-item-id="{{itemId}}" title="Remove" aria-label="Remove">×</button>
               </div>
-              <strong>{{linePriceLabel}}</strong>
-              <button type="button" class="townforge-offer-remove" data-action="removeSell" data-item-id="{{itemId}}" title="Remove">×</button>
-            </li>
+            </div>
             {{/each}}
-          </ul>
+          </div>
           {{else}}
           <p class="townforge-muted">Click your items to sell.</p>
           {{/if}}
@@ -127,8 +164,6 @@
 
       <footer class="townforge-trade-footer">
         <div class="townforge-trade-summary">
-          <div><span>Buy total</span><strong>{{buyTotalLabel}}</strong></div>
-          <div><span>Sell total</span><strong>{{sellTotalLabel}}</strong></div>
           <div class="townforge-trade-net{{#if netPositive}} is-pay{{/if}}{{#if netNegative}} is-gain{{/if}}">
             <span>{{netLabel}}</span>
             <strong>{{netAmountLabel}}</strong>
@@ -140,7 +175,7 @@
         {{/if}}
 
         <button type="button" class="townforge-buy-btn townforge-buy-btn-lg" data-action="confirmTrade" {{#unless canConfirm}}disabled{{/unless}}>
-          {{#if canConfirm}}Barter — Confirm Trade{{else}}Confirm Trade{{/if}}
+          Barter
         </button>
         <button type="button" class="townforge-btn townforge-btn-secondary" data-action="clearOffer" {{#unless hasOffer}}disabled{{/unless}}>
           Clear Offer
@@ -150,7 +185,10 @@
 
     <section class="townforge-trade-pane">
       <header class="townforge-trade-pane-header">
-        <h3>Merchant Wares</h3>
+        <div class="townforge-trade-pane-title">
+          <h3>Merchant Wares</h3>
+          <span class="townforge-pane-gold">{{itemCount}} items</span>
+        </div>
         <label class="townforge-search">
           <span class="townforge-sr-only">Search shop</span>
           <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
@@ -169,22 +207,44 @@
       </header>
       <div class="townforge-trade-list">
         {{#if items.length}}
-        <ul class="townforge-merchant-rows">
+        <div class="townforge-item-grid" role="list">
           {{#each items}}
-          <li class="townforge-merchant-row townforge-trade-row{{#if soldOut}} is-sold-out{{/if}}{{#if inOffer}} is-in-offer{{/if}}" data-action="toggleBuy" data-stock-id="{{id}}">
-            <img src="{{img}}" alt="" width="40" height="40" />
-            <div class="townforge-merchant-row-main">
-              <strong>{{name}}</strong>
-              <small>{{type}} · Stock {{quantityLabel}}</small>
-            </div>
-            <div class="townforge-merchant-row-price">{{priceLabel}}</div>
-          </li>
+          <button type="button"
+            class="townforge-item-cell rarity-{{rarityClass}}{{#if soldOut}} is-sold-out{{/if}}{{#if inOffer}} is-in-offer{{/if}}"
+            role="listitem"
+            data-action="toggleBuy"
+            data-townforge-item-cell
+            data-kind="stock"
+            data-stock-id="{{id}}"
+            data-name="{{name}}"
+            data-type="{{type}}"
+            data-price="{{priceLabel}}"
+            data-qty="{{quantityLabel}}"
+            data-rarity="{{rarityClass}}"
+            data-img="{{img}}"
+            {{#if soldOut}}disabled{{/if}}
+            aria-label="{{name}}, {{priceLabel}}, stock {{quantityLabel}}">
+            <img src="{{img}}" alt="" />
+            {{#if qtyBadge}}<span class="townforge-item-qty">{{qtyBadge}}</span>{{/if}}
+            {{#if inOffer}}<span class="townforge-item-offered" aria-hidden="true"></span>{{/if}}
+          </button>
           {{/each}}
-        </ul>
+        </div>
         {{else}}
         <div class="townforge-empty"><p>No matching wares.</p></div>
         {{/if}}
       </div>
     </section>
   </div>
+
+  <aside class="townforge-item-tip" data-townforge-item-tip aria-hidden="true">
+    <img data-tip-img alt="" />
+    <div class="townforge-item-tip-copy">
+      <h4 data-tip-name></h4>
+      <p class="townforge-item-tip-meta" data-tip-meta></p>
+      <p class="townforge-item-tip-price" data-tip-price></p>
+      <ul class="townforge-item-props" data-tip-props></ul>
+      <p class="townforge-item-tip-desc" data-tip-desc></p>
+    </div>
+  </aside>
 </section>

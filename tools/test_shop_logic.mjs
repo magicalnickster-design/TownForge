@@ -12,7 +12,7 @@ import {
   SELL_PRICE_RATIO,
   validatePurchaseRequest
 } from "../scripts/shop-currency.js";
-import { coerceInventoryArray, isUnlimitedStock } from "../scripts/shop-constants.js";
+import { coerceInventoryArray, isUnlimitedStock, itemQtyBadge, normalizeRarity, rarityLabel } from "../scripts/shop-constants.js";
 
 function assert(condition, message) {
   if (!condition) throw new Error(message);
@@ -572,6 +572,24 @@ test("shopkeeper write payload never deletes parent flag or inventory", () => {
   assert(!Object.keys(update).some((key) => key.includes("-=")), "no deletion keys");
   assert(update[`${base}.enabled`] === true, "keeps enabled");
   assert(Array.isArray(update[`${base}.inventory`]), "sets inventory");
+});
+
+test("normalizeRarity maps dnd5e strings and objects", () => {
+  assertEqual(normalizeRarity("uncommon"), "uncommon", "uncommon");
+  assertEqual(normalizeRarity("very rare"), "veryRare", "very rare");
+  assertEqual(normalizeRarity("veryRare"), "veryRare", "camel");
+  assertEqual(normalizeRarity({ value: "legendary" }), "legendary", "object");
+  assertEqual(normalizeRarity(""), "common", "empty");
+  assertEqual(normalizeRarity("mystery"), "common", "unknown");
+  assertEqual(rarityLabel("veryRare"), "Very Rare", "label");
+});
+
+test("itemQtyBadge hides singles and shows stacks or unlimited", () => {
+  assertEqual(itemQtyBadge({ quantity: 1 }), "", "single");
+  assertEqual(itemQtyBadge({ quantity: 12 }), "12", "stack");
+  assertEqual(itemQtyBadge({ quantity: 0 }), "0", "empty");
+  assertEqual(itemQtyBadge({ unlimited: true }), "∞", "unlimited flag");
+  assertEqual(itemQtyBadge({ quantity: null }), "∞", "null qty");
 });
 
 console.log(`\n${passed} tests passed`);

@@ -1,6 +1,12 @@
 import { LOG_PREFIX, MODULE_ID } from "./constants.js";
 import { currencyToCopper, normalizeCurrency } from "./shop-currency.js";
-import { isUnlimitedStock, stockQuantityLabel } from "./shop-constants.js";
+import {
+  isUnlimitedStock,
+  itemQtyBadge,
+  normalizeRarity,
+  rarityLabel,
+  stockQuantityLabel
+} from "./shop-constants.js";
 import { getShopTypeLabel, shopService } from "./shop-service.js";
 
 const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
@@ -55,6 +61,9 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
   /** @type {boolean} */
   #busy = false;
 
+  /** @type {number} */
+  #hoverSeq = 0;
+
   static DEFAULT_OPTIONS = {
     id: "townforge-merchant",
     classes: ["townforge", "townforge-merchant", "townforge-trade"],
@@ -64,7 +73,7 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
       resizable: true,
       contentClasses: ["townforge-window-content"]
     },
-    position: { width: 840, height: 560 },
+      position: { width: 1180, height: 700 },
     actions: {
       setFilter: MerchantApp.#onSetFilter,
       setPriceFilter: MerchantApp.#onSetPriceFilter,
@@ -295,9 +304,12 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
       })
       .map((entry) => {
         const soldOut = !isUnlimitedStock(entry) && Number(entry.quantity) <= 0;
+        const rarityClass = normalizeRarity(entry.rarity);
         return {
           ...entry,
           quantityLabel: stockQuantityLabel(entry),
+          qtyBadge: itemQtyBadge(entry),
+          rarityClass,
           soldOut,
           inOffer: this.#buyOffer.has(entry.id)
         };
@@ -311,12 +323,15 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
           continue;
         }
         const sellPriceCP = shopService.getSellPriceCP(item, this.#merchant);
+        const quantity = Math.max(1, Number(item.system?.quantity) || 1);
         playerItems.push({
           id: item.id,
           name: item.name,
           img: item.img || "icons/svg/item-bag.svg",
           type: item.type,
-          quantity: Math.max(1, Number(item.system?.quantity) || 1),
+          quantity,
+          rarityClass: normalizeRarity(item.system?.rarity ?? item.rarity),
+          qtyBadge: itemQtyBadge({ quantity }),
           sellPriceCP,
           sellPriceLabel: shopService.formatPrice(sellPriceCP),
           inOffer: this.#sellOffer.has(item.id)
@@ -339,6 +354,9 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
       buyOffer.push({
         stockId,
         name: stock.name,
+        img: stock.img || "icons/svg/item-bag.svg",
+        type: stock.type,
+        rarityClass: normalizeRarity(stock.rarity),
         quantity,
         maxQty,
         canIncrease: quantity < maxQty,
@@ -357,6 +375,9 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
       sellOffer.push({
         itemId,
         name: row.name,
+        img: row.img,
+        type: row.type,
+        rarityClass: row.rarityClass,
         quantity,
         maxQty: row.quantity,
         canIncrease: quantity < row.quantity,
@@ -402,6 +423,7 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
       priceFilter: this.#priceFilter,
       priceFilters,
       items,
+      itemCount: items.length,
       playerItems,
       buyers,
       buyerUuid: this.#buyerUuid,
@@ -427,6 +449,7 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
 
   _onRender(context, options) {
     super._onRender?.(context, options);
+    this.#bindItemHover();
 
     const search = this.element.querySelector("[data-townforge-merchant-search]");
     if (search && !search.dataset.bound) {
@@ -456,6 +479,166 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
         void this.render({ force: false });
       });
     }
+  }
+
+  #bindItemHover() {
+    const root = this.element;
+    if (!root || root.dataset.itemHoverBound) return;
+    root.dataset.itemHoverBound = "1";
+    root.addEventListener("pointerover", (event) => {
+      const cell = event.target.closest("[data-townforge-item-cell]");
+      if (!cell || !root.contains(cell)) return;
+      if (event.relatedTarget instanceof Node && cell.contains(event.relatedTarget)) return;
+      void this.#showItemTip(cell);
+    });
+    root.addEventListener("pointerout", (event) => {
+      const cell = event.target.closest("[data-townforge-item-cell]");
+      if (!cell) return;
+      if (event.relatedTarget instanceof Node && cell.contains(event.relatedTarget)) return;
+      this.#hideItemTip();
+    });
+    root.addEventListener("focusin", (event) => {
+      const cell = event.target.closest("[data-townforge-item-cell]");
+      if (cell) void this.#showItemTip(cell);
+    });
+    root.addEventListener("focusout", (event) => {
+      const cell = event.target.closest("[data-townforge-item-cell]");
+      if (!cell) return;
+      if (event.relatedTarget instanceof Node && cell.contains(event.relatedTarget)) return;
+      this.#hideItemTip();
+    });
+    root.addEventListener(
+      "scroll",
+      (event) => {
+        if (event.target?.closest?.(".townforge-trade-list, .townforge-trade-offer-scroll")) {
+          this.#hideItemTip();
+        }
+      },
+      true
+    );
+  }
+
+  #hideItemTip() {
+    this.#hoverSeq += 1;
+    const tip = this.element?.querySelector("[data-townforge-item-tip]");
+    if (!tip) return;
+    tip.classList.remove("is-open");
+    tip.setAttribute("aria-hidden", "true");
+  }
+
+  async #showItemTip(cell) {
+    const tip = this.element?.querySelector("[data-townforge-item-tip]");
+    if (!tip || !cell) return;
+    const seq = ++this.#hoverSeq;
+    const kind = cell.dataset.kind || "";
+    const priceKind = kind === "player" || kind === "offer-sell" ? "Sell" : "Buy";
+    this.#fillItemTip(tip, {
+      name: cell.dataset.name || "",
+      img: cell.dataset.img || "",
+      type: cell.dataset.type || "",
+      rarity: cell.dataset.rarity || "common",
+      qtyLabel: cell.dataset.qty || "",
+      priceLabel: cell.dataset.price ? `${priceKind} ${cell.dataset.price}` : "",
+      properties: [],
+      description: ""
+    });
+    this.#positionItemTip(tip, cell);
+    tip.classList.add("is-open");
+    tip.setAttribute("aria-hidden", "false");
+
+    const detail = await this.#detailForCell(cell);
+    if (seq !== this.#hoverSeq) return;
+    this.#fillItemTip(tip, detail);
+    this.#positionItemTip(tip, cell);
+    if (detail.rarity) {
+      for (const cls of [...cell.classList]) {
+        if (cls.startsWith("rarity-")) cell.classList.remove(cls);
+      }
+      cell.classList.add(`rarity-${detail.rarity}`);
+    }
+  }
+
+  #fillItemTip(tip, data) {
+    const img = tip.querySelector("[data-tip-img]");
+    if (img) {
+      img.src = data.img || "icons/svg/item-bag.svg";
+      img.alt = "";
+    }
+    const name = tip.querySelector("[data-tip-name]");
+    if (name) name.textContent = data.name || "";
+    const meta = tip.querySelector("[data-tip-meta]");
+    if (meta) {
+      meta.textContent = [data.type, rarityLabel(data.rarity), data.qtyLabel ? `Qty ${data.qtyLabel}` : ""]
+        .filter(Boolean)
+        .join(" · ");
+    }
+    const price = tip.querySelector("[data-tip-price]");
+    if (price) price.textContent = data.priceLabel || "";
+    const desc = tip.querySelector("[data-tip-desc]");
+    if (desc) {
+      desc.textContent = data.description || "";
+      desc.hidden = !data.description;
+    }
+    const props = tip.querySelector("[data-tip-props]");
+    if (props) {
+      props.replaceChildren();
+      for (const entry of data.properties ?? []) {
+        const li = document.createElement("li");
+        li.textContent = String(entry);
+        props.append(li);
+      }
+      props.hidden = !(data.properties ?? []).length;
+    }
+  }
+
+  #positionItemTip(tip, cell) {
+    const rect = cell.getBoundingClientRect();
+    const width = tip.offsetWidth || 300;
+    const height = tip.offsetHeight || 160;
+    let left = rect.right + 10;
+    let top = rect.top;
+    if (left + width > window.innerWidth - 8) left = rect.left - width - 10;
+    if (left < 8) left = 8;
+    if (top + height > window.innerHeight - 8) top = window.innerHeight - height - 8;
+    if (top < 8) top = 8;
+    tip.style.left = `${Math.round(left)}px`;
+    tip.style.top = `${Math.round(top)}px`;
+  }
+
+  async #detailForCell(cell) {
+    const kind = cell.dataset.kind || "";
+    const priceKind = kind === "player" || kind === "offer-sell" ? "Sell" : "Buy";
+    if (kind === "stock" || kind === "offer-buy") {
+      const stock = shopService
+        .getDisplayInventory(this.#merchant)
+        .find((entry) => entry.id === cell.dataset.stockId);
+      const detail = await shopService.getStockDetail(stock ?? { uuid: "", rarity: cell.dataset.rarity });
+      return {
+        name: stock?.name ?? cell.dataset.name ?? "",
+        img: stock?.img || cell.dataset.img || "",
+        type: stock?.type || cell.dataset.type || "",
+        rarity: detail.rarity || cell.dataset.rarity || "common",
+        qtyLabel: stock ? stockQuantityLabel(stock) : cell.dataset.qty || "",
+        priceLabel: stock?.priceLabel ? `${priceKind} ${stock.priceLabel}` : cell.dataset.price || "",
+        properties: detail.properties,
+        description: detail.description
+      };
+    }
+
+    const buyer = this.#buyerUuid ? await fromUuid(this.#buyerUuid) : null;
+    const item = buyer?.items?.get?.(cell.dataset.itemId);
+    const inspected = shopService.inspectItem(item);
+    const sellPriceCP = item ? shopService.getSellPriceCP(item, this.#merchant) : 0;
+    return {
+      name: item?.name ?? cell.dataset.name ?? "",
+      img: item?.img || cell.dataset.img || "",
+      type: item?.type || cell.dataset.type || "",
+      rarity: inspected.rarity,
+      qtyLabel: item ? String(Math.max(1, Number(item.system?.quantity) || 1)) : cell.dataset.qty || "",
+      priceLabel: item ? `${priceKind} ${shopService.formatPrice(sellPriceCP)}` : cell.dataset.price || "",
+      properties: inspected.properties,
+      description: inspected.description
+    };
   }
 
   #ownedCharacters() {
