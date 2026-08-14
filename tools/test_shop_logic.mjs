@@ -176,6 +176,49 @@ test("finite stock available allowed", () => {
   assert(result.ok, "finite available");
 });
 
+test("multi-quantity purchase validates funds and stock", () => {
+  const ok = validatePurchaseRequest({
+    shop: {
+      enabled: true,
+      inventory: [{ id: "a", uuid: "Item.x", name: "Potion", priceCP: 500, quantity: 4 }]
+    },
+    stockId: "a",
+    buyerOwned: true,
+    buyerType: "character",
+    buyerCurrency: { gp: 20 },
+    quantity: 3
+  });
+  assert(ok.ok, "3 potions affordable");
+  assert(ok.quantity === 3, "qty echoed");
+  assert(ok.priceCP === 1500, "total price");
+
+  const shortStock = validatePurchaseRequest({
+    shop: {
+      enabled: true,
+      inventory: [{ id: "a", uuid: "Item.x", name: "Potion", priceCP: 500, quantity: 2 }]
+    },
+    stockId: "a",
+    buyerOwned: true,
+    buyerType: "character",
+    buyerCurrency: { gp: 50 },
+    quantity: 3
+  });
+  assert(!shortStock.ok, "not enough stock");
+
+  const shortGold = validatePurchaseRequest({
+    shop: {
+      enabled: true,
+      inventory: [{ id: "a", uuid: "Item.x", name: "Potion", priceCP: 500, quantity: null }]
+    },
+    stockId: "a",
+    buyerOwned: true,
+    buyerType: "character",
+    buyerCurrency: { gp: 8 },
+    quantity: 2
+  });
+  assert(!shortGold.ok, "not enough gold for qty");
+});
+
 test("shop disabled rejected", () => {
   const result = validatePurchaseRequest({
     shop: {
