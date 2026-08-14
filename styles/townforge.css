@@ -867,6 +867,26 @@
   padding: 0.65rem 0.7rem;
 }
 
+.townforge-trade-offer-scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  padding-right: 0.15rem;
+}
+
+.townforge-trade-footer {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  padding-top: 0.55rem;
+  border-top: 1px solid var(--tf-border);
+  background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.25) 30%);
+}
+
 .townforge-trade-pane-header {
   display: grid;
   gap: 0.45rem;
@@ -965,9 +985,6 @@
 .townforge-trade-summary {
   display: grid;
   gap: 0.35rem;
-  margin-top: 0.25rem;
-  padding-top: 0.55rem;
-  border-top: 1px solid var(--tf-border);
 }
 
 .townforge-trade-summary > div {

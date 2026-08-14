@@ -82,66 +82,70 @@
 
     <section class="townforge-trade-center">
       <h3>Trade Offer</h3>
-      <div class="townforge-offer-block">
-        <h4>Buying</h4>
-        {{#if buyOffer.length}}
-        <ul class="townforge-offer-list">
-          {{#each buyOffer}}
-          <li>
-            <div class="townforge-offer-qty">
-              <button type="button" data-action="adjustBuyQty" data-stock-id="{{stockId}}" data-delta="-1" {{#unless canDecrease}}disabled{{/unless}} aria-label="Decrease">−</button>
-              <span>{{quantity}}× {{name}}</span>
-              <button type="button" data-action="adjustBuyQty" data-stock-id="{{stockId}}" data-delta="1" {{#unless canIncrease}}disabled{{/unless}} aria-label="Increase">+</button>
-            </div>
-            <strong>{{linePriceLabel}}</strong>
-            <button type="button" class="townforge-offer-remove" data-action="removeBuy" data-stock-id="{{stockId}}" title="Remove">×</button>
-          </li>
-          {{/each}}
-        </ul>
-        {{else}}
-        <p class="townforge-muted">Click merchant wares to buy.</p>
-        {{/if}}
-      </div>
-      <div class="townforge-offer-block">
-        <h4>Selling</h4>
-        {{#if sellOffer.length}}
-        <ul class="townforge-offer-list">
-          {{#each sellOffer}}
-          <li>
-            <div class="townforge-offer-qty">
-              <button type="button" data-action="adjustSellQty" data-item-id="{{itemId}}" data-delta="-1" {{#unless canDecrease}}disabled{{/unless}} aria-label="Decrease">−</button>
-              <span>{{quantity}}× {{name}}</span>
-              <button type="button" data-action="adjustSellQty" data-item-id="{{itemId}}" data-delta="1" {{#unless canIncrease}}disabled{{/unless}} aria-label="Increase">+</button>
-            </div>
-            <strong>{{linePriceLabel}}</strong>
-            <button type="button" class="townforge-offer-remove" data-action="removeSell" data-item-id="{{itemId}}" title="Remove">×</button>
-          </li>
-          {{/each}}
-        </ul>
-        {{else}}
-        <p class="townforge-muted">Click your items to sell.</p>
-        {{/if}}
-      </div>
-
-      <div class="townforge-trade-summary">
-        <div><span>Buy total</span><strong>{{buyTotalLabel}}</strong></div>
-        <div><span>Sell total</span><strong>{{sellTotalLabel}}</strong></div>
-        <div class="townforge-trade-net{{#if netPositive}} is-pay{{/if}}{{#if netNegative}} is-gain{{/if}}">
-          <span>{{netLabel}}</span>
-          <strong>{{netAmountLabel}}</strong>
+      <div class="townforge-trade-offer-scroll">
+        <div class="townforge-offer-block">
+          <h4>Buying</h4>
+          {{#if buyOffer.length}}
+          <ul class="townforge-offer-list">
+            {{#each buyOffer}}
+            <li>
+              <div class="townforge-offer-qty">
+                <button type="button" data-action="adjustBuyQty" data-stock-id="{{stockId}}" data-delta="-1" {{#unless canDecrease}}disabled{{/unless}} aria-label="Decrease">−</button>
+                <span>{{quantity}}× {{name}}</span>
+                <button type="button" data-action="adjustBuyQty" data-stock-id="{{stockId}}" data-delta="1" {{#unless canIncrease}}disabled{{/unless}} aria-label="Increase">+</button>
+              </div>
+              <strong>{{linePriceLabel}}</strong>
+              <button type="button" class="townforge-offer-remove" data-action="removeBuy" data-stock-id="{{stockId}}" title="Remove">×</button>
+            </li>
+            {{/each}}
+          </ul>
+          {{else}}
+          <p class="townforge-muted">Click merchant wares to buy.</p>
+          {{/if}}
+        </div>
+        <div class="townforge-offer-block">
+          <h4>Selling</h4>
+          {{#if sellOffer.length}}
+          <ul class="townforge-offer-list">
+            {{#each sellOffer}}
+            <li>
+              <div class="townforge-offer-qty">
+                <button type="button" data-action="adjustSellQty" data-item-id="{{itemId}}" data-delta="-1" {{#unless canDecrease}}disabled{{/unless}} aria-label="Decrease">−</button>
+                <span>{{quantity}}× {{name}}</span>
+                <button type="button" data-action="adjustSellQty" data-item-id="{{itemId}}" data-delta="1" {{#unless canIncrease}}disabled{{/unless}} aria-label="Increase">+</button>
+              </div>
+              <strong>{{linePriceLabel}}</strong>
+              <button type="button" class="townforge-offer-remove" data-action="removeSell" data-item-id="{{itemId}}" title="Remove">×</button>
+            </li>
+            {{/each}}
+          </ul>
+          {{else}}
+          <p class="townforge-muted">Click your items to sell.</p>
+          {{/if}}
         </div>
       </div>
 
-      {{#if tradeBlocked}}
-      <p class="townforge-warn">{{tradeBlocked}}</p>
-      {{/if}}
+      <footer class="townforge-trade-footer">
+        <div class="townforge-trade-summary">
+          <div><span>Buy total</span><strong>{{buyTotalLabel}}</strong></div>
+          <div><span>Sell total</span><strong>{{sellTotalLabel}}</strong></div>
+          <div class="townforge-trade-net{{#if netPositive}} is-pay{{/if}}{{#if netNegative}} is-gain{{/if}}">
+            <span>{{netLabel}}</span>
+            <strong>{{netAmountLabel}}</strong>
+          </div>
+        </div>
 
-      <button type="button" class="townforge-buy-btn townforge-buy-btn-lg" data-action="confirmTrade" {{#unless canConfirm}}disabled{{/unless}}>
-        {{#if canConfirm}}Barter — Confirm Trade{{else}}Confirm Trade{{/if}}
-      </button>
-      <button type="button" class="townforge-btn townforge-btn-secondary" data-action="clearOffer" {{#unless hasOffer}}disabled{{/unless}}>
-        Clear Offer
-      </button>
+        {{#if tradeBlocked}}
+        <p class="townforge-warn">{{tradeBlocked}}</p>
+        {{/if}}
+
+        <button type="button" class="townforge-buy-btn townforge-buy-btn-lg" data-action="confirmTrade" {{#unless canConfirm}}disabled{{/unless}}>
+          {{#if canConfirm}}Barter — Confirm Trade{{else}}Confirm Trade{{/if}}
+        </button>
+        <button type="button" class="townforge-btn townforge-btn-secondary" data-action="clearOffer" {{#unless hasOffer}}disabled{{/unless}}>
+          Clear Offer
+        </button>
+      </footer>
     </section>
 
     <section class="townforge-trade-pane">

@@ -67,7 +67,7 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
   static PARTS = {
     body: {
       template: `modules/${MODULE_ID}/templates/shop/merchant.hbs`,
-      scrollable: [".townforge-trade-list"]
+      scrollable: [".townforge-trade-list", ".townforge-trade-offer-scroll"]
     }
   };
 
@@ -84,6 +84,11 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
       if (!shop.enabled) {
         ui.notifications?.warn("Shop unavailable.");
         return null;
+      }
+
+      // GM upgrades ownership so later player trades stay instant (no socket wait).
+      if (game.user.isGM) {
+        await shopService.ensurePlayerShopAccess(merchant);
       }
 
       if (

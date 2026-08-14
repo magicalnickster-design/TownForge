@@ -63,8 +63,16 @@ export class ShopService {
    */
   async updateShopkeeper(actor, patch, options = {}) {
     if (!actor) throw new Error("Missing merchant actor");
-    if (!options.allowNonGM && !game.user?.isGM) {
+    const isOwner = Boolean(actor.isOwner);
+    if (!game.user?.isGM && !isOwner && !options.allowNonGM) {
       throw new Error("Only the GM can modify TownForge shopkeeper settings.");
+    }
+    // Non-GM clients may only mutate inventory (instant BG3-style trades).
+    if (!game.user?.isGM) {
+      const keys = Object.keys(patch ?? {});
+      if (!keys.length || keys.some((key) => key !== "inventory")) {
+        throw new Error("Only the GM can modify TownForge shopkeeper settings.");
+      }
     }
     const current = this.getShopkeeper(actor);
     const next = foundry.utils.mergeObject(current, patch, { inplace: false });
@@ -209,22 +217,22 @@ export class ShopService {
   }
 
   /**
-   * Ensure default ownership is at least OBSERVER so all players can browse
-   * and live-sync shop stock from the merchant Actor flags.
-   * Without this, Foundry blocks player double-clicks via Token#_canView.
+   * Ensure default ownership is OWNER so players can browse stock and complete
+   * instant BG3-style trades (update inventory flags) without waiting on a GM.
+   * Double-click still opens the TownForge merchant UI, not the NPC sheet.
    * @param {Actor} actor
    */
   async ensurePlayerShopAccess(actor) {
     if (!game.user?.isGM || !actor) return;
     try {
-      const OBSERVER =
-        CONST?.DOCUMENT_OWNERSHIP_LEVELS?.OBSERVER ??
-        CONST?.DOCUMENT_PERMISSION_LEVELS?.OBSERVER ??
-        2;
+      const OWNER =
+        CONST?.DOCUMENT_OWNERSHIP_LEVELS?.OWNER ??
+        CONST?.DOCUMENT_PERMISSION_LEVELS?.OWNER ??
+        3;
       const currentDefault = Number(actor.ownership?.default ?? 0);
-      if (currentDefault >= OBSERVER) return;
-      await actor.update({ "ownership.default": OBSERVER });
-      console.log(`${LOG_PREFIX} Granted OBSERVER default ownership for shopkeeper ${actor.name}`);
+      if (currentDefault >= OWNER) return;
+      await actor.update({ "ownership.default": OWNER });
+      console.log(`${LOG_PREFIX} Granted OWNER default ownership for shopkeeper ${actor.name}`);
     } catch (error) {
       console.warn(`${LOG_PREFIX} Could not update shopkeeper ownership for player access`, error);
     }
@@ -452,7 +460,8 @@ export class ShopService {
   }
 
   /**
-   * Atomic buy+sell trade. Players send via socket for GM fulfillment.
+   * Atomic buy+sell trade — instant, BG3-style (no GM approval gate).
+   * Players fulfill locally using shopkeeper ownership granted for enabled shops.
    * @param {{
    *   merchantUuid: string,
    *   buyerUuid: string,
@@ -494,24 +503,6 @@ export class ShopService {
         return { ok: false, message: "Trade is empty." };
       }
 
-      if (game.user?.isGM) {
-        return await this.#fulfillTrade(clean, game.user.id);
-      }
-
-      const activeGM = game.users?.find((user) => user.isGM && user.active);
-      if (activeGM) {
-        return await this.#requestTradeViaSocket(clean);
-      }
-
-      const merchant = await fromUuid(clean.merchantUuid);
-      const needsStockMutation = clean.buys.some((buy) => {
-        const shop = merchant ? this.getShopkeeper(merchant) : null;
-        const stock = (shop?.inventory ?? []).find((entry) => entry.id === buy.stockId);
-        return stock && stock.quantity != null;
-      });
-      if ((needsStockMutation || clean.sells.length) && !merchant?.isOwner) {
-        return { ok: false, message: "Shop unavailable. A GM must be online to complete trades." };
-      }
       return await this.#fulfillTrade(clean, game.user.id);
     } finally {
       this.#purchaseLocks.delete(lockKey);
@@ -635,7 +626,7 @@ export class ShopService {
         await buyer.createEmbeddedDocuments("Item", createData);
       }
 
-      // Update merchant inventory: decrement buys, append sold goods.
+      // Update merchant inventory: decrement finite buys, restock sold goods for resale.
       if (game.user.isGM || merchant.isOwner) {
         let inventory = [...(latestShop.inventory ?? [])];
         for (const buy of resolvedBuys) {
@@ -645,17 +636,15 @@ export class ShopService {
           });
         }
         for (const sell of resolvedSells) {
-          const entry = this.#toStockEntry(sell.item, {
-            source: "manual",
-            priceCP: Math.max(1, Math.round(sell.unitPriceCP / SELL_PRICE_RATIO) || sell.unitPriceCP),
-            quantity: sell.qty
-          });
-          // Unique id per sold stack instance.
-          entry.id = `tfstock-manual-${stableHash(`${sell.item.id}:${Date.now()}:${Math.random()}`)}`;
-          entry.priceLabel = this.formatPrice(entry.priceCP);
-          inventory.push(entry);
+          inventory = this.#restockSoldItem(inventory, sell);
         }
-        await this.updateShopkeeper(merchant, { inventory }, { allowNonGM: Boolean(merchant.isOwner) });
+        // Drop emptied finite stacks so the list stays clean.
+        inventory = inventory.filter((entry) => entry.quantity == null || Number(entry.quantity) > 0);
+        await this.updateShopkeeper(merchant, { inventory }, { allowNonGM: true });
+      } else {
+        console.warn(
+          `${LOG_PREFIX} Trade completed for ${buyer.name}, but shop stock could not update (missing merchant ownership). Re-open the shopkeeper config once as GM.`
+        );
       }
 
       const buyCount = resolvedBuys.reduce((sum, row) => sum + row.qty, 0);
@@ -684,6 +673,48 @@ export class ShopService {
   #isSellableItem(item) {
     const type = String(item?.type || "");
     return ["weapon", "equipment", "consumable", "tool", "loot", "container"].includes(type);
+  }
+
+  /**
+   * Put a sold player item back on the merchant shelf for resale (BG3-style).
+   * Merges into an existing finite stack of the same uuid; skips if infinite stock
+   * of that uuid already exists.
+   * @param {object[]} inventory
+   * @param {{item:Item, qty:number, unitPriceCP:number}} sell
+   * @returns {object[]}
+   */
+  #restockSoldItem(inventory, sell) {
+    const uuid = sell.item?.uuid;
+    const priceCP = Math.max(1, Math.round(sell.unitPriceCP / SELL_PRICE_RATIO) || sell.unitPriceCP);
+    if (!uuid) {
+      const entry = this.#toStockEntry(sell.item, { source: "manual", priceCP, quantity: sell.qty });
+      entry.id = `tfstock-manual-${stableHash(`${sell.item.id}:${Date.now()}:${Math.random()}`)}`;
+      entry.priceLabel = this.formatPrice(entry.priceCP);
+      return [...inventory, entry];
+    }
+
+    const hasInfinite = inventory.some((entry) => entry.uuid === uuid && entry.quantity == null);
+    if (hasInfinite) return inventory;
+
+    const existing = inventory.find(
+      (entry) => entry.uuid === uuid && entry.quantity != null && Number(entry.quantity) >= 0
+    );
+    if (existing) {
+      return inventory.map((entry) => {
+        if (entry.id !== existing.id) return entry;
+        return {
+          ...entry,
+          quantity: Number(entry.quantity) + sell.qty,
+          priceCP,
+          priceLabel: this.formatPrice(priceCP),
+          source: entry.source || "manual"
+        };
+      });
+    }
+
+    const entry = this.#toStockEntry(sell.item, { source: "manual", priceCP, quantity: sell.qty });
+    entry.priceLabel = this.formatPrice(entry.priceCP);
+    return [...inventory, entry];
   }
 
   /**
