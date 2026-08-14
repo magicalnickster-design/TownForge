@@ -12,6 +12,7 @@ import {
   SELL_PRICE_RATIO,
   validatePurchaseRequest
 } from "../scripts/shop-currency.js";
+import { coerceInventoryArray, isUnlimitedStock, itemQtyBadge, normalizeRarity, rarityLabel } from "../scripts/shop-constants.js";
 
 function assert(condition, message) {
   if (!condition) throw new Error(message);
@@ -520,14 +521,37 @@ test("inventory patch assignment replaces prior rows conceptually", () => {
   };
   const next = { inventory: prior };
   if (Object.prototype.hasOwnProperty.call(patch, "inventory")) {
-    next.inventory = Array.isArray(patch.inventory) ? patch.inventory.slice() : [];
+    next.inventory = coerceInventoryArray(patch.inventory);
   }
   assertEqual(next.inventory.map((row) => row.name), ["Mace", "Spear"], "full replace");
 });
 
-test("shopkeeper write payload never deletes parent flag", () => {
+test("coerceInventoryArray recovers object-like stock rows", () => {
+  const recovered = coerceInventoryArray({
+    1: { id: "b", name: "Dagger" },
+    0: { id: "a", name: "Mace" },
+    foo: "ignore"
+  });
+  assert(Array.isArray(recovered), "real array");
+  assertEqual(recovered.map((row) => row.id), ["a", "b"], "numeric order");
+  assertEqual(coerceInventoryArray(null), [], "null");
+});
+
+test("unlimited-only buys skip inventory writes", () => {
+  const resolvedBuys = [{ stock: { id: "a", unlimited: true }, qty: 5 }];
+  const resolvedSells = [];
+  const inventoryNeedsWrite =
+    resolvedSells.length > 0 || resolvedBuys.some((buy) => !isUnlimitedStock(buy.stock));
+  assert(!inventoryNeedsWrite, "skip write for unlimited buys");
+  const finiteBuyNeedsWrite = [{ stock: { id: "b", unlimited: false, quantity: 3 }, qty: 1 }].some(
+    (buy) => !isUnlimitedStock(buy.stock)
+  );
+  assert(finiteBuyNeedsWrite, "finite stock still writes");
+});
+
+test("shopkeeper write payload never deletes parent flag or inventory", () => {
   // Mirrors ShopService.#writeShopkeeperFlag — deleting flags.townforge.-=shopkeeper
-  // alongside a re-set can wipe enabled after player trades.
+  // or -=inventory alongside a re-set can wipe the shelf after unlimited-stock buys.
   const MODULE = "townforge";
   const FLAG = "shopkeeper";
   const base = `flags.${MODULE}.${FLAG}`;
@@ -535,20 +559,37 @@ test("shopkeeper write payload never deletes parent flag", () => {
     enabled: true,
     shopType: "blacksmith",
     shopName: "Garr's",
-    inventory: [{ id: "a", name: "Mace", quantity: null }]
+    inventory: [{ id: "a", name: "Mace", unlimited: true }]
   };
   const update = {
-    [`${base}.-=inventory`]: null,
     [`${base}.inventory`]: next.inventory
   };
   for (const [key, value] of Object.entries(next)) {
     if (key === "inventory") continue;
+    if (value === null) continue;
     update[`${base}.${key}`] = value;
   }
-  assert(!Object.keys(update).some((key) => key.includes(`-=${FLAG}`)), "no parent delete");
+  assert(!Object.keys(update).some((key) => key.includes("-=")), "no deletion keys");
   assert(update[`${base}.enabled`] === true, "keeps enabled");
   assert(Array.isArray(update[`${base}.inventory`]), "sets inventory");
-  assert(Object.prototype.hasOwnProperty.call(update, `${base}.-=inventory`), "clears inventory only");
+});
+
+test("normalizeRarity maps dnd5e strings and objects", () => {
+  assertEqual(normalizeRarity("uncommon"), "uncommon", "uncommon");
+  assertEqual(normalizeRarity("very rare"), "veryRare", "very rare");
+  assertEqual(normalizeRarity("veryRare"), "veryRare", "camel");
+  assertEqual(normalizeRarity({ value: "legendary" }), "legendary", "object");
+  assertEqual(normalizeRarity(""), "common", "empty");
+  assertEqual(normalizeRarity("mystery"), "common", "unknown");
+  assertEqual(rarityLabel("veryRare"), "Very Rare", "label");
+});
+
+test("itemQtyBadge hides singles and shows stacks or unlimited", () => {
+  assertEqual(itemQtyBadge({ quantity: 1 }), "", "single");
+  assertEqual(itemQtyBadge({ quantity: 12 }), "12", "stack");
+  assertEqual(itemQtyBadge({ quantity: 0 }), "0", "empty");
+  assertEqual(itemQtyBadge({ unlimited: true }), "∞", "unlimited flag");
+  assertEqual(itemQtyBadge({ quantity: null }), "∞", "null qty");
 });
 
 console.log(`\n${passed} tests passed`);
