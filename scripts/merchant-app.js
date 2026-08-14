@@ -11,6 +11,10 @@ import { getShopTypeLabel, shopService } from "./shop-service.js";
 
 const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
 
+/** Open size is 2× the previous 1180×700 default, then clamped to the viewport. */
+const MERCHANT_OPEN_WIDTH = 2360;
+const MERCHANT_OPEN_HEIGHT = 1400;
+
 const PRICE_FILTERS = Object.freeze([
   { id: "all", label: "All Prices" },
   { id: "affordable", label: "Affordable" },
@@ -73,7 +77,7 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
       resizable: true,
       contentClasses: ["townforge-window-content"]
     },
-      position: { width: 1180, height: 700 },
+    position: { width: MERCHANT_OPEN_WIDTH, height: MERCHANT_OPEN_HEIGHT },
     actions: {
       setFilter: MerchantApp.#onSetFilter,
       setPriceFilter: MerchantApp.#onSetPriceFilter,
@@ -137,6 +141,7 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
       app.#initializeBuyer();
       console.log(`${LOG_PREFIX} Merchant window opened for ${merchant.name}`);
       await app.render({ force: true });
+      app.#applyOpenSize();
       return app;
     } catch (error) {
       console.error(`${LOG_PREFIX} MerchantApp.show failed`, error);
@@ -445,6 +450,22 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
       tradeBlocked,
       isGM: game.user.isGM
     });
+  }
+
+  _onFirstRender(context, options) {
+    super._onFirstRender?.(context, options);
+    this.#applyOpenSize();
+  }
+
+  /**
+   * Always open large. Saved 840×560 / 1180×700 positions would otherwise
+   * keep shrinking the window on every reopen.
+   */
+  #applyOpenSize() {
+    const margin = 48;
+    const width = Math.min(MERCHANT_OPEN_WIDTH, Math.max(900, window.innerWidth - margin));
+    const height = Math.min(MERCHANT_OPEN_HEIGHT, Math.max(640, window.innerHeight - margin));
+    this.setPosition?.({ width, height });
   }
 
   _onRender(context, options) {
