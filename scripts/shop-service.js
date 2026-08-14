@@ -90,6 +90,30 @@ export class ShopService {
 
     await this.#writeShopkeeperFlag(actor, next);
 
+    // Guard: a wiped flag would look like a disabled empty shop.
+    const written = this.getShopkeeper(actor);
+    if (next.enabled && !written.enabled) {
+      console.error(
+        `${LOG_PREFIX} Shopkeeper flag lost enabled state after write on ${actor.name}. Restoring.`
+      );
+      await actor.update({
+        [`flags.${MODULE_ID}.${SHOPKEEPER_FLAG}.enabled`]: true,
+        [`flags.${MODULE_ID}.${SHOPKEEPER_FLAG}.shopType`]: next.shopType,
+        [`flags.${MODULE_ID}.${SHOPKEEPER_FLAG}.shopName`]: next.shopName,
+        [`flags.${MODULE_ID}.${SHOPKEEPER_FLAG}.inventoryMode`]: next.inventoryMode,
+        [`flags.${MODULE_ID}.${SHOPKEEPER_FLAG}.economyTier`]: next.economyTier,
+        [`flags.${MODULE_ID}.${SHOPKEEPER_FLAG}.partyLevelMode`]: next.partyLevelMode,
+        [`flags.${MODULE_ID}.${SHOPKEEPER_FLAG}.fixedPartyLevel`]: next.fixedPartyLevel,
+        [`flags.${MODULE_ID}.${SHOPKEEPER_FLAG}.priceMultiplier`]: next.priceMultiplier,
+        [`flags.${MODULE_ID}.${SHOPKEEPER_FLAG}.generationKey`]: next.generationKey,
+        [`flags.${MODULE_ID}.${SHOPKEEPER_FLAG}.generatedAt`]: next.generatedAt,
+        [`flags.${MODULE_ID}.${SHOPKEEPER_FLAG}.-=inventory`]: null,
+        [`flags.${MODULE_ID}.${SHOPKEEPER_FLAG}.inventory`]: Array.isArray(next.inventory)
+          ? next.inventory.slice()
+          : []
+      });
+    }
+
     if (next.enabled) {
       await this.ensurePlayerShopAccess(actor);
     }
@@ -100,18 +124,26 @@ export class ShopService {
   }
 
   /**
-   * Atomically replace the shopkeeper flag so nested inventory arrays do not merge.
+   * Persist shopkeeper flags without wiping the parent flag object.
+   * IMPORTANT: Never use `flags.townforge.-=shopkeeper` in the same update as a
+   * re-set. Foundry can apply the deletion after the write (or reject the write
+   * for non-GM owners), which clears `enabled` and makes the shop disappear
+   * after a player trade. Only the inventory array is cleared+replaced.
    * @param {Actor} actor
    * @param {object} next
    */
   async #writeShopkeeperFlag(actor, next) {
-    const flagPath = `flags.${MODULE_ID}.${SHOPKEEPER_FLAG}`;
-    const clearPath = `flags.${MODULE_ID}.-=${SHOPKEEPER_FLAG}`;
-    // Delete then set in one update so mergeObject cannot keep old inventory slots.
-    await actor.update({
-      [clearPath]: null,
-      [flagPath]: next
-    });
+    const base = `flags.${MODULE_ID}.${SHOPKEEPER_FLAG}`;
+    const inventory = Array.isArray(next.inventory) ? next.inventory.slice() : [];
+    const update = {
+      [`${base}.-=inventory`]: null,
+      [`${base}.inventory`]: inventory
+    };
+    for (const [key, value] of Object.entries(next)) {
+      if (key === "inventory") continue;
+      update[`${base}.${key}`] = value;
+    }
+    await actor.update(update);
   }
 
   /**

@@ -525,4 +525,30 @@ test("inventory patch assignment replaces prior rows conceptually", () => {
   assertEqual(next.inventory.map((row) => row.name), ["Mace", "Spear"], "full replace");
 });
 
+test("shopkeeper write payload never deletes parent flag", () => {
+  // Mirrors ShopService.#writeShopkeeperFlag — deleting flags.townforge.-=shopkeeper
+  // alongside a re-set can wipe enabled after player trades.
+  const MODULE = "townforge";
+  const FLAG = "shopkeeper";
+  const base = `flags.${MODULE}.${FLAG}`;
+  const next = {
+    enabled: true,
+    shopType: "blacksmith",
+    shopName: "Garr's",
+    inventory: [{ id: "a", name: "Mace", quantity: null }]
+  };
+  const update = {
+    [`${base}.-=inventory`]: null,
+    [`${base}.inventory`]: next.inventory
+  };
+  for (const [key, value] of Object.entries(next)) {
+    if (key === "inventory") continue;
+    update[`${base}.${key}`] = value;
+  }
+  assert(!Object.keys(update).some((key) => key.includes(`-=${FLAG}`)), "no parent delete");
+  assert(update[`${base}.enabled`] === true, "keeps enabled");
+  assert(Array.isArray(update[`${base}.inventory`]), "sets inventory");
+  assert(Object.prototype.hasOwnProperty.call(update, `${base}.-=inventory`), "clears inventory only");
+});
+
 console.log(`\n${passed} tests passed`);
