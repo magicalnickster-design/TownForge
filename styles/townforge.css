@@ -1849,3 +1849,54 @@
     justify-self: start;
   }
 }
+
+/* -------- Trade chat announcement -------- */
+
+.townforge-trade-chat {
+  display: grid;
+  gap: 0.35rem;
+  padding: 0.15rem 0;
+  font-family: "Source Sans 3", "Trebuchet MS", sans-serif;
+}
+
+.townforge-trade-chat header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  align-items: baseline;
+}
+
+.townforge-trade-chat-shop {
+  margin: 0;
+  opacity: 0.75;
+  font-size: 0.85em;
+}
+
+.townforge-trade-chat-block h4 {
+  margin: 0 0 0.2rem;
+  font-size: 0.75em;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  opacity: 0.7;
+}
+
+.townforge-trade-chat-block ul {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+.townforge-trade-chat-block li span {
+  opacity: 0.7;
+}
+
+.townforge-trade-chat-net {
+  margin: 0.25rem 0 0;
+}
+
+.townforge-trade-chat-net.is-pay strong:last-child {
+  color: #c4a35a;
+}
+
+.townforge-trade-chat-net.is-gain strong:last-child {
+  color: #9dcc8a;
+}

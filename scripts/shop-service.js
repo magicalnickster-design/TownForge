@@ -1,4 +1,4 @@
-import { FLAGS, LOG_PREFIX, MODULE_ID } from "./constants.js";
+import { ANNOUNCE_TRADES_SETTING, FLAGS, LOG_PREFIX, MODULE_ID } from "./constants.js";
 import {
   addCopper as addCopperPure,
   currencyToCopper as currencyToCopperPure,
@@ -689,12 +689,119 @@ export class ShopService {
             : `received ${this.formatPrice(-netCP)}`;
       const message = `Trade complete (${buyCount} bought, ${sellCount} sold, ${netLabel}).`;
       console.log(`${LOG_PREFIX} ${message} — ${buyer.name} @ ${merchant.name}`);
+
+      await this.#announceTradeInChat({
+        buyer,
+        merchant,
+        shop: latestShop,
+        resolvedBuys,
+        resolvedSells,
+        netCP
+      });
+
       return { ok: true, message };
     } catch (error) {
       console.error(`${LOG_PREFIX} Trade failed`, error);
       return { ok: false, message: "Trade failed." };
     } finally {
       this.#purchaseLocks.delete(fulfillKey);
+    }
+  }
+
+  /**
+   * Public chat announcement for a completed trade (optional world setting).
+   * @param {{
+   *   buyer: Actor,
+   *   merchant: Actor,
+   *   shop: object,
+   *   resolvedBuys: object[],
+   *   resolvedSells: object[],
+   *   netCP: number
+   * }} detail
+   */
+  async #announceTradeInChat(detail) {
+    let enabled = true;
+    try {
+      enabled = Boolean(game.settings.get(MODULE_ID, ANNOUNCE_TRADES_SETTING));
+    } catch (_error) {
+      enabled = true;
+    }
+    if (!enabled) return;
+
+    const { buyer, merchant, shop, resolvedBuys, resolvedSells, netCP } = detail;
+    const shopName = shop?.shopName || `${merchant.name}'s Shop`;
+    const escape = (value) =>
+      String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+
+    const buyRows = resolvedBuys
+      .map(
+        (row) =>
+          `<li><strong>${escape(row.qty)}×</strong> ${escape(row.stock.name)} <span>(${escape(
+            this.formatPrice(row.unitPriceCP * row.qty)
+          )})</span></li>`
+      )
+      .join("");
+    const sellRows = resolvedSells
+      .map(
+        (row) =>
+          `<li><strong>${escape(row.qty)}×</strong> ${escape(row.item.name)} <span>(${escape(
+            this.formatPrice(row.unitPriceCP * row.qty)
+          )})</span></li>`
+      )
+      .join("");
+
+    let netHtml = `<p class="townforge-trade-chat-net">Even trade</p>`;
+    if (netCP > 0) {
+      netHtml = `<p class="townforge-trade-chat-net is-pay"><strong>${escape(buyer.name)}</strong> paid <strong>${escape(
+        this.formatPrice(netCP)
+      )}</strong></p>`;
+    } else if (netCP < 0) {
+      netHtml = `<p class="townforge-trade-chat-net is-gain"><strong>${escape(buyer.name)}</strong> received <strong>${escape(
+        this.formatPrice(-netCP)
+      )}</strong></p>`;
+    }
+
+    const content = `
+      <div class="townforge-trade-chat">
+        <header>
+          <strong>${escape(buyer.name)}</strong>
+          <span>traded with</span>
+          <strong>${escape(merchant.name)}</strong>
+        </header>
+        <p class="townforge-trade-chat-shop">${escape(shopName)}</p>
+        ${
+          buyRows
+            ? `<div class="townforge-trade-chat-block"><h4>Bought</h4><ul>${buyRows}</ul></div>`
+            : ""
+        }
+        ${
+          sellRows
+            ? `<div class="townforge-trade-chat-block"><h4>Sold</h4><ul>${sellRows}</ul></div>`
+            : ""
+        }
+        ${netHtml}
+      </div>
+    `.trim();
+
+    try {
+      const payload = {
+        content,
+        speaker: ChatMessage.getSpeaker({ actor: buyer }),
+        flavor: "TownForge Trade"
+      };
+      // Foundry v12+ prefers style; older builds used type.
+      if (CONST?.CHAT_MESSAGE_STYLES?.OTHER != null) {
+        payload.style = CONST.CHAT_MESSAGE_STYLES.OTHER;
+      } else if (CONST?.CHAT_MESSAGE_TYPES?.OTHER != null) {
+        payload.type = CONST.CHAT_MESSAGE_TYPES.OTHER;
+      }
+      await ChatMessage.create(payload);
+    } catch (error) {
+      console.warn(`${LOG_PREFIX} Failed to announce trade in chat`, error);
     }
   }
 

@@ -7,6 +7,9 @@ export const MODULE_ID = "townforge";
 export const MODULE_TITLE = "TownForge";
 export const LOG_PREFIX = "[TownForge]";
 
+/** World setting key: announce completed shop trades in public chat. */
+export const ANNOUNCE_TRADES_SETTING = "announceTrades";
+
 /** Local Free library id used by the data loader. */
 export const LIBRARY_FREE = "free";
 

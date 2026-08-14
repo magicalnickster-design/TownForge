@@ -1,4 +1,4 @@
-import { LOG_PREFIX, MODULE_ID, MODULE_TITLE } from "./constants.js";
+import { ANNOUNCE_TRADES_SETTING, LOG_PREFIX, MODULE_ID, MODULE_TITLE } from "./constants.js";
 import { shopService } from "./shop-service.js";
 import {
   SHOP_ITEM_SOURCES_SETTING,
@@ -14,6 +14,16 @@ const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
  * Register TownForge world settings (GM-only shop source menu).
  */
 export function registerTownForgeSettings() {
+  game.settings.register(MODULE_ID, ANNOUNCE_TRADES_SETTING, {
+    name: "Announce Shop Trades in Chat",
+    hint: "When enabled, completed buys and sells at TownForge shopkeepers are posted publicly to chat for everyone.",
+    scope: "world",
+    config: true,
+    type: Boolean,
+    default: true,
+    restricted: true
+  });
+
   game.settings.registerMenu(MODULE_ID, "shopItemSourcesMenu", {
     name: "Shopkeeper Item Sources",
     label: "Configure Item Sources",
