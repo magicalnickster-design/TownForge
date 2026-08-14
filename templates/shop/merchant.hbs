@@ -1,4 +1,4 @@
-<section class="townforge-merchant-shell townforge-trade">
+<section class="townforge-merchant-shell townforge-trade{{#if isGM}} is-gm-preview{{/if}}">
   <header class="townforge-merchant-hero">
     <img class="townforge-merchant-portrait" src="{{merchantImg}}" alt="" width="88" height="88" />
     <div class="townforge-merchant-hero-copy">
@@ -10,6 +10,9 @@
       {{/if}}
     </div>
     <div class="townforge-trade-buyer">
+      {{#if isGM}}
+      <p class="townforge-muted">Preview only. Players trade with their own characters.</p>
+      {{else}}
       {{#if buyers.length}}
       <label class="townforge-buyer">
         <span>Trading as</span>
@@ -38,6 +41,7 @@
       <p class="townforge-warn">No owned character available.</p>
       {{else if needsBuyerChoice}}
       <p class="townforge-warn">Choose which character is trading.</p>
+      {{/if}}
       {{/if}}
     </div>
     {{#if isGM}}
@@ -70,7 +74,7 @@
           <button type="button"
             class="townforge-item-cell rarity-{{rarityClass}}{{#if inOffer}} is-in-offer{{/if}}"
             role="listitem"
-            data-action="toggleSell"
+            {{#unless ../isGM}}data-action="toggleSell"{{/unless}}
             data-townforge-item-cell
             data-kind="player"
             data-item-id="{{id}}"
@@ -88,7 +92,7 @@
           {{/each}}
         </div>
         {{else}}
-        <div class="townforge-empty"><p>No sellable items.</p></div>
+        <div class="townforge-empty"><p>{{#if isGM}}Players sell from their own inventory.{{else}}No sellable items.{{/if}}</p></div>
         {{/if}}
       </div>
     </section>
@@ -125,7 +129,7 @@
             {{/each}}
           </div>
           {{else}}
-          <p class="townforge-muted">Click merchant wares to buy.</p>
+          <p class="townforge-muted">{{#if isGM}}Hover a ware to inspect it.{{else}}Click merchant wares to buy.{{/if}}</p>
           {{/if}}
         </div>
         <div class="townforge-offer-block">
@@ -157,7 +161,7 @@
             {{/each}}
           </div>
           {{else}}
-          <p class="townforge-muted">Click your items to sell.</p>
+          <p class="townforge-muted">{{#if isGM}}Players sell from their own inventory.{{else}}Click your items to sell.{{/if}}</p>
           {{/if}}
         </div>
       </div>
@@ -174,12 +178,16 @@
         <p class="townforge-warn">{{tradeBlocked}}</p>
         {{/if}}
 
+        {{#if isGM}}
+        <p class="townforge-muted">GMs cannot barter on behalf of players.</p>
+        {{else}}
         <button type="button" class="townforge-buy-btn townforge-buy-btn-lg" data-action="confirmTrade" {{#unless canConfirm}}disabled{{/unless}}>
           Barter
         </button>
         <button type="button" class="townforge-btn townforge-btn-secondary" data-action="clearOffer" {{#unless hasOffer}}disabled{{/unless}}>
           Clear Offer
         </button>
+        {{/if}}
       </footer>
     </section>
 
@@ -212,7 +220,7 @@
           <button type="button"
             class="townforge-item-cell rarity-{{rarityClass}}{{#if soldOut}} is-sold-out{{/if}}{{#if inOffer}} is-in-offer{{/if}}"
             role="listitem"
-            data-action="toggleBuy"
+            {{#unless ../isGM}}data-action="toggleBuy"{{/unless}}
             data-townforge-item-cell
             data-kind="stock"
             data-stock-id="{{id}}"

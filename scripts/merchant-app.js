@@ -175,26 +175,26 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
   }
 
   #initializeBuyer() {
+    this.#buyerUuid = null;
+    this.#buyerPromptNeeded = false;
+    // GMs own every actor, so they must not be prompted to trade as a player.
+    if (game.user?.isGM) return;
+
     const owned = this.#ownedCharacters();
     const assigned = game.user?.character;
     if (assigned?.isOwner && assigned.type === "character") {
       this.#buyerUuid = assigned.uuid;
-      this.#buyerPromptNeeded = false;
       return;
     }
     if (owned.length === 1) {
       this.#buyerUuid = owned[0].uuid;
-      this.#buyerPromptNeeded = false;
       return;
     }
     if (owned.length > 1) {
-      this.#buyerUuid = null;
       this.#buyerPromptNeeded = true;
       ui.notifications?.warn("Choose which character is trading.");
       return;
     }
-    this.#buyerUuid = null;
-    this.#buyerPromptNeeded = false;
     ui.notifications?.warn("No owned character available for trading.");
   }
 
@@ -261,8 +261,9 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
       this.#filter = "all";
     }
 
-    const buyers = this.#ownedCharacters();
-    if (this.#buyerUuid && !buyers.some((buyer) => buyer.uuid === this.#buyerUuid)) {
+    const isGM = Boolean(game.user?.isGM);
+    const buyers = isGM ? [] : this.#ownedCharacters();
+    if (isGM || (this.#buyerUuid && !buyers.some((buyer) => buyer.uuid === this.#buyerUuid))) {
       this.#buyerUuid = null;
     }
 
@@ -395,7 +396,9 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
     const hasOffer = buyOffer.length > 0 || sellOffer.length > 0;
     const canAfford = netCP <= 0 || wallet.walletCP >= netCP;
     let tradeBlocked = "";
-    if (!buyerActor) {
+    if (isGM) {
+      tradeBlocked = "";
+    } else if (!buyerActor) {
       tradeBlocked = buyers.length > 1 ? "Choose which character is trading." : "No owned character available.";
     } else if (hasOffer && !canAfford) {
       tradeBlocked = "Not enough gold for this trade.";
@@ -403,7 +406,7 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
       tradeBlocked = "Trade in progress…";
     }
 
-    const canConfirm = hasOffer && canAfford && Boolean(buyerActor) && !this.#busy;
+    const canConfirm = !isGM && hasOffer && canAfford && Boolean(buyerActor) && !this.#busy;
 
     let netLabel = "Net";
     let netAmountLabel = "Even";
@@ -433,8 +436,8 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
       buyers,
       buyerUuid: this.#buyerUuid,
       hasBuyer: Boolean(this.#buyerUuid),
-      needsBuyerChoice: this.#buyerPromptNeeded && buyers.length > 1 && !this.#buyerUuid,
-      noCharacters: buyers.length === 0,
+      needsBuyerChoice: !isGM && this.#buyerPromptNeeded && buyers.length > 1 && !this.#buyerUuid,
+      noCharacters: !isGM && buyers.length === 0,
       walletPrimary: wallet.walletPrimary,
       walletCoins: wallet.walletCoins,
       buyOffer,
@@ -448,7 +451,7 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
       hasOffer,
       canConfirm,
       tradeBlocked,
-      isGM: game.user.isGM
+      isGM
     });
   }
 
@@ -663,6 +666,7 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
   }
 
   #ownedCharacters() {
+    if (game.user?.isGM) return [];
     return (game.actors?.contents ?? [])
       .filter((actor) => actor.isOwner && actor.type === "character")
       .map((actor) => ({
@@ -701,6 +705,7 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
 
   /** @this {MerchantApp} */
   static async #onToggleBuy(_event, target) {
+    if (game.user?.isGM) return;
     const stockId = target.dataset.stockId;
     if (!stockId || target.classList.contains("is-sold-out")) return;
     if (this.#buyOffer.has(stockId)) {
@@ -713,6 +718,7 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
 
   /** @this {MerchantApp} */
   static async #onToggleSell(_event, target) {
+    if (game.user?.isGM) return;
     const itemId = target.dataset.itemId;
     if (!itemId) return;
     if (this.#sellOffer.has(itemId)) {
@@ -794,6 +800,7 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
     event.preventDefault();
     event.stopPropagation?.();
     if (this.#busy) return;
+    if (game.user?.isGM) return;
 
     const buyers = this.#ownedCharacters();
     if (!buyers.length) {

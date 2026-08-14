@@ -1020,6 +1020,10 @@
   z-index: 1;
 }
 
+.townforge-trade.is-gm-preview .townforge-item-cell {
+  cursor: default;
+}
+
 .townforge-offer-cell {
   cursor: default;
 }
