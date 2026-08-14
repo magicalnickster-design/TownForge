@@ -1,8 +1,20 @@
 import { LOG_PREFIX, MODULE_ID } from "./constants.js";
 import { currencyToCopper, normalizeCurrency } from "./shop-currency.js";
+import { isUnlimitedStock, stockQuantityLabel } from "./shop-constants.js";
 import { getShopTypeLabel, shopService } from "./shop-service.js";
 
 const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
+
+const PRICE_FILTERS = Object.freeze([
+  { id: "all", label: "All Prices" },
+  { id: "affordable", label: "Affordable" },
+  { id: "1gp", label: "≤ 1 gp", maxCP: 100 },
+  { id: "10gp", label: "≤ 10 gp", maxCP: 1000 },
+  { id: "50gp", label: "≤ 50 gp", maxCP: 5000 },
+  { id: "100gp", label: "≤ 100 gp", maxCP: 10000 },
+  { id: "500gp", label: "≤ 500 gp", maxCP: 50000 },
+  { id: "500gp+", label: "500 gp+", minCP: 50001 }
+]);
 
 /**
  * Player-facing TownForge merchant window (BG3-style trade).
@@ -24,6 +36,9 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
 
   /** @type {string} */
   #filter = "all";
+
+  /** @type {string} */
+  #priceFilter = "all";
 
   /** @type {string|null} */
   #buyerUuid = null;
@@ -52,6 +67,7 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
     position: { width: 840, height: 560 },
     actions: {
       setFilter: MerchantApp.#onSetFilter,
+      setPriceFilter: MerchantApp.#onSetPriceFilter,
       toggleBuy: MerchantApp.#onToggleBuy,
       toggleSell: MerchantApp.#onToggleSell,
       removeBuy: MerchantApp.#onRemoveBuy,
@@ -242,11 +258,13 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
     // Prune stale offer lines against live stock / inventory.
     for (const stockId of [...this.#buyOffer.keys()]) {
       const stock = inventory.find((entry) => entry.id === stockId);
-      if (!stock || (stock.quantity != null && Number(stock.quantity) <= 0)) {
+      if (!stock || (!isUnlimitedStock(stock) && Number(stock.quantity) <= 0)) {
         this.#buyOffer.delete(stockId);
         continue;
       }
-      const maxQty = stock.quantity == null ? 99 : Math.max(1, Math.min(99, Number(stock.quantity) || 1));
+      const maxQty = isUnlimitedStock(stock)
+        ? 99
+        : Math.max(1, Math.min(99, Number(stock.quantity) || 1));
       this.#buyOffer.set(stockId, Math.max(1, Math.min(maxQty, this.#buyOffer.get(stockId) || 1)));
     }
     if (buyerActor) {
@@ -263,17 +281,23 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
       this.#sellOffer.clear();
     }
 
+    const priceFilters = PRICE_FILTERS.map((entry) => ({
+      ...entry,
+      active: entry.id === this.#priceFilter
+    }));
+
     const items = inventory
       .filter((entry) => this.#filter === "all" || entry.filter === this.#filter)
+      .filter((entry) => this.#matchesPriceFilter(entry, wallet.walletCP))
       .filter((entry) => {
         if (!query) return true;
         return `${entry.name} ${entry.type}`.toLowerCase().includes(query);
       })
       .map((entry) => {
-        const soldOut = entry.quantity != null && Number(entry.quantity) <= 0;
+        const soldOut = !isUnlimitedStock(entry) && Number(entry.quantity) <= 0;
         return {
           ...entry,
-          quantityLabel: entry.quantity == null ? "∞" : String(entry.quantity),
+          quantityLabel: stockQuantityLabel(entry),
           soldOut,
           inOffer: this.#buyOffer.has(entry.id)
         };
@@ -309,7 +333,9 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
       const unit = Math.max(0, Number(stock.priceCP) || 0);
       const line = unit * quantity;
       buyTotalCP += line;
-      const maxQty = stock.quantity == null ? 99 : Math.max(1, Math.min(99, Number(stock.quantity) || 1));
+      const maxQty = isUnlimitedStock(stock)
+        ? 99
+        : Math.max(1, Math.min(99, Number(stock.quantity) || 1));
       buyOffer.push({
         stockId,
         name: stock.name,
@@ -373,6 +399,8 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
       playerQuery: this.#playerQuery,
       filter: this.#filter,
       filters,
+      priceFilter: this.#priceFilter,
+      priceFilters,
       items,
       playerItems,
       buyers,
@@ -441,11 +469,29 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
       }));
   }
 
+  #matchesPriceFilter(entry, walletCP) {
+    const price = Math.max(0, Number(entry.priceCP) || 0);
+    const filter = PRICE_FILTERS.find((row) => row.id === this.#priceFilter) ?? PRICE_FILTERS[0];
+    if (filter.id === "all") return true;
+    if (filter.id === "affordable") return price <= walletCP;
+    if (filter.maxCP != null && filter.minCP == null) return price <= filter.maxCP;
+    if (filter.minCP != null) return price >= filter.minCP;
+    return true;
+  }
+
   /** @this {MerchantApp} */
   static async #onSetFilter(_event, target) {
     const filter = target.dataset.filter;
     if (!filter || filter === this.#filter) return;
     this.#filter = filter;
+    await this.render({ force: false });
+  }
+
+  /** @this {MerchantApp} */
+  static async #onSetPriceFilter(_event, target) {
+    const filter = target.dataset.priceFilter;
+    if (!filter || filter === this.#priceFilter) return;
+    this.#priceFilter = filter;
     await this.render({ force: false });
   }
 
@@ -501,8 +547,9 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
     if (current == null) return;
     const shop = shopService.getShopkeeper(this.#merchant);
     const stock = (shop.inventory ?? []).find((entry) => entry.id === stockId);
-    const maxQty =
-      stock?.quantity == null ? 99 : Math.max(1, Math.min(99, Number(stock.quantity) || 1));
+    const maxQty = isUnlimitedStock(stock)
+      ? 99
+      : Math.max(1, Math.min(99, Number(stock?.quantity) || 1));
     const next = Math.max(1, Math.min(maxQty, current + delta));
     this.#buyOffer.set(stockId, next);
     await this.render({ force: false });

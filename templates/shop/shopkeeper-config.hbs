@@ -57,6 +57,11 @@
         </label>
 
         <label class="townforge-field">
+          <span>Stock Count</span>
+          <input type="number" name="stockCount" min="1" max="100" step="1" value="{{shop.stockCount}}" />
+        </label>
+
+        <label class="townforge-field">
           <span>Party Level</span>
           <select name="partyLevelMode" data-townforge-party-mode>
             {{#each partyLevelModes}}

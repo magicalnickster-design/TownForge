@@ -290,6 +290,7 @@ export class ShopkeeperConfig extends HandlebarsApplicationMixin(ApplicationV2) 
       shopName: String(get("shopName")?.value || ""),
       inventoryMode: String(get("inventoryMode")?.value || INVENTORY_MODES.automatic),
       economyTier: String(get("economyTier")?.value || "standard"),
+      stockCount: Math.max(1, Math.min(100, Math.floor(Number(get("stockCount")?.value) || 25))),
       partyLevelMode,
       fixedPartyLevel,
       priceMultiplier: Number(get("priceMultiplier")?.value) || 1
@@ -403,8 +404,14 @@ export class ShopkeeperConfig extends HandlebarsApplicationMixin(ApplicationV2) 
     if (priceGP == null) return;
 
     const qtyRaw = window.prompt(
-      `Quantity for ${entry.name} (blank = unlimited, current ${entry.quantity == null ? "∞" : entry.quantity})`,
-      entry.quantity == null ? "" : String(entry.quantity)
+      `Quantity for ${entry.name} (blank = unlimited, current ${
+        entry.unlimited || entry.quantity == null || Number(entry.quantity) < 0
+          ? "∞"
+          : entry.quantity
+      })`,
+      entry.unlimited || entry.quantity == null || Number(entry.quantity) < 0
+        ? ""
+        : String(entry.quantity)
     );
     if (qtyRaw == null) return;
 

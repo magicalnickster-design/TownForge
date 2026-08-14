@@ -224,12 +224,14 @@ export function validatePurchaseRequest({
   if (!stock) {
     return { ok: false, message: "Item unavailable." };
   }
-  if (stock.quantity != null && Number(stock.quantity) <= 0) {
-    return { ok: false, message: "Item sold out." };
-  }
 
   const qty = Math.max(1, Math.min(99, Math.floor(Number(quantity) || 1)));
-  if (stock.quantity != null && Number(stock.quantity) < qty) {
+  const unlimited =
+    stock.unlimited === true || stock.quantity == null || Number(stock.quantity) < 0;
+  if (!unlimited && Number(stock.quantity) <= 0) {
+    return { ok: false, message: "Item sold out." };
+  }
+  if (!unlimited && Number(stock.quantity) < qty) {
     return { ok: false, message: "Not enough stock." };
   }
 

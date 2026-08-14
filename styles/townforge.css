@@ -1235,8 +1235,12 @@
 
 .townforge-setup-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.65rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+.townforge-price-filters {
+  margin-top: 0.15rem;
 }
 
 .townforge-fixed-level.is-disabled select {

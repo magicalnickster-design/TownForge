@@ -161,6 +161,11 @@
           <button type="button" class="townforge-cat-tab{{#if active}} is-active{{/if}}" data-action="setFilter" data-filter="{{id}}">{{label}}</button>
           {{/each}}
         </div>
+        <div class="townforge-merchant-filters townforge-price-filters" aria-label="Filter by price">
+          {{#each priceFilters}}
+          <button type="button" class="townforge-cat-tab{{#if active}} is-active{{/if}}" data-action="setPriceFilter" data-price-filter="{{id}}">{{label}}</button>
+          {{/each}}
+        </div>
       </header>
       <div class="townforge-trade-list">
         {{#if items.length}}

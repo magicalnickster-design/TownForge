@@ -17,7 +17,9 @@ import {
   SHOP_FILTERS,
   SHOP_TYPES,
   SHOPKEEPER_FLAG,
-  defaultShopkeeperFlags
+  defaultShopkeeperFlags,
+  isUnlimitedStock,
+  sanitizeStockEntry
 } from "./shop-constants.js";
 import { resolveSelectedItemPacks } from "./shop-sources.js";
 import { refreshOpenShopUIs } from "./shop-sync.js";
@@ -52,7 +54,10 @@ export class ShopService {
   getShopkeeper(actor) {
     const raw = actor?.getFlag?.(MODULE_ID, SHOPKEEPER_FLAG);
     if (!raw || typeof raw !== "object") return defaultShopkeeperFlags();
-    return defaultShopkeeperFlags(raw);
+    const shop = defaultShopkeeperFlags(raw);
+    shop.stockCount = Math.max(1, Math.min(100, Math.floor(Number(shop.stockCount) || 25)));
+    shop.inventory = this.#sanitizeInventory(shop.inventory);
+    return shop;
   }
 
   /**
@@ -77,18 +82,32 @@ export class ShopService {
     const current = this.getShopkeeper(actor);
     const next = foundry.utils.mergeObject(current, patch, { inplace: false });
     next.priceMultiplier = Math.max(0.1, Number(next.priceMultiplier) || 1);
+    next.stockCount = Math.max(1, Math.min(100, Math.floor(Number(next.stockCount) || 25)));
     if (next.fixedPartyLevel != null) {
       next.fixedPartyLevel = Math.max(1, Math.min(20, Number(next.fixedPartyLevel) || 1));
     }
     // Always replace inventory by assignment. Foundry setFlag/mergeObject otherwise
     // merges arrays by index and can preserve prior stock/order across regenerates.
     if (Object.prototype.hasOwnProperty.call(patch, "inventory")) {
-      next.inventory = Array.isArray(patch.inventory) ? patch.inventory.slice() : [];
+      next.inventory = this.#sanitizeInventory(
+        Array.isArray(patch.inventory) ? patch.inventory.slice() : []
+      );
     } else if (!Array.isArray(next.inventory)) {
       next.inventory = [];
+    } else {
+      next.inventory = this.#sanitizeInventory(next.inventory);
     }
 
-    await this.#writeShopkeeperFlag(actor, next);
+    // Inventory-only writes (player trades) must not touch sibling shop fields.
+    const inventoryOnly =
+      !game.user?.isGM &&
+      Object.keys(patch ?? {}).length === 1 &&
+      Object.prototype.hasOwnProperty.call(patch, "inventory");
+    if (inventoryOnly) {
+      await this.#writeShopkeeperInventory(actor, next.inventory);
+    } else {
+      await this.#writeShopkeeperFlag(actor, next);
+    }
 
     // Guard: a wiped flag would look like a disabled empty shop.
     const written = this.getShopkeeper(actor);
@@ -129,21 +148,56 @@ export class ShopService {
    * re-set. Foundry can apply the deletion after the write (or reject the write
    * for non-GM owners), which clears `enabled` and makes the shop disappear
    * after a player trade. Only the inventory array is cleared+replaced.
+   * Never persist quantity:null — Foundry treats null as delete and can drop stock.
    * @param {Actor} actor
    * @param {object} next
    */
   async #writeShopkeeperFlag(actor, next) {
     const base = `flags.${MODULE_ID}.${SHOPKEEPER_FLAG}`;
-    const inventory = Array.isArray(next.inventory) ? next.inventory.slice() : [];
+    const inventory = this.#sanitizeInventory(next.inventory);
     const update = {
       [`${base}.-=inventory`]: null,
       [`${base}.inventory`]: inventory
     };
     for (const [key, value] of Object.entries(next)) {
       if (key === "inventory") continue;
+      // Skip null sibling values — Foundry deletes keys set to null.
+      if (value === null) continue;
       update[`${base}.${key}`] = value;
     }
     await actor.update(update);
+  }
+
+  /**
+   * Inventory-only flag write used by player trades.
+   * @param {Actor} actor
+   * @param {object[]} inventory
+   */
+  async #writeShopkeeperInventory(actor, inventory) {
+    const base = `flags.${MODULE_ID}.${SHOPKEEPER_FLAG}`;
+    const clean = this.#sanitizeInventory(inventory);
+    await actor.update({
+      [`${base}.-=inventory`]: null,
+      [`${base}.inventory`]: clean
+    });
+  }
+
+  /**
+   * @param {object[]} inventory
+   * @returns {object[]}
+   */
+  #sanitizeInventory(inventory) {
+    return (Array.isArray(inventory) ? inventory : [])
+      .filter((entry) => entry?.id && entry?.uuid && entry?.name)
+      .map((entry) => sanitizeStockEntry(entry));
+  }
+
+  /**
+   * @param {object} entry
+   * @returns {boolean}
+   */
+  #isUnlimited(entry) {
+    return isUnlimitedStock(entry);
   }
 
   /**
@@ -312,6 +366,7 @@ export class ShopService {
 
     const partyLevel = this.getEffectivePartyLevel(shop);
     const economy = ECONOMY_TIERS[shop.economyTier] ?? ECONOMY_TIERS.standard;
+    const stockCount = Math.max(1, Math.min(100, Math.floor(Number(shop.stockCount) || 25)));
     const { selectedIds } = resolveSelectedItemPacks();
     const shouldReshuffle = Boolean(force || reshuffle);
     const seedSalt = shouldReshuffle ? newGenerationSalt() : "stable";
@@ -321,6 +376,7 @@ export class ShopService {
       shop.partyLevelMode,
       partyLevel,
       shop.priceMultiplier,
+      stockCount,
       selectedIds.join(","),
       actor.id,
       shouldReshuffle ? seedSalt : "stable"
@@ -350,7 +406,8 @@ export class ShopService {
       : (shop.inventory ?? []).filter((entry) => entry?.source === "manual");
     const automatic = await this.#generateAutomaticStock(actor, shop, partyLevel, economy, {
       seedSalt,
-      reshuffle: shouldReshuffle
+      reshuffle: shouldReshuffle,
+      stockCount
     });
     const inventory = [...automatic, ...manual];
 
@@ -382,7 +439,7 @@ export class ShopService {
    */
   getSellableInventory(actor) {
     return this.getDisplayInventory(actor).filter((entry) => {
-      if (entry.quantity == null) return true;
+      if (this.#isUnlimited(entry)) return true;
       return Number(entry.quantity) > 0;
     });
   }
@@ -618,12 +675,13 @@ export class ShopService {
         return { ok: false, message: "Not enough gold." };
       }
 
-      // Re-check finite shop stock after async gaps.
+      // Re-check shop stock after async gaps.
       const latestShop = this.getShopkeeper(merchant);
+      const previousInventory = Array.isArray(latestShop.inventory) ? latestShop.inventory.slice() : [];
       for (const buy of resolvedBuys) {
-        const latestStock = (latestShop.inventory ?? []).find((entry) => entry.id === buy.stock.id);
+        const latestStock = previousInventory.find((entry) => entry.id === buy.stock.id);
         if (!latestStock) return { ok: false, message: "Item unavailable." };
-        if (latestStock.quantity != null && Number(latestStock.quantity) < buy.qty) {
+        if (!this.#isUnlimited(latestStock) && Number(latestStock.quantity) < buy.qty) {
           return { ok: false, message: "Not enough stock." };
         }
       }
@@ -658,20 +716,33 @@ export class ShopService {
         await buyer.createEmbeddedDocuments("Item", createData);
       }
 
-      // Update merchant inventory: decrement finite buys, restock sold goods for resale.
+      // Update merchant inventory: decrement finite buys, restock sold goods.
+      // Preserve existing unlimited/automatic rows so a trade cannot wipe the shelf.
       if (game.user.isGM || merchant.isOwner) {
-        let inventory = [...(latestShop.inventory ?? [])];
+        let inventory = previousInventory.map((entry) => ({ ...entry }));
         for (const buy of resolvedBuys) {
           inventory = inventory.map((entry) => {
-            if (entry.id !== buy.stock.id || entry.quantity == null) return entry;
+            if (entry.id !== buy.stock.id || this.#isUnlimited(entry)) return entry;
             return { ...entry, quantity: Math.max(0, Number(entry.quantity) - buy.qty) };
           });
         }
         for (const sell of resolvedSells) {
           inventory = this.#restockSoldItem(inventory, sell);
         }
-        // Drop emptied finite stacks so the list stays clean.
-        inventory = inventory.filter((entry) => entry.quantity == null || Number(entry.quantity) > 0);
+        inventory = inventory.filter(
+          (entry) => this.#isUnlimited(entry) || Number(entry.quantity) > 0
+        );
+
+        // Safety net: never allow a trade write to drop prior unlimited stock.
+        const keptIds = new Set(inventory.map((entry) => entry.id));
+        for (const prev of previousInventory) {
+          if (keptIds.has(prev.id)) continue;
+          if (this.#isUnlimited(prev) || prev.source === "automatic") {
+            inventory.push({ ...prev });
+            keptIds.add(prev.id);
+          }
+        }
+
         await this.updateShopkeeper(merchant, { inventory }, { allowNonGM: true });
       } else {
         console.warn(
@@ -829,31 +900,31 @@ export class ShopService {
       const entry = this.#toStockEntry(sell.item, { source: "manual", priceCP, quantity: sell.qty });
       entry.id = `tfstock-manual-${stableHash(`${sell.item.id}:${Date.now()}:${Math.random()}`)}`;
       entry.priceLabel = this.formatPrice(entry.priceCP);
-      return [...inventory, entry];
+      return [...inventory, sanitizeStockEntry(entry)];
     }
 
-    const hasInfinite = inventory.some((entry) => entry.uuid === uuid && entry.quantity == null);
+    const hasInfinite = inventory.some((entry) => entry.uuid === uuid && this.#isUnlimited(entry));
     if (hasInfinite) return inventory;
 
     const existing = inventory.find(
-      (entry) => entry.uuid === uuid && entry.quantity != null && Number(entry.quantity) >= 0
+      (entry) => entry.uuid === uuid && !this.#isUnlimited(entry) && Number(entry.quantity) >= 0
     );
     if (existing) {
       return inventory.map((entry) => {
         if (entry.id !== existing.id) return entry;
-        return {
+        return sanitizeStockEntry({
           ...entry,
           quantity: Number(entry.quantity) + sell.qty,
           priceCP,
           priceLabel: this.formatPrice(priceCP),
           source: entry.source || "manual"
-        };
+        });
       });
     }
 
     const entry = this.#toStockEntry(sell.item, { source: "manual", priceCP, quantity: sell.qty });
     entry.priceLabel = this.formatPrice(entry.priceCP);
-    return [...inventory, entry];
+    return [...inventory, sanitizeStockEntry(entry)];
   }
 
   /**
@@ -1013,7 +1084,13 @@ export class ShopService {
         next.priceLabel = this.formatPrice(next.priceCP);
       }
       if ("quantity" in patch) {
-        next.quantity = patch.quantity == null ? null : Math.max(0, Number(patch.quantity) || 0);
+        if (patch.quantity == null || patch.quantity === "" || Number(patch.quantity) < 0) {
+          next.unlimited = true;
+          delete next.quantity;
+        } else {
+          next.unlimited = false;
+          next.quantity = Math.max(0, Number(patch.quantity) || 0);
+        }
       }
       if (patch.name) next.name = String(patch.name);
       return next;
@@ -1154,7 +1231,7 @@ export class ShopService {
     if (!merchant) return;
     const shop = this.getShopkeeper(merchant);
     const inventory = (shop.inventory ?? []).map((entry) => {
-      if (entry.id !== payload.stockId || entry.quantity == null) return entry;
+      if (entry.id !== payload.stockId || this.#isUnlimited(entry)) return entry;
       return { ...entry, quantity: Math.max(0, Number(entry.quantity) - 1) };
     });
     await this.updateShopkeeper(merchant, { inventory });
@@ -1237,7 +1314,8 @@ export class ShopService {
     );
 
     const pool = [...affordable];
-    const stretchCount = Math.floor(economy.stockCount * economy.expensiveChance);
+    const stockCount = Math.max(1, Math.min(100, Math.floor(Number(options.stockCount) || shop.stockCount || 25)));
+    const stretchCount = Math.floor(stockCount * economy.expensiveChance);
     const pick = reshuffle
       ? (list, count) => randomPick(list, count)
       : (list, count, label) =>
@@ -1249,7 +1327,7 @@ export class ShopService {
     const unique = new Map();
     for (const item of pool) unique.set(item.uuid, item);
 
-    const picked = pick([...unique.values()], economy.stockCount, economy.id);
+    const picked = pick([...unique.values()], stockCount, economy.id);
 
     // Do not force staple weapons/armor back in on reshuffle — that made every
     // regenerate look like the same list in the same order.
@@ -1270,16 +1348,18 @@ export class ShopService {
           "Chain Shirt",
           "Scale Mail"
         ],
-        economy.stockCount
+        stockCount
       );
     }
 
     return picked.map((item) =>
-      this.#toStockEntry(item, {
-        source: "automatic",
-        priceCP: this.#priceFromIndexItem(item, shop.priceMultiplier),
-        quantity: null
-      })
+      sanitizeStockEntry(
+        this.#toStockEntry(item, {
+          source: "automatic",
+          priceCP: this.#priceFromIndexItem(item, shop.priceMultiplier),
+          quantity: -1
+        })
+      )
     );
   }
 
@@ -1500,7 +1580,8 @@ export class ShopService {
   #toStockEntry(item, { source, priceCP, quantity }) {
     const uuid = item.uuid;
     const id = `tfstock-${source}-${stableHash(uuid)}`;
-    return {
+    const unlimited = quantity == null || Number(quantity) < 0;
+    const entry = {
       id,
       uuid,
       name: item.name,
@@ -1508,11 +1589,13 @@ export class ShopService {
       type: item.type,
       priceCP,
       priceLabel: this.formatPrice(priceCP),
-      quantity,
       source,
       pack: item.pack || "",
-      filter: this.#filterBucket(item)
+      filter: this.#filterBucket(item),
+      unlimited
     };
+    if (!unlimited) entry.quantity = Math.max(0, Math.floor(Number(quantity) || 0));
+    return entry;
   }
 
   #filterBucket(item) {

@@ -148,6 +148,7 @@ export function defaultShopkeeperFlags(overrides = {}) {
       partyLevelMode: PARTY_LEVEL_MODES.auto,
       fixedPartyLevel: null,
       priceMultiplier: 1,
+      stockCount: 25,
       stockModel: "unlimited",
       generatedAt: null,
       generationKey: null,
@@ -156,6 +157,39 @@ export function defaultShopkeeperFlags(overrides = {}) {
     overrides,
     { inplace: false }
   );
+}
+
+/**
+ * Unlimited stock marker helpers.
+ * Never persist quantity: null — Foundry treats null as "delete key" in updates,
+ * which can wipe shop inventory when players write stock after a trade.
+ */
+export function isUnlimitedStock(entry) {
+  if (!entry || typeof entry !== "object") return false;
+  if (entry.unlimited === true) return true;
+  if (entry.quantity == null) return true;
+  return Number(entry.quantity) < 0;
+}
+
+export function stockQuantityLabel(entry) {
+  return isUnlimitedStock(entry) ? "∞" : String(Math.max(0, Number(entry.quantity) || 0));
+}
+
+/**
+ * @param {object} entry
+ * @returns {object}
+ */
+export function sanitizeStockEntry(entry) {
+  if (!entry || typeof entry !== "object") return entry;
+  const next = { ...entry };
+  if (isUnlimitedStock(next)) {
+    next.unlimited = true;
+    delete next.quantity;
+  } else {
+    next.unlimited = false;
+    next.quantity = Math.max(0, Math.floor(Number(next.quantity) || 0));
+  }
+  return next;
 }
 
 export function shopkeeperFlagPath(...parts) {
