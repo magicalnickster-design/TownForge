@@ -96,6 +96,34 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
     return app;
   }
 
+  /**
+   * Used by live shop sync to match open windows by id or uuid.
+   * @param {Set<string>|string[]|string|Actor} merchantRef
+   * @returns {boolean}
+   */
+  matchesMerchant(merchantRef) {
+    const keys =
+      merchantRef instanceof Set
+        ? merchantRef
+        : new Set(
+            typeof merchantRef === "string"
+              ? [merchantRef]
+              : Array.isArray(merchantRef)
+                ? merchantRef
+                : [merchantRef?.id, merchantRef?.uuid].filter(Boolean)
+          );
+    return keys.has(this.merchantId) || keys.has(this.#merchant?.id) || keys.has(this.#merchant?.uuid);
+  }
+
+  /**
+   * @param {Set<string>} buyerKeys
+   * @returns {boolean}
+   */
+  refreshIfBuyer(buyerKeys) {
+    if (!this.#buyerUuid || !buyerKeys?.size) return false;
+    return buyerKeys.has(this.#buyerUuid);
+  }
+
   get title() {
     const shop = shopService.getShopkeeper(this.#merchant);
     return shop.shopName || `${this.#merchant.name}'s Shop`;

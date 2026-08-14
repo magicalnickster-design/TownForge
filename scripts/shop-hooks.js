@@ -2,6 +2,12 @@ import { LOG_PREFIX, MODULE_ID } from "./constants.js";
 import { MerchantApp } from "./merchant-app.js";
 import { shopService } from "./shop-service.js";
 import { ShopkeeperConfig } from "./shopkeeper-config.js";
+import {
+  buyerCurrencyChanged,
+  refreshOpenShopUIs,
+  refreshOpenShopUIsForBuyer,
+  shopkeeperFlagsChanged
+} from "./shop-sync.js";
 
 let tokenClickPatched = false;
 
@@ -10,6 +16,18 @@ let tokenClickPatched = false;
  */
 export function registerShopHooks() {
   shopService.registerSockets();
+
+  // Live sync: when shop stock/config flags change on any client, refresh open shop UIs.
+  Hooks.on("updateActor", (actor, changes) => {
+    if (!actor) return;
+    if (shopkeeperFlagsChanged(changes)) {
+      refreshOpenShopUIs(actor);
+      return;
+    }
+    if (buyerCurrencyChanged(changes)) {
+      refreshOpenShopUIsForBuyer(actor);
+    }
+  });
 
   // GM header control on Actor sheets (AppV2).
   Hooks.on("getHeaderControlsActorSheetV2", (app, controls) => {
@@ -208,5 +226,6 @@ export const shopApi = Object.freeze({
   enable: (actor, options) => shopService.enableShopkeeper(actor, options),
   regenerate: (actor) => shopService.regenerateInventory(actor, { force: true }),
   shouldDeferTokenClick,
+  refreshOpenShopUIs,
   service: shopService
 });

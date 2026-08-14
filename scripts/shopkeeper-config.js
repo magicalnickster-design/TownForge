@@ -73,6 +73,24 @@ export class ShopkeeperConfig extends HandlebarsApplicationMixin(ApplicationV2) 
     return app;
   }
 
+  /**
+   * @param {Set<string>|string[]|string|Actor} merchantRef
+   * @returns {boolean}
+   */
+  matchesMerchant(merchantRef) {
+    const keys =
+      merchantRef instanceof Set
+        ? merchantRef
+        : new Set(
+            typeof merchantRef === "string"
+              ? [merchantRef]
+              : Array.isArray(merchantRef)
+                ? merchantRef
+                : [merchantRef?.id, merchantRef?.uuid].filter(Boolean)
+          );
+    return keys.has(this.actorId) || keys.has(this.#actor?.id) || keys.has(this.#actor?.uuid);
+  }
+
   get title() {
     return `TownForge Shopkeeper — ${this.#actor?.name ?? "NPC"}`;
   }

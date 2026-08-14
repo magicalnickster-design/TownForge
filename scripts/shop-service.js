@@ -18,6 +18,7 @@ import {
   defaultShopkeeperFlags
 } from "./shop-constants.js";
 import { resolveSelectedItemPacks } from "./shop-sources.js";
+import { refreshOpenShopUIs } from "./shop-sync.js";
 
 /**
  * TownForge shop generation, pricing, and purchase validation.
@@ -70,6 +71,9 @@ export class ShopService {
     }
     if (!Array.isArray(next.inventory)) next.inventory = [];
     await actor.setFlag(MODULE_ID, SHOPKEEPER_FLAG, next);
+    // Local clients refresh immediately; remote clients also get updateActor + socket.
+    refreshOpenShopUIs(actor, { immediate: true });
+    this.#broadcastShopInventoryChanged(actor);
     return this.getShopkeeper(actor);
   }
 
@@ -166,10 +170,34 @@ export class ShopService {
       priceMultiplier: options.priceMultiplier ?? current.priceMultiplier ?? 1
     });
 
+    // Players need at least OBSERVER to read live shop inventory flags.
+    await this.#ensurePlayerShopAccess(actor);
+
     if (enabled.inventoryMode === INVENTORY_MODES.automatic) {
       return this.regenerateInventory(actor, { force: true });
     }
     return enabled;
+  }
+
+  /**
+   * Ensure default ownership is at least OBSERVER so all players can browse
+   * and live-sync shop stock from the merchant Actor flags.
+   * @param {Actor} actor
+   */
+  async #ensurePlayerShopAccess(actor) {
+    if (!game.user?.isGM || !actor) return;
+    try {
+      const OBSERVER =
+        CONST?.DOCUMENT_OWNERSHIP_LEVELS?.OBSERVER ??
+        CONST?.DOCUMENT_PERMISSION_LEVELS?.OBSERVER ??
+        2;
+      const currentDefault = Number(actor.ownership?.default ?? 0);
+      if (currentDefault >= OBSERVER) return;
+      await actor.update({ "ownership.default": OBSERVER });
+      console.log(`${LOG_PREFIX} Granted OBSERVER default ownership for shopkeeper ${actor.name}`);
+    } catch (error) {
+      console.warn(`${LOG_PREFIX} Could not update shopkeeper ownership for player access`, error);
+    }
   }
 
   /**
@@ -607,9 +635,31 @@ export class ShopService {
         return;
       }
 
+      if (payload.type === "shopInventoryChanged") {
+        // Actor flag sync and this socket can arrive in either order — refresh now and once more shortly.
+        refreshOpenShopUIs(payload.merchantUuid || payload.merchantId);
+        setTimeout(() => {
+          refreshOpenShopUIs(payload.merchantUuid || payload.merchantId, { immediate: true });
+        }, 200);
+        return;
+      }
+
       if (payload.type === "stockDecrement" && game.user.isGM) {
         void this.#handleStockDecrement(payload);
       }
+    });
+  }
+
+  /**
+   * Notify every connected client that merchant stock/config changed.
+   * @param {Actor} actor
+   */
+  #broadcastShopInventoryChanged(actor) {
+    if (!actor || !game.socket) return;
+    game.socket.emit(`module.${MODULE_ID}`, {
+      type: "shopInventoryChanged",
+      merchantUuid: actor.uuid,
+      merchantId: actor.id
     });
   }
 
