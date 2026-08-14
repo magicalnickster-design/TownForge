@@ -5,8 +5,9 @@ import { getShopTypeLabel, shopService } from "./shop-service.js";
 const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
 
 /**
- * Player-facing TownForge merchant window.
- * Does not expose Actor sheet data, secrets, or GM configuration.
+ * Player-facing TownForge merchant window (BG3-style trade).
+ * Left: sellable inventory. Center: offer + confirm. Right: shop stock.
+ * One Confirm Trade settles buys and sells with net gold.
  */
 export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
   /** @type {Actor} */
@@ -19,50 +20,54 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
   #query = "";
 
   /** @type {string} */
+  #playerQuery = "";
+
+  /** @type {string} */
   #filter = "all";
 
   /** @type {string|null} */
   #buyerUuid = null;
 
-  /** @type {string|null} */
-  #selectedStockId = null;
-
-  /** @type {string} */
-  #selectedDescription = "";
-
-  /** @type {string[]} */
-  #selectedProperties = [];
-
   /** @type {boolean} */
   #buyerPromptNeeded = false;
 
-  /** @type {number} */
-  #buyQuantity = 1;
+  /** @type {Map<string, number>} stockId → quantity */
+  #buyOffer = new Map();
+
+  /** @type {Map<string, number>} itemId → quantity */
+  #sellOffer = new Map();
+
+  /** @type {boolean} */
+  #busy = false;
 
   static DEFAULT_OPTIONS = {
     id: "townforge-merchant",
-    classes: ["townforge", "townforge-merchant"],
+    classes: ["townforge", "townforge-merchant", "townforge-trade"],
     tag: "div",
     window: {
       title: "TownForge Merchant",
       resizable: true,
       contentClasses: ["townforge-window-content"]
     },
-    position: { width: 980, height: 760 },
+    position: { width: 1100, height: 720 },
     actions: {
-      setFilter: this.#onSetFilter,
-      selectItem: this.#onSelectItem,
-      adjustQty: this.#onAdjustQty,
-      buyItem: this.#onBuyItem,
-      openActorSheet: this.#onOpenActorSheet,
-      configureShop: this.#onConfigureShop
+      setFilter: MerchantApp.#onSetFilter,
+      toggleBuy: MerchantApp.#onToggleBuy,
+      toggleSell: MerchantApp.#onToggleSell,
+      removeBuy: MerchantApp.#onRemoveBuy,
+      removeSell: MerchantApp.#onRemoveSell,
+      adjustBuyQty: MerchantApp.#onAdjustBuyQty,
+      adjustSellQty: MerchantApp.#onAdjustSellQty,
+      clearOffer: MerchantApp.#onClearOffer,
+      confirmTrade: MerchantApp.#onConfirmTrade,
+      configureShop: MerchantApp.#onConfigureShop
     }
   };
 
   static PARTS = {
     body: {
       template: `modules/${MODULE_ID}/templates/shop/merchant.hbs`,
-      scrollable: [".townforge-merchant-list", ".townforge-item-card-body"]
+      scrollable: [".townforge-trade-list"]
     }
   };
 
@@ -150,12 +155,12 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
     if (owned.length > 1) {
       this.#buyerUuid = null;
       this.#buyerPromptNeeded = true;
-      ui.notifications?.warn("Choose which character is shopping.");
+      ui.notifications?.warn("Choose which character is trading.");
       return;
     }
     this.#buyerUuid = null;
     this.#buyerPromptNeeded = false;
-    ui.notifications?.warn("No owned character available for shopping.");
+    ui.notifications?.warn("No owned character available for trading.");
   }
 
   #merchantGreeting() {
@@ -196,11 +201,22 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
     };
   }
 
+  #isSellable(item) {
+    if (!item) return false;
+    const type = String(item.type || "");
+    if (!["weapon", "equipment", "consumable", "tool", "loot", "container"].includes(type)) {
+      return false;
+    }
+    if (item.system?.equipped) return false;
+    return true;
+  }
+
   async _prepareContext(options) {
     const context = await super._prepareContext(options);
     const shop = shopService.getShopkeeper(this.#merchant);
     const inventory = shopService.getDisplayInventory(this.#merchant);
     const query = this.#query.trim().toLowerCase();
+    const playerQuery = this.#playerQuery.trim().toLowerCase();
     const filters = shopService.getAvailableFilters(this.#merchant).map((entry) => ({
       ...entry,
       active: entry.id === this.#filter
@@ -218,6 +234,30 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
     const buyerActor = this.#buyerUuid ? await fromUuid(this.#buyerUuid) : null;
     const wallet = this.#walletContext(buyerActor?.system?.currency ?? {});
 
+    // Prune stale offer lines against live stock / inventory.
+    for (const stockId of [...this.#buyOffer.keys()]) {
+      const stock = inventory.find((entry) => entry.id === stockId);
+      if (!stock || (stock.quantity != null && Number(stock.quantity) <= 0)) {
+        this.#buyOffer.delete(stockId);
+        continue;
+      }
+      const maxQty = stock.quantity == null ? 99 : Math.max(1, Math.min(99, Number(stock.quantity) || 1));
+      this.#buyOffer.set(stockId, Math.max(1, Math.min(maxQty, this.#buyOffer.get(stockId) || 1)));
+    }
+    if (buyerActor) {
+      for (const itemId of [...this.#sellOffer.keys()]) {
+        const item = buyerActor.items?.get?.(itemId);
+        if (!item || !this.#isSellable(item)) {
+          this.#sellOffer.delete(itemId);
+          continue;
+        }
+        const maxQty = Math.max(1, Math.min(99, Number(item.system?.quantity) || 1));
+        this.#sellOffer.set(itemId, Math.max(1, Math.min(maxQty, this.#sellOffer.get(itemId) || 1)));
+      }
+    } else {
+      this.#sellOffer.clear();
+    }
+
     const items = inventory
       .filter((entry) => this.#filter === "all" || entry.filter === this.#filter)
       .filter((entry) => {
@@ -226,47 +266,96 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
       })
       .map((entry) => {
         const soldOut = entry.quantity != null && Number(entry.quantity) <= 0;
-        const unitPrice = Math.max(0, Number(entry.priceCP) || 0);
-        const unaffordable = !soldOut && Boolean(buyerActor) && wallet.walletCP < unitPrice;
         return {
           ...entry,
           quantityLabel: entry.quantity == null ? "∞" : String(entry.quantity),
           soldOut,
-          unaffordable,
-          selected: entry.id === this.#selectedStockId,
-          canBuy: !soldOut && !unaffordable
+          inOffer: this.#buyOffer.has(entry.id)
         };
       });
 
-    let selected = items.find((entry) => entry.id === this.#selectedStockId) ?? null;
-    if (this.#selectedStockId) {
-      const stillExists = inventory.some((entry) => entry.id === this.#selectedStockId);
-      if (!stillExists) {
-        this.#selectedStockId = null;
-        this.#selectedDescription = "";
-        this.#selectedProperties = [];
-        this.#buyQuantity = 1;
-        selected = null;
+    const playerItems = [];
+    if (buyerActor) {
+      for (const item of buyerActor.items ?? []) {
+        if (!this.#isSellable(item)) continue;
+        if (playerQuery && !`${item.name} ${item.type}`.toLowerCase().includes(playerQuery)) {
+          continue;
+        }
+        const sellPriceCP = shopService.getSellPriceCP(item, this.#merchant);
+        playerItems.push({
+          id: item.id,
+          name: item.name,
+          img: item.img || "icons/svg/item-bag.svg",
+          type: item.type,
+          quantity: Math.max(1, Number(item.system?.quantity) || 1),
+          sellPriceCP,
+          sellPriceLabel: shopService.formatPrice(sellPriceCP),
+          inOffer: this.#sellOffer.has(item.id)
+        });
       }
+      playerItems.sort((a, b) => a.name.localeCompare(b.name));
     }
 
-    let buyQuantity = Math.max(1, Math.floor(Number(this.#buyQuantity) || 1));
-    let canIncreaseQty = false;
-    let canDecreaseQty = false;
-    let totalPriceLabel = "—";
-    if (selected && !selected.soldOut) {
-      const maxQty =
-        selected.quantity == null ? 99 : Math.max(1, Math.min(99, Number(selected.quantity) || 1));
-      buyQuantity = Math.max(1, Math.min(maxQty, buyQuantity));
-      this.#buyQuantity = buyQuantity;
-      canDecreaseQty = buyQuantity > 1;
-      canIncreaseQty = buyQuantity < maxQty;
-      const totalCP = Math.max(0, Number(selected.priceCP) || 0) * buyQuantity;
-      totalPriceLabel = shopService.formatPrice(totalCP);
-      selected = {
-        ...selected,
-        unaffordable: Boolean(buyerActor) && wallet.walletCP < totalCP
-      };
+    let buyTotalCP = 0;
+    const buyOffer = [];
+    for (const [stockId, quantity] of this.#buyOffer) {
+      const stock = inventory.find((entry) => entry.id === stockId);
+      if (!stock) continue;
+      const unit = Math.max(0, Number(stock.priceCP) || 0);
+      const line = unit * quantity;
+      buyTotalCP += line;
+      const maxQty = stock.quantity == null ? 99 : Math.max(1, Math.min(99, Number(stock.quantity) || 1));
+      buyOffer.push({
+        stockId,
+        name: stock.name,
+        quantity,
+        maxQty,
+        canIncrease: quantity < maxQty,
+        canDecrease: quantity > 1,
+        linePriceLabel: shopService.formatPrice(line)
+      });
+    }
+
+    let sellTotalCP = 0;
+    const sellOffer = [];
+    for (const [itemId, quantity] of this.#sellOffer) {
+      const row = playerItems.find((entry) => entry.id === itemId);
+      if (!row) continue;
+      const line = row.sellPriceCP * quantity;
+      sellTotalCP += line;
+      sellOffer.push({
+        itemId,
+        name: row.name,
+        quantity,
+        maxQty: row.quantity,
+        canIncrease: quantity < row.quantity,
+        canDecrease: quantity > 1,
+        linePriceLabel: shopService.formatPrice(line)
+      });
+    }
+
+    const netCP = buyTotalCP - sellTotalCP;
+    const hasOffer = buyOffer.length > 0 || sellOffer.length > 0;
+    const canAfford = netCP <= 0 || wallet.walletCP >= netCP;
+    let tradeBlocked = "";
+    if (!buyerActor) {
+      tradeBlocked = buyers.length > 1 ? "Choose which character is trading." : "No owned character available.";
+    } else if (hasOffer && !canAfford) {
+      tradeBlocked = "Not enough gold for this trade.";
+    } else if (this.#busy) {
+      tradeBlocked = "Trade in progress…";
+    }
+
+    const canConfirm = hasOffer && canAfford && Boolean(buyerActor) && !this.#busy;
+
+    let netLabel = "Net";
+    let netAmountLabel = "Even";
+    if (netCP > 0) {
+      netLabel = "You pay";
+      netAmountLabel = shopService.formatPrice(netCP);
+    } else if (netCP < 0) {
+      netLabel = "You receive";
+      netAmountLabel = shopService.formatPrice(-netCP);
     }
 
     return Object.assign(context, {
@@ -276,24 +365,29 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
       shopName: shop.shopName || `${this.#merchant.name}'s Shop`,
       shopTypeLabel: getShopTypeLabel(shop.shopType),
       query: this.#query,
+      playerQuery: this.#playerQuery,
       filter: this.#filter,
       filters,
       items,
+      playerItems,
       buyers,
       buyerUuid: this.#buyerUuid,
-      buyerName: buyerActor?.name ?? null,
       hasBuyer: Boolean(this.#buyerUuid),
       needsBuyerChoice: this.#buyerPromptNeeded && buyers.length > 1 && !this.#buyerUuid,
       noCharacters: buyers.length === 0,
       walletPrimary: wallet.walletPrimary,
       walletCoins: wallet.walletCoins,
-      selected,
-      selectedDescription: this.#selectedDescription,
-      selectedProperties: this.#selectedProperties,
-      buyQuantity,
-      canIncreaseQty,
-      canDecreaseQty,
-      totalPriceLabel,
+      buyOffer,
+      sellOffer,
+      buyTotalLabel: shopService.formatPrice(buyTotalCP),
+      sellTotalLabel: shopService.formatPrice(sellTotalCP),
+      netLabel,
+      netAmountLabel,
+      netPositive: netCP > 0,
+      netNegative: netCP < 0,
+      hasOffer,
+      canConfirm,
+      tradeBlocked,
       isGM: game.user.isGM
     });
   }
@@ -310,12 +404,22 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
       });
     }
 
+    const playerSearch = this.element.querySelector("[data-townforge-player-search]");
+    if (playerSearch && !playerSearch.dataset.bound) {
+      playerSearch.dataset.bound = "1";
+      playerSearch.addEventListener("input", (event) => {
+        this.#playerQuery = event.currentTarget.value ?? "";
+        void this.render({ force: false });
+      });
+    }
+
     const buyerSelect = this.element.querySelector("[data-townforge-buyer]");
     if (buyerSelect && !buyerSelect.dataset.bound) {
       buyerSelect.dataset.bound = "1";
       buyerSelect.addEventListener("change", (event) => {
         this.#buyerUuid = event.currentTarget.value || null;
         this.#buyerPromptNeeded = false;
+        this.#sellOffer.clear();
         void this.render({ force: false });
       });
     }
@@ -341,37 +445,85 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
   }
 
   /** @this {MerchantApp} */
-  static async #onSelectItem(_event, target) {
+  static async #onToggleBuy(_event, target) {
+    const stockId = target.dataset.stockId;
+    if (!stockId || target.classList.contains("is-sold-out")) return;
+    if (this.#buyOffer.has(stockId)) {
+      this.#buyOffer.delete(stockId);
+    } else {
+      this.#buyOffer.set(stockId, 1);
+    }
+    await this.render({ force: false });
+  }
+
+  /** @this {MerchantApp} */
+  static async #onToggleSell(_event, target) {
+    const itemId = target.dataset.itemId;
+    if (!itemId) return;
+    if (this.#sellOffer.has(itemId)) {
+      this.#sellOffer.delete(itemId);
+    } else {
+      this.#sellOffer.set(itemId, 1);
+    }
+    await this.render({ force: false });
+  }
+
+  /** @this {MerchantApp} */
+  static async #onRemoveBuy(_event, target) {
+    _event.stopPropagation?.();
     const stockId = target.dataset.stockId;
     if (!stockId) return;
-    this.#selectedStockId = stockId;
-    this.#selectedDescription = "";
-    this.#selectedProperties = [];
-    this.#buyQuantity = 1;
+    this.#buyOffer.delete(stockId);
     await this.render({ force: false });
+  }
 
+  /** @this {MerchantApp} */
+  static async #onRemoveSell(_event, target) {
+    _event.stopPropagation?.();
+    const itemId = target.dataset.itemId;
+    if (!itemId) return;
+    this.#sellOffer.delete(itemId);
+    await this.render({ force: false });
+  }
+
+  /** @this {MerchantApp} */
+  static async #onAdjustBuyQty(_event, target) {
+    _event.stopPropagation?.();
+    const stockId = target.dataset.stockId;
+    const delta = Number(target.dataset.delta) || 0;
+    if (!stockId || !delta) return;
+    const current = this.#buyOffer.get(stockId);
+    if (current == null) return;
     const shop = shopService.getShopkeeper(this.#merchant);
     const stock = (shop.inventory ?? []).find((entry) => entry.id === stockId);
-    if (!stock) return;
-    const detail = await shopService.getStockDetail(stock);
-    if (this.#selectedStockId === stockId) {
-      this.#selectedDescription = detail.description;
-      this.#selectedProperties = detail.properties ?? [];
-      await this.render({ force: false });
-    }
-  }
-
-  /** @this {MerchantApp} */
-  static async #onAdjustQty(_event, target) {
-    const delta = Number(target.dataset.delta) || 0;
-    this.#buyQuantity = Math.max(1, Math.min(99, (this.#buyQuantity || 1) + delta));
+    const maxQty =
+      stock?.quantity == null ? 99 : Math.max(1, Math.min(99, Number(stock.quantity) || 1));
+    const next = Math.max(1, Math.min(maxQty, current + delta));
+    this.#buyOffer.set(stockId, next);
     await this.render({ force: false });
   }
 
   /** @this {MerchantApp} */
-  static async #onOpenActorSheet() {
-    if (!game.user.isGM) return;
-    await this.#merchant.sheet?.render(true);
+  static async #onAdjustSellQty(_event, target) {
+    _event.stopPropagation?.();
+    const itemId = target.dataset.itemId;
+    const delta = Number(target.dataset.delta) || 0;
+    if (!itemId || !delta) return;
+    const current = this.#sellOffer.get(itemId);
+    if (current == null) return;
+    const buyer = this.#buyerUuid ? await fromUuid(this.#buyerUuid) : null;
+    const item = buyer?.items?.get?.(itemId);
+    const maxQty = Math.max(1, Math.min(99, Number(item?.system?.quantity) || 1));
+    const next = Math.max(1, Math.min(maxQty, current + delta));
+    this.#sellOffer.set(itemId, next);
+    await this.render({ force: false });
+  }
+
+  /** @this {MerchantApp} */
+  static async #onClearOffer() {
+    this.#buyOffer.clear();
+    this.#sellOffer.clear();
+    await this.render({ force: false });
   }
 
   /** @this {MerchantApp} */
@@ -382,15 +534,14 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
   }
 
   /** @this {MerchantApp} */
-  static async #onBuyItem(event, target) {
+  static async #onConfirmTrade(event, target) {
     event.preventDefault();
     event.stopPropagation?.();
-    const stockId = target.dataset.stockId || this.#selectedStockId;
-    if (!stockId) return;
+    if (this.#busy) return;
 
     const buyers = this.#ownedCharacters();
     if (!buyers.length) {
-      ui.notifications?.warn("No owned character available for shopping.");
+      ui.notifications?.warn("No owned character available for trading.");
       return;
     }
 
@@ -404,28 +555,34 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
     }
     this.#buyerUuid = buyerUuid;
 
-    if (target.disabled) return;
-    target.disabled = true;
-    const label = target.textContent;
-    target.textContent = "…";
+    if (!this.#buyOffer.size && !this.#sellOffer.size) return;
+
+    this.#busy = true;
+    if (target) target.disabled = true;
+    await this.render({ force: false });
 
     try {
-      const result = await shopService.purchaseItem({
+      const result = await shopService.executeTrade({
         merchantUuid: this.#merchant.uuid,
         buyerUuid,
-        stockId,
-        quantity: this.#buyQuantity
+        buys: [...this.#buyOffer.entries()].map(([stockId, quantity]) => ({ stockId, quantity })),
+        sells: [...this.#sellOffer.entries()].map(([itemId, quantity]) => ({ itemId, quantity }))
       });
+
       if (!result.ok) {
-        ui.notifications?.warn(result.message || "Purchase failed.");
+        ui.notifications?.warn(result.message || "Trade failed.");
         return;
       }
-      ui.notifications?.info(result.message || "Purchase complete.");
-      this.#buyQuantity = 1;
-      await this.render({ force: false });
+
+      ui.notifications?.info(result.message || "Trade complete.");
+      this.#buyOffer.clear();
+      this.#sellOffer.clear();
+    } catch (error) {
+      console.error(`${LOG_PREFIX} Trade failed`, error);
+      ui.notifications?.error("Trade failed.");
     } finally {
-      target.disabled = false;
-      target.textContent = label || "Buy";
+      this.#busy = false;
+      await this.render({ force: false });
     }
   }
 }

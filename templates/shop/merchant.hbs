@@ -1,4 +1,4 @@
-<section class="townforge-merchant-shell">
+<section class="townforge-merchant-shell townforge-trade">
   <header class="townforge-merchant-hero">
     <img class="townforge-merchant-portrait" src="{{merchantImg}}" alt="" width="88" height="88" />
     <div class="townforge-merchant-hero-copy">
@@ -9,41 +9,161 @@
       <p class="townforge-merchant-greeting">{{merchantGreeting}}</p>
       {{/if}}
     </div>
+    <div class="townforge-trade-buyer">
+      {{#if buyers.length}}
+      <label class="townforge-buyer">
+        <span>Trading as</span>
+        <select data-townforge-buyer>
+          {{#unless hasBuyer}}
+          <option value="">Select character…</option>
+          {{/unless}}
+          {{#each buyers}}
+          <option value="{{uuid}}" {{#if selected}}selected{{/if}}>{{name}}</option>
+          {{/each}}
+        </select>
+      </label>
+      {{/if}}
+      <div class="townforge-wallet-card">
+        <div class="townforge-wallet-primary">
+          <span>Purse</span>
+          <strong>{{walletPrimary}}</strong>
+        </div>
+        <div class="townforge-wallet-denoms">
+          {{#each walletCoins}}
+          <span class="townforge-wallet-coin{{#if empty}} is-empty{{/if}}"><em>{{label}}</em>{{count}}</span>
+          {{/each}}
+        </div>
+      </div>
+      {{#if noCharacters}}
+      <p class="townforge-warn">No owned character available.</p>
+      {{else if needsBuyerChoice}}
+      <p class="townforge-warn">Choose which character is trading.</p>
+      {{/if}}
+    </div>
     {{#if isGM}}
     <div class="townforge-merchant-gm-actions">
       <button type="button" class="townforge-btn townforge-btn-secondary" data-action="configureShop">
         <i class="fa-solid fa-gears"></i>
         <span>Configure</span>
       </button>
-      <button type="button" class="townforge-btn townforge-btn-secondary" data-action="openActorSheet">
-        <i class="fa-solid fa-user"></i>
-        <span>Sheet</span>
-      </button>
     </div>
     {{/if}}
   </header>
 
-  <div class="townforge-merchant-layout">
-    <div class="townforge-merchant-main">
-      <div class="townforge-merchant-toolbar">
+  <div class="townforge-trade-grid">
+    <section class="townforge-trade-pane">
+      <header class="townforge-trade-pane-header">
+        <h3>Your Items</h3>
+        <label class="townforge-search">
+          <span class="townforge-sr-only">Search your items</span>
+          <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+          <input type="search" value="{{playerQuery}}" placeholder="Search…" data-townforge-player-search autocomplete="off" />
+        </label>
+      </header>
+      <div class="townforge-trade-list" data-townforge-player-list>
+        {{#if playerItems.length}}
+        <ul class="townforge-merchant-rows">
+          {{#each playerItems}}
+          <li class="townforge-merchant-row townforge-trade-row{{#if inOffer}} is-in-offer{{/if}}" data-action="toggleSell" data-item-id="{{id}}">
+            <img src="{{img}}" alt="" width="40" height="40" />
+            <div class="townforge-merchant-row-main">
+              <strong>{{name}}</strong>
+              <small>{{type}} · Qty {{quantity}}</small>
+            </div>
+            <div class="townforge-merchant-row-price">{{sellPriceLabel}}</div>
+          </li>
+          {{/each}}
+        </ul>
+        {{else}}
+        <div class="townforge-empty"><p>No sellable items.</p></div>
+        {{/if}}
+      </div>
+    </section>
+
+    <section class="townforge-trade-center">
+      <h3>Trade Offer</h3>
+      <div class="townforge-offer-block">
+        <h4>Buying</h4>
+        {{#if buyOffer.length}}
+        <ul class="townforge-offer-list">
+          {{#each buyOffer}}
+          <li>
+            <div class="townforge-offer-qty">
+              <button type="button" data-action="adjustBuyQty" data-stock-id="{{stockId}}" data-delta="-1" {{#unless canDecrease}}disabled{{/unless}} aria-label="Decrease">−</button>
+              <span>{{quantity}}× {{name}}</span>
+              <button type="button" data-action="adjustBuyQty" data-stock-id="{{stockId}}" data-delta="1" {{#unless canIncrease}}disabled{{/unless}} aria-label="Increase">+</button>
+            </div>
+            <strong>{{linePriceLabel}}</strong>
+            <button type="button" class="townforge-offer-remove" data-action="removeBuy" data-stock-id="{{stockId}}" title="Remove">×</button>
+          </li>
+          {{/each}}
+        </ul>
+        {{else}}
+        <p class="townforge-muted">Click merchant wares to buy.</p>
+        {{/if}}
+      </div>
+      <div class="townforge-offer-block">
+        <h4>Selling</h4>
+        {{#if sellOffer.length}}
+        <ul class="townforge-offer-list">
+          {{#each sellOffer}}
+          <li>
+            <div class="townforge-offer-qty">
+              <button type="button" data-action="adjustSellQty" data-item-id="{{itemId}}" data-delta="-1" {{#unless canDecrease}}disabled{{/unless}} aria-label="Decrease">−</button>
+              <span>{{quantity}}× {{name}}</span>
+              <button type="button" data-action="adjustSellQty" data-item-id="{{itemId}}" data-delta="1" {{#unless canIncrease}}disabled{{/unless}} aria-label="Increase">+</button>
+            </div>
+            <strong>{{linePriceLabel}}</strong>
+            <button type="button" class="townforge-offer-remove" data-action="removeSell" data-item-id="{{itemId}}" title="Remove">×</button>
+          </li>
+          {{/each}}
+        </ul>
+        {{else}}
+        <p class="townforge-muted">Click your items to sell.</p>
+        {{/if}}
+      </div>
+
+      <div class="townforge-trade-summary">
+        <div><span>Buy total</span><strong>{{buyTotalLabel}}</strong></div>
+        <div><span>Sell total</span><strong>{{sellTotalLabel}}</strong></div>
+        <div class="townforge-trade-net{{#if netPositive}} is-pay{{/if}}{{#if netNegative}} is-gain{{/if}}">
+          <span>{{netLabel}}</span>
+          <strong>{{netAmountLabel}}</strong>
+        </div>
+      </div>
+
+      {{#if tradeBlocked}}
+      <p class="townforge-warn">{{tradeBlocked}}</p>
+      {{/if}}
+
+      <button type="button" class="townforge-buy-btn townforge-buy-btn-lg" data-action="confirmTrade" {{#unless canConfirm}}disabled{{/unless}}>
+        {{#if canConfirm}}Barter — Confirm Trade{{else}}Confirm Trade{{/if}}
+      </button>
+      <button type="button" class="townforge-btn townforge-btn-secondary" data-action="clearOffer" {{#unless hasOffer}}disabled{{/unless}}>
+        Clear Offer
+      </button>
+    </section>
+
+    <section class="townforge-trade-pane">
+      <header class="townforge-trade-pane-header">
+        <h3>Merchant Wares</h3>
         <label class="townforge-search">
           <span class="townforge-sr-only">Search shop</span>
           <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
-          <input type="search" value="{{query}}" placeholder="Search wares…" data-townforge-merchant-search autocomplete="off" />
+          <input type="search" value="{{query}}" placeholder="Search…" data-townforge-merchant-search autocomplete="off" />
         </label>
         <div class="townforge-merchant-filters">
           {{#each filters}}
           <button type="button" class="townforge-cat-tab{{#if active}} is-active{{/if}}" data-action="setFilter" data-filter="{{id}}">{{label}}</button>
           {{/each}}
         </div>
-      </div>
-
-      <div class="townforge-merchant-list">
+      </header>
+      <div class="townforge-trade-list">
         {{#if items.length}}
         <ul class="townforge-merchant-rows">
           {{#each items}}
-          <li class="townforge-merchant-row{{#if selected}} is-selected{{/if}}{{#if soldOut}} is-sold-out{{/if}}{{#if unaffordable}} is-unaffordable{{/if}}" data-action="selectItem" data-stock-id="{{id}}">
-            <img src="{{img}}" alt="" width="44" height="44" />
+          <li class="townforge-merchant-row townforge-trade-row{{#if soldOut}} is-sold-out{{/if}}{{#if inOffer}} is-in-offer{{/if}}" data-action="toggleBuy" data-stock-id="{{id}}">
+            <img src="{{img}}" alt="" width="40" height="40" />
             <div class="townforge-merchant-row-main">
               <strong>{{name}}</strong>
               <small>{{type}} · Stock {{quantityLabel}}</small>
@@ -53,103 +173,9 @@
           {{/each}}
         </ul>
         {{else}}
-        <div class="townforge-empty">
-          <p>No matching wares in this shop.</p>
-        </div>
+        <div class="townforge-empty"><p>No matching wares.</p></div>
         {{/if}}
       </div>
-    </div>
-
-    <aside class="townforge-merchant-side">
-      <div class="townforge-buyer-panel">
-        <div class="townforge-shopping-as">
-          {{#if buyerName}}
-          <strong>Shopping as {{buyerName}}</strong>
-          {{else}}
-          <strong>Choose a character</strong>
-          {{/if}}
-        </div>
-
-        <div class="townforge-wallet-card">
-          <div class="townforge-wallet-primary">
-            <span>Purse</span>
-            <strong>{{walletPrimary}}</strong>
-          </div>
-          <div class="townforge-wallet-denoms">
-            {{#each walletCoins}}
-            <span class="townforge-wallet-coin{{#if empty}} is-empty{{/if}}"><em>{{label}}</em>{{count}}</span>
-            {{/each}}
-          </div>
-        </div>
-
-        {{#if noCharacters}}
-        <p class="townforge-warn">No owned character available for shopping.</p>
-        {{else if needsBuyerChoice}}
-        <p class="townforge-warn">Choose which character is shopping.</p>
-        {{/if}}
-
-        {{#if buyers.length}}
-        <label class="townforge-buyer">
-          <span>Buyer</span>
-          <select data-townforge-buyer>
-            {{#unless hasBuyer}}
-            <option value="">Select character…</option>
-            {{/unless}}
-            {{#each buyers}}
-            <option value="{{uuid}}" {{#if selected}}selected{{/if}}>{{name}}</option>
-            {{/each}}
-          </select>
-        </label>
-        {{/if}}
-      </div>
-
-      <div class="townforge-item-card">
-        {{#if selected}}
-        <div class="townforge-item-card-body">
-          <img class="townforge-item-card-art" src="{{selected.img}}" alt="" />
-          <h3>{{selected.name}}</h3>
-          <p class="townforge-item-card-meta">{{selected.type}} · {{selected.priceLabel}}</p>
-          <p class="townforge-item-card-stock">
-            {{#if selected.soldOut}}Sold Out{{else}}Stock {{selected.quantityLabel}}{{/if}}
-          </p>
-          {{#if selectedProperties.length}}
-          <ul class="townforge-item-props">
-            {{#each selectedProperties}}
-            <li>{{this}}</li>
-            {{/each}}
-          </ul>
-          {{/if}}
-          {{#if selectedDescription}}
-          <p class="townforge-item-card-desc">{{selectedDescription}}</p>
-          {{/if}}
-        </div>
-
-        <div class="townforge-item-card-buy">
-          {{#unless selected.soldOut}}
-          <div class="townforge-qty">
-            <button type="button" class="townforge-qty-btn" data-action="adjustQty" data-delta="-1" {{#unless canDecreaseQty}}disabled{{/unless}}>−</button>
-            <span class="townforge-qty-value">{{buyQuantity}}</span>
-            <button type="button" class="townforge-qty-btn" data-action="adjustQty" data-delta="1" {{#unless canIncreaseQty}}disabled{{/unless}}>+</button>
-          </div>
-          <p class="townforge-item-total">Total: <strong>{{totalPriceLabel}}</strong></p>
-          {{/unless}}
-
-          {{#if selected.soldOut}}
-          <button type="button" class="townforge-buy-btn townforge-buy-btn-lg is-sold-out" disabled>Sold Out</button>
-          {{else if selected.unaffordable}}
-          <button type="button" class="townforge-buy-btn townforge-buy-btn-lg is-unaffordable" disabled>Not enough gold</button>
-          {{else}}
-          <button type="button" class="townforge-buy-btn townforge-buy-btn-lg" data-action="buyItem" data-stock-id="{{selected.id}}">
-            Buy — {{totalPriceLabel}}
-          </button>
-          {{/if}}
-        </div>
-        {{else}}
-        <div class="townforge-empty townforge-item-card-empty">
-          <p>Select an item to inspect and buy.</p>
-        </div>
-        {{/if}}
-      </div>
-    </aside>
+    </section>
   </div>
 </section>

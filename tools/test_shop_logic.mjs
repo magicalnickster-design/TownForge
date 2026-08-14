@@ -4,10 +4,12 @@
  */
 
 import {
+  addCopper,
   currencyToCopper,
   deductCopper,
   formatCopper,
   formatWallet,
+  SELL_PRICE_RATIO,
   validatePurchaseRequest
 } from "../scripts/shop-currency.js";
 
@@ -75,6 +77,26 @@ test("never negative currency", () => {
 test("formatCopper and formatWallet", () => {
   assert(formatCopper(1508) === "1 pp, 5 gp, 8 cp", "formatCopper");
   assert(formatWallet({ gp: 74, sp: 8 }) === "74 gp, 8 sp", "formatWallet");
+});
+
+test("addCopper credits wallet in largest denominations", () => {
+  const next = addCopper({ gp: 2, sp: 3 }, 1255); // +12gp 5sp 5cp → uses ep in ladder
+  assertEqual(next, { pp: 1, gp: 4, ep: 1, sp: 3, cp: 5 }, "add sell proceeds");
+  assert(currencyToCopper(next) === currencyToCopper({ gp: 2, sp: 3 }) + 1255, "total");
+});
+
+test("sell ratio is half value", () => {
+  assert(SELL_PRICE_RATIO === 0.5, "50% buyback");
+});
+
+test("net trade affordability: sell credits cover buy cost", () => {
+  const buyTotal = 1500;
+  const sellTotal = 800;
+  const net = buyTotal - sellTotal;
+  const purse = currencyToCopper({ gp: 8 });
+  assert(purse >= net, "8gp covers 7gp net");
+  const short = currencyToCopper({ gp: 5 });
+  assert(short < net, "5gp cannot cover 7gp net");
 });
 
 test("affordable purchase validation succeeds", () => {

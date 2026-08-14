@@ -169,11 +169,36 @@ function addChange(wallet, changeCP, brokenDenom) {
 }
 
 /**
+ * Add copper-equivalent value into a wallet as whole coins (largest first).
+ * @param {object} currency
+ * @param {number} amountCP
+ * @returns {{pp:number,gp:number,ep:number,sp:number,cp:number}}
+ */
+export function addCopper(currency, amountCP) {
+  const wallet = normalizeCurrency(currency);
+  let remaining = Math.max(0, Math.floor(Number(amountCP) || 0));
+  for (const denom of COIN_ORDER) {
+    const value = COIN_CP[denom];
+    const count = Math.floor(remaining / value);
+    if (count > 0) {
+      wallet[denom] += count;
+      remaining -= count * value;
+    }
+  }
+  return wallet;
+}
+
+/**
+ * Merchant buyback rate (fraction of item value paid to the player).
+ */
+export const SELL_PRICE_RATIO = 0.5;
+
+/**
  * Lightweight purchase validation used by ShopService and unit tests.
  * Does not mutate state and ignores client-provided price/uuid overrides.
  *
  * @param {object} args
- * @returns {{ok:boolean, message?:string, priceCP?:number, stock?:object}}
+ * @returns {{ok:boolean, message?:string, priceCP?:number, unitPriceCP?:number, quantity?:number, stock?:object}}
  */
 export function validatePurchaseRequest({
   shop,

@@ -1,9 +1,11 @@
 import { FLAGS, LOG_PREFIX, MODULE_ID } from "./constants.js";
 import {
+  addCopper as addCopperPure,
   currencyToCopper as currencyToCopperPure,
   deductCopper as deductCopperPure,
   formatCopper,
   formatWallet,
+  SELL_PRICE_RATIO,
   validatePurchaseRequest
 } from "./shop-currency.js";
 import {
@@ -431,64 +433,100 @@ export class ShopService {
   }
 
   /**
-   * Entry point for UI purchases.
-   * Players prefer GM-authoritative fulfillment via socket.
-   * @param {{merchantUuid: string, buyerUuid: string, stockId: string}} request
+   * Entry point for UI purchases (single-item convenience wrapper around trade).
+   * @param {{merchantUuid: string, buyerUuid: string, stockId: string, quantity?: number}} request
    * @returns {Promise<{ok: boolean, message?: string}>}
    */
   async purchaseItem(request) {
-    const lockKey = `${request.merchantUuid}:${request.buyerUuid}:${request.stockId}`;
+    return this.executeTrade({
+      merchantUuid: request.merchantUuid,
+      buyerUuid: request.buyerUuid,
+      buys: [
+        {
+          stockId: String(request.stockId || ""),
+          quantity: Math.max(1, Math.min(99, Math.floor(Number(request.quantity) || 1)))
+        }
+      ],
+      sells: []
+    });
+  }
+
+  /**
+   * Atomic buy+sell trade. Players send via socket for GM fulfillment.
+   * @param {{
+   *   merchantUuid: string,
+   *   buyerUuid: string,
+   *   buys?: {stockId:string, quantity?:number}[],
+   *   sells?: {itemId:string, quantity?:number}[]
+   * }} request
+   * @returns {Promise<{ok:boolean, message?:string}>}
+   */
+  async executeTrade(request) {
+    const lockKey = `trade:${request.merchantUuid}:${request.buyerUuid}`;
     if (this.#purchaseLocks.has(lockKey)) {
-      return { ok: false, message: "Purchase already in progress." };
+      return { ok: false, message: "Trade already in progress." };
     }
     this.#purchaseLocks.add(lockKey);
 
     try {
-      // Ignore any client-supplied price/uuid fields if present.
       const clean = {
         merchantUuid: String(request.merchantUuid || ""),
         buyerUuid: String(request.buyerUuid || ""),
-        stockId: String(request.stockId || ""),
-        quantity: Math.max(1, Math.min(99, Math.floor(Number(request.quantity) || 1)))
+        buys: Array.isArray(request.buys)
+          ? request.buys
+              .map((row) => ({
+                stockId: String(row?.stockId || ""),
+                quantity: Math.max(1, Math.min(99, Math.floor(Number(row?.quantity) || 1)))
+              }))
+              .filter((row) => row.stockId)
+          : [],
+        sells: Array.isArray(request.sells)
+          ? request.sells
+              .map((row) => ({
+                itemId: String(row?.itemId || ""),
+                quantity: Math.max(1, Math.min(99, Math.floor(Number(row?.quantity) || 1)))
+              }))
+              .filter((row) => row.itemId)
+          : []
       };
 
+      if (!clean.buys.length && !clean.sells.length) {
+        return { ok: false, message: "Trade is empty." };
+      }
+
       if (game.user?.isGM) {
-        return await this.#fulfillPurchase(clean, game.user.id);
+        return await this.#fulfillTrade(clean, game.user.id);
       }
 
       const activeGM = game.users?.find((user) => user.isGM && user.active);
       if (activeGM) {
-        return await this.#requestPurchaseViaSocket(clean);
+        return await this.#requestTradeViaSocket(clean);
       }
 
-      // No GM online: allow self-fulfill only when merchant flags need no mutation,
-      // or the player owns the merchant Actor.
       const merchant = await fromUuid(clean.merchantUuid);
-      const shop = merchant ? this.getShopkeeper(merchant) : null;
-      const stock = (shop?.inventory ?? []).find((entry) => entry.id === clean.stockId);
-      const needsStockMutation = stock && stock.quantity != null;
-      if (needsStockMutation && !merchant?.isOwner) {
-        return {
-          ok: false,
-          message: "Shop unavailable."
-        };
+      const needsStockMutation = clean.buys.some((buy) => {
+        const shop = merchant ? this.getShopkeeper(merchant) : null;
+        const stock = (shop?.inventory ?? []).find((entry) => entry.id === buy.stockId);
+        return stock && stock.quantity != null;
+      });
+      if ((needsStockMutation || clean.sells.length) && !merchant?.isOwner) {
+        return { ok: false, message: "Shop unavailable. A GM must be online to complete trades." };
       }
-      return await this.#fulfillPurchase(clean, game.user.id);
+      return await this.#fulfillTrade(clean, game.user.id);
     } finally {
       this.#purchaseLocks.delete(lockKey);
     }
   }
 
   /**
-   * Authoritative purchase fulfillment (GM or permitted local owner).
-   * @param {{merchantUuid:string,buyerUuid:string,stockId:string}} request
+   * Authoritative trade fulfillment.
+   * @param {{merchantUuid:string,buyerUuid:string,buys:object[],sells:object[]}} request
    * @param {string} requesterId
-   * @returns {Promise<{ok:boolean,message?:string}>}
    */
-  async #fulfillPurchase(request, requesterId) {
-    const fulfillKey = `fulfill:${request.merchantUuid}:${request.stockId}`;
+  async #fulfillTrade(request, requesterId) {
+    const fulfillKey = `fulfill-trade:${request.merchantUuid}:${request.buyerUuid}`;
     if (this.#purchaseLocks.has(fulfillKey)) {
-      return { ok: false, message: "Purchase already in progress." };
+      return { ok: false, message: "Trade already in progress." };
     }
     this.#purchaseLocks.add(fulfillKey);
 
@@ -498,134 +536,224 @@ export class ShopService {
       if (!merchant || merchant.documentName !== "Actor") {
         return { ok: false, message: "Shop unavailable." };
       }
-      if (!buyer || buyer.documentName !== "Actor") {
+      if (!buyer || buyer.documentName !== "Actor" || buyer.type !== "character") {
         return { ok: false, message: "Character not selected." };
       }
 
       const requester = game.users?.get(requesterId);
-      if (!requester) {
-        return { ok: false, message: "Character not selected." };
-      }
-
-      const owned = this.#userOwnsActor(requester, buyer);
-      if (!owned) {
+      if (!requester || !this.#userOwnsActor(requester, buyer)) {
         return { ok: false, message: "Character not selected." };
       }
 
       const shop = this.getShopkeeper(merchant);
-      const check = validatePurchaseRequest({
-        shop,
-        stockId: request.stockId,
-        buyerOwned: true,
-        buyerType: buyer.type,
-        buyerCurrency: buyer.system?.currency ?? {},
-        clientPriceCP: request.priceCP,
-        clientUuid: request.uuid,
-        quantity: request.quantity
-      });
-      if (!check.ok) return { ok: false, message: check.message };
+      if (!shop.enabled) return { ok: false, message: "Shop unavailable." };
 
-      const stock = check.stock;
-      const priceCP = check.priceCP;
-      const qty = check.quantity || 1;
-
-      // Resolve source BEFORE charging currency.
-      const sourceItem = await fromUuid(stock.uuid);
-      if (!sourceItem || sourceItem.documentName !== "Item") {
-        console.warn(`${LOG_PREFIX} Shop item source could not be resolved`, stock.uuid);
-        return { ok: false, message: "Item unavailable." };
+      // --- Validate buys ---
+      let buyTotalCP = 0;
+      /** @type {{stock:object, qty:number, sourceItem:Item}[]} */
+      const resolvedBuys = [];
+      for (const buy of request.buys) {
+        const check = validatePurchaseRequest({
+          shop,
+          stockId: buy.stockId,
+          buyerOwned: true,
+          buyerType: buyer.type,
+          buyerCurrency: { pp: 999999, gp: 999999, ep: 999999, sp: 999999, cp: 999999 },
+          quantity: buy.quantity
+        });
+        if (!check.ok) return { ok: false, message: check.message };
+        const sourceItem = await fromUuid(check.stock.uuid);
+        if (!sourceItem || sourceItem.documentName !== "Item") {
+          return { ok: false, message: "Item unavailable." };
+        }
+        buyTotalCP += check.priceCP;
+        resolvedBuys.push({ stock: check.stock, qty: check.quantity, sourceItem, unitPriceCP: check.unitPriceCP });
       }
 
-      // Re-check stock after async gap (finite inventory race).
-      const latestShop = this.getShopkeeper(merchant);
-      if (!latestShop.enabled) {
-        return { ok: false, message: "Shop unavailable." };
-      }
-      const latestStock = (latestShop.inventory ?? []).find((entry) => entry.id === stock.id);
-      if (!latestStock) {
-        return { ok: false, message: "Item unavailable." };
-      }
-      if (latestStock.quantity != null && Number(latestStock.quantity) < qty) {
-        return { ok: false, message: Number(latestStock.quantity) <= 0 ? "Item sold out." : "Not enough stock." };
+      // --- Validate sells ---
+      let sellTotalCP = 0;
+      /** @type {{item:Item, qty:number, unitPriceCP:number}[]} */
+      const resolvedSells = [];
+      for (const sell of request.sells) {
+        const item = buyer.items?.get?.(sell.itemId) ?? buyer.items?.find?.((entry) => entry.id === sell.itemId);
+        if (!item) return { ok: false, message: "Cannot sell that item." };
+        if (!this.#isSellableItem(item)) {
+          return { ok: false, message: `${item.name} cannot be sold here.` };
+        }
+        const ownedQty = Math.max(1, Number(item.system?.quantity) || 1);
+        const qty = Math.min(sell.quantity, ownedQty);
+        if (qty <= 0) return { ok: false, message: "Cannot sell that item." };
+        const unitPriceCP = this.#sellPriceFromItem(item, shop);
+        sellTotalCP += unitPriceCP * qty;
+        resolvedSells.push({ item, qty, unitPriceCP });
       }
 
-      const currency = foundry.utils.deepClone(buyer.system?.currency ?? {});
-      if (this.currencyToCopper(currency) < priceCP) {
+      const netCP = buyTotalCP - sellTotalCP;
+      let currency = foundry.utils.deepClone(buyer.system?.currency ?? {});
+      const purse = this.currencyToCopper(currency);
+      if (netCP > 0 && purse < netCP) {
         return { ok: false, message: "Not enough gold." };
       }
-      const nextCurrency = this.deductCopper(currency, priceCP);
-      const itemData = sourceItem.toObject();
-      delete itemData._id;
-      // Preserve full dnd5e item data; set purchased quantity.
-      if (itemData.system && "quantity" in itemData.system) {
-        itemData.system.quantity = qty;
-      }
 
-      await buyer.update({ "system.currency": nextCurrency });
-      await buyer.createEmbeddedDocuments("Item", [itemData]);
-
-      if (latestStock.quantity != null) {
-        if (game.user.isGM || merchant.isOwner) {
-          const inventory = (latestShop.inventory ?? []).map((entry) => {
-            if (entry.id !== latestStock.id) return entry;
-            return { ...entry, quantity: Math.max(0, Number(entry.quantity) - qty) };
-          });
-          await this.updateShopkeeper(
-            merchant,
-            { inventory },
-            { allowNonGM: Boolean(merchant.isOwner) }
-          );
-        } else {
-          for (let i = 0; i < qty; i += 1) {
-            this.#emitStockDecrement(merchant.uuid, latestStock.id);
-          }
+      // Re-check finite shop stock after async gaps.
+      const latestShop = this.getShopkeeper(merchant);
+      for (const buy of resolvedBuys) {
+        const latestStock = (latestShop.inventory ?? []).find((entry) => entry.id === buy.stock.id);
+        if (!latestStock) return { ok: false, message: "Item unavailable." };
+        if (latestStock.quantity != null && Number(latestStock.quantity) < buy.qty) {
+          return { ok: false, message: "Not enough stock." };
         }
       }
 
-      const priceLabel = this.formatPrice(priceCP);
-      const qtyLabel = qty > 1 ? `${qty}× ` : "";
-      console.log(
-        `${LOG_PREFIX} Purchase OK: ${buyer.name} bought ${qtyLabel}${latestStock.name} for ${priceCP} cp from ${merchant.name}`
-      );
-      return {
-        ok: true,
-        message: `Purchased ${qtyLabel}${latestStock.name} for ${priceLabel}.`
-      };
+      if (netCP > 0) currency = this.deductCopper(currency, netCP);
+      else if (netCP < 0) currency = this.addCopper(currency, -netCP);
+
+      // Apply currency first.
+      await buyer.update({ "system.currency": currency });
+
+      // Remove sold items from buyer.
+      for (const sell of resolvedSells) {
+        const ownedQty = Math.max(1, Number(sell.item.system?.quantity) || 1);
+        if (sell.qty >= ownedQty) {
+          await sell.item.delete();
+        } else {
+          await sell.item.update({ "system.quantity": ownedQty - sell.qty });
+        }
+      }
+
+      // Grant purchased items.
+      const createData = [];
+      for (const buy of resolvedBuys) {
+        const itemData = buy.sourceItem.toObject();
+        delete itemData._id;
+        if (itemData.system && "quantity" in itemData.system) {
+          itemData.system.quantity = buy.qty;
+        }
+        createData.push(itemData);
+      }
+      if (createData.length) {
+        await buyer.createEmbeddedDocuments("Item", createData);
+      }
+
+      // Update merchant inventory: decrement buys, append sold goods.
+      if (game.user.isGM || merchant.isOwner) {
+        let inventory = [...(latestShop.inventory ?? [])];
+        for (const buy of resolvedBuys) {
+          inventory = inventory.map((entry) => {
+            if (entry.id !== buy.stock.id || entry.quantity == null) return entry;
+            return { ...entry, quantity: Math.max(0, Number(entry.quantity) - buy.qty) };
+          });
+        }
+        for (const sell of resolvedSells) {
+          const entry = this.#toStockEntry(sell.item, {
+            source: "manual",
+            priceCP: Math.max(1, Math.round(sell.unitPriceCP / SELL_PRICE_RATIO) || sell.unitPriceCP),
+            quantity: sell.qty
+          });
+          // Unique id per sold stack instance.
+          entry.id = `tfstock-manual-${stableHash(`${sell.item.id}:${Date.now()}:${Math.random()}`)}`;
+          entry.priceLabel = this.formatPrice(entry.priceCP);
+          inventory.push(entry);
+        }
+        await this.updateShopkeeper(merchant, { inventory }, { allowNonGM: Boolean(merchant.isOwner) });
+      }
+
+      const buyCount = resolvedBuys.reduce((sum, row) => sum + row.qty, 0);
+      const sellCount = resolvedSells.reduce((sum, row) => sum + row.qty, 0);
+      const netLabel =
+        netCP === 0
+          ? "even trade"
+          : netCP > 0
+            ? `paid ${this.formatPrice(netCP)}`
+            : `received ${this.formatPrice(-netCP)}`;
+      const message = `Trade complete (${buyCount} bought, ${sellCount} sold, ${netLabel}).`;
+      console.log(`${LOG_PREFIX} ${message} — ${buyer.name} @ ${merchant.name}`);
+      return { ok: true, message };
     } catch (error) {
-      console.error(`${LOG_PREFIX} Purchase failed`, error);
-      return { ok: false, message: "Purchase failed." };
+      console.error(`${LOG_PREFIX} Trade failed`, error);
+      return { ok: false, message: "Trade failed." };
     } finally {
       this.#purchaseLocks.delete(fulfillKey);
     }
   }
 
   /**
-   * Ask the active GM to fulfill a purchase authoritatively.
-   * @param {{merchantUuid:string,buyerUuid:string,stockId:string}} request
+   * @param {Item} item
+   * @returns {boolean}
    */
-  #requestPurchaseViaSocket(request) {
+  #isSellableItem(item) {
+    const type = String(item?.type || "");
+    return ["weapon", "equipment", "consumable", "tool", "loot", "container"].includes(type);
+  }
+
+  /**
+   * Buyback price for a player item (half value by default).
+   * @param {Item} item
+   * @param {object} shop
+   * @returns {number}
+   */
+  #sellPriceFromItem(item, shop) {
+    const base = this.#priceFromItem(item, 1);
+    void shop;
+    return Math.max(1, Math.round(base * SELL_PRICE_RATIO));
+  }
+
+  /** @deprecated Prefer #fulfillTrade; kept for internal single-buy paths. */
+  async #fulfillPurchase(request, requesterId) {
+    return this.#fulfillTrade(
+      {
+        merchantUuid: request.merchantUuid,
+        buyerUuid: request.buyerUuid,
+        buys: [{ stockId: request.stockId, quantity: request.quantity || 1 }],
+        sells: []
+      },
+      requesterId
+    );
+  }
+
+  /**
+   * Ask an online GM to fulfill a trade authoritatively.
+   */
+  #requestTradeViaSocket(request) {
     const requestId = `${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
     return new Promise((resolve) => {
       const timeout = setTimeout(() => {
         this.#pendingPurchases.delete(requestId);
-        resolve({ ok: false, message: "Shop unavailable." });
-      }, 15000);
+        resolve({
+          ok: false,
+          message: "Shop unavailable. The GM did not respond — ask them to refresh TownForge."
+        });
+      }, 20000);
 
       this.#pendingPurchases.set(requestId, { resolve, timeout });
       game.socket.emit(`module.${MODULE_ID}`, {
-        type: "purchaseRequest",
+        type: "tradeRequest",
         requestId,
         userId: game.user.id,
         merchantUuid: request.merchantUuid,
         buyerUuid: request.buyerUuid,
-        stockId: request.stockId,
-        quantity: request.quantity
+        buys: request.buys,
+        sells: request.sells
       });
+    });
+  }
+
+  /** @deprecated */
+  #requestPurchaseViaSocket(request) {
+    return this.#requestTradeViaSocket({
+      merchantUuid: request.merchantUuid,
+      buyerUuid: request.buyerUuid,
+      buys: [{ stockId: request.stockId, quantity: request.quantity || 1 }],
+      sells: []
     });
   }
 
   currencyToCopper(currency = {}) {
     return currencyToCopperPure(currency);
+  }
+
+  addCopper(currency, amountCP) {
+    return addCopperPure(currency, amountCP);
   }
 
   /**
@@ -644,6 +772,30 @@ export class ShopService {
 
   formatWallet(currency) {
     return formatWallet(currency);
+  }
+
+  /**
+   * Sell price helper for UI.
+   * @param {Item} item
+   * @param {Actor} merchant
+   */
+  getSellPriceCP(item, merchant) {
+    const shop = this.getShopkeeper(merchant);
+    return this.#sellPriceFromItem(item, shop);
+  }
+
+  /**
+   * Whether this GM client should handle authoritative shop sockets.
+   * @returns {boolean}
+   */
+  #shouldHandleShopAuthority() {
+    if (!game.user?.isGM || !game.user.active) return false;
+    const activeGM = game.users?.activeGM;
+    if (activeGM) return activeGM.id === game.user.id;
+    const ranked = (game.users?.contents ?? game.users ?? [])
+      .filter((user) => user.isGM && user.active)
+      .sort((a, b) => String(a.id).localeCompare(String(b.id)));
+    return ranked[0]?.id === game.user.id;
   }
 
   /**
@@ -728,25 +880,26 @@ export class ShopService {
     game.socket.on(`module.${MODULE_ID}`, (payload) => {
       if (!payload || typeof payload !== "object") return;
 
-      if (payload.type === "purchaseRequest" && game.user.isGM) {
-        void this.#handlePurchaseRequest(payload);
+      if ((payload.type === "tradeRequest" || payload.type === "purchaseRequest") && game.user.isGM) {
+        void this.#handleTradeRequest(payload);
         return;
       }
 
-      if (payload.type === "purchaseResult") {
+      if (payload.type === "tradeResult" || payload.type === "purchaseResult") {
         const pending = this.#pendingPurchases.get(payload.requestId);
         if (!pending) return;
         clearTimeout(pending.timeout);
         this.#pendingPurchases.delete(payload.requestId);
         pending.resolve({
           ok: Boolean(payload.ok),
-          message: payload.message || (payload.ok ? "Purchase complete." : "Purchase failed.")
+          message:
+            payload.message ||
+            (payload.ok ? "Trade complete." : "Trade failed.")
         });
         return;
       }
 
       if (payload.type === "shopInventoryChanged") {
-        // Actor flag sync and this socket can arrive in either order — refresh now and once more shortly.
         refreshOpenShopUIs(payload.merchantUuid || payload.merchantId);
         setTimeout(() => {
           refreshOpenShopUIs(payload.merchantUuid || payload.merchantId, { immediate: true });
@@ -773,23 +926,48 @@ export class ShopService {
     });
   }
 
-  async #handlePurchaseRequest(payload) {
-    if (!game.user.isActiveGM) return;
-    const result = await this.#fulfillPurchase(
-      {
-        merchantUuid: payload.merchantUuid,
-        buyerUuid: payload.buyerUuid,
-        stockId: payload.stockId,
-        quantity: payload.quantity
-      },
-      payload.userId
-    );
+  async #handleTradeRequest(payload) {
+    if (!this.#shouldHandleShopAuthority()) return;
+
+    let result = { ok: false, message: "Trade failed." };
+    try {
+      const request =
+        payload.type === "purchaseRequest"
+          ? {
+              merchantUuid: payload.merchantUuid,
+              buyerUuid: payload.buyerUuid,
+              buys: [{ stockId: payload.stockId, quantity: payload.quantity || 1 }],
+              sells: []
+            }
+          : {
+              merchantUuid: payload.merchantUuid,
+              buyerUuid: payload.buyerUuid,
+              buys: payload.buys ?? [],
+              sells: payload.sells ?? []
+            };
+      result = await this.#fulfillTrade(request, payload.userId);
+    } catch (error) {
+      console.error(`${LOG_PREFIX} Trade request handler failed`, error);
+      result = { ok: false, message: "Trade failed." };
+    }
+
+    game.socket.emit(`module.${MODULE_ID}`, {
+      type: "tradeResult",
+      requestId: payload.requestId,
+      ok: result.ok,
+      message: result.message
+    });
+    // Compat for older clients still waiting on purchaseResult.
     game.socket.emit(`module.${MODULE_ID}`, {
       type: "purchaseResult",
       requestId: payload.requestId,
       ok: result.ok,
       message: result.message
     });
+  }
+
+  async #handlePurchaseRequest(payload) {
+    return this.#handleTradeRequest(payload);
   }
 
   #emitStockDecrement(merchantUuid, stockId) {
@@ -801,7 +979,7 @@ export class ShopService {
   }
 
   async #handleStockDecrement(payload) {
-    if (!game.user.isActiveGM) return;
+    if (!this.#shouldHandleShopAuthority()) return;
     const merchant = await fromUuid(payload.merchantUuid);
     if (!merchant) return;
     const shop = this.getShopkeeper(merchant);

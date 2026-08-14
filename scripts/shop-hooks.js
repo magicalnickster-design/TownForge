@@ -29,6 +29,16 @@ export function registerShopHooks() {
     }
   });
 
+  // Refresh sell-side inventory when the trading character's items change.
+  const refreshBuyerInventory = (item) => {
+    const actor = item?.actor ?? item?.parent;
+    if (!actor || actor.documentName !== "Actor" || actor.type !== "character") return;
+    refreshOpenShopUIsForBuyer(actor);
+  };
+  Hooks.on("createItem", refreshBuyerInventory);
+  Hooks.on("deleteItem", refreshBuyerInventory);
+  Hooks.on("updateItem", refreshBuyerInventory);
+
   // GM header control on Actor sheets (AppV2).
   Hooks.on("getHeaderControlsActorSheetV2", (app, controls) => {
     const actor = app.document;

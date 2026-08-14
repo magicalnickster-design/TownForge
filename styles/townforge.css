@@ -836,6 +836,177 @@
     rgba(0, 0, 0, 0.22);
 }
 
+.townforge-trade .townforge-merchant-hero {
+  grid-template-columns: auto minmax(0, 1.2fr) minmax(220px, 0.9fr) auto;
+  align-items: start;
+}
+
+.townforge-trade-buyer {
+  display: grid;
+  gap: 0.55rem;
+  justify-items: stretch;
+}
+
+.townforge-trade-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(240px, 0.85fr) minmax(0, 1fr);
+  gap: 0.75rem;
+  min-height: 0;
+  flex: 1;
+}
+
+.townforge-trade-pane,
+.townforge-trade-center {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  min-height: 0;
+  border: 1px solid var(--tf-border);
+  border-radius: 0.85rem;
+  background: rgba(0, 0, 0, 0.18);
+  padding: 0.65rem 0.7rem;
+}
+
+.townforge-trade-pane-header {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.townforge-trade-pane-header h3,
+.townforge-trade-center h3 {
+  margin: 0;
+  font-family: var(--tf-display);
+  font-size: 1.25rem;
+}
+
+.townforge-trade-list {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+}
+
+.townforge-trade-row.is-in-offer {
+  border-color: var(--tf-accent);
+  background: rgba(196, 163, 90, 0.12);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--tf-accent) 35%, transparent);
+}
+
+.townforge-offer-block {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.townforge-offer-block h4 {
+  margin: 0;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--tf-muted);
+}
+
+.townforge-offer-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.townforge-offer-list li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  gap: 0.4rem;
+  align-items: center;
+  padding: 0.4rem 0.5rem;
+  border: 1px solid var(--tf-border);
+  border-radius: 0.55rem;
+  background: rgba(255, 255, 255, 0.03);
+  font-size: 0.88rem;
+}
+
+.townforge-offer-qty {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-width: 0;
+}
+
+.townforge-offer-qty span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.townforge-offer-qty button,
+.townforge-offer-remove {
+  border: 1px solid var(--tf-border);
+  background: rgba(0, 0, 0, 0.25);
+  color: var(--tf-text);
+  border-radius: 0.35rem;
+  width: 1.55rem;
+  height: 1.55rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+  flex: 0 0 auto;
+}
+
+.townforge-offer-qty button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.townforge-offer-remove:hover {
+  color: #e39a9a;
+  border-color: color-mix(in srgb, var(--tf-danger) 45%, var(--tf-border));
+}
+
+.townforge-trade-summary {
+  display: grid;
+  gap: 0.35rem;
+  margin-top: 0.25rem;
+  padding-top: 0.55rem;
+  border-top: 1px solid var(--tf-border);
+}
+
+.townforge-trade-summary > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  color: var(--tf-muted);
+  font-size: 0.9rem;
+}
+
+.townforge-trade-summary strong {
+  color: var(--tf-text);
+}
+
+.townforge-trade-net {
+  font-weight: 700;
+}
+
+.townforge-trade-net.is-pay strong {
+  color: #e3b26a;
+}
+
+.townforge-trade-net.is-gain strong {
+  color: #9dcc8a;
+}
+
+.townforge-muted {
+  margin: 0;
+  color: var(--tf-muted);
+  font-size: 0.85rem;
+}
+
+.townforge-buy-btn-lg {
+  width: 100%;
+  margin-top: 0.35rem;
+  padding: 0.85rem 1rem;
+  font-size: 1.05rem;
+}
+
 .townforge-shop-hero-portrait,
 .townforge-merchant-portrait {
   width: 72px;
@@ -1567,6 +1738,21 @@
 .townforge-sources-footer {
   display: flex;
   justify-content: flex-end;
+}
+
+@media (max-width: 1100px) {
+  .townforge-trade-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .townforge-trade .townforge-merchant-hero {
+    grid-template-columns: auto 1fr;
+  }
+
+  .townforge-trade-buyer,
+  .townforge-merchant-gm-actions {
+    grid-column: 1 / -1;
+  }
 }
 
 @media (max-width: 900px) {
