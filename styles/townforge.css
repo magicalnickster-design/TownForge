@@ -265,14 +265,25 @@
 
 .townforge-card-media {
   position: relative;
-  aspect-ratio: 4 / 5;
-  background: #0f1113;
+  aspect-ratio: 3 / 4;
+  background:
+    linear-gradient(45deg, #1a1d21 25%, transparent 25%),
+    linear-gradient(-45deg, #1a1d21 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #1a1d21 75%),
+    linear-gradient(-45deg, transparent 75%, #1a1d21 75%);
+  background-size: 16px 16px;
+  background-position: 0 0, 0 8px, 8px -8px, -8px 0;
+  background-color: #101317;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
 }
 
 .townforge-card-media img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center bottom;
   display: block;
 }
 
@@ -404,13 +415,21 @@
   overflow: hidden;
   border: 1px solid var(--tf-border);
   box-shadow: var(--tf-shadow);
-  background: #0f1113;
+  background:
+    linear-gradient(45deg, #1a1d21 25%, transparent 25%),
+    linear-gradient(-45deg, #1a1d21 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #1a1d21 75%),
+    linear-gradient(-45deg, transparent 75%, #1a1d21 75%);
+  background-size: 16px 16px;
+  background-position: 0 0, 0 8px, 8px -8px, -8px 0;
+  background-color: #101317;
 }
 
 .townforge-detail-portrait img {
   width: 100%;
-  aspect-ratio: 1;
-  object-fit: cover;
+  aspect-ratio: 3 / 4;
+  object-fit: contain;
+  object-position: center bottom;
   display: block;
 }
 
