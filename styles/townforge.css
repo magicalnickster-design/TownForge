@@ -244,6 +244,29 @@
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 0.65rem;
+  align-items: start;
+}
+
+/* Foundry button styles can crush ApplicationV2 cards into short strips. */
+.townforge.townforge-npc-browser button.townforge-card {
+  display: block;
+  width: 100%;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  line-height: normal;
+  border: 1px solid transparent;
+  border-radius: 0.8rem;
+  padding: 0;
+  margin: 0;
+  background: var(--tf-bg-card);
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: var(--tf-shadow);
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  transition: transform 120ms ease, border-color 120ms ease;
 }
 
 .townforge-card {
@@ -265,7 +288,7 @@
 
 .townforge-card-media {
   position: relative;
-  aspect-ratio: 3 / 4;
+  width: 100%;
   background:
     linear-gradient(45deg, #1a1d21 25%, transparent 25%),
     linear-gradient(-45deg, #1a1d21 25%, transparent 25%),
@@ -274,25 +297,27 @@
   background-size: 16px 16px;
   background-position: 0 0, 0 8px, 8px -8px, -8px 0;
   background-color: #101317;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
 }
 
+.townforge.townforge-npc-browser .townforge-card-media img,
 .townforge-card-media img {
   width: 100%;
-  height: 100%;
+  height: auto !important;
+  max-height: none !important;
+  aspect-ratio: 3 / 4;
   object-fit: contain;
   object-position: center bottom;
   display: block;
+  vertical-align: top;
 }
 
 .townforge-card-overlay {
   position: absolute;
   inset: auto 0 0 0;
-  padding: 1.6rem 0.65rem 0.65rem;
+  padding: 1.6rem 0.65rem 0.55rem;
   background: linear-gradient(180deg, transparent, rgba(8, 9, 11, 0.92) 55%);
   text-align: left;
+  pointer-events: none;
 }
 
 .townforge-card-name {
@@ -427,6 +452,8 @@
 
 .townforge-detail-portrait img {
   width: 100%;
+  height: auto !important;
+  max-height: none !important;
   aspect-ratio: 3 / 4;
   object-fit: contain;
   object-position: center bottom;
