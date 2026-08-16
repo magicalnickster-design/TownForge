@@ -84,6 +84,82 @@
       <p class="townforge-effective-level">Effective Party Level: <strong>{{partyLevel}}</strong></p>
       {{/unless}}
 
+      <section class="townforge-party-aware" data-townforge-party-aware>
+        <label class="townforge-enable-toggle townforge-party-aware-toggle">
+          <input type="checkbox" name="partyAwareInventory" {{#if partyAware.partyAwareInventory}}checked{{/if}} data-townforge-party-aware-enabled />
+          <span>
+            <strong>Party-Aware Inventory</strong>
+            <small>Prioritizes items relevant to the classes and levels of the detected player characters.</small>
+          </span>
+        </label>
+
+        <div class="townforge-party-aware-body{{#unless partyAware.partyAwareInventory}} is-disabled{{/unless}}">
+          {{#if partyAware.partyAwareInventory}}
+          <p class="townforge-party-aware-status">
+            <strong>Party-Aware Inventory: Active</strong>
+            {{#if partyAware.fallbackWarning}}
+            <span class="townforge-warn">No player characters detected — standard generation will be used.</span>
+            {{else if partyAware.banner}}
+            <span>Detected: <em>{{partyAware.banner}}</em></span>
+            {{/if}}
+          </p>
+          {{/if}}
+
+          <div class="townforge-field">
+            <span>Party Detection</span>
+            <select name="partyDetectionMode" data-townforge-party-detection>
+              {{#each partyDetectionModes}}
+              <option value="{{id}}" {{#if selected}}selected{{/if}}>{{label}}</option>
+              {{/each}}
+            </select>
+          </div>
+
+          {{#if partyAware.isAuto}}
+          <div class="townforge-party-detected">
+            <div class="townforge-party-detected-header">
+              <h4>Detected Party — {{partyAware.detectedCount}} Character{{#unless partyAware.oneMember}}s{{/unless}}</h4>
+              <button type="button" class="townforge-btn townforge-btn-secondary" data-action="refreshParty">
+                <i class="fa-solid fa-rotate"></i>
+                <span>Refresh Party</span>
+              </button>
+            </div>
+            {{#if partyAware.memberLines.length}}
+            <ul class="townforge-party-member-list">
+              {{#each partyAware.memberLines}}
+              <li><strong>{{name}}</strong> — {{detail}}</li>
+              {{/each}}
+            </ul>
+            {{else}}
+            <p class="townforge-muted">No player-assigned characters detected yet.</p>
+            {{/if}}
+          </div>
+          {{else}}
+          <div class="townforge-party-manual">
+            <label class="townforge-search">
+              <span class="townforge-sr-only">Search characters</span>
+              <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+              <input type="search" value="{{partyActorQuery}}" placeholder="Search characters…" data-townforge-party-search autocomplete="off" />
+            </label>
+            {{#if partyAware.missingUuids.length}}
+            <p class="townforge-warn">{{partyAware.missingUuids.length}} saved party actor(s) are missing and will be skipped.</p>
+            {{/if}}
+            <div class="townforge-party-actor-list" role="group" aria-label="Manual party selection">
+              {{#if partyAware.filteredCharacters.length}}
+              {{#each partyAware.filteredCharacters}}
+              <label class="townforge-party-actor-row">
+                <input type="checkbox" name="partyActorUuids" value="{{uuid}}" {{#if selected}}checked{{/if}} />
+                <span>{{name}}</span>
+              </label>
+              {{/each}}
+              {{else}}
+              <p class="townforge-muted">No matching character actors.</p>
+              {{/if}}
+            </div>
+          </div>
+          {{/if}}
+        </div>
+      </section>
+
       <div class="townforge-setup-actions">
         <button type="submit" class="townforge-btn townforge-btn-primary townforge-btn-save">
           <i class="fa-solid fa-floppy-disk"></i>
