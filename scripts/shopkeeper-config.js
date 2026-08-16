@@ -2,6 +2,7 @@ import { LOG_PREFIX, MODULE_ID } from "./constants.js";
 import {
   ECONOMY_TIERS,
   INVENTORY_MODES,
+  PARTY_DETECTION_MODES,
   PARTY_LEVEL_MODES,
   SHOP_TYPES
 } from "./shop-constants.js";
@@ -25,6 +26,16 @@ export class ShopkeeperConfig extends HandlebarsApplicationMixin(ApplicationV2) 
   /** @type {string} */
   #inventoryQuery = "";
 
+  /** @type {string} */
+  #partyActorQuery = "";
+
+  /** Ephemeral Setup-tab overrides so toggles survive re-render before Save. */
+  #partyAwareDraft = {
+    enabled: null,
+    mode: null,
+    uuids: null
+  };
+
   /** @type {boolean} */
   #showAddItem = false;
 
@@ -42,7 +53,7 @@ export class ShopkeeperConfig extends HandlebarsApplicationMixin(ApplicationV2) 
       resizable: true,
       contentClasses: ["townforge-window-content"]
     },
-    position: { width: 520, height: 620 },
+    position: { width: 560, height: 720 },
     actions: {
       setTab: this.#onSetTab,
       selectShopType: this.#onSelectShopType,
@@ -53,7 +64,8 @@ export class ShopkeeperConfig extends HandlebarsApplicationMixin(ApplicationV2) 
       editStock: this.#onEditStock,
       openMerchant: this.#onOpenMerchant,
       openItemSources: this.#onOpenItemSources,
-      addSelectedItem: this.#onAddSelectedItem
+      addSelectedItem: this.#onAddSelectedItem,
+      refreshParty: this.#onRefreshParty
     }
   };
 
@@ -111,6 +123,21 @@ export class ShopkeeperConfig extends HandlebarsApplicationMixin(ApplicationV2) 
     const context = await super._prepareContext(options);
     const shop = shopService.getShopkeeper(this.#actor);
     const partyLevel = shopService.getEffectivePartyLevel(shop);
+    const shopForParty = {
+      ...shop,
+      partyAwareInventory:
+        this.#partyAwareDraft.enabled == null ? shop.partyAwareInventory : this.#partyAwareDraft.enabled,
+      partyDetectionMode:
+        this.#partyAwareDraft.mode == null ? shop.partyDetectionMode : this.#partyAwareDraft.mode,
+      partyActorUuids:
+        this.#partyAwareDraft.uuids == null ? shop.partyActorUuids : this.#partyAwareDraft.uuids
+    };
+    const partyAware = await shopService.getPartyAwareUiState(shopForParty);
+    const partyQuery = this.#partyActorQuery.trim().toLowerCase();
+    const filteredCharacters = partyAware.characterActors.filter((actor) => {
+      if (!partyQuery) return true;
+      return actor.name.toLowerCase().includes(partyQuery);
+    });
     const isFixedPartyLevel = shop.partyLevelMode === PARTY_LEVEL_MODES.fixed;
     const fixedLevelValue = Math.max(
       1,
@@ -141,6 +168,25 @@ export class ShopkeeperConfig extends HandlebarsApplicationMixin(ApplicationV2) 
       inventoryQuery: this.#inventoryQuery,
       inventoryCount: inventoryAll.length,
       inventory,
+      partyActorQuery: this.#partyActorQuery,
+      partyAware: {
+        ...partyAware,
+        isAuto: partyAware.partyDetectionMode === PARTY_DETECTION_MODES.auto,
+        oneMember: partyAware.detectedCount === 1,
+        filteredCharacters
+      },
+      partyDetectionModes: [
+        {
+          id: PARTY_DETECTION_MODES.auto,
+          label: "Auto Detect Player Characters",
+          selected: partyAware.partyDetectionMode === PARTY_DETECTION_MODES.auto
+        },
+        {
+          id: PARTY_DETECTION_MODES.manual,
+          label: "Manual Party Selection",
+          selected: partyAware.partyDetectionMode === PARTY_DETECTION_MODES.manual
+        }
+      ],
       fixedPartyLevels: Array.from({ length: 20 }, (_, index) => {
         const value = index + 1;
         return {
@@ -188,6 +234,7 @@ export class ShopkeeperConfig extends HandlebarsApplicationMixin(ApplicationV2) 
   _onRender(context, options) {
     super._onRender?.(context, options);
     this.#bindPartyLevelControls();
+    this.#bindPartyAwareControls();
     this.#bindInventorySearch();
     this.#bindItemDropZone();
   }
@@ -212,6 +259,60 @@ export class ShopkeeperConfig extends HandlebarsApplicationMixin(ApplicationV2) 
 
     modeSelect.addEventListener("change", sync);
     sync();
+  }
+
+  #bindPartyAwareControls() {
+    const enabled = this.element?.querySelector?.("[data-townforge-party-aware-enabled]");
+    const mode = this.element?.querySelector?.("[data-townforge-party-detection]");
+    const search = this.element?.querySelector?.("[data-townforge-party-search]");
+
+    if (enabled && enabled.dataset.bound !== "1") {
+      enabled.dataset.bound = "1";
+      enabled.addEventListener("change", () => {
+        this.#capturePartyAwareDraft();
+        void this.render({ force: false });
+      });
+    }
+
+    if (mode && mode.dataset.bound !== "1") {
+      mode.dataset.bound = "1";
+      mode.addEventListener("change", () => {
+        this.#capturePartyAwareDraft();
+        void this.render({ force: false });
+      });
+    }
+
+    if (search && search.dataset.bound !== "1") {
+      search.dataset.bound = "1";
+      search.addEventListener("input", (event) => {
+        this.#partyActorQuery = event.currentTarget.value ?? "";
+        this.#capturePartyAwareDraft();
+        void this.render({ force: false });
+      });
+    }
+
+    const actorBoxes = this.element?.querySelectorAll?.('input[name="partyActorUuids"]') ?? [];
+    for (const box of actorBoxes) {
+      if (box.dataset.bound === "1") continue;
+      box.dataset.bound = "1";
+      box.addEventListener("change", () => {
+        this.#capturePartyAwareDraft();
+      });
+    }
+  }
+
+  #capturePartyAwareDraft() {
+    const form = this.element;
+    if (!form) return;
+    this.#partyAwareDraft = {
+      enabled: Boolean(form.querySelector('[name="partyAwareInventory"]')?.checked),
+      mode: String(
+        form.querySelector('[name="partyDetectionMode"]')?.value || PARTY_DETECTION_MODES.auto
+      ),
+      uuids: [...form.querySelectorAll('input[name="partyActorUuids"]:checked')].map((input) =>
+        String(input.value || "")
+      )
+    };
   }
 
   #bindInventorySearch() {
@@ -293,6 +394,11 @@ export class ShopkeeperConfig extends HandlebarsApplicationMixin(ApplicationV2) 
       stockCount: Math.max(1, Math.min(100, Math.floor(Number(get("stockCount")?.value) || 25))),
       partyLevelMode,
       fixedPartyLevel,
+      partyAwareInventory: Boolean(get("partyAwareInventory")?.checked),
+      partyDetectionMode: String(get("partyDetectionMode")?.value || PARTY_DETECTION_MODES.auto),
+      partyActorUuids: [...form.querySelectorAll('input[name="partyActorUuids"]:checked')].map(
+        (input) => String(input.value || "")
+      ),
       priceMultiplier: Number(get("priceMultiplier")?.value) || 1
     };
   }
@@ -303,6 +409,7 @@ export class ShopkeeperConfig extends HandlebarsApplicationMixin(ApplicationV2) 
     if (!patch) return shopService.getShopkeeper(this.#actor);
 
     await shopService.updateShopkeeper(this.#actor, patch);
+    this.#partyAwareDraft = { enabled: null, mode: null, uuids: null };
 
     const shouldGenerate =
       Boolean(options.regenerate) &&
@@ -317,6 +424,12 @@ export class ShopkeeperConfig extends HandlebarsApplicationMixin(ApplicationV2) 
     }
 
     return shopService.getShopkeeper(this.#actor);
+  }
+
+  /** @this {ShopkeeperConfig} */
+  static async #onRefreshParty() {
+    await this.render({ force: true });
+    ui.notifications?.info("TownForge refreshed the detected party.");
   }
 
   /** @this {ShopkeeperConfig} */

@@ -48,6 +48,8 @@ export const PARTY_LEVEL_MODES = Object.freeze({
   fixed: "fixed"
 });
 
+export { PARTY_DETECTION_MODES } from "./shop-party.js";
+
 /** Denomination values in copper pieces. */
 export { COIN_CP, COIN_ORDER } from "./shop-currency.js";
 
@@ -138,7 +140,7 @@ export const OCCUPATION_SHOP_MAP = Object.freeze([
 ]);
 
 export function defaultShopkeeperFlags(overrides = {}) {
-  return foundry.utils.mergeObject(
+  const merged = foundry.utils.mergeObject(
     {
       enabled: false,
       shopType: "general-store",
@@ -147,6 +149,9 @@ export function defaultShopkeeperFlags(overrides = {}) {
       economyTier: "standard",
       partyLevelMode: PARTY_LEVEL_MODES.auto,
       fixedPartyLevel: null,
+      partyAwareInventory: false,
+      partyDetectionMode: "auto",
+      partyActorUuids: [],
       priceMultiplier: 1,
       stockCount: 25,
       stockModel: "unlimited",
@@ -157,6 +162,13 @@ export function defaultShopkeeperFlags(overrides = {}) {
     overrides,
     { inplace: false }
   );
+  merged.partyAwareInventory = Boolean(merged.partyAwareInventory);
+  merged.partyDetectionMode =
+    merged.partyDetectionMode === "manual" ? "manual" : "auto";
+  merged.partyActorUuids = Array.isArray(merged.partyActorUuids)
+    ? [...new Set(merged.partyActorUuids.map((id) => String(id || "").trim()).filter(Boolean))]
+    : [];
+  return merged;
 }
 
 /**

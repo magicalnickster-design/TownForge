@@ -1257,6 +1257,91 @@
   color: var(--tf-accent-strong);
 }
 
+.townforge-party-aware {
+  display: grid;
+  gap: 0.55rem;
+  padding: 0.65rem 0.7rem;
+  border: 1px solid var(--tf-border);
+  border-radius: 0.65rem;
+  background: rgba(0, 0, 0, 0.16);
+}
+
+.townforge-party-aware-toggle {
+  margin: 0;
+}
+
+.townforge-party-aware-body {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.townforge-party-aware-body.is-disabled {
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.townforge-party-aware-status {
+  display: grid;
+  gap: 0.2rem;
+  margin: 0;
+  font-size: 0.82rem;
+}
+
+.townforge-party-aware-status em {
+  font-style: normal;
+  color: var(--tf-accent-strong);
+}
+
+.townforge-party-detected,
+.townforge-party-manual {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.townforge-party-detected-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.45rem;
+}
+
+.townforge-party-detected-header h4 {
+  margin: 0;
+  font-size: 0.88rem;
+}
+
+.townforge-party-member-list,
+.townforge-party-actor-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.25rem;
+}
+
+.townforge-party-member-list li,
+.townforge-party-actor-row {
+  margin: 0;
+  padding: 0.35rem 0.45rem;
+  border: 1px solid var(--tf-border);
+  border-radius: 0.4rem;
+  background: rgba(255, 255, 255, 0.03);
+  font-size: 0.82rem;
+}
+
+.townforge-party-actor-list {
+  max-height: 180px;
+  overflow: auto;
+}
+
+.townforge-party-actor-row {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.45rem;
+  align-items: center;
+  cursor: pointer;
+}
+
 .townforge-setup-actions,
 .townforge-inventory-footer,
 .townforge-advanced-actions {
