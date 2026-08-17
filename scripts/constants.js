@@ -1,22 +1,14 @@
-/**
- * Shared TownForge constants.
- * Future Free/Pro libraries, auth, and entitlements can key off these values.
- */
+/** Shared module constants. */
 
 export const MODULE_ID = "townforge";
 export const MODULE_TITLE = "TownForge";
 export const LOG_PREFIX = "[TownForge]";
 
-/** World setting key: announce completed shop trades in public chat. */
 export const ANNOUNCE_TRADES_SETTING = "announceTrades";
 
-/** Local Free library id used by the data loader. */
 export const LIBRARY_FREE = "free";
-
-/** Reserved for future TownForge Pro content. */
 export const LIBRARY_PRO = "pro";
 
-/** Actor flag namespace helpers. */
 export const FLAGS = Object.freeze({
   NPC_ID: "npcId",
   LIBRARY: "library",
@@ -24,10 +16,7 @@ export const FLAGS = Object.freeze({
   OCCUPATION: "occupation"
 });
 
-/**
- * Browser category filters.
- * Keep ids stable — NPC data files and future catalogs should use these keys.
- */
+/** Browser category filters — ids must stay stable for data files. */
 export const CATEGORIES = Object.freeze([
   { id: "all", label: "All" },
   { id: "tavern", label: "Tavern" },

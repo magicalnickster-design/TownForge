@@ -10,13 +10,11 @@ import {
 
 const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
 
-/**
- * Register TownForge world settings (GM-only shop source menu).
- */
+/** Module settings. */
 export function registerTownForgeSettings() {
   game.settings.register(MODULE_ID, ANNOUNCE_TRADES_SETTING, {
     name: "Announce Shop Trades in Chat",
-    hint: "When enabled, completed buys and sells at TownForge shopkeepers are posted publicly to chat for everyone.",
+    hint: "Post completed shop buys and sells to public chat.",
     scope: "world",
     config: true,
     type: Boolean,
@@ -27,7 +25,7 @@ export function registerTownForgeSettings() {
   game.settings.registerMenu(MODULE_ID, "shopItemSourcesMenu", {
     name: "Shopkeeper Item Sources",
     label: "Configure Item Sources",
-    hint: "Choose which installed Item compendiums TownForge may use when generating shopkeeper inventory.",
+    hint: "Pick which Item packs feed automatic shop stock.",
     icon: "fas fa-book-open",
     type: ShopItemSourcesApp,
     restricted: true
@@ -35,7 +33,7 @@ export function registerTownForgeSettings() {
 
   game.settings.register(MODULE_ID, SHOP_ITEM_SOURCES_SETTING, {
     name: "Shopkeeper Item Sources",
-    hint: "World-level list of Item compendium pack IDs used for automatic shop stock.",
+    hint: "Saved Item pack IDs used when generating shop stock.",
     scope: "world",
     config: false,
     type: Array,
@@ -50,9 +48,7 @@ export function registerTownForgeSettings() {
   console.log(`${LOG_PREFIX} Settings registered`);
 }
 
-/**
- * GM configuration UI for selecting Item compendium sources.
- */
+/** Item pack picker for shop generation. */
 export class ShopItemSourcesApp extends HandlebarsApplicationMixin(ApplicationV2) {
   /** @type {Set<string>} */
   #selected = new Set();

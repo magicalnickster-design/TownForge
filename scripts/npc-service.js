@@ -11,12 +11,7 @@ import {
   REQUIRED_NPC_FIELDS
 } from "./constants.js";
 
-/**
- * NPC data access layer.
- *
- * Loads Free library category packs from data/npcs/*.json via manifest.json,
- * validates/normalizes entries, and exposes search/filter helpers.
- */
+/** Loads and filters TownForge NPC packs from data/npcs. */
 export class NpcService {
   /** @type {Map<string, object[]>} */
   #libraryCache = new Map();
@@ -68,7 +63,6 @@ export class NpcService {
    */
   getAvailableLibraries() {
     const available = [LIBRARY_FREE];
-    // Future: Gambits Forge auth + Pro entitlement check before including Pro.
     if (this.#isProLibraryEnabled()) {
       available.push(LIBRARY_PRO);
     }

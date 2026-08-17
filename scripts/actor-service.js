@@ -3,12 +3,7 @@ import { FLAGS, LOG_PREFIX, MODULE_ID } from "./constants.js";
 const FALLBACK_IMAGE = "icons/svg/mystery-man.svg";
 
 /**
- * Foundry Actor / Token integration for TownForge NPCs.
- *
- * Responsibilities:
- * - Find an existing Actor created from a TownForge NPC id
- * - Create the Actor once if missing
- * - Place a token on the active scene near the viewport center
+ * Foundry Actor / Token helpers for TownForge NPCs.
  */
 export class ActorService {
   /** @type {Set<string>} */

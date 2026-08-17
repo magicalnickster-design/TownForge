@@ -16,11 +16,7 @@ const PRICE_FILTERS = Object.freeze([
   { id: "500gp+", label: "500 gp+", minCP: 50001 }
 ]);
 
-/**
- * Player-facing TownForge merchant window (BG3-style trade).
- * Left: sellable inventory. Center: offer + confirm. Right: shop stock.
- * One Confirm Trade settles buys and sells with net gold.
- */
+/** Merchant trade window — player inventory, offer tray, shop stock. */
 export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
   /** @type {Actor} */
   #merchant;

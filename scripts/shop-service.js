@@ -26,13 +26,7 @@ import { refreshOpenShopUIs } from "./shop-sync.js";
 import { newGenerationSalt, randomPick, seededPick, stableHash } from "./shop-random.js";
 
 /**
- * TownForge shop generation, pricing, and purchase validation.
- *
- * Purchase security:
- * - Prices/stock are always read from Actor flags on the merchant
- * - Clients cannot invent stock entries or override prices
- * - Shop configuration mutations require GM permissions
- * - Player purchases are fulfilled by an active GM when possible
+ * Shop generation, pricing, and purchases.
  */
 export class ShopService {
   /** @type {Map<string, object[]>} */
@@ -72,7 +66,7 @@ export class ShopService {
     if (!game.user?.isGM && !isOwner && !options.allowNonGM) {
       throw new Error("Only the GM can modify TownForge shopkeeper settings.");
     }
-    // Non-GM clients may only mutate inventory (instant BG3-style trades).
+    // Non-GMs can only touch inventory.
     if (!game.user?.isGM) {
       const keys = Object.keys(patch ?? {});
       if (!keys.length || keys.some((key) => key !== "inventory")) {
@@ -86,8 +80,7 @@ export class ShopService {
     if (next.fixedPartyLevel != null) {
       next.fixedPartyLevel = Math.max(1, Math.min(20, Number(next.fixedPartyLevel) || 1));
     }
-    // Always replace inventory by assignment. Foundry setFlag/mergeObject otherwise
-    // merges arrays by index and can preserve prior stock/order across regenerates.
+    // Replace inventory wholesale — mergeObject would merge by array index.
     if (Object.prototype.hasOwnProperty.call(patch, "inventory")) {
       next.inventory = this.#sanitizeInventory(
         Array.isArray(patch.inventory) ? patch.inventory.slice() : []
@@ -109,7 +102,7 @@ export class ShopService {
       await this.#writeShopkeeperFlag(actor, next);
     }
 
-    // Guard: a wiped flag would look like a disabled empty shop.
+    // If the write somehow dropped `enabled`, put it back.
     const written = this.getShopkeeper(actor);
     if (next.enabled && !written.enabled) {
       console.error(
@@ -143,14 +136,8 @@ export class ShopService {
   }
 
   /**
-   * Persist shopkeeper flags without wiping the parent flag object.
-   * IMPORTANT: Never use `flags.townforge.-=shopkeeper` in the same update as a
-   * re-set. Foundry can apply the deletion after the write (or reject the write
-   * for non-GM owners), which clears `enabled` and makes the shop disappear
-   * after a player trade. Only the inventory array is cleared+replaced.
-   * Never persist quantity:null — Foundry treats null as delete and can drop stock.
-   * @param {Actor} actor
-   * @param {object} next
+   * Write shopkeeper flags. Avoid `-=shopkeeper` — Foundry can clear the whole
+   * flag if delete and rewrite land in the same update.
    */
   async #writeShopkeeperFlag(actor, next) {
     const base = `flags.${MODULE_ID}.${SHOPKEEPER_FLAG}`;
@@ -161,18 +148,13 @@ export class ShopService {
     };
     for (const [key, value] of Object.entries(next)) {
       if (key === "inventory") continue;
-      // Skip null sibling values — Foundry deletes keys set to null.
       if (value === null) continue;
       update[`${base}.${key}`] = value;
     }
     await actor.update(update);
   }
 
-  /**
-   * Inventory-only flag write used by player trades.
-   * @param {Actor} actor
-   * @param {object[]} inventory
-   */
+  /** Inventory-only write for player trades. */
   async #writeShopkeeperInventory(actor, inventory) {
     const base = `flags.${MODULE_ID}.${SHOPKEEPER_FLAG}`;
     const clean = this.#sanitizeInventory(inventory);
@@ -302,12 +284,7 @@ export class ShopService {
     return enabled;
   }
 
-  /**
-   * Ensure default ownership is OWNER so players can browse stock and complete
-   * instant BG3-style trades (update inventory flags) without waiting on a GM.
-   * Double-click still opens the TownForge merchant UI, not the NPC sheet.
-   * @param {Actor} actor
-   */
+  /** Give players OWNER on the shopkeeper so they can browse and trade. */
   async ensurePlayerShopAccess(actor) {
     if (!game.user?.isGM || !actor) return;
     try {
@@ -348,12 +325,7 @@ export class ShopService {
   }
 
   /**
-   * Regenerate automatic stock from scratch.
-   * Always replaces automatic entries. Manual entries are kept unless clearManual.
-   * When reshuffle/force regenerate, a new random salt produces a different assortment.
-   * @param {Actor} actor
-   * @param {{force?: boolean, reshuffle?: boolean, clearManual?: boolean}} [options]
-   * @returns {Promise<object>}
+   * Rebuild automatic stock. Manual rows stay unless clearManual is set.
    */
   async regenerateInventory(actor, { force = false, reshuffle = false, clearManual = false } = {}) {
     if (!game.user?.isGM) {
@@ -548,17 +520,7 @@ export class ShopService {
     });
   }
 
-  /**
-   * Atomic buy+sell trade — instant, BG3-style (no GM approval gate).
-   * Players fulfill locally using shopkeeper ownership granted for enabled shops.
-   * @param {{
-   *   merchantUuid: string,
-   *   buyerUuid: string,
-   *   buys?: {stockId:string, quantity?:number}[],
-   *   sells?: {itemId:string, quantity?:number}[]
-   * }} request
-   * @returns {Promise<{ok:boolean, message?:string}>}
-   */
+  /** Run a buy/sell trade against live merchant stock and the buyer Actor. */
   async executeTrade(request) {
     const lockKey = `trade:${request.merchantUuid}:${request.buyerUuid}`;
     if (this.#purchaseLocks.has(lockKey)) {
@@ -598,11 +560,7 @@ export class ShopService {
     }
   }
 
-  /**
-   * Authoritative trade fulfillment.
-   * @param {{merchantUuid:string,buyerUuid:string,buys:object[],sells:object[]}} request
-   * @param {string} requesterId
-   */
+  /** GM-side trade handler for remote purchase requests. */
   async #fulfillTrade(request, requesterId) {
     const fulfillKey = `fulfill-trade:${request.merchantUuid}:${request.buyerUuid}`;
     if (this.#purchaseLocks.has(fulfillKey)) {
@@ -628,7 +586,6 @@ export class ShopService {
       const shop = this.getShopkeeper(merchant);
       if (!shop.enabled) return { ok: false, message: "Shop unavailable." };
 
-      // --- Validate buys ---
       let buyTotalCP = 0;
       /** @type {{stock:object, qty:number, sourceItem:Item}[]} */
       const resolvedBuys = [];
@@ -650,7 +607,6 @@ export class ShopService {
         resolvedBuys.push({ stock: check.stock, qty: check.quantity, sourceItem, unitPriceCP: check.unitPriceCP });
       }
 
-      // --- Validate sells ---
       let sellTotalCP = 0;
       /** @type {{item:Item, qty:number, unitPriceCP:number}[]} */
       const resolvedSells = [];
@@ -733,7 +689,7 @@ export class ShopService {
           (entry) => this.#isUnlimited(entry) || Number(entry.quantity) > 0
         );
 
-        // Safety net: never allow a trade write to drop prior unlimited stock.
+        // Keep unlimited rows that vanished from a bad write.
         const keptIds = new Set(inventory.map((entry) => entry.id));
         for (const prev of previousInventory) {
           if (keptIds.has(prev.id)) continue;
@@ -885,14 +841,7 @@ export class ShopService {
     return ["weapon", "equipment", "consumable", "tool", "loot", "container"].includes(type);
   }
 
-  /**
-   * Put a sold player item back on the merchant shelf for resale (BG3-style).
-   * Merges into an existing finite stack of the same uuid; skips if infinite stock
-   * of that uuid already exists.
-   * @param {object[]} inventory
-   * @param {{item:Item, qty:number, unitPriceCP:number}} sell
-   * @returns {object[]}
-   */
+  /** Restock a sold item onto the merchant shelf. */
   #restockSoldItem(inventory, sell) {
     const uuid = sell.item?.uuid;
     const priceCP = Math.max(1, Math.round(sell.unitPriceCP / SELL_PRICE_RATIO) || sell.unitPriceCP);
@@ -952,9 +901,7 @@ export class ShopService {
     );
   }
 
-  /**
-   * Ask an online GM to fulfill a trade authoritatively.
-   */
+  /** Ask an online GM to run the trade. */
   #requestTradeViaSocket(request) {
     const requestId = `${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
     return new Promise((resolve) => {
@@ -1025,10 +972,7 @@ export class ShopService {
     return this.#sellPriceFromItem(item, shop);
   }
 
-  /**
-   * Whether this GM client should handle authoritative shop sockets.
-   * @returns {boolean}
-   */
+  /** Prefer the active GM (or lowest-id active GM) for shop socket work. */
   #shouldHandleShopAuthority() {
     if (!game.user?.isGM || !game.user.active) return false;
     const activeGM = game.users?.activeGM;
@@ -1329,8 +1273,7 @@ export class ShopService {
 
     const picked = pick([...unique.values()], stockCount, economy.id);
 
-    // Do not force staple weapons/armor back in on reshuffle — that made every
-    // regenerate look like the same list in the same order.
+    // Staples only on the first stable roll — reshuffles stay random.
     if (!reshuffle && (shop.shopType === "blacksmith" || shop.shopType === "armorer")) {
       this.#ensureNamedItems(
         picked,

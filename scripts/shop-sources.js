@@ -5,13 +5,7 @@ import { DND5E_ITEM_PACK_CANDIDATES } from "./shop-constants.js";
 export const SHOP_ITEM_SOURCES_SETTING = "shopItemSources";
 
 /**
- * Future-compatible source settings reader.
- * Current shape: string[] of pack collection IDs.
- * Later may become { default: string[], byShopType: {}, magic: [] }.
- *
- * @param {unknown} settingsValue
- * @param {{shopType?: string}} [options]
- * @returns {string[]}
+ * Resolve configured Item pack IDs from the world setting.
  */
 export function resolveConfiguredSourceIds(settingsValue, options = {}) {
   void options.shopType;
@@ -87,8 +81,7 @@ export function recommendedPackIds(availablePacks = []) {
 }
 
 /**
- * Discover installed Item compendium packs for the settings UI / shop generation.
- * Pure metadata mapping — pass Foundry packs in from the caller.
+ * Map installed Item packs for the settings UI / shop generation.
  *
  * @param {Iterable} packs
  * @returns {{id:string, label:string, packageName:string, packageType:string, documentName:string}[]}

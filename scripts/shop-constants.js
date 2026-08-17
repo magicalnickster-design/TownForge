@@ -159,11 +159,7 @@ export function defaultShopkeeperFlags(overrides = {}) {
   );
 }
 
-/**
- * Unlimited stock marker helpers.
- * Never persist quantity: null — Foundry treats null as "delete key" in updates,
- * which can wipe shop inventory when players write stock after a trade.
- */
+/** Unlimited stock helpers. Prefer `unlimited: true` over quantity null. */
 export function isUnlimitedStock(entry) {
   if (!entry || typeof entry !== "object") return false;
   if (entry.unlimited === true) return true;

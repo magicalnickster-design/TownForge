@@ -9,9 +9,7 @@ import { getShopTypeLabel, shopService } from "./shop-service.js";
 
 const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
 
-/**
- * Compact GM-only TownForge Shopkeeper configuration window.
- */
+/** GM shopkeeper setup window. */
 export class ShopkeeperConfig extends HandlebarsApplicationMixin(ApplicationV2) {
   /** @type {Actor} */
   #actor;

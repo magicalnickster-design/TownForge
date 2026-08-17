@@ -1,4 +1,4 @@
-/* TownForge NPC Library — mockup-aligned split browser */
+/* TownForge */
 
 @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap");
 
@@ -247,7 +247,7 @@
   align-items: start;
 }
 
-/* Foundry button styles can crush ApplicationV2 cards into short strips. */
+/* Keep ApplicationV2 card buttons from collapsing to a short strip. */
 .townforge.townforge-npc-browser button.townforge-card {
   display: block;
   width: 100%;
@@ -846,7 +846,7 @@
   }
 }
 
-/* -------- Shopkeeper / Merchant -------- */
+/* Shopkeeper / merchant */
 
 .townforge-shop-config,
 .townforge-merchant-shell {
@@ -1900,7 +1900,7 @@
   }
 }
 
-/* -------- Trade chat announcement -------- */
+/* Trade chat */
 
 .townforge-trade-chat {
   display: grid;

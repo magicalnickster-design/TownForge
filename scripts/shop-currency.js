@@ -1,6 +1,5 @@
 /**
- * Pure currency helpers for TownForge shop purchases.
- * No Foundry dependency — safe for Node unit tests.
+ * Pure currency helpers — no Foundry deps (unit-testable).
  */
 
 export const COIN_CP = Object.freeze({
@@ -70,17 +69,7 @@ export function formatWallet(currency = {}) {
 }
 
 /**
- * Deduct a copper-equivalent price while preserving denominations.
- *
- * Strategy:
- * 1. Pay exactly using available coins from largest → smallest without overpaying.
- * 2. If a remainder remains, break the smallest larger coin that can cover it and
- *    return change in smaller denominations.
- * 3. Never produce negative coin counts. Never rewrite the whole wallet into copper.
- *
- * @param {object} currency
- * @param {number} priceCP
- * @returns {{pp:number,gp:number,ep:number,sp:number,cp:number}}
+ * Deduct priceCP from a wallet, breaking larger coins when needed.
  */
 export function deductCopper(currency, priceCP) {
   const cost = Math.max(0, Math.floor(Number(priceCP) || 0));
@@ -91,7 +80,6 @@ export function deductCopper(currency, priceCP) {
 
   let remaining = cost;
 
-  // Phase 1: spend exact coins without exceeding the remaining cost.
   for (const denom of COIN_ORDER) {
     const value = COIN_CP[denom];
     if (!wallet[denom] || remaining <= 0) continue;
@@ -104,7 +92,6 @@ export function deductCopper(currency, priceCP) {
 
   if (remaining === 0) return wallet;
 
-  // Phase 2: break the smallest denomination coin that is larger than the remainder.
   const breakOrder = ["cp", "sp", "ep", "gp", "pp"];
   for (const denom of breakOrder) {
     const value = COIN_CP[denom];
@@ -194,8 +181,8 @@ export function addCopper(currency, amountCP) {
 export const SELL_PRICE_RATIO = 0.5;
 
 /**
- * Lightweight purchase validation used by ShopService and unit tests.
- * Does not mutate state and ignores client-provided price/uuid overrides.
+ * Purchase validation for ShopService / unit tests.
+ * Ignores client-provided price and uuid — stock flags win.
  *
  * @param {object} args
  * @returns {{ok:boolean, message?:string, priceCP?:number, unitPriceCP?:number, quantity?:number, stock?:object}}
@@ -235,7 +222,6 @@ export function validatePurchaseRequest({
     return { ok: false, message: "Not enough stock." };
   }
 
-  // Authoritative price/uuid always come from stock — ignore client tampering.
   void clientPriceCP;
   void clientUuid;
   const unitPriceCP = Math.max(0, Number(stock.priceCP) || 0);

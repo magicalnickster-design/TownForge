@@ -1,7 +1,4 @@
-/**
- * Pure helpers for TownForge per-user Favorites and Recently Used lists.
- * Foundry I/O lives in thin wrappers at the bottom so Node tests can cover logic.
- */
+/** Favorites / recently-used helpers (Foundry I/O at the bottom for Node tests). */
 
 import { MODULE_ID, RECENT_NPC_LIMIT as RECENT_LIMIT } from "./constants.js";
 

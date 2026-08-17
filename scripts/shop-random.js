@@ -1,12 +1,7 @@
 /**
- * Deterministic and reshuffleable picks for TownForge shop generation.
+ * Seeded / random picks for shop stock.
  */
 
-/**
- * Stable hash string for seed text.
- * @param {string|number|null|undefined} text
- * @returns {string}
- */
 export function stableHash(text) {
   let hash = 2166136261;
   const str = String(text ?? "");

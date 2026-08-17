@@ -11,9 +11,7 @@ import {
 
 let tokenClickPatched = false;
 
-/**
- * Register shopkeeper-related hooks and a careful token double-click interceptor.
- */
+/** Wire shop hooks and token double-click → merchant UI. */
 export function registerShopHooks() {
   shopService.registerSockets();
 
@@ -226,14 +224,11 @@ function hasLootForgeMark(doc) {
 }
 
 /**
- * Intercept token double-click for living enabled shopkeepers only.
- * Players always open the merchant UI.
- * GM opens merchant UI unless Shift is held (then Actor sheet).
+ * Open the merchant UI on token double-click for living shopkeepers.
+ * Players always get the shop; GM gets the shop unless Shift is held.
  *
- * Foundry stores clickLeft2 permission/callback refs on each Token's
- * MouseInteractionManager at draw time, so we patch the prototype AND
- * rebind every existing/new token manager. Without the permission rebind,
- * players get no double-click event at all on unowned NPCs.
+ * Click handlers are baked into each Token's MouseInteractionManager at draw
+ * time, so we patch the prototype and rebind live managers.
  */
 function patchTokenDoubleClick() {
   const TokenClass = CONFIG.Token?.objectClass ?? foundry.canvas?.placeables?.Token;

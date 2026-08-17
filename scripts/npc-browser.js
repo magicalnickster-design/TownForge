@@ -27,9 +27,7 @@ import {
 
 const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
 
-/**
- * TownForge NPC Browser — split-pane library UI inspired by the product mockup.
- */
+/** NPC library browser. */
 export class NpcBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
   /** @type {string} */
   #query = "";
