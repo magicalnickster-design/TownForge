@@ -188,6 +188,44 @@ export function sanitizeStockEntry(entry) {
   return next;
 }
 
+/** Stable identity for collapsing duplicate catalog rows (same name/type, different UUID). */
+export function stockIdentityKey(entry) {
+  const type = String(entry?.type ?? "item").trim().toLowerCase();
+  const name = String(entry?.name ?? "").trim().toLowerCase();
+  return `${type}|${name}`;
+}
+
+/**
+ * Remove duplicate shop rows. Manual entries win over automatic ones.
+ * @param {object[]} inventory
+ * @returns {object[]}
+ */
+export function dedupeStockEntries(inventory) {
+  const rows = (Array.isArray(inventory) ? inventory : [])
+    .filter((entry) => entry?.uuid && entry?.name)
+    .slice()
+    .sort((a, b) => {
+      if (a.source === "manual" && b.source !== "manual") return -1;
+      if (b.source === "manual" && a.source !== "manual") return 1;
+      return 0;
+    });
+
+  const seenUuid = new Set();
+  const seenIdentity = new Set();
+  const result = [];
+
+  for (const entry of rows) {
+    const uuid = String(entry.uuid);
+    const identity = stockIdentityKey(entry);
+    if (seenUuid.has(uuid) || seenIdentity.has(identity)) continue;
+    seenUuid.add(uuid);
+    seenIdentity.add(identity);
+    result.push(entry);
+  }
+
+  return result;
+}
+
 export function shopkeeperFlagPath(...parts) {
   return [`flags.${MODULE_ID}.${SHOPKEEPER_FLAG}`, ...parts].join(".");
 }
