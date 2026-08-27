@@ -1,20 +1,10 @@
 import { LOG_PREFIX, MODULE_ID } from "./constants.js";
 import { currencyToCopper, normalizeCurrency } from "./shop-currency.js";
+import { MERCHANT_PRICE_FILTERS, matchesMerchantPriceFilter } from "./shop-price-filters.js";
 import { isUnlimitedStock, stockQuantityLabel } from "./shop-constants.js";
 import { getShopTypeLabel, shopService } from "./shop-service.js";
 
 const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
-
-const PRICE_FILTERS = Object.freeze([
-  { id: "all", label: "All Prices" },
-  { id: "affordable", label: "Affordable" },
-  { id: "1gp", label: "≤ 1 gp", maxCP: 100 },
-  { id: "10gp", label: "≤ 10 gp", maxCP: 1000 },
-  { id: "50gp", label: "≤ 50 gp", maxCP: 5000 },
-  { id: "100gp", label: "≤ 100 gp", maxCP: 10000 },
-  { id: "500gp", label: "≤ 500 gp", maxCP: 50000 },
-  { id: "500gp+", label: "500 gp+", minCP: 50001 }
-]);
 
 /** Merchant trade window — player inventory, offer tray, shop stock. */
 export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
@@ -277,14 +267,14 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
       this.#sellOffer.clear();
     }
 
-    const priceFilters = PRICE_FILTERS.map((entry) => ({
+    const priceFilters = MERCHANT_PRICE_FILTERS.map((entry) => ({
       ...entry,
       active: entry.id === this.#priceFilter
     }));
 
     const items = inventory
       .filter((entry) => this.#filter === "all" || entry.filter === this.#filter)
-      .filter((entry) => this.#matchesPriceFilter(entry, wallet.walletCP))
+      .filter((entry) => matchesMerchantPriceFilter(entry.priceCP, this.#priceFilter, wallet.walletCP))
       .filter((entry) => {
         if (!query) return true;
         return `${entry.name} ${entry.type}`.toLowerCase().includes(query);
@@ -463,16 +453,6 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
         name: actor.name,
         selected: actor.uuid === this.#buyerUuid
       }));
-  }
-
-  #matchesPriceFilter(entry, walletCP) {
-    const price = Math.max(0, Number(entry.priceCP) || 0);
-    const filter = PRICE_FILTERS.find((row) => row.id === this.#priceFilter) ?? PRICE_FILTERS[0];
-    if (filter.id === "all") return true;
-    if (filter.id === "affordable") return price <= walletCP;
-    if (filter.maxCP != null && filter.minCP == null) return price <= filter.maxCP;
-    if (filter.minCP != null) return price >= filter.minCP;
-    return true;
   }
 
   /** @this {MerchantApp} */
