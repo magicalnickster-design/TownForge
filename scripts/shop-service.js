@@ -22,6 +22,15 @@ import {
   sanitizeStockEntry
 } from "./shop-constants.js";
 import { resolveSelectedItemPacks } from "./shop-sources.js";
+import {
+  buildBookItemData,
+  buildCatalogStock,
+  getActorNpcId,
+  getCatalogBook,
+  parseTownforgeBookUuid,
+  readyShopCatalogs,
+  resolveShopCatalog
+} from "./shop-catalogs.js";
 import { refreshOpenShopUIs } from "./shop-sync.js";
 import { newGenerationSalt, randomPick, seededPick, stableHash } from "./shop-random.js";
 
@@ -52,6 +61,16 @@ export class ShopService {
     shop.stockCount = Math.max(1, Math.min(100, Math.floor(Number(shop.stockCount) || 25)));
     shop.inventory = this.#sanitizeInventory(shop.inventory);
     return shop;
+  }
+
+  /**
+   * @param {Actor} actor
+   * @returns {Promise<object|null>}
+   */
+  async #getCatalogForActor(actor) {
+    const npcId = getActorNpcId(actor);
+    if (!npcId) return null;
+    return resolveShopCatalog(npcId);
   }
 
   /**
@@ -258,16 +277,22 @@ export class ShopService {
   async enableShopkeeper(actor, options = {}) {
     if (!game.user?.isGM) throw new Error("Only the GM can enable shopkeepers.");
     const current = this.getShopkeeper(actor);
+    const catalog = await this.#getCatalogForActor(actor);
     const shopType =
       options.shopType ||
       current.shopType ||
+      catalog?.shopType ||
       this.inferShopType(this.getOccupationHint(actor)) ||
       "general-store";
 
     const enabled = await this.updateShopkeeper(actor, {
       enabled: true,
       shopType,
-      shopName: options.shopName || current.shopName || `${actor.name}'s Shop`,
+      shopName:
+        options.shopName ||
+        current.shopName ||
+        catalog?.shopName ||
+        `${actor.name}'s Shop`,
       inventoryMode: options.inventoryMode || current.inventoryMode || INVENTORY_MODES.automatic,
       economyTier: options.economyTier || current.economyTier || "standard",
       partyLevelMode: options.partyLevelMode || current.partyLevelMode || PARTY_LEVEL_MODES.auto,
@@ -340,22 +365,46 @@ export class ShopService {
     const economy = ECONOMY_TIERS[shop.economyTier] ?? ECONOMY_TIERS.standard;
     const stockCount = Math.max(1, Math.min(100, Math.floor(Number(shop.stockCount) || 25)));
     const { selectedIds } = resolveSelectedItemPacks();
+    const catalog = await this.#getCatalogForActor(actor);
     const shouldReshuffle = Boolean(force || reshuffle);
     const seedSalt = shouldReshuffle ? newGenerationSalt() : "stable";
     const generationKey = [
-      shop.shopType,
+      catalog?.id ?? shop.shopType,
       shop.economyTier,
       shop.partyLevelMode,
       partyLevel,
       shop.priceMultiplier,
       stockCount,
-      selectedIds.join(","),
+      catalog ? "catalog" : selectedIds.join(","),
       actor.id,
       shouldReshuffle ? seedSalt : "stable"
     ].join("|");
 
     if (!force && !reshuffle && shop.generationKey === generationKey && Array.isArray(shop.inventory)) {
       return shop;
+    }
+
+    const manual = clearManual
+      ? []
+      : (shop.inventory ?? []).filter((entry) => entry?.source === "manual");
+
+    if (catalog) {
+      const automatic = buildCatalogStock(catalog, {
+        priceMultiplier: shop.priceMultiplier,
+        formatPrice: (cp) => this.formatPrice(cp)
+      }).map((entry) => sanitizeStockEntry(entry));
+      const inventory = this.#sanitizeInventory([...automatic, ...manual]);
+      console.log(
+        `${LOG_PREFIX} Loaded ${automatic.length} catalog book(s) for ${actor.name} (${catalog.id})`
+      );
+      return this.updateShopkeeper(actor, {
+        inventory,
+        inventoryMode: INVENTORY_MODES.automatic,
+        shopType: catalog.shopType ?? shop.shopType,
+        shopName: catalog.shopName ?? shop.shopName,
+        generatedAt: Date.now(),
+        generationKey
+      });
     }
 
     if (!selectedIds.length) {
@@ -454,6 +503,17 @@ export class ShopService {
       };
     }
     try {
+      const bookId = parseTownforgeBookUuid(stock.uuid);
+      if (bookId) {
+        await readyShopCatalogs();
+        const book = getCatalogBook(bookId);
+        if (!book) return { description: "", properties: [] };
+        const description = String(book.description ?? "").slice(0, 600);
+        const properties = [book.topic].filter(Boolean);
+        this.#detailCache.set(stock.uuid, { description, properties, loadedAt: Date.now() });
+        return { description, properties };
+      }
+
       const item = await fromUuid(stock.uuid);
       const raw =
         item?.system?.description?.value ??
@@ -518,6 +578,22 @@ export class ShopService {
       ],
       sells: []
     });
+  }
+
+  /** @param {object} stock */
+  async #resolveStockItem(stock) {
+    const uuid = stock?.uuid;
+    if (!uuid) return null;
+    const bookId = parseTownforgeBookUuid(uuid);
+    if (bookId) {
+      await readyShopCatalogs();
+      const book = getCatalogBook(bookId);
+      if (!book) return null;
+      const data = buildBookItemData(book);
+      const ItemClass = CONFIG.Item?.documentClass ?? foundry?.documents?.Item?.implementation ?? Item;
+      return new ItemClass(data, { parent: null });
+    }
+    return fromUuid(uuid);
   }
 
   /** Run a buy/sell trade against live merchant stock and the buyer Actor. */
@@ -599,7 +675,7 @@ export class ShopService {
           quantity: buy.quantity
         });
         if (!check.ok) return { ok: false, message: check.message };
-        const sourceItem = await fromUuid(check.stock.uuid);
+        const sourceItem = await this.#resolveStockItem(check.stock);
         if (!sourceItem || sourceItem.documentName !== "Item") {
           return { ok: false, message: "Item unavailable." };
         }
@@ -1216,6 +1292,14 @@ export class ShopService {
   }
 
   async #generateAutomaticStock(actor, shop, partyLevel, economy, options = {}) {
+    const catalog = await this.#getCatalogForActor(actor);
+    if (catalog) {
+      return buildCatalogStock(catalog, {
+        priceMultiplier: shop.priceMultiplier,
+        formatPrice: (cp) => this.formatPrice(cp)
+      }).map((entry) => sanitizeStockEntry(entry));
+    }
+
     const seedSalt = options.seedSalt || "stable";
     const reshuffle = Boolean(options.reshuffle);
     const index = await this.#loadItemIndex();

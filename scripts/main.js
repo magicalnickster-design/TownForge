@@ -1,6 +1,7 @@
 import { LOG_PREFIX, MODULE_ID, MODULE_TITLE } from "./constants.js";
 import { NpcBrowser } from "./npc-browser.js";
 import { npcService } from "./npc-service.js";
+import { readyShopCatalogs } from "./shop-catalogs.js";
 import { registerTownForgeSettings } from "./settings.js";
 import { registerShopHooks, shopApi } from "./shop-hooks.js";
 import { shopService } from "./shop-service.js";
@@ -10,13 +11,13 @@ import { shopService } from "./shop-service.js";
  */
 
 Hooks.once("init", () => {
-  console.log(`${LOG_PREFIX} Initializing ${MODULE_TITLE} v${game.modules.get(MODULE_ID)?.version ?? "0.4.9"}`);
+  console.log(`${LOG_PREFIX} Initializing ${MODULE_TITLE} v${game.modules.get(MODULE_ID)?.version ?? "0.5.0"}`);
   registerTownForgeSettings();
 });
 
 Hooks.once("ready", async () => {
   try {
-    await npcService.ready();
+    await Promise.all([npcService.ready(), readyShopCatalogs()]);
   } catch (error) {
     console.error(`${LOG_PREFIX} Ready hook failed while loading NPC library`, error);
   }
@@ -31,7 +32,7 @@ Hooks.once("ready", async () => {
     npcService,
     shopService,
     shop: shopApi,
-    version: game.modules.get(MODULE_ID)?.version ?? "0.4.9"
+    version: game.modules.get(MODULE_ID)?.version ?? "0.5.0"
   });
 });
 

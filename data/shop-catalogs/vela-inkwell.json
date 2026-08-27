@@ -1,0 +1,409 @@
+{
+  "id": "vela-inkwell",
+  "npcId": "vela-inkwell",
+  "shopType": "bookstore",
+  "shopName": "The Quiet Quire",
+  "label": "Vela Inkwell — Book Catalog",
+  "books": [
+    {
+      "id": "principles-of-cantrip-craft",
+      "name": "Principles of Cantrip Craft",
+      "topic": "magic",
+      "priceGP": 28,
+      "description": "A primer on shaping minor magic without burning out a novice's focus.",
+      "img": "modules/townforge/assets/items/books/principles-of-cantrip-craft.svg"
+    },
+    {
+      "id": "stellar-omens-night-signs",
+      "name": "Stellar Omens & Night Signs",
+      "topic": "magic",
+      "priceGP": 42,
+      "description": "Charts constellations said to foretell wars, harvests, and royal successions.",
+      "img": "modules/townforge/assets/items/books/stellar-omens-night-signs.svg"
+    },
+    {
+      "id": "the-ember-codex",
+      "name": "The Ember Codex",
+      "topic": "magic",
+      "priceGP": 65,
+      "description": "Forbidden notes on fire runes copied from a salvaged tower library.",
+      "img": "modules/townforge/assets/items/books/the-ember-codex.svg"
+    },
+    {
+      "id": "wards-for-the-wary",
+      "name": "Wards for the Wary",
+      "topic": "magic",
+      "priceGP": 22,
+      "description": "Household protective circles explained for shopkeepers and sailors.",
+      "img": "modules/townforge/assets/items/books/wards-for-the-wary.svg"
+    },
+    {
+      "id": "whisper-tongue-grammars",
+      "name": "Whisper-Tongue Grammars",
+      "topic": "magic",
+      "priceGP": 38,
+      "description": "Studies the dead languages used to bargain with fey envoys.",
+      "img": "modules/townforge/assets/items/books/whisper-tongue-grammars.svg"
+    },
+    {
+      "id": "clockwork-counterweights",
+      "name": "Clockwork & Counterweights",
+      "topic": "science",
+      "priceGP": 30,
+      "description": "Illustrated treatise on gears, springs, and town clock repair.",
+      "img": "modules/townforge/assets/items/books/clockwork-counterweights.svg"
+    },
+    {
+      "id": "on-the-weight-of-air",
+      "name": "On the Weight of Air",
+      "topic": "science",
+      "priceGP": 45,
+      "description": "Early natural philosophy arguing that wind is matter in motion.",
+      "img": "modules/townforge/assets/items/books/on-the-weight-of-air.svg"
+    },
+    {
+      "id": "salt-sulfur-and-smoke",
+      "name": "Salt, Sulfur, and Smoke",
+      "topic": "science",
+      "priceGP": 33,
+      "description": "Field notes on smelting, glassblowing, and kiln temperatures.",
+      "img": "modules/townforge/assets/items/books/salt-sulfur-and-smoke.svg"
+    },
+    {
+      "id": "the-moving-heavens",
+      "name": "The Moving Heavens",
+      "topic": "science",
+      "priceGP": 52,
+      "description": "Controversial models of planets, moons, and tidal pull.",
+      "img": "modules/townforge/assets/items/books/the-moving-heavens.svg"
+    },
+    {
+      "id": "vitals-humors",
+      "name": "Vitals & Humors",
+      "topic": "science",
+      "priceGP": 26,
+      "description": "A physician's guide to pulse, fever, and sensible bleeding.",
+      "img": "modules/townforge/assets/items/books/vitals-humors.svg"
+    },
+    {
+      "id": "chronicle-of-the-first-kings",
+      "name": "Chronicle of the First Kings",
+      "topic": "history",
+      "priceGP": 40,
+      "description": "Royal lineages from mythic founders to the present court.",
+      "img": "modules/townforge/assets/items/books/chronicle-of-the-first-kings.svg"
+    },
+    {
+      "id": "flood-years-of-the-low-town",
+      "name": "Flood Years of the Low Town",
+      "topic": "history",
+      "priceGP": 18,
+      "description": "Survivor accounts of the great river rise and rebuilding.",
+      "img": "modules/townforge/assets/items/books/flood-years-of-the-low-town.svg"
+    },
+    {
+      "id": "guild-charters-of-old",
+      "name": "Guild Charters of Old",
+      "topic": "history",
+      "priceGP": 24,
+      "description": "Copied statutes governing smiths, weavers, and river pilots.",
+      "img": "modules/townforge/assets/items/books/guild-charters-of-old.svg"
+    },
+    {
+      "id": "siege-of-the-grey-gate",
+      "name": "Siege of the Grey Gate",
+      "topic": "history",
+      "priceGP": 36,
+      "description": "Battle maps and testimony from a decade-long border war.",
+      "img": "modules/townforge/assets/items/books/siege-of-the-grey-gate.svg"
+    },
+    {
+      "id": "trade-roads-toll-stones",
+      "name": "Trade Roads & Toll Stones",
+      "topic": "history",
+      "priceGP": 20,
+      "description": "Merchant routes, caravan fees, and safe harbors.",
+      "img": "modules/townforge/assets/items/books/trade-roads-toll-stones.svg"
+    },
+    {
+      "id": "hymns-for-harvest-eve",
+      "name": "Hymns for Harvest Eve",
+      "topic": "religion",
+      "priceGP": 12,
+      "description": "Seasonal songs and rites for rural temples.",
+      "img": "modules/townforge/assets/items/books/hymns-for-harvest-eve.svg"
+    },
+    {
+      "id": "lives-of-the-lantern-saints",
+      "name": "Lives of the Lantern Saints",
+      "topic": "religion",
+      "priceGP": 34,
+      "description": "Hagiographies of healers who walked with a single flame.",
+      "img": "modules/townforge/assets/items/books/lives-of-the-lantern-saints.svg"
+    },
+    {
+      "id": "pilgrim-paths-east",
+      "name": "Pilgrim Paths East",
+      "topic": "religion",
+      "priceGP": 27,
+      "description": "Shrines, hostels, and relic customs along a sacred road.",
+      "img": "modules/townforge/assets/items/books/pilgrim-paths-east.svg"
+    },
+    {
+      "id": "the-book-of-small-mercies",
+      "name": "The Book of Small Mercies",
+      "topic": "religion",
+      "priceGP": 16,
+      "description": "Prayers for travelers, midwives, and grieving households.",
+      "img": "modules/townforge/assets/items/books/the-book-of-small-mercies.svg"
+    },
+    {
+      "id": "treatise-on-sacred-oaths",
+      "name": "Treatise on Sacred Oaths",
+      "topic": "religion",
+      "priceGP": 44,
+      "description": "When a vow binds the soul—and when it may be broken.",
+      "img": "modules/townforge/assets/items/books/treatise-on-sacred-oaths.svg"
+    },
+    {
+      "id": "beasts-of-the-fen",
+      "name": "Beasts of the Fen",
+      "topic": "nature",
+      "priceGP": 25,
+      "description": "Sketches and habits of eels, herons, and marsh cats.",
+      "img": "modules/townforge/assets/items/books/beasts-of-the-fen.svg"
+    },
+    {
+      "id": "forest-cant-herb-lore",
+      "name": "Forest Cant & Herb Lore",
+      "topic": "nature",
+      "priceGP": 31,
+      "description": "Which leaves soothe fever and which berries kill.",
+      "img": "modules/townforge/assets/items/books/forest-cant-herb-lore.svg"
+    },
+    {
+      "id": "mountain-stone-root",
+      "name": "Mountain Stone & Root",
+      "topic": "nature",
+      "priceGP": 29,
+      "description": "Geology and foraging among high passes and scree fields.",
+      "img": "modules/townforge/assets/items/books/mountain-stone-root.svg"
+    },
+    {
+      "id": "seasons-of-the-wheat-belt",
+      "name": "Seasons of the Wheat Belt",
+      "topic": "nature",
+      "priceGP": 19,
+      "description": "Planting calendars tied to river thaw and crow migration.",
+      "img": "modules/townforge/assets/items/books/seasons-of-the-wheat-belt.svg"
+    },
+    {
+      "id": "whale-roads",
+      "name": "Whale Roads",
+      "topic": "nature",
+      "priceGP": 37,
+      "description": "Sailor charts of migration lanes along cold coasts.",
+      "img": "modules/townforge/assets/items/books/whale-roads.svg"
+    },
+    {
+      "id": "a-bestiary-for-bailiffs",
+      "name": "A Bestiary for Bailiffs",
+      "topic": "creatures",
+      "priceGP": 35,
+      "description": "Common monsters likely to raid barns and toll roads.",
+      "img": "modules/townforge/assets/items/books/a-bestiary-for-bailiffs.svg"
+    },
+    {
+      "id": "dragons-a-cautious-survey",
+      "name": "Dragons: A Cautious Survey",
+      "topic": "creatures",
+      "priceGP": 75,
+      "description": "Scholarly skepticism about scale, hoards, and flame.",
+      "img": "modules/townforge/assets/items/books/dragons-a-cautious-survey.svg"
+    },
+    {
+      "id": "goblin-customs-taboos",
+      "name": "Goblin Customs & Taboos",
+      "topic": "creatures",
+      "priceGP": 21,
+      "description": "Observations from a truce envoy who returned alive.",
+      "img": "modules/townforge/assets/items/books/goblin-customs-taboos.svg"
+    },
+    {
+      "id": "owlbear-nesting-notes",
+      "name": "Owlbear Nesting Notes",
+      "topic": "creatures",
+      "priceGP": 23,
+      "description": "Where not to camp, according to rangers.",
+      "img": "modules/townforge/assets/items/books/owlbear-nesting-notes.svg"
+    },
+    {
+      "id": "trolls-under-the-bridge",
+      "name": "Trolls Under the Bridge",
+      "topic": "creatures",
+      "priceGP": 27,
+      "description": "Folklore cross-checked with toll-keeper interviews.",
+      "img": "modules/townforge/assets/items/books/trolls-under-the-bridge.svg"
+    },
+    {
+      "id": "antidotes-neutral-salts",
+      "name": "Antidotes & Neutral Salts",
+      "topic": "alchemy",
+      "priceGP": 32,
+      "description": "Recipes for venom counters and sting poultices.",
+      "img": "modules/townforge/assets/items/books/antidotes-neutral-salts.svg"
+    },
+    {
+      "id": "distillation-for-beginners",
+      "name": "Distillation for Beginners",
+      "topic": "alchemy",
+      "priceGP": 28,
+      "description": "Safe glasswork and flame control for apothecaries.",
+      "img": "modules/townforge/assets/items/books/distillation-for-beginners.svg"
+    },
+    {
+      "id": "elixirs-of-wakefulness",
+      "name": "Elixirs of Wakefulness",
+      "topic": "alchemy",
+      "priceGP": 48,
+      "description": "Stimulant tonics popular with watch captains.",
+      "img": "modules/townforge/assets/items/books/elixirs-of-wakefulness.svg"
+    },
+    {
+      "id": "ink-of-binding",
+      "name": "Ink of Binding",
+      "topic": "alchemy",
+      "priceGP": 55,
+      "description": "Arcane formulae for contracts that resist forgery.",
+      "img": "modules/townforge/assets/items/books/ink-of-binding.svg"
+    },
+    {
+      "id": "pigments-preservatives",
+      "name": "Pigments & Preservatives",
+      "topic": "alchemy",
+      "priceGP": 24,
+      "description": "How to keep maps and scrolls from mildew.",
+      "img": "modules/townforge/assets/items/books/pigments-preservatives.svg"
+    },
+    {
+      "id": "bailiff-s-field-manual",
+      "name": "Bailiff's Field Manual",
+      "topic": "law",
+      "priceGP": 22,
+      "description": "Arrest, holding, and fair notice in market towns.",
+      "img": "modules/townforge/assets/items/books/bailiff-s-field-manual.svg"
+    },
+    {
+      "id": "charter-of-the-free-bridge",
+      "name": "Charter of the Free Bridge",
+      "topic": "law",
+      "priceGP": 30,
+      "description": "River crossing rights fought over for three generations.",
+      "img": "modules/townforge/assets/items/books/charter-of-the-free-bridge.svg"
+    },
+    {
+      "id": "inheritance-in-ten-tables",
+      "name": "Inheritance in Ten Tables",
+      "topic": "law",
+      "priceGP": 26,
+      "description": "Who inherits a shop when siblings disagree.",
+      "img": "modules/townforge/assets/items/books/inheritance-in-ten-tables.svg"
+    },
+    {
+      "id": "market-measures-penalties",
+      "name": "Market Measures & Penalties",
+      "topic": "law",
+      "priceGP": 18,
+      "description": "Weights, false scales, and public shaming fines.",
+      "img": "modules/townforge/assets/items/books/market-measures-penalties.svg"
+    },
+    {
+      "id": "oaths-before-the-magistrate",
+      "name": "Oaths Before the Magistrate",
+      "topic": "law",
+      "priceGP": 40,
+      "description": "Recorded speeches from famous trials.",
+      "img": "modules/townforge/assets/items/books/oaths-before-the-magistrate.svg"
+    },
+    {
+      "id": "ballads-of-the-lost-company",
+      "name": "Ballads of the Lost Company",
+      "topic": "poetry",
+      "priceGP": 14,
+      "description": "Soldier songs from a company that never returned.",
+      "img": "modules/townforge/assets/items/books/ballads-of-the-lost-company.svg"
+    },
+    {
+      "id": "elegies-for-river-towns",
+      "name": "Elegies for River Towns",
+      "topic": "poetry",
+      "priceGP": 16,
+      "description": "Mourning verse after floods and failed harvests.",
+      "img": "modules/townforge/assets/items/books/elegies-for-river-towns.svg"
+    },
+    {
+      "id": "love-letters-never-sent",
+      "name": "Love Letters Never Sent",
+      "topic": "poetry",
+      "priceGP": 11,
+      "description": "Romantic poems copied from a sealed estate chest.",
+      "img": "modules/townforge/assets/items/books/love-letters-never-sent.svg"
+    },
+    {
+      "id": "songs-the-gulls-know",
+      "name": "Songs the Gulls Know",
+      "topic": "poetry",
+      "priceGP": 13,
+      "description": "Harbor poetry in salt-stained chapbook form.",
+      "img": "modules/townforge/assets/items/books/songs-the-gulls-know.svg"
+    },
+    {
+      "id": "the-green-knight-s-lay",
+      "name": "The Green Knight's Lay",
+      "topic": "poetry",
+      "priceGP": 20,
+      "description": "Chivalric romance in uneven rhyme.",
+      "img": "modules/townforge/assets/items/books/the-green-knight-s-lay.svg"
+    },
+    {
+      "id": "cave-maps-of-the-red-hills",
+      "name": "Cave Maps of the Red Hills",
+      "topic": "adventure",
+      "priceGP": 33,
+      "description": "Survey sketches sold without guarantee of return.",
+      "img": "modules/townforge/assets/items/books/cave-maps-of-the-red-hills.svg"
+    },
+    {
+      "id": "dungeon-delver-s-checklist",
+      "name": "Dungeon Delver's Checklist",
+      "topic": "adventure",
+      "priceGP": 25,
+      "description": "Rope lengths, chalk marks, and retreat signals.",
+      "img": "modules/townforge/assets/items/books/dungeon-delver-s-checklist.svg"
+    },
+    {
+      "id": "mercenary-contracts-explained",
+      "name": "Mercenary Contracts Explained",
+      "topic": "adventure",
+      "priceGP": 29,
+      "description": "What a company owes you when the lord defaults.",
+      "img": "modules/townforge/assets/items/books/mercenary-contracts-explained.svg"
+    },
+    {
+      "id": "sailor-s-storm-almanac",
+      "name": "Sailor's Storm Almanac",
+      "topic": "adventure",
+      "priceGP": 31,
+      "description": "Weather signs trusted on long blue-water runs.",
+      "img": "modules/townforge/assets/items/books/sailor-s-storm-almanac.svg"
+    },
+    {
+      "id": "the-squire-s-first-tour",
+      "name": "The Squire's First Tour",
+      "topic": "adventure",
+      "priceGP": 17,
+      "description": "Practical advice for youths joining a road company.",
+      "img": "modules/townforge/assets/items/books/the-squire-s-first-tour.svg"
+    }
+  ]
+}

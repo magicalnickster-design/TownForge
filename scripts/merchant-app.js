@@ -1,5 +1,6 @@
 import { LOG_PREFIX, MODULE_ID } from "./constants.js";
 import { currencyToCopper, normalizeCurrency } from "./shop-currency.js";
+import { getActorNpcId, resolveShopCatalog } from "./shop-catalogs.js";
 import { isUnlimitedStock, stockQuantityLabel } from "./shop-constants.js";
 import { getShopTypeLabel, shopService } from "./shop-service.js";
 
@@ -101,6 +102,15 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
       // GM upgrades ownership so later player trades stay instant (no socket wait).
       if (game.user.isGM) {
         await shopService.ensurePlayerShopAccess(merchant);
+      }
+
+      const catalog = await resolveShopCatalog(getActorNpcId(merchant));
+      if (game.user.isGM && catalog) {
+        const current = shopService.getShopkeeper(merchant);
+        const hasCatalogStock = (current.inventory ?? []).some((entry) => entry.source === "catalog");
+        if (!hasCatalogStock) {
+          await shopService.regenerateInventory(merchant, { force: true });
+        }
       }
 
       if (
