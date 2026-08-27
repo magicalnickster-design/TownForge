@@ -210,5 +210,3 @@ export const CATEGORY_COLORS = Object.freeze({
   government: "#6e8bb5",
   miscellaneous: "#7f8c8d"
 });
-
-export const BROWSER_PAGE_SIZE = 9;

@@ -1,6 +1,5 @@
 import { actorService } from "./actor-service.js";
 import {
-  BROWSER_PAGE_SIZE,
   CATEGORY_COLORS,
   CATEGORY_LOCATIONS,
   FAVORITES_KEY,
@@ -38,9 +37,6 @@ export class NpcBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
   /** @type {string|null} */
   #selectedNpcId = null;
 
-  /** @type {number} */
-  #page = 1;
-
   /** @type {"name-asc"|"name-desc"|"recent"|"occupation"|"category"} */
   #sort = "name-asc";
 
@@ -76,7 +72,6 @@ export class NpcBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
       setCategory: this.#onSetCategory,
       toggleMore: this.#onToggleMore,
       selectNpc: this.#onSelectNpc,
-      setPage: this.#onSetPage,
       setDetailTab: this.#onSetDetailTab,
       toggleFavorite: this.#onToggleFavorite,
       importActor: this.#onImportActor,
@@ -136,13 +131,7 @@ export class NpcBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
     npcs = sortLibraryNpcs(npcs, sortForView, this.#recent);
 
     const totalCount = npcs.length;
-    const pageCount =
-      totalCount > 0 ? Math.max(1, Math.ceil(totalCount / BROWSER_PAGE_SIZE)) : 0;
-    if (pageCount > 0 && this.#page > pageCount) this.#page = pageCount;
-    if (this.#page < 1) this.#page = 1;
-
-    const start = (this.#page - 1) * BROWSER_PAGE_SIZE;
-    const pageNpcs = npcs.slice(start, start + BROWSER_PAGE_SIZE).map((npc) =>
+    const gridNpcs = npcs.map((npc) =>
       this.#decorateNpc(npc, { selected: npc.id === this.#selectedNpcId })
     );
 
@@ -154,10 +143,10 @@ export class NpcBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
       this.#selectedNpcId = null;
     }
 
-    if (!selectedNpc && pageNpcs.length) {
-      this.#selectedNpcId = pageNpcs[0].id;
+    if (!selectedNpc && gridNpcs.length) {
+      this.#selectedNpcId = gridNpcs[0].id;
       selectedNpc = await npcService.getNpcById(this.#selectedNpcId);
-      pageNpcs[0].selected = true;
+      gridNpcs[0].selected = true;
     }
 
     const allCategories = npcService.getCategories();
@@ -198,16 +187,9 @@ export class NpcBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
       moreCategories,
       moreOpen: this.#moreOpen,
       moreActive,
-      npcs: pageNpcs,
+      npcs: gridNpcs,
       selectedNpc: selectedNpc ? this.#decorateNpc(selectedNpc, { detail: true }) : null,
       resultCount: totalCount,
-      page: this.#page,
-      pageCount,
-      pages: this.#buildPages(this.#page, pageCount),
-      prevPage: Math.max(1, this.#page - 1),
-      nextPage: Math.min(pageCount, this.#page + 1),
-      isFirstPage: this.#page <= 1,
-      isLastPage: this.#page >= pageCount,
       sortAsc: this.#sort === "name-asc",
       sortDesc: this.#sort === "name-desc",
       sortRecent: this.#sort === "recent",
@@ -325,7 +307,6 @@ export class NpcBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
       const selectionStart = input.selectionStart;
       const selectionEnd = input.selectionEnd;
       this.#query = input.value ?? "";
-      this.#page = 1;
       void this.render({ force: false }).then(() => {
         const restored = this.element.querySelector("[data-townforge-search]");
         if (!restored) return;
@@ -345,7 +326,6 @@ export class NpcBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
       const value = event.currentTarget.value;
       const allowed = new Set(["name-asc", "name-desc", "recent", "occupation", "category"]);
       this.#sort = allowed.has(value) ? value : "name-asc";
-      this.#page = 1;
       void this.render({ force: false });
     });
   }
@@ -361,28 +341,6 @@ export class NpcBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
         img.src = fallback;
       });
     }
-  }
-
-  /**
-   * @param {number} current
-   * @param {number} pageCount
-   * @returns {{number: number, active: boolean, label: string}[]}
-   */
-  #buildPages(current, pageCount) {
-    if (pageCount <= 0) return [];
-    const windowSize = Math.min(5, pageCount);
-    let start = Math.max(1, current - Math.floor(windowSize / 2));
-    let end = start + windowSize - 1;
-    if (end > pageCount) {
-      end = pageCount;
-      start = Math.max(1, end - windowSize + 1);
-    }
-
-    const pages = [];
-    for (let i = start; i <= end; i += 1) {
-      pages.push({ number: i, active: i === current, label: String(i) });
-    }
-    return pages;
   }
 
   /**
@@ -489,7 +447,6 @@ export class NpcBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
       return;
     }
     this.#category = category;
-    this.#page = 1;
     this.#moreOpen = false;
     await this.render({ force: false });
   }
@@ -506,14 +463,6 @@ export class NpcBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
     if (!npcId || npcId === this.#selectedNpcId) return;
     this.#selectedNpcId = npcId;
     this.#detailTab = "bio";
-    await this.render({ force: false });
-  }
-
-  /** @this {NpcBrowser} */
-  static async #onSetPage(_event, target) {
-    const page = Number(target.dataset.page);
-    if (!Number.isFinite(page) || page < 1 || page === this.#page) return;
-    this.#page = page;
     await this.render({ force: false });
   }
 
