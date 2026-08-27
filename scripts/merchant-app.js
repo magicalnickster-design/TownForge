@@ -1,4 +1,5 @@
 import { LOG_PREFIX, MODULE_ID } from "./constants.js";
+import { bindItemDropZone, parseDroppedItemUuid } from "./shop-drop.js";
 import { currencyToCopper, normalizeCurrency } from "./shop-currency.js";
 import { isUnlimitedStock, stockQuantityLabel } from "./shop-constants.js";
 import { getShopTypeLabel, shopService } from "./shop-service.js";
@@ -451,6 +452,34 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
         this.#sellOffer.clear();
         void this.render({ force: false });
       });
+    }
+
+    if (game.user.isGM) {
+      this.#bindMerchantDropZone();
+    }
+  }
+
+  #bindMerchantDropZone() {
+    const zone = this.element?.querySelector?.("[data-townforge-merchant-drop]");
+    if (!zone) return;
+    bindItemDropZone(zone, (event) => {
+      void this.#handleMerchantItemDrop(event);
+    });
+  }
+
+  async #handleMerchantItemDrop(event) {
+    try {
+      const uuid = parseDroppedItemUuid(event);
+      if (!uuid) {
+        ui.notifications?.warn("Drop an Item from a compendium or the Items sidebar.");
+        return;
+      }
+      await shopService.addManualItem(this.#merchant, uuid);
+      ui.notifications?.info("Added item to shop stock.");
+      await this.render({ force: false });
+    } catch (error) {
+      console.error(`${LOG_PREFIX} Merchant item drop failed`, error);
+      ui.notifications?.error("Could not add that item to the shop.");
     }
   }
 
