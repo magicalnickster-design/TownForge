@@ -1,6 +1,6 @@
 import { LOG_PREFIX, MODULE_ID } from "./constants.js";
 import { currencyToCopper, normalizeCurrency } from "./shop-currency.js";
-import { isUnlimitedStock, stockQuantityLabel } from "./shop-constants.js";
+import { isShopTradeableItem, isUnlimitedStock, stockQuantityLabel } from "./shop-constants.js";
 import { getShopTypeLabel, shopService } from "./shop-service.js";
 
 const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
@@ -220,6 +220,7 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
 
   #isSellable(item) {
     if (!item) return false;
+    if (!isShopTradeableItem(item)) return false;
     const type = String(item.type || "");
     if (!["weapon", "equipment", "consumable", "tool", "loot", "container"].includes(type)) {
       return false;

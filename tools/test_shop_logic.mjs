@@ -551,4 +551,17 @@ test("shopkeeper write payload never deletes parent flag", () => {
   assert(Object.prototype.hasOwnProperty.call(update, `${base}.-=inventory`), "clears inventory only");
 });
 
+console.log("\nTownForge shop tradeable item tests");
+
+const { isShopTradeableItem } = await import("../scripts/shop-constants.js");
+
+test("unarmed strike is never shop tradeable", () => {
+  assert(!isShopTradeableItem({ name: "Unarmed Strike", type: "weapon" }), "by name");
+  assert(
+    !isShopTradeableItem({ name: "Punch", type: "weapon", weaponType: "natural" }),
+    "natural weapon"
+  );
+  assert(isShopTradeableItem({ name: "Longsword", type: "weapon" }), "normal weapon ok");
+});
+
 console.log(`\n${passed} tests passed`);
