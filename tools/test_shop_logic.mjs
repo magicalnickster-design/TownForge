@@ -13,6 +13,15 @@ import {
   validatePurchaseRequest
 } from "../scripts/shop-currency.js";
 import { coerceInventoryArray, isUnlimitedStock, itemQtyBadge, normalizeRarity, rarityLabel } from "../scripts/shop-constants.js";
+import {
+  buildPartyProfile,
+  detectAssignedPartyActors,
+  inspectCharacterClasses,
+  normalizePartyAwareSettings,
+  partyProfileFingerprint,
+  scoreItemPartyWeight
+} from "../scripts/shop-party.js";
+import { weightedSeededPick } from "../scripts/shop-random.js";
 
 function assert(condition, message) {
   if (!condition) throw new Error(message);
@@ -590,6 +599,116 @@ test("itemQtyBadge hides singles and shows stacks or unlimited", () => {
   assertEqual(itemQtyBadge({ quantity: 0 }), "0", "empty");
   assertEqual(itemQtyBadge({ unlimited: true }), "∞", "unlimited flag");
   assertEqual(itemQtyBadge({ quantity: null }), "∞", "null qty");
+});
+
+console.log("\nTownForge party-aware inventory tests");
+
+test("detectAssignedPartyActors skips GMs and unassigned users", () => {
+  const fighter = { id: "a1", uuid: "Actor.a1", type: "character", name: "Motaro" };
+  const users = [
+    { isGM: true, character: fighter },
+    { isGM: false, character: null },
+    { isGM: false, character: fighter },
+    { isGM: false, character: fighter }
+  ];
+  const party = detectAssignedPartyActors(users, () => null);
+  assertEqual(party.length, 1, "one unique PC");
+  assertEqual(party[0].name, "Motaro", "name");
+});
+
+test("inspectCharacterClasses reads multiclass itemTypes", () => {
+  const actor = {
+    name: "Drendaline",
+    uuid: "Actor.d1",
+    type: "character",
+    itemTypes: {
+      class: [
+        { name: "Warlock", system: { identifier: "warlock", levels: 4 } },
+        { name: "Sorcerer", system: { identifier: "sorcerer", levels: 3 } }
+      ]
+    },
+    system: { details: { level: 7 } }
+  };
+  const inspected = inspectCharacterClasses(actor);
+  assertEqual(inspected.totalLevel, 7, "total");
+  assertEqual(
+    inspected.classes.map((row) => `${row.id}:${row.levels}`),
+    ["warlock:4", "sorcerer:3"],
+    "multiclass"
+  );
+});
+
+test("buildPartyProfile aggregates classes and levels", () => {
+  const profile = buildPartyProfile([
+    {
+      name: "Motaro",
+      uuid: "Actor.1",
+      type: "character",
+      itemTypes: { class: [{ name: "Fighter", system: { identifier: "fighter", levels: 7 } }] },
+      system: { details: { level: 7 } }
+    },
+    {
+      name: "Maeve",
+      uuid: "Actor.2",
+      type: "character",
+      itemTypes: { class: [{ name: "Wizard", system: { identifier: "wizard", levels: 7 } }] },
+      system: { details: { level: 7 } }
+    }
+  ]);
+  assert(!profile.empty, "not empty");
+  assertEqual(profile.averageLevel, 7, "avg");
+  assertEqual(profile.classes.fighter, 1, "fighter");
+  assertEqual(profile.classes.wizard, 1, "wizard");
+  assert(partyProfileFingerprint(profile, "auto").includes("fighter:1"), "fingerprint");
+});
+
+test("scoreItemPartyWeight boosts relevant and lowers specialist misses", () => {
+  const profile = buildPartyProfile([
+    {
+      name: "Maeve",
+      uuid: "Actor.2",
+      type: "character",
+      itemTypes: { class: [{ name: "Wizard", system: { identifier: "wizard", levels: 5 } }] },
+      system: { details: { level: 5 } }
+    }
+  ]);
+  const wand = scoreItemPartyWeight({ type: "equipment", name: "Wand of the War Mage", armorType: "", weaponType: "" }, profile);
+  const lute = scoreItemPartyWeight({ type: "tool", name: "Lute", armorType: "", weaponType: "", toolType: "music" }, profile);
+  const rope = scoreItemPartyWeight({ type: "consumable", name: "Rope", armorType: "", weaponType: "" }, profile);
+  assert(wand >= 2, `wand boosted (${wand})`);
+  assert(lute <= 0.5, `lute specialist low (${lute})`);
+  assertEqual(rope, 1, "general stays 1");
+  assertEqual(scoreItemPartyWeight(wand, null), 1, "no profile");
+});
+
+test("empty party profile falls back to general weights", () => {
+  const empty = buildPartyProfile([]);
+  assert(empty.empty, "empty");
+  assertEqual(scoreItemPartyWeight({ type: "weapon", name: "Longsword" }, empty), 1, "weight 1");
+});
+
+test("weightedSeededPick is deterministic and favors heavy weights", () => {
+  const items = [
+    { id: "a", w: 1 },
+    { id: "b", w: 100 },
+    { id: "c", w: 1 }
+  ];
+  const first = weightedSeededPick(items, 1, (row) => row.w, "party-test-seed");
+  const second = weightedSeededPick(items, 1, (row) => row.w, "party-test-seed");
+  assertEqual(first.map((row) => row.id), second.map((row) => row.id), "deterministic");
+  assertEqual(first[0].id, "b", "heavy weight preferred");
+});
+
+test("normalizePartyAwareSettings defaults off and cleans uuids", () => {
+  const normalized = normalizePartyAwareSettings({
+    partyAwareInventory: 1,
+    partyDetectionMode: "manual",
+    partyActorUuids: [" Actor.1 ", "Actor.1", "", null]
+  });
+  assertEqual(normalized.partyAwareInventory, true, "bool");
+  assertEqual(normalized.partyDetectionMode, "manual", "mode");
+  assertEqual(normalized.partyActorUuids, ["Actor.1"], "dedupe");
+  assertEqual(normalizePartyAwareSettings({}).partyAwareInventory, false, "default off");
 });
 
 console.log(`\n${passed} tests passed`);

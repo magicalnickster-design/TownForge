@@ -25,7 +25,17 @@ import {
 } from "./shop-constants.js";
 import { resolveSelectedItemPacks } from "./shop-sources.js";
 import { refreshOpenShopUIs } from "./shop-sync.js";
-import { newGenerationSalt, randomPick, seededPick, stableHash } from "./shop-random.js";
+import { newGenerationSalt, randomPick, seededPick, stableHash, weightedRandomPick, weightedSeededPick } from "./shop-random.js";
+import {
+  buildPartyProfile,
+  detectAssignedPartyActors,
+  formatPartyClassBanner,
+  normalizePartyAwareSettings,
+  partyProfileFingerprint,
+  PARTY_DETECTION_MODES,
+  resolveManualPartyActors,
+  scoreItemPartyWeight
+} from "./shop-party.js";
 
 /**
  * Shop generation, pricing, and purchases.
@@ -88,6 +98,16 @@ export class ShopService {
     } else {
       next.inventory = this.#sanitizeInventory(next.inventory);
     }
+
+    const partyAware = normalizePartyAwareSettings({
+      ...next,
+      partyActorUuids: Object.prototype.hasOwnProperty.call(patch, "partyActorUuids")
+        ? patch.partyActorUuids
+        : next.partyActorUuids
+    });
+    next.partyAwareInventory = partyAware.partyAwareInventory;
+    next.partyDetectionMode = partyAware.partyDetectionMode;
+    next.partyActorUuids = partyAware.partyActorUuids;
 
     // Inventory-only writes (player trades) must not touch sibling shop fields.
     const inventoryOnly =
@@ -239,6 +259,85 @@ export class ShopService {
   }
 
   /**
+   * Resolve the party used by Party-Aware Inventory (assigned PCs or manual list).
+   * @param {object} shop
+   * @returns {Promise<{
+   *   profile: ReturnType<typeof buildPartyProfile>,
+   *   missingUuids: string[],
+   *   detectionMode: string,
+   *   enabled: boolean
+   * }>}
+   */
+  async resolvePartyAwareContext(shop) {
+    const settings = normalizePartyAwareSettings(shop);
+    if (!settings.partyAwareInventory) {
+      return {
+        enabled: false,
+        detectionMode: settings.partyDetectionMode,
+        missingUuids: [],
+        profile: buildPartyProfile([])
+      };
+    }
+
+    let actors = [];
+    let missingUuids = [];
+    if (settings.partyDetectionMode === PARTY_DETECTION_MODES.manual) {
+      const resolved = await resolveManualPartyActors(settings.partyActorUuids, (uuid) => fromUuid(uuid));
+      actors = resolved.actors;
+      missingUuids = resolved.missing;
+    } else {
+      actors = detectAssignedPartyActors(game.users?.contents ?? game.users ?? [], (ref) => {
+        if (!ref) return null;
+        if (typeof ref === "object" && ref.type === "character") return ref;
+        const id = typeof ref === "string" ? ref : ref.uuid || ref.id;
+        return (game.actors?.contents ?? []).find((actor) => actor.uuid === id || actor.id === id) ?? null;
+      });
+    }
+
+    return {
+      enabled: true,
+      detectionMode: settings.partyDetectionMode,
+      missingUuids,
+      profile: buildPartyProfile(actors)
+    };
+  }
+
+  /**
+   * UI helper: party-aware summary for the Shopkeeper config window.
+   * @param {object} shop
+   * @returns {Promise<object>}
+   */
+  async getPartyAwareUiState(shop) {
+    const settings = normalizePartyAwareSettings(shop);
+    const context = await this.resolvePartyAwareContext(shop);
+    const characterActors = (game.actors?.contents ?? [])
+      .filter((actor) => actor.type === "character")
+      .map((actor) => ({
+        uuid: actor.uuid,
+        id: actor.id,
+        name: actor.name,
+        selected: settings.partyActorUuids.includes(actor.uuid) || settings.partyActorUuids.includes(actor.id)
+      }))
+      .sort((a, b) => a.name.localeCompare(b.name));
+
+    return {
+      ...settings,
+      profile: context.profile,
+      missingUuids: context.missingUuids,
+      banner: formatPartyClassBanner(context.profile),
+      memberLines: (context.profile.members ?? []).map((member) => {
+        const classLabel = member.classes.length
+          ? member.classes.map((row) => `${row.name} ${row.levels}`).join(" / ")
+          : `Level ${member.totalLevel}`;
+        return { name: member.name, detail: classLabel };
+      }),
+      detectedCount: context.profile.members.length,
+      characterActors,
+      fallbackWarning: Boolean(settings.partyAwareInventory && context.profile.empty)
+    };
+  }
+
+  /**
    * Clear cached item indexes (e.g. after source setting changes).
    */
   clearItemIndexCache() {
@@ -338,6 +437,8 @@ export class ShopService {
     const { selectedIds } = resolveSelectedItemPacks();
     const shouldReshuffle = Boolean(force || reshuffle);
     const seedSalt = shouldReshuffle ? newGenerationSalt() : "stable";
+    const partyAware = await this.resolvePartyAwareContext(shop);
+    const partyAwareSettings = normalizePartyAwareSettings(shop);
     const generationKey = [
       shop.shopType,
       shop.economyTier,
@@ -347,6 +448,14 @@ export class ShopService {
       stockCount,
       selectedIds.join(","),
       actor.id,
+      partyAwareSettings.partyAwareInventory ? "partyAware" : "partyOff",
+      partyAwareSettings.partyAwareInventory
+        ? partyProfileFingerprint(
+            partyAware.profile,
+            partyAware.detectionMode,
+            partyAwareSettings.partyActorUuids
+          )
+        : "off",
       shouldReshuffle ? seedSalt : "stable"
     ].join("|");
 
@@ -375,12 +484,25 @@ export class ShopService {
     const automatic = await this.#generateAutomaticStock(actor, shop, partyLevel, economy, {
       seedSalt,
       reshuffle: shouldReshuffle,
-      stockCount
+      stockCount,
+      partyProfile: partyAwareSettings.partyAwareInventory ? partyAware.profile : null,
+      partyAwareEnabled: partyAwareSettings.partyAwareInventory
     });
+
+    if (partyAwareSettings.partyAwareInventory && partyAware.profile.empty) {
+      ui.notifications?.warn("No player characters detected. Using standard inventory generation.");
+    } else if (partyAware.missingUuids.length) {
+      ui.notifications?.warn(
+        `TownForge could not find ${partyAware.missingUuids.length} manually selected party actor(s); they were skipped.`
+      );
+    }
+
     const inventory = [...automatic, ...manual];
 
     console.log(
-      `${LOG_PREFIX} Generated ${automatic.length} automatic stock item(s) for ${actor.name} (${shop.shopType}, lvl ${partyLevel}, ${economy.id}, salt ${seedSalt})`
+      `${LOG_PREFIX} Generated ${automatic.length} automatic stock item(s) for ${actor.name} (${shop.shopType}, lvl ${partyLevel}, ${economy.id}, salt ${seedSalt}${
+        partyAwareSettings.partyAwareInventory && !partyAware.profile.empty ? ", party-aware" : ""
+      })`
     );
 
     return this.updateShopkeeper(actor, {
@@ -1283,10 +1405,23 @@ export class ShopService {
     const pool = [...affordable];
     const stockCount = Math.max(1, Math.min(100, Math.floor(Number(options.stockCount) || shop.stockCount || 25)));
     const stretchCount = Math.floor(stockCount * economy.expensiveChance);
+    const partyProfile =
+      options.partyAwareEnabled && options.partyProfile && !options.partyProfile.empty
+        ? options.partyProfile
+        : null;
+    const weightFn = (item) => scoreItemPartyWeight(item, partyProfile);
     const pick = reshuffle
-      ? (list, count) => randomPick(list, count)
+      ? (list, count) =>
+          partyProfile ? weightedRandomPick(list, count, weightFn) : randomPick(list, count)
       : (list, count, label) =>
-          seededPick(list, count, `${actor.id}:${shop.shopType}:${label}:${partyLevel}:${seedSalt}`);
+          partyProfile
+            ? weightedSeededPick(
+                list,
+                count,
+                weightFn,
+                `${actor.id}:${shop.shopType}:${label}:${partyLevel}:${seedSalt}:party`
+              )
+            : seededPick(list, count, `${actor.id}:${shop.shopType}:${label}:${partyLevel}:${seedSalt}`);
 
     const seededStretch = pick(stretch, stretchCount, "stretch");
     pool.push(...seededStretch);
