@@ -1,5 +1,5 @@
 import { LOG_PREFIX, MODULE_ID } from "./constants.js";
-import { bindItemDropZone, parseDroppedItemUuid } from "./shop-drop.js";
+import { bindItemDropZone, bindTradeOfferDropZone, parseDroppedItemUuid, setTradeItemDragData } from "./shop-drop.js";
 import { currencyToCopper, normalizeCurrency } from "./shop-currency.js";
 import {
   isShopTradeableItem,
@@ -505,7 +505,86 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
 
     if (game.user.isGM) {
       this.#bindMerchantDropZone();
+    } else {
+      this.#bindTradeDragDrop();
     }
+  }
+
+  #bindTradeDragDrop() {
+    const root = this.element;
+    if (!root) return;
+
+    if (!root.dataset.tradeDragBound) {
+      root.dataset.tradeDragBound = "1";
+      root.addEventListener("dragstart", (event) => {
+        const cell = event.target.closest(
+          "[data-townforge-item-cell][data-kind='stock'], [data-townforge-item-cell][data-kind='player']"
+        );
+        if (!cell || !root.contains(cell)) return;
+        if (cell.disabled || cell.classList.contains("is-sold-out")) return;
+
+        const kind = cell.dataset.kind;
+        const payload =
+          kind === "stock"
+            ? { kind: "stock", stockId: cell.dataset.stockId }
+            : { kind: "player", itemId: cell.dataset.itemId };
+        if ((kind === "stock" && !payload.stockId) || (kind === "player" && !payload.itemId)) return;
+
+        setTradeItemDragData(event.dataTransfer, payload);
+        cell.classList.add("is-dragging");
+
+        const img = cell.querySelector("img");
+        if (img?.complete) {
+          const size = Math.min(img.naturalWidth || img.width, img.naturalHeight || img.height, 96) || 48;
+          event.dataTransfer.setDragImage(img, size / 2, size / 2);
+        }
+      });
+      root.addEventListener("dragend", (event) => {
+        event.target
+          ?.closest?.("[data-townforge-item-cell]")
+          ?.classList?.remove?.("is-dragging");
+      });
+    }
+
+    const buyZone = root.querySelector("[data-townforge-offer-drop='buy']");
+    if (buyZone) {
+      bindTradeOfferDropZone(buyZone, (payload) => {
+        void this.#applyTradeDrop("buy", payload);
+      });
+    }
+
+    const sellZone = root.querySelector("[data-townforge-offer-drop='sell']");
+    if (sellZone) {
+      bindTradeOfferDropZone(sellZone, (payload) => {
+        void this.#applyTradeDrop("sell", payload);
+      });
+    }
+  }
+
+  async #applyTradeDrop(side, payload) {
+    if (game.user?.isGM) return;
+
+    if (side === "buy") {
+      if (payload.kind !== "stock" || !payload.stockId) return;
+      const stock = shopService.getDisplayInventory(this.#merchant).find((entry) => entry.id === payload.stockId);
+      if (!stock || (stock.quantity != null && Number(stock.quantity) <= 0)) return;
+      if (this.#buyOffer.has(payload.stockId)) {
+        this.#buyOffer.delete(payload.stockId);
+      } else {
+        this.#buyOffer.set(payload.stockId, 1);
+      }
+    } else if (side === "sell") {
+      if (payload.kind !== "player" || !payload.itemId) return;
+      if (this.#sellOffer.has(payload.itemId)) {
+        this.#sellOffer.delete(payload.itemId);
+      } else {
+        this.#sellOffer.set(payload.itemId, 1);
+      }
+    } else {
+      return;
+    }
+
+    await this.render({ force: false });
   }
 
   #bindMerchantDropZone() {

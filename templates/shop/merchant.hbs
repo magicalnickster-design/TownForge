@@ -74,7 +74,7 @@
           <button type="button"
             class="townforge-item-cell rarity-{{rarityClass}}{{#if inOffer}} is-in-offer{{/if}}"
             role="listitem"
-            {{#unless ../isGM}}data-action="toggleSell"{{/unless}}
+            {{#unless ../isGM}}draggable="true" data-action="toggleSell"{{/unless}}
             data-townforge-item-cell
             data-kind="player"
             data-item-id="{{id}}"
@@ -100,7 +100,7 @@
     <section class="townforge-trade-center">
       <h3>Trade Offer</h3>
       <div class="townforge-trade-offer-scroll">
-        <div class="townforge-offer-block">
+        <div class="townforge-offer-block" data-townforge-offer-drop="buy">
           <div class="townforge-offer-heading">
             <h4>Buying</h4>
             <strong>{{buyTotalLabel}}</strong>
@@ -129,10 +129,10 @@
             {{/each}}
           </div>
           {{else}}
-          <p class="townforge-muted">{{#if isGM}}Hover a ware to inspect it.{{else}}Click merchant wares to buy.{{/if}}</p>
+          <p class="townforge-muted">{{#if isGM}}Hover a ware to inspect it.{{else}}Click or drag merchant wares here to buy.{{/if}}</p>
           {{/if}}
         </div>
-        <div class="townforge-offer-block">
+        <div class="townforge-offer-block" data-townforge-offer-drop="sell">
           <div class="townforge-offer-heading">
             <h4>Selling</h4>
             <strong>{{sellTotalLabel}}</strong>
@@ -161,7 +161,7 @@
             {{/each}}
           </div>
           {{else}}
-          <p class="townforge-muted">{{#if isGM}}Players sell from their own inventory.{{else}}Click your items to sell.{{/if}}</p>
+          <p class="townforge-muted">{{#if isGM}}Players sell from their own inventory.{{else}}Click or drag your items here to sell.{{/if}}</p>
           {{/if}}
         </div>
       </div>
@@ -223,7 +223,7 @@
           <button type="button"
             class="townforge-item-cell rarity-{{rarityClass}}{{#if soldOut}} is-sold-out{{/if}}{{#if inOffer}} is-in-offer{{/if}}"
             role="listitem"
-            {{#unless ../isGM}}data-action="toggleBuy"{{/unless}}
+            {{#unless ../isGM}}draggable="true" data-action="toggleBuy"{{/unless}}
             data-townforge-item-cell
             data-kind="stock"
             data-stock-id="{{id}}"

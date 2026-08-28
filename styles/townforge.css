@@ -1057,6 +1057,19 @@
   grid-template-columns: repeat(auto-fill, minmax(112px, 1fr));
 }
 
+/* Keep ApplicationV2 item buttons from collapsing to a short strip. */
+.townforge.townforge-merchant button.townforge-item-cell,
+.townforge.townforge-trade button.townforge-item-cell {
+  display: grid;
+  width: 100%;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  line-height: normal;
+  align-self: stretch;
+  justify-self: stretch;
+}
+
 .townforge-item-cell {
   position: relative;
   aspect-ratio: 1;
@@ -1124,6 +1137,10 @@
   opacity: 0.42;
   cursor: not-allowed;
   filter: grayscale(0.35);
+}
+
+.townforge-item-cell.is-dragging {
+  opacity: 0.45;
 }
 
 .townforge-item-cell:hover,
@@ -1253,6 +1270,15 @@
 .townforge-offer-block {
   display: grid;
   gap: 0.35rem;
+  border-radius: 0.45rem;
+  padding: 0.35rem;
+  transition: background 0.12s ease, outline-color 0.12s ease;
+}
+
+.townforge-offer-block.is-drop-target {
+  outline: 2px dashed color-mix(in srgb, var(--tf-accent) 55%, transparent);
+  outline-offset: -2px;
+  background: rgba(196, 163, 90, 0.08);
 }
 
 .townforge-offer-block h4 {

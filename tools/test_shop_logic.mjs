@@ -13,7 +13,7 @@ import {
   validatePurchaseRequest
 } from "../scripts/shop-currency.js";
 import { coerceInventoryArray, isUnlimitedStock, itemQtyBadge, normalizeRarity, rarityLabel } from "../scripts/shop-constants.js";
-import { parseItemDropText } from "../scripts/shop-drop.js";
+import { parseItemDropText, parseTradeItemDragData, TRADE_DRAG_MIME } from "../scripts/shop-drop.js";
 import {
   buildPartyProfile,
   detectAssignedPartyActors,
@@ -732,6 +732,38 @@ test("rejects non-Item drag payloads", () => {
 });
 test("accepts plain Item uuid strings", () => {
   assertEqual(parseItemDropText("Compendium.world.items.foo"), "Compendium.world.items.foo", "plain");
+});
+
+console.log("\nTownForge trade drag payload tests");
+test("parses stock trade drag payload", () => {
+  const event = {
+    dataTransfer: {
+      getData: (mime) =>
+        mime === TRADE_DRAG_MIME ? JSON.stringify({ kind: "stock", stockId: "stock-1" }) : ""
+    }
+  };
+  const payload = parseTradeItemDragData(event);
+  assertEqual(payload?.kind, "stock", "kind");
+  assertEqual(payload?.stockId, "stock-1", "stockId");
+});
+test("parses player trade drag payload", () => {
+  const event = {
+    dataTransfer: {
+      getData: (mime) =>
+        mime === TRADE_DRAG_MIME ? JSON.stringify({ kind: "player", itemId: "item-9" }) : ""
+    }
+  };
+  const payload = parseTradeItemDragData(event);
+  assertEqual(payload?.kind, "player", "kind");
+  assertEqual(payload?.itemId, "item-9", "itemId");
+});
+test("rejects malformed trade drag payload", () => {
+  const event = {
+    dataTransfer: {
+      getData: (mime) => (mime === TRADE_DRAG_MIME ? "{bad json" : "")
+    }
+  };
+  assertEqual(parseTradeItemDragData(event), null, "bad json");
 });
 
 console.log("\nTownForge shop item filter tests");
