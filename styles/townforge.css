@@ -2467,3 +2467,167 @@
 .townforge-trade-chat-net.is-gain strong:last-child {
   color: #9dcc8a;
 }
+
+/* Trade window — 3× text for readability (especially item hover tooltips). */
+.townforge-merchant-shell.townforge-trade {
+  --tf-trade-text-scale: 3;
+  font-size: calc(0.92rem * var(--tf-trade-text-scale));
+}
+
+.townforge-merchant-shell.townforge-trade .townforge-trade-pane-header h3,
+.townforge-merchant-shell.townforge-trade .townforge-trade-center h3 {
+  font-size: calc(1.05rem * var(--tf-trade-text-scale));
+}
+
+.townforge-merchant-shell.townforge-trade .townforge-pane-gold,
+.townforge-merchant-shell.townforge-trade .townforge-offer-heading strong {
+  font-size: calc(0.82rem * var(--tf-trade-text-scale));
+}
+
+.townforge-merchant-shell.townforge-trade .townforge-offer-block h4 {
+  font-size: calc(0.78rem * var(--tf-trade-text-scale));
+}
+
+.townforge-merchant-shell.townforge-trade .townforge-trade-summary > div {
+  font-size: calc(0.9rem * var(--tf-trade-text-scale));
+}
+
+.townforge-merchant-shell.townforge-trade .townforge-muted,
+.townforge-merchant-shell.townforge-trade .townforge-hint,
+.townforge-merchant-shell.townforge-trade .townforge-merchant-drop-hint {
+  font-size: calc(0.85rem * var(--tf-trade-text-scale));
+}
+
+.townforge-merchant-shell.townforge-trade .townforge-warn {
+  font-size: calc(0.86rem * var(--tf-trade-text-scale));
+}
+
+.townforge-merchant-shell.townforge-trade .townforge-merchant-hero-copy h2 {
+  font-size: calc(1.28rem * var(--tf-trade-text-scale));
+}
+
+.townforge-merchant-shell.townforge-trade .townforge-merchant-type,
+.townforge-merchant-shell.townforge-trade .townforge-merchant-greeting {
+  font-size: calc(0.78rem * var(--tf-trade-text-scale));
+}
+
+.townforge-merchant-shell.townforge-trade .townforge-field > span,
+.townforge-merchant-shell.townforge-trade .townforge-buyer > span {
+  font-size: calc(0.75rem * var(--tf-trade-text-scale));
+}
+
+.townforge-merchant-shell.townforge-trade .townforge-field input,
+.townforge-merchant-shell.townforge-trade .townforge-field select,
+.townforge-merchant-shell.townforge-trade .townforge-buyer select,
+.townforge-merchant-shell.townforge-trade .townforge-search input {
+  font-size: calc(0.85rem * var(--tf-trade-text-scale));
+}
+
+.townforge-merchant-shell.townforge-trade .townforge-merchant-filters .townforge-cat-tab {
+  font-size: calc(0.72rem * var(--tf-trade-text-scale));
+  padding: calc(0.35rem * var(--tf-trade-text-scale)) calc(0.55rem * var(--tf-trade-text-scale));
+}
+
+.townforge-merchant-shell.townforge-trade .townforge-wallet-primary span {
+  font-size: calc(0.65rem * var(--tf-trade-text-scale));
+}
+
+.townforge-merchant-shell.townforge-trade .townforge-wallet-primary strong {
+  font-size: calc(0.95rem * var(--tf-trade-text-scale));
+}
+
+.townforge-merchant-shell.townforge-trade .townforge-wallet-coin,
+.townforge-merchant-shell.townforge-trade .townforge-wallet-coin em {
+  font-size: calc(0.68rem * var(--tf-trade-text-scale));
+}
+
+.townforge-merchant-shell.townforge-trade .townforge-item-qty {
+  font-size: calc(0.8rem * var(--tf-trade-text-scale));
+}
+
+.townforge-merchant-shell.townforge-trade .townforge-offer-cell-controls button {
+  font-size: calc(0.72rem * var(--tf-trade-text-scale));
+  height: calc(1.15rem * var(--tf-trade-text-scale));
+}
+
+.townforge-merchant-shell.townforge-trade .townforge-btn,
+.townforge-merchant-shell.townforge-trade .townforge-buy-btn,
+.townforge-merchant-shell.townforge-trade .townforge-buy-btn-lg {
+  font-size: calc(0.88rem * var(--tf-trade-text-scale));
+}
+
+.townforge-merchant-shell.townforge-trade .townforge-btn small {
+  font-size: calc(0.72rem * var(--tf-trade-text-scale));
+}
+
+.townforge-merchant-shell.townforge-trade .townforge-empty p {
+  font-size: calc(0.92rem * var(--tf-trade-text-scale));
+}
+
+.townforge-merchant-shell.townforge-trade .townforge-item-tip {
+  width: min(calc(300px * var(--tf-trade-text-scale)), calc(100vw - 1rem));
+  padding: calc(0.65rem * var(--tf-trade-text-scale)) calc(0.7rem * var(--tf-trade-text-scale));
+  grid-template-columns: calc(112px * var(--tf-trade-text-scale)) minmax(0, 1fr);
+  gap: calc(0.55rem * var(--tf-trade-text-scale));
+}
+
+.townforge-merchant-shell.townforge-trade .townforge-item-tip img {
+  width: calc(112px * var(--tf-trade-text-scale));
+  height: calc(112px * var(--tf-trade-text-scale));
+}
+
+.townforge-merchant-shell.townforge-trade .townforge-item-tip h4 {
+  font-size: calc(1.05rem * var(--tf-trade-text-scale));
+}
+
+.townforge-merchant-shell.townforge-trade .townforge-item-tip-meta,
+.townforge-merchant-shell.townforge-trade .townforge-item-tip-desc,
+.townforge-merchant-shell.townforge-trade .townforge-item-tip .townforge-item-props li {
+  font-size: calc(0.75rem * var(--tf-trade-text-scale));
+}
+
+.townforge-merchant-shell.townforge-trade .townforge-item-tip-price {
+  font-size: calc(0.88rem * var(--tf-trade-text-scale));
+}
+
+.townforge-merchant-shell.townforge-trade .townforge-item-tip-desc {
+  max-height: calc(9.5em * var(--tf-trade-text-scale));
+  line-height: 1.45;
+}
+
+.townforge.townforge-trade-qty-picker {
+  --tf-trade-text-scale: 3;
+  font-size: calc(0.92rem * var(--tf-trade-text-scale));
+}
+
+.townforge.townforge-trade-qty-picker .townforge-qty-picker-copy h3 {
+  font-size: calc(1.2rem * var(--tf-trade-text-scale));
+}
+
+.townforge.townforge-trade-qty-picker .townforge-qty-picker-copy p,
+.townforge.townforge-trade-qty-picker .townforge-qty-picker-prompt,
+.townforge.townforge-trade-qty-picker .townforge-qty-picker-price {
+  font-size: calc(0.92rem * var(--tf-trade-text-scale));
+}
+
+.townforge.townforge-trade-qty-picker .townforge-qty-step {
+  font-size: calc(1.15rem * var(--tf-trade-text-scale));
+  width: calc(2.1rem * var(--tf-trade-text-scale));
+  height: calc(2.1rem * var(--tf-trade-text-scale));
+}
+
+.townforge.townforge-trade-qty-picker .townforge-qty-picker-readout {
+  font-size: calc(1.35rem * var(--tf-trade-text-scale));
+}
+
+.townforge.townforge-trade-qty-picker .townforge-qty-picker-readout strong {
+  font-size: calc(1.6rem * var(--tf-trade-text-scale));
+}
+
+.townforge.townforge-trade-qty-picker .townforge-qty-picker-price strong {
+  font-size: calc(1.05rem * var(--tf-trade-text-scale));
+}
+
+.townforge.townforge-trade-qty-picker .townforge-btn {
+  font-size: calc(0.85rem * var(--tf-trade-text-scale));
+}

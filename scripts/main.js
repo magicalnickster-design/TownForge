@@ -33,7 +33,7 @@ Hooks.on("getSceneControlButtons", (controls) => {
 
 Hooks.once("init", async () => {
   try {
-    const version = game.modules.get(MODULE_ID)?.version ?? "0.6.2";
+    const version = game.modules.get(MODULE_ID)?.version ?? "0.6.3";
     console.log(`${LOG_PREFIX} Initializing ${MODULE_TITLE} v${version}`);
     const { registerTownForgeSettings } = await import("./settings.js");
     registerTownForgeSettings();
