@@ -11,7 +11,7 @@ import { shopService } from "./shop-service.js";
  */
 
 Hooks.once("init", () => {
-  console.log(`${LOG_PREFIX} Initializing ${MODULE_TITLE} v${game.modules.get(MODULE_ID)?.version ?? "0.5.0"}`);
+  console.log(`${LOG_PREFIX} Initializing ${MODULE_TITLE} v${game.modules.get(MODULE_ID)?.version ?? "0.5.1"}`);
   registerTownForgeSettings();
 });
 

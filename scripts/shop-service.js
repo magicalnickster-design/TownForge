@@ -533,9 +533,6 @@ export class ShopService {
     }
 
     // Delete previous automatic stock, then build a fresh list for the current shop type.
-    const manual = clearManual
-      ? []
-      : (shop.inventory ?? []).filter((entry) => entry?.source === "manual");
     const automatic = await this.#generateAutomaticStock(actor, shop, partyLevel, economy, {
       seedSalt,
       reshuffle: shouldReshuffle,
