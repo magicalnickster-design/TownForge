@@ -21,6 +21,19 @@ TARGET_HEIGHT = {
     "medium": 0.76,  # Human, Elf, Tiefling, etc.
 }
 
+# Optional per-token multiplier after species sizing (1.0 = default).
+TOKEN_SCALE: dict[str, float] = {
+    "young-perrin-vale": 0.88,
+    "cartographer-nym": 0.88,
+    "gutter-jax": 0.82,
+}
+
+# Wide silhouettes feel oversized in the grid even at the same height.
+WIDE_ASPECT_SHRINK = (
+    (1.28, 0.82),
+    (1.18, 0.90),
+)
+
 SMALL_SPECIES = {"Halfling", "Dwarf"}
 GNOME_SPECIES = {"Gnome"}
 
@@ -36,6 +49,20 @@ def load_species_map() -> dict[str, str]:
             if npc_id:
                 species[npc_id] = str(npc.get("species") or "Human")
     return species
+
+
+def effective_target_height(species: str, npc_id: str, bbox_w: int, bbox_h: int) -> float:
+    bucket = target_bucket(species)
+    scale = TARGET_HEIGHT[bucket]
+    if npc_id in TOKEN_SCALE:
+        scale *= TOKEN_SCALE[npc_id]
+    elif bucket == "medium" and bbox_h > 0:
+        aspect = bbox_w / bbox_h
+        for threshold, factor in WIDE_ASPECT_SHRINK:
+            if aspect >= threshold:
+                scale *= factor
+                break
+    return scale * 512
 
 
 def target_bucket(species: str) -> str:
@@ -94,11 +121,12 @@ def main() -> int:
         if not species:
             missing_species.append(npc_id)
             species = "Human"
-        bucket = target_bucket(species)
-        target_h = TARGET_HEIGHT[bucket] * 512
         img = Image.open(path)
+        bucket = target_bucket(species)
         bbox = alpha_bbox(img)
         old_h = (bbox[3] - bbox[1]) if bbox else 0
+        old_w = (bbox[2] - bbox[0]) if bbox else 0
+        target_h = effective_target_height(species, npc_id, old_w, old_h)
         normalized = normalize_token(img, target_h)
         if not args.dry_run:
             normalized.save(path, "WEBP", quality=90, method=6)

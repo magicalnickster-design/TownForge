@@ -14,7 +14,7 @@ console.log(`${LOG_PREFIX} Module scripts loaded`);
 
 Hooks.once("init", () => {
   try {
-    const version = game.modules.get(MODULE_ID)?.version ?? "0.5.7";
+    const version = game.modules.get(MODULE_ID)?.version ?? "0.5.8";
     console.log(`${LOG_PREFIX} Initializing ${MODULE_TITLE} v${version}`);
     registerTownForgeSettings();
   } catch (error) {
