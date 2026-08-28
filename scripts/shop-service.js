@@ -24,6 +24,7 @@ import {
   sanitizeStockEntry
 } from "./shop-constants.js";
 import { resolveSelectedItemPacks } from "./shop-sources.js";
+import { resolveShopItemFilter, itemArmorType } from "./shop-filters.js";
 import { refreshOpenShopUIs } from "./shop-sync.js";
 import { newGenerationSalt, randomPick, seededPick, stableHash, weightedRandomPick, weightedSeededPick } from "./shop-random.js";
 import {
@@ -520,7 +521,12 @@ export class ShopService {
   getDisplayInventory(actor) {
     const shop = this.getShopkeeper(actor);
     if (!shop.enabled) return [];
-    return (shop.inventory ?? []).filter((entry) => entry?.id && entry?.uuid && entry?.name);
+    return (shop.inventory ?? [])
+      .filter((entry) => entry?.id && entry?.uuid && entry?.name)
+      .map((entry) => ({
+        ...entry,
+        filter: resolveShopItemFilter(entry)
+      }));
   }
 
   /**
@@ -1693,27 +1699,12 @@ export class ShopService {
       priceLabel: this.formatPrice(priceCP),
       source,
       pack: item.pack || "",
-      filter: this.#filterBucket(item),
+      armorType: itemArmorType(item),
+      filter: resolveShopItemFilter(item),
       unlimited
     };
     if (!unlimited) entry.quantity = Math.max(0, Math.floor(Number(quantity) || 0));
     return entry;
-  }
-
-  #filterBucket(item) {
-    const type = item.type;
-    const name = String(item.name ?? "").toLowerCase();
-    const armorType = String(item.armorType ?? "").toLowerCase();
-
-    if (type === "weapon") return "weapons";
-    if (type === "equipment" && (armorType === "shield" || /shield/.test(name))) return "shields";
-    if (type === "equipment") return "armor";
-    if (type === "tool") return "tools";
-    if (type === "container") return "containers";
-    if (type === "consumable" && /potion|elixir|philter/i.test(name)) return "potions";
-    if (/ingredient|component|herb|reagent/i.test(name)) return "ingredients";
-    if (type === "consumable" || /ration|oil|torch|tinder|soap|feed/i.test(name)) return "supplies";
-    return "gear";
   }
 }
 

@@ -734,4 +734,49 @@ test("accepts plain Item uuid strings", () => {
   assertEqual(parseItemDropText("Compendium.world.items.foo"), "Compendium.world.items.foo", "plain");
 });
 
+console.log("\nTownForge shop item filter tests");
+
+const { resolveShopItemFilter } = await import("../scripts/shop-filters.js");
+
+test("armor filter only includes actual armor", () => {
+  assertEqual(
+    resolveShopItemFilter({ type: "equipment", name: "Chain Mail", armorType: "heavy" }),
+    "armor",
+    "heavy armor"
+  );
+  assertEqual(
+    resolveShopItemFilter({ type: "equipment", name: "Leather Armor", armorType: "light" }),
+    "armor",
+    "light armor"
+  );
+  assertEqual(
+    resolveShopItemFilter({ type: "equipment", name: "Shield", armorType: "shield" }),
+    "shields",
+    "shield"
+  );
+});
+
+test("adventuring equipment is not classified as armor", () => {
+  assertEqual(
+    resolveShopItemFilter({ type: "equipment", name: "Ink Pen" }),
+    "gear",
+    "ink pen"
+  );
+  assertEqual(
+    resolveShopItemFilter({ type: "equipment", name: "Crystal Orb", armorType: "trinket" }),
+    "gear",
+    "orb"
+  );
+  assertEqual(
+    resolveShopItemFilter({ type: "equipment", name: "Tinderbox" }),
+    "gear",
+    "tinderbox equipment"
+  );
+  assertEqual(
+    resolveShopItemFilter({ type: "consumable", name: "Tinderbox" }),
+    "supplies",
+    "tinderbox consumable"
+  );
+});
+
 console.log(`\n${passed} tests passed`);
