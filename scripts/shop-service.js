@@ -17,6 +17,7 @@ import {
   SHOP_FILTERS,
   SHOP_TYPES,
   SHOPKEEPER_FLAG,
+  coerceInventoryArray,
   defaultShopkeeperFlags,
   isUnlimitedStock,
   sanitizeStockEntry
@@ -82,11 +83,7 @@ export class ShopService {
     }
     // Replace inventory wholesale — mergeObject would merge by array index.
     if (Object.prototype.hasOwnProperty.call(patch, "inventory")) {
-      next.inventory = this.#sanitizeInventory(
-        Array.isArray(patch.inventory) ? patch.inventory.slice() : []
-      );
-    } else if (!Array.isArray(next.inventory)) {
-      next.inventory = [];
+      next.inventory = this.#sanitizeInventory(patch.inventory);
     } else {
       next.inventory = this.#sanitizeInventory(next.inventory);
     }
@@ -108,22 +105,22 @@ export class ShopService {
       console.error(
         `${LOG_PREFIX} Shopkeeper flag lost enabled state after write on ${actor.name}. Restoring.`
       );
-      await actor.update({
-        [`flags.${MODULE_ID}.${SHOPKEEPER_FLAG}.enabled`]: true,
-        [`flags.${MODULE_ID}.${SHOPKEEPER_FLAG}.shopType`]: next.shopType,
-        [`flags.${MODULE_ID}.${SHOPKEEPER_FLAG}.shopName`]: next.shopName,
-        [`flags.${MODULE_ID}.${SHOPKEEPER_FLAG}.inventoryMode`]: next.inventoryMode,
-        [`flags.${MODULE_ID}.${SHOPKEEPER_FLAG}.economyTier`]: next.economyTier,
-        [`flags.${MODULE_ID}.${SHOPKEEPER_FLAG}.partyLevelMode`]: next.partyLevelMode,
-        [`flags.${MODULE_ID}.${SHOPKEEPER_FLAG}.fixedPartyLevel`]: next.fixedPartyLevel,
-        [`flags.${MODULE_ID}.${SHOPKEEPER_FLAG}.priceMultiplier`]: next.priceMultiplier,
-        [`flags.${MODULE_ID}.${SHOPKEEPER_FLAG}.generationKey`]: next.generationKey,
-        [`flags.${MODULE_ID}.${SHOPKEEPER_FLAG}.generatedAt`]: next.generatedAt,
-        [`flags.${MODULE_ID}.${SHOPKEEPER_FLAG}.-=inventory`]: null,
-        [`flags.${MODULE_ID}.${SHOPKEEPER_FLAG}.inventory`]: Array.isArray(next.inventory)
-          ? next.inventory.slice()
-          : []
-      });
+      await actor.update(
+        {
+          [`flags.${MODULE_ID}.${SHOPKEEPER_FLAG}.enabled`]: true,
+          [`flags.${MODULE_ID}.${SHOPKEEPER_FLAG}.shopType`]: next.shopType,
+          [`flags.${MODULE_ID}.${SHOPKEEPER_FLAG}.shopName`]: next.shopName,
+          [`flags.${MODULE_ID}.${SHOPKEEPER_FLAG}.inventoryMode`]: next.inventoryMode,
+          [`flags.${MODULE_ID}.${SHOPKEEPER_FLAG}.economyTier`]: next.economyTier,
+          [`flags.${MODULE_ID}.${SHOPKEEPER_FLAG}.partyLevelMode`]: next.partyLevelMode,
+          [`flags.${MODULE_ID}.${SHOPKEEPER_FLAG}.fixedPartyLevel`]: next.fixedPartyLevel,
+          [`flags.${MODULE_ID}.${SHOPKEEPER_FLAG}.priceMultiplier`]: next.priceMultiplier,
+          [`flags.${MODULE_ID}.${SHOPKEEPER_FLAG}.generationKey`]: next.generationKey,
+          [`flags.${MODULE_ID}.${SHOPKEEPER_FLAG}.generatedAt`]: next.generatedAt,
+          [`flags.${MODULE_ID}.${SHOPKEEPER_FLAG}.inventory`]: this.#sanitizeInventory(next.inventory)
+        },
+        { diff: false }
+      );
     }
 
     if (next.enabled) {
@@ -136,14 +133,15 @@ export class ShopService {
   }
 
   /**
-   * Write shopkeeper flags. Avoid `-=shopkeeper` — Foundry can clear the whole
-   * flag if delete and rewrite land in the same update.
+   * Persist shopkeeper flags without wiping the parent flag object.
+   * Never use `-=shopkeeper` or `-=inventory` in the same update as a re-set.
+   * @param {Actor} actor
+   * @param {object} next
    */
   async #writeShopkeeperFlag(actor, next) {
     const base = `flags.${MODULE_ID}.${SHOPKEEPER_FLAG}`;
     const inventory = this.#sanitizeInventory(next.inventory);
     const update = {
-      [`${base}.-=inventory`]: null,
       [`${base}.inventory`]: inventory
     };
     for (const [key, value] of Object.entries(next)) {
@@ -151,17 +149,14 @@ export class ShopService {
       if (value === null) continue;
       update[`${base}.${key}`] = value;
     }
-    await actor.update(update);
+    await actor.update(update, { diff: false });
   }
 
   /** Inventory-only write for player trades. */
   async #writeShopkeeperInventory(actor, inventory) {
     const base = `flags.${MODULE_ID}.${SHOPKEEPER_FLAG}`;
     const clean = this.#sanitizeInventory(inventory);
-    await actor.update({
-      [`${base}.-=inventory`]: null,
-      [`${base}.inventory`]: clean
-    });
+    await actor.update({ [`${base}.inventory`]: clean }, { diff: false });
   }
 
   /**
@@ -169,7 +164,7 @@ export class ShopService {
    * @returns {object[]}
    */
   #sanitizeInventory(inventory) {
-    return (Array.isArray(inventory) ? inventory : [])
+    return coerceInventoryArray(inventory)
       .filter((entry) => entry?.id && entry?.uuid && entry?.name)
       .map((entry) => sanitizeStockEntry(entry));
   }
@@ -633,7 +628,7 @@ export class ShopService {
 
       // Re-check shop stock after async gaps.
       const latestShop = this.getShopkeeper(merchant);
-      const previousInventory = Array.isArray(latestShop.inventory) ? latestShop.inventory.slice() : [];
+      const previousInventory = coerceInventoryArray(latestShop.inventory).map((entry) => ({ ...entry }));
       for (const buy of resolvedBuys) {
         const latestStock = previousInventory.find((entry) => entry.id === buy.stock.id);
         if (!latestStock) return { ok: false, message: "Item unavailable." };
@@ -673,8 +668,13 @@ export class ShopService {
       }
 
       // Update merchant inventory: decrement finite buys, restock sold goods.
-      // Preserve existing unlimited/automatic rows so a trade cannot wipe the shelf.
-      if (game.user.isGM || merchant.isOwner) {
+      // Unlimited-only purchases leave stock rows unchanged — do not write the
+      // inventory flag. A same-contents update plus `-=inventory` is how Foundry
+      // previously emptied the whole shelf after a multi-item buy.
+      const inventoryNeedsWrite =
+        resolvedSells.length > 0 ||
+        resolvedBuys.some((buy) => !this.#isUnlimited(buy.stock));
+      if ((game.user.isGM || merchant.isOwner) && inventoryNeedsWrite) {
         let inventory = previousInventory.map((entry) => ({ ...entry }));
         for (const buy of resolvedBuys) {
           inventory = inventory.map((entry) => {
@@ -700,6 +700,10 @@ export class ShopService {
         }
 
         await this.updateShopkeeper(merchant, { inventory }, { allowNonGM: true });
+      } else if ((game.user.isGM || merchant.isOwner) && !inventoryNeedsWrite) {
+        console.log(
+          `${LOG_PREFIX} Trade left shop stock unchanged (unlimited items); skipping inventory write for ${merchant.name}.`
+        );
       } else {
         console.warn(
           `${LOG_PREFIX} Trade completed for ${buyer.name}, but shop stock could not update (missing merchant ownership). Re-open the shopkeeper config once as GM.`
