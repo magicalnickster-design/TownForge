@@ -218,6 +218,56 @@
   font-size: 0.84rem;
 }
 
+.townforge-library-meta-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.townforge-art-toggle {
+  display: inline-flex;
+  border: 1px solid var(--tf-border);
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.townforge-art-btn {
+  border: none;
+  background: transparent;
+  color: var(--tf-muted);
+  font: inherit;
+  font-size: 0.78rem;
+  padding: 0.2rem 0.55rem;
+  cursor: pointer;
+}
+
+.townforge-art-btn.is-active {
+  color: var(--tf-text);
+  background: rgba(196, 163, 90, 0.18);
+}
+
+.townforge-art-btn:hover {
+  color: var(--tf-text);
+}
+
+.townforge-art-label {
+  position: absolute;
+  top: 0.4rem;
+  left: 0.4rem;
+  z-index: 1;
+  padding: 0.1rem 0.4rem;
+  border-radius: 999px;
+  background: rgba(8, 9, 11, 0.72);
+  border: 1px solid var(--tf-border);
+  color: var(--tf-muted);
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
 .townforge-sort {
   display: inline-flex;
   align-items: center;
@@ -446,6 +496,7 @@
 }
 
 .townforge-detail-portrait {
+  position: relative;
   border-radius: 0.85rem;
   overflow: hidden;
   border: 1px solid var(--tf-border);
@@ -468,6 +519,12 @@
   object-fit: contain;
   object-position: center bottom;
   display: block;
+}
+
+.townforge-card-media.is-token img,
+.townforge-detail-portrait.is-token img {
+  aspect-ratio: 1 / 1;
+  object-position: center center;
 }
 
 .townforge-detail-identity-top {

@@ -3,13 +3,14 @@
   {{#with selectedNpc}}
   <div class="townforge-detail-scroll">
     <div class="townforge-detail-hero">
-      <div class="townforge-detail-portrait">
+      <div class="townforge-detail-portrait{{#if @root.showTokenArt}} is-token{{/if}}">
         <img
-          src="{{portrait}}"
+          src="{{previewImage}}"
           alt="{{name}}"
           data-townforge-img
-          data-fallback="{{fallbackPortrait}}"
+          data-fallback="{{previewFallback}}"
         />
+        <span class="townforge-art-label">{{#if @root.showTokenArt}}Token{{else}}Portrait{{/if}}</span>
       </div>
 
       <div class="townforge-detail-identity">
