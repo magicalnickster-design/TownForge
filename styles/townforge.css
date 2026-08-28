@@ -236,15 +236,18 @@
 .townforge-library-scroll {
   flex: 1;
   min-height: 0;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
   padding-right: 0.15rem;
+  overscroll-behavior: contain;
 }
 
 .townforge-card-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.65rem;
+  gap: 0.75rem;
   align-items: start;
+  padding-bottom: 0.35rem;
 }
 
 /* Keep ApplicationV2 card buttons from collapsing to a short strip. */
@@ -289,6 +292,10 @@
 .townforge-card-media {
   position: relative;
   width: 100%;
+  aspect-ratio: 3 / 4;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
   background:
     linear-gradient(45deg, #1a1d21 25%, transparent 25%),
     linear-gradient(-45deg, #1a1d21 25%, transparent 25%),
@@ -302,35 +309,38 @@
 .townforge.townforge-npc-browser .townforge-card-media img,
 .townforge-card-media img {
   width: 100%;
-  height: auto !important;
+  height: 100%;
   max-height: none !important;
-  aspect-ratio: 3 / 4;
   object-fit: contain;
   object-position: center bottom;
   display: block;
-  vertical-align: top;
 }
 
-.townforge-card-overlay {
-  position: absolute;
-  inset: auto 0 0 0;
-  padding: 1.6rem 0.65rem 0.55rem;
-  background: linear-gradient(180deg, transparent, rgba(8, 9, 11, 0.92) 55%);
+.townforge-card-body {
+  padding: 0.5rem 0.55rem 0.65rem;
   text-align: left;
-  pointer-events: none;
+  background: var(--tf-bg-card);
 }
 
 .townforge-card-name {
   margin: 0;
   font-family: var(--tf-display);
-  font-size: 1.05rem;
-  line-height: 1.1;
+  font-size: 0.95rem;
+  line-height: 1.15;
+  color: var(--tf-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .townforge-card-meta {
-  margin: 0.2rem 0 0.4rem;
-  color: rgba(242, 235, 224, 0.78);
-  font-size: 0.75rem;
+  margin: 0.15rem 0 0.35rem;
+  color: var(--tf-muted);
+  font-size: 0.72rem;
+  line-height: 1.25;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .townforge-pill {

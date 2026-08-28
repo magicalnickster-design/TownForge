@@ -81,11 +81,11 @@
             <i class="fa-solid fa-star"></i>
           </span>
           {{/if}}
-          <div class="townforge-card-overlay">
-            <h2 class="townforge-card-name">{{name}}</h2>
-            <p class="townforge-card-meta">{{metaLine}}</p>
-            <span class="townforge-pill">{{categoryLabel}}</span>
-          </div>
+        </div>
+        <div class="townforge-card-body">
+          <h2 class="townforge-card-name">{{name}}</h2>
+          <p class="townforge-card-meta">{{metaLine}}</p>
+          <span class="townforge-pill">{{categoryLabel}}</span>
         </div>
       </button>
       {{/each}}
@@ -101,33 +101,4 @@
     </div>
     {{/if}}
   </div>
-
-  {{#if pages.length}}
-  <nav class="townforge-pagination" aria-label="NPC pages">
-    <button
-      type="button"
-      class="townforge-page-btn"
-      data-action="setPage"
-      data-page="{{prevPage}}"
-      {{#if isFirstPage}}disabled{{/if}}
-    ><i class="fa-solid fa-chevron-left"></i></button>
-
-    {{#each pages}}
-    <button
-      type="button"
-      class="townforge-page-btn{{#if active}} is-active{{/if}}"
-      data-action="setPage"
-      data-page="{{number}}"
-    >{{label}}</button>
-    {{/each}}
-
-    <button
-      type="button"
-      class="townforge-page-btn"
-      data-action="setPage"
-      data-page="{{nextPage}}"
-      {{#if isLastPage}}disabled{{/if}}
-    ><i class="fa-solid fa-chevron-right"></i></button>
-  </nav>
-  {{/if}}
 </aside>
