@@ -1,0 +1,41 @@
+<section class="townforge-qty-picker">
+  <div class="townforge-qty-picker-item">
+    <img class="townforge-qty-picker-img" src="{{img}}" alt="" width="72" height="72" />
+    <div class="townforge-qty-picker-copy">
+      <h3>{{name}}</h3>
+      {{#if type}}<p class="townforge-muted">{{type}}</p>{{/if}}
+    </div>
+  </div>
+
+  <p class="townforge-qty-picker-prompt">How many do you wish to sell?</p>
+
+  <div class="townforge-qty-picker-controls">
+    <button type="button" class="townforge-qty-step" data-action="decrease" aria-label="Decrease quantity">−</button>
+    <input
+      type="range"
+      class="townforge-qty-slider"
+      min="1"
+      max="{{maxQuantity}}"
+      step="1"
+      value="{{quantity}}"
+      data-townforge-qty-slider
+      aria-label="Quantity to sell"
+    />
+    <button type="button" class="townforge-qty-step" data-action="increase" aria-label="Increase quantity">+</button>
+  </div>
+
+  <div class="townforge-qty-picker-readout">
+    <strong data-townforge-qty-display>{{quantity}}</strong>
+    <span class="townforge-muted">/ {{maxQuantity}}</span>
+  </div>
+
+  <div class="townforge-qty-picker-price">
+    <span>Sell for</span>
+    <strong data-townforge-qty-price>{{linePriceLabel}}</strong>
+  </div>
+
+  <footer class="townforge-qty-picker-actions">
+    <button type="button" class="townforge-buy-btn" data-action="confirm">Confirm</button>
+    <button type="button" class="townforge-btn townforge-btn-secondary" data-action="cancel">Cancel</button>
+  </footer>
+</section>

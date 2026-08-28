@@ -15,6 +15,11 @@ import {
 import { coerceInventoryArray, isUnlimitedStock, itemQtyBadge, normalizeRarity, rarityLabel } from "../scripts/shop-constants.js";
 import { parseItemDropText, parseTradeItemDragData, TRADE_DRAG_MIME } from "../scripts/shop-drop.js";
 import {
+  getRemainingSellQuantity,
+  nextSellOfferQuantity,
+  shouldPromptSellQuantity
+} from "../scripts/trade-quantity.js";
+import {
   buildPartyProfile,
   detectAssignedPartyActors,
   inspectCharacterClasses,
@@ -764,6 +769,20 @@ test("rejects malformed trade drag payload", () => {
     }
   };
   assertEqual(parseTradeItemDragData(event), null, "bad json");
+});
+
+console.log("\nTownForge sell quantity prompt tests");
+test("getRemainingSellQuantity subtracts offered amount", () => {
+  assertEqual(getRemainingSellQuantity(20, 7), 13, "remaining");
+  assertEqual(getRemainingSellQuantity(5, 5), 0, "fully offered");
+});
+test("shouldPromptSellQuantity only when more than one remains", () => {
+  assertEqual(shouldPromptSellQuantity(1), false, "single");
+  assertEqual(shouldPromptSellQuantity(2), true, "stack");
+});
+test("nextSellOfferQuantity caps at total owned", () => {
+  assertEqual(nextSellOfferQuantity(3, 4, 20), 7, "add partial");
+  assertEqual(nextSellOfferQuantity(18, 5, 20), 20, "cap total");
 });
 
 console.log("\nTownForge shop item filter tests");

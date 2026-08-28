@@ -1281,6 +1281,105 @@
   background: rgba(196, 163, 90, 0.08);
 }
 
+.townforge-qty-picker {
+  display: grid;
+  gap: 0.85rem;
+  padding: 1rem 1.1rem 1.1rem;
+}
+
+.townforge-qty-picker-item {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr);
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.townforge-qty-picker-img {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+  border-radius: 0.45rem;
+  border: 1px solid var(--tf-border);
+  background: rgba(0, 0, 0, 0.28);
+}
+
+.townforge-qty-picker-copy h3 {
+  margin: 0;
+  font-family: var(--tf-display);
+  font-size: 1.2rem;
+  line-height: 1.15;
+}
+
+.townforge-qty-picker-copy p {
+  margin: 0.2rem 0 0;
+  font-size: 0.82rem;
+}
+
+.townforge-qty-picker-prompt {
+  margin: 0;
+  text-align: center;
+  font-size: 0.92rem;
+}
+
+.townforge-qty-picker-controls {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 0.65rem;
+  align-items: center;
+}
+
+.townforge-qty-step {
+  width: 2.1rem;
+  height: 2.1rem;
+  border: 1px solid var(--tf-border);
+  border-radius: 0.45rem;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--tf-text);
+  font-size: 1.15rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.townforge-qty-step:hover {
+  border-color: color-mix(in srgb, var(--tf-accent) 55%, var(--tf-border));
+  background: rgba(196, 163, 90, 0.12);
+}
+
+.townforge-qty-slider {
+  width: 100%;
+  accent-color: var(--tf-accent-strong);
+  cursor: pointer;
+}
+
+.townforge-qty-picker-readout {
+  text-align: center;
+  font-size: 1.35rem;
+}
+
+.townforge-qty-picker-readout strong {
+  color: var(--tf-accent-strong);
+  font-size: 1.6rem;
+}
+
+.townforge-qty-picker-price {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.45rem;
+  font-size: 0.92rem;
+}
+
+.townforge-qty-picker-price strong {
+  color: var(--tf-accent-strong);
+  font-size: 1.05rem;
+}
+
+.townforge-qty-picker-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.55rem;
+}
+
 .townforge-offer-block h4 {
   margin: 0;
   font-size: 0.78rem;

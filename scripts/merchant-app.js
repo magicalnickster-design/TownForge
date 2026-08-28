@@ -12,6 +12,7 @@ import {
 import { getActorNpcId, resolveShopCatalog } from "./shop-catalogs.js";
 import { MERCHANT_PRICE_FILTERS, matchesMerchantPriceFilter } from "./shop-price-filters.js";
 import { getShopTypeLabel, shopService } from "./shop-service.js";
+import { getRemainingSellQuantity, nextSellOfferQuantity, shouldPromptSellQuantity } from "./trade-quantity.js";
 
 const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
 
@@ -590,15 +591,56 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
       }
     } else if (side === "sell") {
       if (payload.kind !== "player" || !payload.itemId) return;
-      if (this.#sellOffer.has(payload.itemId)) {
-        this.#sellOffer.delete(payload.itemId);
-      } else {
-        this.#sellOffer.set(payload.itemId, 1);
-      }
+      await this.#offerSellItem(payload.itemId);
     } else {
       return;
     }
 
+    await this.render({ force: false });
+  }
+
+  async #offerSellItem(itemId) {
+    if (game.user?.isGM) return;
+    const quantity = await this.#resolveSellQuantity(itemId);
+    if (quantity == null) return;
+    await this.#addToSellOffer(itemId, quantity);
+  }
+
+  async #resolveSellQuantity(itemId) {
+    const buyer = this.#buyerUuid ? await fromUuid(this.#buyerUuid) : null;
+    const item = buyer?.items?.get?.(itemId);
+    if (!item || !this.#isSellable(item)) return null;
+
+    const totalQuantity = Math.max(1, Number(item.system?.quantity) || 1);
+    const offeredQty = this.#sellOffer.get(itemId) ?? 0;
+    const remainingQty = getRemainingSellQuantity(totalQuantity, offeredQty);
+    if (remainingQty <= 0) return null;
+    if (!shouldPromptSellQuantity(remainingQty)) return 1;
+
+    const { TradeQuantityPicker } = await import("./trade-quantity-picker.js");
+    const sellPriceCP = shopService.getSellPriceCP(item, this.#merchant);
+    return TradeQuantityPicker.prompt({
+      name: item.name,
+      img: item.img || "icons/svg/item-bag.svg",
+      type: item.type,
+      maxQuantity: remainingQty,
+      unitPriceCP: sellPriceCP,
+      formatPrice: (cp) => shopService.formatPrice(cp)
+    });
+  }
+
+  async #addToSellOffer(itemId, quantity) {
+    const addQty = Math.max(1, Math.floor(Number(quantity) || 1));
+    const buyer = this.#buyerUuid ? await fromUuid(this.#buyerUuid) : null;
+    const item = buyer?.items?.get?.(itemId);
+    if (!item || !this.#isSellable(item)) return;
+
+    const totalQuantity = Math.max(1, Number(item.system?.quantity) || 1);
+    const offeredQty = this.#sellOffer.get(itemId) ?? 0;
+    const next = nextSellOfferQuantity(offeredQty, addQty, totalQuantity);
+    if (next <= offeredQty) return;
+
+    this.#sellOffer.set(itemId, next);
     await this.render({ force: false });
   }
 
@@ -832,12 +874,7 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
     if (game.user?.isGM) return;
     const itemId = target.dataset.itemId;
     if (!itemId) return;
-    if (this.#sellOffer.has(itemId)) {
-      this.#sellOffer.delete(itemId);
-    } else {
-      this.#sellOffer.set(itemId, 1);
-    }
-    await this.render({ force: false });
+    await this.#offerSellItem(itemId);
   }
 
   /** @this {MerchantApp} */
