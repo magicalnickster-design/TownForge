@@ -13,6 +13,7 @@ import {
   validatePurchaseRequest
 } from "../scripts/shop-currency.js";
 import { coerceInventoryArray, isUnlimitedStock, itemQtyBadge, normalizeRarity, rarityLabel } from "../scripts/shop-constants.js";
+import { parseItemDropText } from "../scripts/shop-drop.js";
 import {
   buildPartyProfile,
   detectAssignedPartyActors,
@@ -709,6 +710,28 @@ test("normalizePartyAwareSettings defaults off and cleans uuids", () => {
   assertEqual(normalized.partyDetectionMode, "manual", "mode");
   assertEqual(normalized.partyActorUuids, ["Actor.1"], "dedupe");
   assertEqual(normalizePartyAwareSettings({}).partyAwareInventory, false, "default off");
+});
+
+console.log("\nTownForge item drop parsing tests");
+test("parses sidebar Item drag JSON", () => {
+  const uuid = parseItemDropText(JSON.stringify({ type: "Item", uuid: "Item.abc123" }));
+  assertEqual(uuid, "Item.abc123", "sidebar uuid");
+});
+test("parses compendium Item drag JSON", () => {
+  const uuid = parseItemDropText(
+    JSON.stringify({ type: "Item", uuid: "Compendium.dnd5e.items.longsword" })
+  );
+  assertEqual(uuid, "Compendium.dnd5e.items.longsword", "compendium uuid");
+});
+test("parses nested data.uuid payloads", () => {
+  const uuid = parseItemDropText(JSON.stringify({ type: "Item", data: { uuid: "Item.nested" } }));
+  assertEqual(uuid, "Item.nested", "nested uuid");
+});
+test("rejects non-Item drag payloads", () => {
+  assertEqual(parseItemDropText(JSON.stringify({ type: "Actor", uuid: "Actor.xyz" })), null, "actor");
+});
+test("accepts plain Item uuid strings", () => {
+  assertEqual(parseItemDropText("Compendium.world.items.foo"), "Compendium.world.items.foo", "plain");
 });
 
 console.log(`\n${passed} tests passed`);

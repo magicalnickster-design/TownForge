@@ -212,8 +212,11 @@
           <button type="button" class="townforge-cat-tab{{#if active}} is-active{{/if}}" data-action="setPriceFilter" data-price-filter="{{id}}">{{label}}</button>
           {{/each}}
         </div>
+        {{#if isGM}}
+        <p class="townforge-hint townforge-merchant-drop-hint">Drag items here to add stock.</p>
+        {{/if}}
       </header>
-      <div class="townforge-trade-list">
+      <div class="townforge-trade-list"{{#if isGM}} data-townforge-merchant-drop{{/if}}>
         {{#if items.length}}
         <div class="townforge-item-grid" role="list">
           {{#each items}}

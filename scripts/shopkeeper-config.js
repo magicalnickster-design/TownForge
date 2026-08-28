@@ -1,4 +1,5 @@
 import { LOG_PREFIX, MODULE_ID } from "./constants.js";
+import { bindItemDropZone, parseDroppedItemUuid } from "./shop-drop.js";
 import {
   ECONOMY_TIERS,
   INVENTORY_MODES,
@@ -325,30 +326,16 @@ export class ShopkeeperConfig extends HandlebarsApplicationMixin(ApplicationV2) 
 
   #bindItemDropZone() {
     const zone = this.element?.querySelector?.("[data-townforge-drop-zone]");
-    if (!zone || zone.dataset.dropBound === "1") return;
-    zone.dataset.dropBound = "1";
-
-    zone.addEventListener("dragover", (event) => {
-      event.preventDefault();
-      zone.classList.add("is-drop-target");
-    });
-    zone.addEventListener("dragleave", () => {
-      zone.classList.remove("is-drop-target");
-    });
-    zone.addEventListener("drop", (event) => {
-      event.preventDefault();
-      zone.classList.remove("is-drop-target");
+    if (!zone) return;
+    bindItemDropZone(zone, (event) => {
       void this.#handleItemDrop(event);
     });
   }
 
   async #handleItemDrop(event) {
     try {
-      const raw = event.dataTransfer?.getData("text/plain");
-      if (!raw) return;
-      const data = JSON.parse(raw);
-      const uuid = data.uuid || data.data?.uuid;
-      if (!uuid || (data.type && data.type !== "Item")) {
+      const uuid = parseDroppedItemUuid(event);
+      if (!uuid) {
         ui.notifications?.warn("Drop a Foundry Item onto Add Item.");
         return;
       }

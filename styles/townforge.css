@@ -1674,6 +1674,16 @@
   background: rgba(196, 163, 90, 0.1);
 }
 
+.townforge-trade-list.is-drop-target {
+  outline: 2px dashed color-mix(in srgb, var(--tf-accent) 55%, transparent);
+  outline-offset: -4px;
+  background: rgba(196, 163, 90, 0.08);
+}
+
+.townforge-merchant-drop-hint {
+  margin-top: 0.15rem;
+}
+
 .townforge-hint {
   margin: 0;
   color: var(--tf-muted);
