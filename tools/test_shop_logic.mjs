@@ -779,4 +779,28 @@ test("adventuring equipment is not classified as armor", () => {
   );
 });
 
+console.log("\nTownForge shop inventory dedupe tests");
+
+const { dedupeStockEntries } = await import("../scripts/shop-constants.js");
+
+test("dedupes same item across compendium UUIDs", () => {
+  const inventory = [
+    { id: "a", uuid: "Compendium.dnd5e.items.ink", name: "Ink Pen", type: "equipment", source: "automatic" },
+    { id: "b", uuid: "Compendium.dnd5e.equipment24.ink", name: "Ink Pen", type: "equipment", source: "automatic" }
+  ];
+  const deduped = dedupeStockEntries(inventory);
+  assertEqual(deduped.length, 1, "one ink pen");
+  assertEqual(deduped[0].uuid, "Compendium.dnd5e.items.ink", "keeps first row");
+});
+
+test("manual stock wins over automatic duplicate", () => {
+  const inventory = [
+    { id: "a", uuid: "Compendium.dnd5e.items.ink", name: "Ink Pen", type: "equipment", source: "automatic" },
+    { id: "b", uuid: "Item.manualink", name: "Ink Pen", type: "equipment", source: "manual" }
+  ];
+  const deduped = dedupeStockEntries(inventory);
+  assertEqual(deduped.length, 1, "one ink pen");
+  assertEqual(deduped[0].source, "manual", "prefers manual");
+});
+
 console.log(`\n${passed} tests passed`);

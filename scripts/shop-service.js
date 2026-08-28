@@ -19,9 +19,11 @@ import {
   SHOPKEEPER_FLAG,
   coerceInventoryArray,
   defaultShopkeeperFlags,
+  dedupeStockEntries,
   isUnlimitedStock,
   normalizeRarity,
-  sanitizeStockEntry
+  sanitizeStockEntry,
+  stockIdentityKey
 } from "./shop-constants.js";
 import { resolveSelectedItemPacks } from "./shop-sources.js";
 import { resolveShopItemFilter, itemArmorType } from "./shop-filters.js";
@@ -186,9 +188,11 @@ export class ShopService {
    * @returns {object[]}
    */
   #sanitizeInventory(inventory) {
-    return coerceInventoryArray(inventory)
-      .filter((entry) => entry?.id && entry?.uuid && entry?.name)
-      .map((entry) => sanitizeStockEntry(entry));
+    return dedupeStockEntries(
+      coerceInventoryArray(inventory)
+        .filter((entry) => entry?.id && entry?.uuid && entry?.name)
+        .map((entry) => sanitizeStockEntry(entry))
+    );
   }
 
   /**
@@ -996,19 +1000,38 @@ export class ShopService {
   #restockSoldItem(inventory, sell) {
     const uuid = sell.item?.uuid;
     const priceCP = Math.max(1, Math.round(sell.unitPriceCP / SELL_PRICE_RATIO) || sell.unitPriceCP);
+    const identity = stockIdentityKey(sell.item);
+    const existingByIdentity = inventory.find((entry) => stockIdentityKey(entry) === identity);
+
     if (!uuid) {
+      if (existingByIdentity) {
+        if (this.#isUnlimited(existingByIdentity)) return inventory;
+        return inventory.map((entry) => {
+          if (entry.id !== existingByIdentity.id) return entry;
+          return sanitizeStockEntry({
+            ...entry,
+            quantity: Number(entry.quantity) + sell.qty,
+            priceCP,
+            priceLabel: this.formatPrice(priceCP)
+          });
+        });
+      }
       const entry = this.#toStockEntry(sell.item, { source: "manual", priceCP, quantity: sell.qty });
       entry.id = `tfstock-manual-${stableHash(`${sell.item.id}:${Date.now()}:${Math.random()}`)}`;
       entry.priceLabel = this.formatPrice(entry.priceCP);
       return [...inventory, sanitizeStockEntry(entry)];
     }
 
-    const hasInfinite = inventory.some((entry) => entry.uuid === uuid && this.#isUnlimited(entry));
+    const hasInfinite = inventory.some(
+      (entry) => this.#isUnlimited(entry) && (entry.uuid === uuid || stockIdentityKey(entry) === identity)
+    );
     if (hasInfinite) return inventory;
 
-    const existing = inventory.find(
-      (entry) => entry.uuid === uuid && !this.#isUnlimited(entry) && Number(entry.quantity) >= 0
-    );
+    const existing =
+      existingByIdentity ??
+      inventory.find(
+        (entry) => entry.uuid === uuid && !this.#isUnlimited(entry) && Number(entry.quantity) >= 0
+      );
     if (existing) {
       return inventory.map((entry) => {
         if (entry.id !== existing.id) return entry;
@@ -1385,7 +1408,7 @@ export class ShopService {
     }
 
     const prefiltered = index.filter((item) => this.#matchesShop(item, shop.shopType));
-    const candidates = [];
+    const candidateMap = new Map();
     // Cap enrichment work for thin indexes (missing system fields).
     let enrichBudget = 160;
     for (const item of prefiltered) {
@@ -1398,8 +1421,10 @@ export class ShopService {
       if (!row) continue;
       if (!this.#matchesShop(row, shop.shopType)) continue;
       if (!this.#isMundaneSellable(row)) continue;
-      candidates.push(row);
+      const key = stockIdentityKey(row);
+      if (!candidateMap.has(key)) candidateMap.set(key, row);
     }
+    const candidates = [...candidateMap.values()];
 
     const maxValueGP = economy.maxValueGP * (1 + (partyLevel - 1) * 0.12);
     const affordable = candidates.filter((item) => item.valueGP <= maxValueGP);
@@ -1433,7 +1458,7 @@ export class ShopService {
     pool.push(...seededStretch);
 
     const unique = new Map();
-    for (const item of pool) unique.set(item.uuid, item);
+    for (const item of pool) unique.set(stockIdentityKey(item), item);
 
     const picked = pick([...unique.values()], stockCount, economy.id);
 
@@ -1473,10 +1498,9 @@ export class ShopService {
   #ensureNamedItems(picked, uniqueMap, names, maxCount) {
     for (const name of names) {
       if (picked.length >= maxCount) break;
-      if (picked.some((item) => item.name?.toLowerCase() === name.toLowerCase())) continue;
-      const match = [...uniqueMap.values()].find(
-        (item) => item.name?.toLowerCase() === name.toLowerCase()
-      );
+      const lower = name.toLowerCase();
+      if (picked.some((item) => item.name?.toLowerCase() === lower)) continue;
+      const match = [...uniqueMap.values()].find((item) => item.name?.toLowerCase() === lower);
       if (match) picked.push(match);
     }
   }
