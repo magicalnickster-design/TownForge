@@ -809,6 +809,12 @@ test("scene control registers on token tools", () => {
   controls.tokens.tools.townforge.onChange();
   assertEqual(opened, true, "opens browser");
 });
+test("main.js registers scene controls synchronously", () => {
+  const src = readFileSync(new URL("../scripts/main.js", import.meta.url), "utf8");
+  assert(!src.includes("void (async () =>"), "getSceneControlButtons must not defer registration");
+  assert(src.includes('Hooks.on("getSceneControlButtons"'), "scene control hook is registered");
+  assert(src.includes("registerTownForgeSceneControl(controls"), "scene control hook calls register synchronously");
+});
 
 console.log("\nTownForge shop item filter tests");
 

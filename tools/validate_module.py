@@ -64,7 +64,12 @@ def main() -> int:
     eager_imports = [
         line.strip()
         for line in main_js.splitlines()
-        if line.startswith("import ") and 'from "./' in line and "constants.js" not in line
+        if line.startswith("import ")
+        and 'from "./' in line
+        and not any(
+            allowed in line
+            for allowed in ("constants.js", "scene-control.js")
+        )
     ]
     if eager_imports:
         fail(
