@@ -803,4 +803,26 @@ test("manual stock wins over automatic duplicate", () => {
   assertEqual(deduped[0].source, "manual", "prefers manual");
 });
 
+console.log("\nTownForge merchant price filter tests");
+
+const { matchesMerchantPriceFilter } = await import("../scripts/shop-price-filters.js");
+
+test("up to 50 gp excludes items above 50 gp", () => {
+  assert(matchesMerchantPriceFilter(4500, "50gp"), "45 gp included");
+  assert(matchesMerchantPriceFilter(5000, "50gp"), "50 gp included");
+  assert(!matchesMerchantPriceFilter(5001, "50gp"), "50.01 gp excluded");
+});
+
+test("50 gp+ only shows items at or above 50 gp", () => {
+  assert(!matchesMerchantPriceFilter(1000, "50gp+"), "10 gp excluded");
+  assert(!matchesMerchantPriceFilter(4500, "50gp+"), "45 gp excluded");
+  assert(matchesMerchantPriceFilter(5000, "50gp+"), "50 gp included");
+  assert(matchesMerchantPriceFilter(12000, "50gp+"), "120 gp included");
+});
+
+test("500 gp+ includes exactly 500 gp", () => {
+  assert(matchesMerchantPriceFilter(50000, "500gp+"), "500 gp included");
+  assert(!matchesMerchantPriceFilter(49999, "500gp+"), "499.99 gp excluded");
+});
+
 console.log(`\n${passed} tests passed`);
