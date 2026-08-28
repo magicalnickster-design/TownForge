@@ -1,9 +1,10 @@
 import { MODULE_ID } from "./constants.js";
+import { getHandlebarsApplicationV2Base } from "./app-api.js";
 
-const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
+const HandlebarsApplicationV2 = getHandlebarsApplicationV2Base();
 
 /** BG3-style quantity picker for selling stacked items. */
-export class TradeQuantityPicker extends HandlebarsApplicationMixin(ApplicationV2) {
+export class TradeQuantityPicker extends HandlebarsApplicationV2 {
   /** @type {string} */
   #name = "";
 

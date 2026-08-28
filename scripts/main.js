@@ -1,21 +1,27 @@
 import { LOG_PREFIX, MODULE_ID, MODULE_TITLE } from "./constants.js";
-import { NpcBrowser } from "./npc-browser.js";
-import { npcService } from "./npc-service.js";
-import { readyShopCatalogs } from "./shop-catalogs.js";
-import { registerTownForgeSettings } from "./settings.js";
-import { registerTownForgeSceneControl } from "./scene-control.js";
-import { shopService } from "./shop-service.js";
 
 /**
  * TownForge module entrypoint.
+ * Only constants are imported eagerly; everything else loads inside hooks
+ * once Foundry's globals (foundry, game) are available.
  */
 
 console.log(`${LOG_PREFIX} Module scripts loaded`);
 
-Hooks.once("init", () => {
+/** @type {Promise<typeof import("./npc-browser.js").NpcBrowser>|null} */
+let npcBrowserClassPromise = null;
+
+/** @returns {Promise<typeof import("./npc-browser.js").NpcBrowser>} */
+function loadNpcBrowserClass() {
+  npcBrowserClassPromise ??= import("./npc-browser.js").then((module) => module.NpcBrowser);
+  return npcBrowserClassPromise;
+}
+
+Hooks.once("init", async () => {
   try {
-    const version = game.modules.get(MODULE_ID)?.version ?? "0.6.0";
+    const version = game.modules.get(MODULE_ID)?.version ?? "0.6.1";
     console.log(`${LOG_PREFIX} Initializing ${MODULE_TITLE} v${version}`);
+    const { registerTownForgeSettings } = await import("./settings.js");
     registerTownForgeSettings();
   } catch (error) {
     console.error(`${LOG_PREFIX} Init failed — settings and scene controls will be unavailable`, error);
@@ -33,10 +39,23 @@ Hooks.once("ready", async () => {
     console.error(`${LOG_PREFIX} Shop hooks failed to register`, error);
   }
 
+  let npcService;
+  let shopService;
+  let NpcBrowser;
   try {
-    await Promise.all([npcService.ready(), readyShopCatalogs()]);
+    const [npcModule, catalogModule, browserModule, shopModule] = await Promise.all([
+      import("./npc-service.js"),
+      import("./shop-catalogs.js"),
+      import("./npc-browser.js"),
+      import("./shop-service.js")
+    ]);
+    npcService = npcModule.npcService;
+    shopService = shopModule.shopService;
+    NpcBrowser = browserModule.NpcBrowser;
+    await Promise.all([npcService.ready(), catalogModule.readyShopCatalogs()]);
   } catch (error) {
     console.error(`${LOG_PREFIX} Ready hook failed while loading NPC library`, error);
+    return;
   }
 
   console.log(`${LOG_PREFIX} Module ready`);
@@ -48,14 +67,20 @@ Hooks.once("ready", async () => {
     npcService,
     shopService,
     shop: shopApi,
-    version: game.modules.get(MODULE_ID)?.version ?? "0.6.0"
+    version: game.modules.get(MODULE_ID)?.version ?? "0.6.1"
   });
 });
 
 Hooks.on("getSceneControlButtons", (controls) => {
-  try {
-    registerTownForgeSceneControl(controls, () => NpcBrowser.show());
-  } catch (error) {
-    console.error(`${LOG_PREFIX} Failed to register scene control button`, error);
-  }
+  void (async () => {
+    try {
+      const [{ registerTownForgeSceneControl }, NpcBrowser] = await Promise.all([
+        import("./scene-control.js"),
+        loadNpcBrowserClass()
+      ]);
+      registerTownForgeSceneControl(controls, () => NpcBrowser.show());
+    } catch (error) {
+      console.error(`${LOG_PREFIX} Failed to register scene control button`, error);
+    }
+  })();
 });

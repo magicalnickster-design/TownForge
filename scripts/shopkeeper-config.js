@@ -8,11 +8,12 @@ import {
   SHOP_TYPES
 } from "./shop-constants.js";
 import { getShopTypeLabel, shopService } from "./shop-service.js";
+import { getHandlebarsApplicationV2Base } from "./app-api.js";
 
-const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
+const HandlebarsApplicationV2 = getHandlebarsApplicationV2Base();
 
 /** GM shopkeeper setup window. */
-export class ShopkeeperConfig extends HandlebarsApplicationMixin(ApplicationV2) {
+export class ShopkeeperConfig extends HandlebarsApplicationV2 {
   /** @type {Actor} */
   #actor;
 

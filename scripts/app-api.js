@@ -26,3 +26,17 @@ export function getApplicationV2() {
 export function mixHandlebarsApplication(Base) {
   return getFoundryAppApi().HandlebarsApplicationMixin(Base);
 }
+
+/** @type {ReturnType<typeof mixHandlebarsApplication>|null} */
+let handlebarsApplicationV2Base = null;
+
+/**
+ * ApplicationV2 base class with Handlebars mixin applied.
+ * @returns {ReturnType<typeof mixHandlebarsApplication>}
+ */
+export function getHandlebarsApplicationV2Base() {
+  if (!handlebarsApplicationV2Base) {
+    handlebarsApplicationV2Base = mixHandlebarsApplication(getApplicationV2());
+  }
+  return handlebarsApplicationV2Base;
+}

@@ -23,11 +23,12 @@ import {
   sortLibraryNpcs,
   toggleUserFavorite
 } from "./user-library-state.js";
+import { getHandlebarsApplicationV2Base } from "./app-api.js";
 
-const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
+const HandlebarsApplicationV2 = getHandlebarsApplicationV2Base();
 
 /** NPC library browser. */
-export class NpcBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
+export class NpcBrowser extends HandlebarsApplicationV2 {
   /** @type {string} */
   #query = "";
 

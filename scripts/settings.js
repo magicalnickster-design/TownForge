@@ -7,8 +7,9 @@ import {
   recommendedPackIds,
   sanitizeSelectedPackIds
 } from "./shop-sources.js";
+import { getHandlebarsApplicationV2Base } from "./app-api.js";
 
-const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
+const HandlebarsApplicationV2 = getHandlebarsApplicationV2Base();
 
 /** Module settings. */
 export function registerTownForgeSettings() {
@@ -54,7 +55,7 @@ export function registerTownForgeSettings() {
 }
 
 /** Item pack picker for shop generation. */
-export class ShopItemSourcesApp extends HandlebarsApplicationMixin(ApplicationV2) {
+export class ShopItemSourcesApp extends HandlebarsApplicationV2 {
   /** @type {Set<string>} */
   #selected = new Set();
 

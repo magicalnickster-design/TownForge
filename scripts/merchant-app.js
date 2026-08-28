@@ -13,15 +13,16 @@ import { getActorNpcId, resolveShopCatalog } from "./shop-catalogs.js";
 import { MERCHANT_PRICE_FILTERS, matchesMerchantPriceFilter } from "./shop-price-filters.js";
 import { getShopTypeLabel, shopService } from "./shop-service.js";
 import { getRemainingSellQuantity, nextSellOfferQuantity, shouldPromptSellQuantity } from "./trade-quantity.js";
+import { getHandlebarsApplicationV2Base } from "./app-api.js";
 
-const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
+const HandlebarsApplicationV2 = getHandlebarsApplicationV2Base();
 
 /** Open size is 2× the previous 1180×700 default, then clamped to the viewport. */
 const MERCHANT_OPEN_WIDTH = 2360;
 const MERCHANT_OPEN_HEIGHT = 1400;
 
 /** Merchant trade window — player inventory, offer tray, shop stock. */
-export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
+export class MerchantApp extends HandlebarsApplicationV2 {
   /** @type {Actor} */
   #merchant;
 
