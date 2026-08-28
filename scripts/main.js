@@ -48,11 +48,7 @@ Hooks.once("ready", async () => {
     npcService,
     shopService,
     shop: shopApi,
-<<<<<<< HEAD
-    version: game.modules.get(MODULE_ID)?.version ?? "0.5.9"
-=======
     version: game.modules.get(MODULE_ID)?.version ?? "0.6.0"
->>>>>>> bebba4d (Switch to portrait circle tokens with themed animated borders (v0.6.0))
   });
 });
 
