@@ -81,6 +81,6 @@ Hooks.once("ready", async () => {
     npcService,
     shopService,
     shop: shopApi,
-    version: game.modules.get(MODULE_ID)?.version ?? "0.6.2"
+    version: game.modules.get(MODULE_ID)?.version ?? "0.6.3"
   });
 });
