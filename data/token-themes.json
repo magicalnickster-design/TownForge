@@ -1,0 +1,133 @@
+{
+  "themes": {
+    "charming": {
+      "label": "Charming",
+      "ring": "#c9a227",
+      "ringGlow": "#ffe08a",
+      "background": "#1a1208",
+      "decor": "flowers",
+      "pulse": true,
+      "frames": 12,
+      "fps": 6
+    },
+    "noble": {
+      "label": "Noble",
+      "ring": "#b8943f",
+      "ringGlow": "#f0d890",
+      "background": "#141018",
+      "decor": "laurel",
+      "pulse": true,
+      "frames": 10,
+      "fps": 5
+    },
+    "guard": {
+      "label": "Guard",
+      "ring": "#6f7f94",
+      "ringGlow": "#a8bdd4",
+      "background": "#0d1018",
+      "decor": "none",
+      "pulse": false,
+      "frames": 8,
+      "fps": 4
+    },
+    "religious": {
+      "label": "Religious",
+      "ring": "#8f7cc7",
+      "ringGlow": "#d4c4ff",
+      "background": "#100f18",
+      "decor": "none",
+      "pulse": true,
+      "frames": 10,
+      "fps": 5
+    },
+    "criminal": {
+      "label": "Criminal",
+      "ring": "#8b3a3a",
+      "ringGlow": "#c45b5b",
+      "background": "#120808",
+      "decor": "none",
+      "pulse": false,
+      "frames": 6,
+      "fps": 4
+    },
+    "scholar": {
+      "label": "Scholar",
+      "ring": "#6a5acd",
+      "ringGlow": "#9a8fd4",
+      "background": "#0e0c14",
+      "decor": "none",
+      "pulse": false,
+      "frames": 6,
+      "fps": 4
+    },
+    "craftsman": {
+      "label": "Craftsman",
+      "ring": "#b07d4a",
+      "ringGlow": "#d9a56a",
+      "background": "#141008",
+      "decor": "none",
+      "pulse": false,
+      "frames": 6,
+      "fps": 4
+    },
+    "commoner": {
+      "label": "Commoner",
+      "ring": "#8f9aa3",
+      "ringGlow": "#c5cdd4",
+      "background": "#101214",
+      "decor": "none",
+      "pulse": false,
+      "frames": 4,
+      "fps": 4
+    },
+    "tavern": {
+      "label": "Tavern",
+      "ring": "#d0894a",
+      "ringGlow": "#f0b070",
+      "background": "#141008",
+      "decor": "none",
+      "pulse": true,
+      "frames": 8,
+      "fps": 5
+    },
+    "government": {
+      "label": "Government",
+      "ring": "#6e8bb5",
+      "ringGlow": "#9ab4d4",
+      "background": "#0c1018",
+      "decor": "none",
+      "pulse": false,
+      "frames": 6,
+      "fps": 4
+    },
+    "traveler": {
+      "label": "Traveler",
+      "ring": "#5fa8a0",
+      "ringGlow": "#8fd4cc",
+      "background": "#081210",
+      "decor": "none",
+      "pulse": false,
+      "frames": 6,
+      "fps": 4
+    }
+  },
+  "rules": [
+    { "tags": ["server", "barmaid", "eager"], "theme": "charming" },
+    { "occupations": ["Barmaid", "Matchmaker", "Evening Singer", "Wine Seller"], "theme": "charming" },
+    { "categories": ["nobility"], "theme": "noble" },
+    { "categories": ["guards"], "theme": "guard" },
+    { "categories": ["religious"], "theme": "religious" },
+    { "categories": ["criminal"], "theme": "criminal" },
+    { "categories": ["scholars"], "theme": "scholar" },
+    { "categories": ["craftsmen"], "theme": "craftsman" },
+    { "categories": ["government"], "theme": "government" },
+    { "categories": ["travelers"], "theme": "traveler" },
+    { "categories": ["tavern"], "theme": "tavern" },
+    { "categories": ["commoners"], "theme": "commoner" },
+    { "categories": ["shops"], "theme": "commoner" }
+  ],
+  "defaultTheme": "commoner",
+  "overrides": {
+    "pippa-reed": "charming"
+  }
+}

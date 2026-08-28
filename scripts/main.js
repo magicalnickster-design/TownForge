@@ -14,7 +14,7 @@ console.log(`${LOG_PREFIX} Module scripts loaded`);
 
 Hooks.once("init", () => {
   try {
-    const version = game.modules.get(MODULE_ID)?.version ?? "0.5.9";
+    const version = game.modules.get(MODULE_ID)?.version ?? "0.6.0";
     console.log(`${LOG_PREFIX} Initializing ${MODULE_TITLE} v${version}`);
     registerTownForgeSettings();
   } catch (error) {
@@ -48,7 +48,11 @@ Hooks.once("ready", async () => {
     npcService,
     shopService,
     shop: shopApi,
+<<<<<<< HEAD
     version: game.modules.get(MODULE_ID)?.version ?? "0.5.9"
+=======
+    version: game.modules.get(MODULE_ID)?.version ?? "0.6.0"
+>>>>>>> bebba4d (Switch to portrait circle tokens with themed animated borders (v0.6.0))
   });
 });
 
