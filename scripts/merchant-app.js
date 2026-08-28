@@ -321,25 +321,40 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
       });
 
     const playerItems = [];
+    /** @type {Map<string, { id: string, name: string, img: string, type: string, totalQuantity: number, rarityClass: string, sellPriceCP: number, sellPriceLabel: string }>} */
+    const playerItemById = new Map();
     if (buyerActor) {
       for (const item of buyerActor.items ?? []) {
         if (!this.#isSellable(item)) continue;
+        const totalQuantity = Math.max(1, Number(item.system?.quantity) || 1);
+        const offeredQty = this.#sellOffer.get(item.id) ?? 0;
+        const remainingQty = totalQuantity - offeredQty;
+        const sellPriceCP = shopService.getSellPriceCP(item, this.#merchant);
+        const rarityClass = normalizeRarity(item.system?.rarity ?? item.rarity);
+        playerItemById.set(item.id, {
+          id: item.id,
+          name: item.name,
+          img: item.img || "icons/svg/item-bag.svg",
+          type: item.type,
+          totalQuantity,
+          rarityClass,
+          sellPriceCP,
+          sellPriceLabel: shopService.formatPrice(sellPriceCP)
+        });
+        if (remainingQty <= 0) continue;
         if (playerQuery && !`${item.name} ${item.type}`.toLowerCase().includes(playerQuery)) {
           continue;
         }
-        const sellPriceCP = shopService.getSellPriceCP(item, this.#merchant);
-        const quantity = Math.max(1, Number(item.system?.quantity) || 1);
         playerItems.push({
           id: item.id,
           name: item.name,
           img: item.img || "icons/svg/item-bag.svg",
           type: item.type,
-          quantity,
-          rarityClass: normalizeRarity(item.system?.rarity ?? item.rarity),
-          qtyBadge: itemQtyBadge({ quantity }),
+          quantity: remainingQty,
+          rarityClass,
+          qtyBadge: itemQtyBadge({ quantity: remainingQty }),
           sellPriceCP,
-          sellPriceLabel: shopService.formatPrice(sellPriceCP),
-          inOffer: this.#sellOffer.has(item.id)
+          sellPriceLabel: shopService.formatPrice(sellPriceCP)
         });
       }
       playerItems.sort((a, b) => a.name.localeCompare(b.name));
@@ -373,7 +388,7 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
     let sellTotalCP = 0;
     const sellOffer = [];
     for (const [itemId, quantity] of this.#sellOffer) {
-      const row = playerItems.find((entry) => entry.id === itemId);
+      const row = playerItemById.get(itemId);
       if (!row) continue;
       const line = row.sellPriceCP * quantity;
       sellTotalCP += line;
@@ -384,8 +399,8 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
         type: row.type,
         rarityClass: row.rarityClass,
         quantity,
-        maxQty: row.quantity,
-        canIncrease: quantity < row.quantity,
+        maxQty: row.totalQuantity,
+        canIncrease: quantity < row.totalQuantity,
         canDecrease: quantity > 1,
         linePriceLabel: shopService.formatPrice(line)
       });
