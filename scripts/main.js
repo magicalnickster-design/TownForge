@@ -1,6 +1,7 @@
 import { LOG_PREFIX, MODULE_ID, MODULE_TITLE } from "./constants.js";
 import { NpcBrowser } from "./npc-browser.js";
 import { npcService } from "./npc-service.js";
+import { readyShopCatalogs } from "./shop-catalogs.js";
 import { registerTownForgeSettings } from "./settings.js";
 import { registerShopHooks, shopApi } from "./shop-hooks.js";
 import { shopService } from "./shop-service.js";
@@ -16,7 +17,7 @@ Hooks.once("init", () => {
 
 Hooks.once("ready", async () => {
   try {
-    await npcService.ready();
+    await Promise.all([npcService.ready(), readyShopCatalogs()]);
   } catch (error) {
     console.error(`${LOG_PREFIX} Ready hook failed while loading NPC library`, error);
   }

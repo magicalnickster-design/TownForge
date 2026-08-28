@@ -1,0 +1,8 @@
+{
+  "catalogs": [
+    {
+      "npcId": "vela-inkwell",
+      "file": "vela-inkwell.json"
+    }
+  ]
+}
