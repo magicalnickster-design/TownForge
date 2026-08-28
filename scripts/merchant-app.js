@@ -1,9 +1,19 @@
 import { LOG_PREFIX, MODULE_ID } from "./constants.js";
 import { currencyToCopper, normalizeCurrency } from "./shop-currency.js";
-import { isUnlimitedStock, stockQuantityLabel } from "./shop-constants.js";
+import {
+  isUnlimitedStock,
+  itemQtyBadge,
+  normalizeRarity,
+  rarityLabel,
+  stockQuantityLabel
+} from "./shop-constants.js";
 import { getShopTypeLabel, shopService } from "./shop-service.js";
 
 const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
+
+/** Open size is 2× the previous 1180×700 default, then clamped to the viewport. */
+const MERCHANT_OPEN_WIDTH = 2360;
+const MERCHANT_OPEN_HEIGHT = 1400;
 
 const PRICE_FILTERS = Object.freeze([
   { id: "all", label: "All Prices" },
@@ -51,6 +61,9 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
   /** @type {boolean} */
   #busy = false;
 
+  /** @type {number} */
+  #hoverSeq = 0;
+
   static DEFAULT_OPTIONS = {
     id: "townforge-merchant",
     classes: ["townforge", "townforge-merchant", "townforge-trade"],
@@ -60,7 +73,7 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
       resizable: true,
       contentClasses: ["townforge-window-content"]
     },
-    position: { width: 840, height: 560 },
+    position: { width: MERCHANT_OPEN_WIDTH, height: MERCHANT_OPEN_HEIGHT },
     actions: {
       setFilter: MerchantApp.#onSetFilter,
       setPriceFilter: MerchantApp.#onSetPriceFilter,
@@ -124,6 +137,7 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
       app.#initializeBuyer();
       console.log(`${LOG_PREFIX} Merchant window opened for ${merchant.name}`);
       await app.render({ force: true });
+      app.#applyOpenSize();
       return app;
     } catch (error) {
       console.error(`${LOG_PREFIX} MerchantApp.show failed`, error);
@@ -157,26 +171,26 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
   }
 
   #initializeBuyer() {
+    this.#buyerUuid = null;
+    this.#buyerPromptNeeded = false;
+    // GMs own every actor, so they must not be prompted to trade as a player.
+    if (game.user?.isGM) return;
+
     const owned = this.#ownedCharacters();
     const assigned = game.user?.character;
     if (assigned?.isOwner && assigned.type === "character") {
       this.#buyerUuid = assigned.uuid;
-      this.#buyerPromptNeeded = false;
       return;
     }
     if (owned.length === 1) {
       this.#buyerUuid = owned[0].uuid;
-      this.#buyerPromptNeeded = false;
       return;
     }
     if (owned.length > 1) {
-      this.#buyerUuid = null;
       this.#buyerPromptNeeded = true;
       ui.notifications?.warn("Choose which character is trading.");
       return;
     }
-    this.#buyerUuid = null;
-    this.#buyerPromptNeeded = false;
     ui.notifications?.warn("No owned character available for trading.");
   }
 
@@ -243,8 +257,9 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
       this.#filter = "all";
     }
 
-    const buyers = this.#ownedCharacters();
-    if (this.#buyerUuid && !buyers.some((buyer) => buyer.uuid === this.#buyerUuid)) {
+    const isGM = Boolean(game.user?.isGM);
+    const buyers = isGM ? [] : this.#ownedCharacters();
+    if (isGM || (this.#buyerUuid && !buyers.some((buyer) => buyer.uuid === this.#buyerUuid))) {
       this.#buyerUuid = null;
     }
 
@@ -291,9 +306,12 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
       })
       .map((entry) => {
         const soldOut = !isUnlimitedStock(entry) && Number(entry.quantity) <= 0;
+        const rarityClass = normalizeRarity(entry.rarity);
         return {
           ...entry,
           quantityLabel: stockQuantityLabel(entry),
+          qtyBadge: itemQtyBadge(entry),
+          rarityClass,
           soldOut,
           inOffer: this.#buyOffer.has(entry.id)
         };
@@ -307,12 +325,15 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
           continue;
         }
         const sellPriceCP = shopService.getSellPriceCP(item, this.#merchant);
+        const quantity = Math.max(1, Number(item.system?.quantity) || 1);
         playerItems.push({
           id: item.id,
           name: item.name,
           img: item.img || "icons/svg/item-bag.svg",
           type: item.type,
-          quantity: Math.max(1, Number(item.system?.quantity) || 1),
+          quantity,
+          rarityClass: normalizeRarity(item.system?.rarity ?? item.rarity),
+          qtyBadge: itemQtyBadge({ quantity }),
           sellPriceCP,
           sellPriceLabel: shopService.formatPrice(sellPriceCP),
           inOffer: this.#sellOffer.has(item.id)
@@ -335,6 +356,9 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
       buyOffer.push({
         stockId,
         name: stock.name,
+        img: stock.img || "icons/svg/item-bag.svg",
+        type: stock.type,
+        rarityClass: normalizeRarity(stock.rarity),
         quantity,
         maxQty,
         canIncrease: quantity < maxQty,
@@ -353,6 +377,9 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
       sellOffer.push({
         itemId,
         name: row.name,
+        img: row.img,
+        type: row.type,
+        rarityClass: row.rarityClass,
         quantity,
         maxQty: row.quantity,
         canIncrease: quantity < row.quantity,
@@ -365,7 +392,9 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
     const hasOffer = buyOffer.length > 0 || sellOffer.length > 0;
     const canAfford = netCP <= 0 || wallet.walletCP >= netCP;
     let tradeBlocked = "";
-    if (!buyerActor) {
+    if (isGM) {
+      tradeBlocked = "";
+    } else if (!buyerActor) {
       tradeBlocked = buyers.length > 1 ? "Choose which character is trading." : "No owned character available.";
     } else if (hasOffer && !canAfford) {
       tradeBlocked = "Not enough gold for this trade.";
@@ -373,7 +402,7 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
       tradeBlocked = "Trade in progress…";
     }
 
-    const canConfirm = hasOffer && canAfford && Boolean(buyerActor) && !this.#busy;
+    const canConfirm = !isGM && hasOffer && canAfford && Boolean(buyerActor) && !this.#busy;
 
     let netLabel = "Net";
     let netAmountLabel = "Even";
@@ -398,12 +427,13 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
       priceFilter: this.#priceFilter,
       priceFilters,
       items,
+      itemCount: items.length,
       playerItems,
       buyers,
       buyerUuid: this.#buyerUuid,
       hasBuyer: Boolean(this.#buyerUuid),
-      needsBuyerChoice: this.#buyerPromptNeeded && buyers.length > 1 && !this.#buyerUuid,
-      noCharacters: buyers.length === 0,
+      needsBuyerChoice: !isGM && this.#buyerPromptNeeded && buyers.length > 1 && !this.#buyerUuid,
+      noCharacters: !isGM && buyers.length === 0,
       walletPrimary: wallet.walletPrimary,
       walletCoins: wallet.walletCoins,
       buyOffer,
@@ -417,12 +447,29 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
       hasOffer,
       canConfirm,
       tradeBlocked,
-      isGM: game.user.isGM
+      isGM
     });
+  }
+
+  _onFirstRender(context, options) {
+    super._onFirstRender?.(context, options);
+    this.#applyOpenSize();
+  }
+
+  /**
+   * Always open large. Saved 840×560 / 1180×700 positions would otherwise
+   * keep shrinking the window on every reopen.
+   */
+  #applyOpenSize() {
+    const margin = 48;
+    const width = Math.min(MERCHANT_OPEN_WIDTH, Math.max(900, window.innerWidth - margin));
+    const height = Math.min(MERCHANT_OPEN_HEIGHT, Math.max(640, window.innerHeight - margin));
+    this.setPosition?.({ width, height });
   }
 
   _onRender(context, options) {
     super._onRender?.(context, options);
+    this.#bindItemHover();
 
     const search = this.element.querySelector("[data-townforge-merchant-search]");
     if (search && !search.dataset.bound) {
@@ -454,7 +501,168 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
     }
   }
 
+  #bindItemHover() {
+    const root = this.element;
+    if (!root || root.dataset.itemHoverBound) return;
+    root.dataset.itemHoverBound = "1";
+    root.addEventListener("pointerover", (event) => {
+      const cell = event.target.closest("[data-townforge-item-cell]");
+      if (!cell || !root.contains(cell)) return;
+      if (event.relatedTarget instanceof Node && cell.contains(event.relatedTarget)) return;
+      void this.#showItemTip(cell);
+    });
+    root.addEventListener("pointerout", (event) => {
+      const cell = event.target.closest("[data-townforge-item-cell]");
+      if (!cell) return;
+      if (event.relatedTarget instanceof Node && cell.contains(event.relatedTarget)) return;
+      this.#hideItemTip();
+    });
+    root.addEventListener("focusin", (event) => {
+      const cell = event.target.closest("[data-townforge-item-cell]");
+      if (cell) void this.#showItemTip(cell);
+    });
+    root.addEventListener("focusout", (event) => {
+      const cell = event.target.closest("[data-townforge-item-cell]");
+      if (!cell) return;
+      if (event.relatedTarget instanceof Node && cell.contains(event.relatedTarget)) return;
+      this.#hideItemTip();
+    });
+    root.addEventListener(
+      "scroll",
+      (event) => {
+        if (event.target?.closest?.(".townforge-trade-list, .townforge-trade-offer-scroll")) {
+          this.#hideItemTip();
+        }
+      },
+      true
+    );
+  }
+
+  #hideItemTip() {
+    this.#hoverSeq += 1;
+    const tip = this.element?.querySelector("[data-townforge-item-tip]");
+    if (!tip) return;
+    tip.classList.remove("is-open");
+    tip.setAttribute("aria-hidden", "true");
+  }
+
+  async #showItemTip(cell) {
+    const tip = this.element?.querySelector("[data-townforge-item-tip]");
+    if (!tip || !cell) return;
+    const seq = ++this.#hoverSeq;
+    const kind = cell.dataset.kind || "";
+    const priceKind = kind === "player" || kind === "offer-sell" ? "Sell" : "Buy";
+    this.#fillItemTip(tip, {
+      name: cell.dataset.name || "",
+      img: cell.dataset.img || "",
+      type: cell.dataset.type || "",
+      rarity: cell.dataset.rarity || "common",
+      qtyLabel: cell.dataset.qty || "",
+      priceLabel: cell.dataset.price ? `${priceKind} ${cell.dataset.price}` : "",
+      properties: [],
+      description: ""
+    });
+    this.#positionItemTip(tip, cell);
+    tip.classList.add("is-open");
+    tip.setAttribute("aria-hidden", "false");
+
+    const detail = await this.#detailForCell(cell);
+    if (seq !== this.#hoverSeq) return;
+    this.#fillItemTip(tip, detail);
+    this.#positionItemTip(tip, cell);
+    if (detail.rarity) {
+      for (const cls of [...cell.classList]) {
+        if (cls.startsWith("rarity-")) cell.classList.remove(cls);
+      }
+      cell.classList.add(`rarity-${detail.rarity}`);
+    }
+  }
+
+  #fillItemTip(tip, data) {
+    const img = tip.querySelector("[data-tip-img]");
+    if (img) {
+      img.src = data.img || "icons/svg/item-bag.svg";
+      img.alt = "";
+    }
+    const name = tip.querySelector("[data-tip-name]");
+    if (name) name.textContent = data.name || "";
+    const meta = tip.querySelector("[data-tip-meta]");
+    if (meta) {
+      meta.textContent = [data.type, rarityLabel(data.rarity), data.qtyLabel ? `Qty ${data.qtyLabel}` : ""]
+        .filter(Boolean)
+        .join(" · ");
+    }
+    const price = tip.querySelector("[data-tip-price]");
+    if (price) price.textContent = data.priceLabel || "";
+    const desc = tip.querySelector("[data-tip-desc]");
+    if (desc) {
+      desc.textContent = data.description || "";
+      desc.hidden = !data.description;
+    }
+    const props = tip.querySelector("[data-tip-props]");
+    if (props) {
+      props.replaceChildren();
+      for (const entry of data.properties ?? []) {
+        const li = document.createElement("li");
+        li.textContent = String(entry);
+        props.append(li);
+      }
+      props.hidden = !(data.properties ?? []).length;
+    }
+  }
+
+  #positionItemTip(tip, cell) {
+    const rect = cell.getBoundingClientRect();
+    const width = tip.offsetWidth || 300;
+    const height = tip.offsetHeight || 160;
+    let left = rect.right + 10;
+    let top = rect.top;
+    if (left + width > window.innerWidth - 8) left = rect.left - width - 10;
+    if (left < 8) left = 8;
+    if (top + height > window.innerHeight - 8) top = window.innerHeight - height - 8;
+    if (top < 8) top = 8;
+    tip.style.left = `${Math.round(left)}px`;
+    tip.style.top = `${Math.round(top)}px`;
+  }
+
+  async #detailForCell(cell) {
+    const kind = cell.dataset.kind || "";
+    const priceKind = kind === "player" || kind === "offer-sell" ? "Sell" : "Buy";
+    if (kind === "stock" || kind === "offer-buy") {
+      const stock = shopService
+        .getDisplayInventory(this.#merchant)
+        .find((entry) => entry.id === cell.dataset.stockId);
+      const detail = await shopService.getStockDetail(stock ?? { uuid: "", rarity: cell.dataset.rarity });
+      return {
+        name: stock?.name ?? cell.dataset.name ?? "",
+        img: stock?.img || cell.dataset.img || "",
+        type: stock?.type || cell.dataset.type || "",
+        rarity: detail.rarity || cell.dataset.rarity || "common",
+        qtyLabel: stock ? stockQuantityLabel(stock) : cell.dataset.qty || "",
+        priceLabel: stock?.priceLabel ? `${priceKind} ${stock.priceLabel}` : cell.dataset.price || "",
+        properties: detail.properties,
+        description: detail.description
+      };
+    }
+
+    const buyer = this.#buyerUuid ? await fromUuid(this.#buyerUuid) : null;
+    const item = buyer?.items?.get?.(cell.dataset.itemId);
+    const inspected = shopService.inspectItem(item);
+    const sellPriceCP = item ? shopService.getSellPriceCP(item, this.#merchant) : 0;
+    return {
+      name: item?.name ?? cell.dataset.name ?? "",
+      img: item?.img || cell.dataset.img || "",
+      type: item?.type || cell.dataset.type || "",
+      rarity: inspected.rarity,
+      qtyLabel: item ? String(Math.max(1, Number(item.system?.quantity) || 1)) : cell.dataset.qty || "",
+      priceLabel: item ? `${priceKind} ${shopService.formatPrice(sellPriceCP)}` : cell.dataset.price || "",
+      properties: inspected.properties,
+      description: inspected.description
+    };
+  }
+
   #ownedCharacters() {
+    if (game.user?.isGM) return [];
     return (game.actors?.contents ?? [])
       .filter((actor) => actor.isOwner && actor.type === "character")
       .map((actor) => ({
@@ -493,6 +701,7 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
 
   /** @this {MerchantApp} */
   static async #onToggleBuy(_event, target) {
+    if (game.user?.isGM) return;
     const stockId = target.dataset.stockId;
     if (!stockId || target.classList.contains("is-sold-out")) return;
     if (this.#buyOffer.has(stockId)) {
@@ -505,6 +714,7 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
 
   /** @this {MerchantApp} */
   static async #onToggleSell(_event, target) {
+    if (game.user?.isGM) return;
     const itemId = target.dataset.itemId;
     if (!itemId) return;
     if (this.#sellOffer.has(itemId)) {
@@ -586,6 +796,7 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
     event.preventDefault();
     event.stopPropagation?.();
     if (this.#busy) return;
+    if (game.user?.isGM) return;
 
     const buyers = this.#ownedCharacters();
     if (!buyers.length) {

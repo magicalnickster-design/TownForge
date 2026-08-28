@@ -196,6 +196,56 @@ export function stockQuantityLabel(entry) {
   return isUnlimitedStock(entry) ? "∞" : String(Math.max(0, Number(entry.quantity) || 0));
 }
 
+const RARITY_ALIASES = Object.freeze({
+  common: "common",
+  none: "common",
+  "": "common",
+  uncommon: "uncommon",
+  rare: "rare",
+  veryrare: "veryRare",
+  legendary: "legendary",
+  artifact: "artifact"
+});
+
+/**
+ * Normalize dnd5e rarity strings for CSS classes and hover cards.
+ * @param {unknown} value
+ * @returns {"common"|"uncommon"|"rare"|"veryRare"|"legendary"|"artifact"}
+ */
+export function normalizeRarity(value) {
+  const raw = value && typeof value === "object" ? value.value ?? value.label ?? "" : value;
+  const key = String(raw ?? "")
+    .trim()
+    .toLowerCase()
+    .replace(/[\s_-]+/g, "");
+  return RARITY_ALIASES[key] ?? "common";
+}
+
+export const RARITY_LABELS = Object.freeze({
+  common: "Common",
+  uncommon: "Uncommon",
+  rare: "Rare",
+  veryRare: "Very Rare",
+  legendary: "Legendary",
+  artifact: "Artifact"
+});
+
+export function rarityLabel(value) {
+  return RARITY_LABELS[normalizeRarity(value)] ?? "Common";
+}
+
+/**
+ * Compact quantity overlay for icon cells. Empty when a single mundane stack.
+ * @param {object} entry
+ * @returns {string}
+ */
+export function itemQtyBadge(entry) {
+  if (isUnlimitedStock(entry)) return "∞";
+  const qty = Math.max(0, Number(entry.quantity) || 0);
+  if (qty === 1) return "";
+  return String(qty);
+}
+
 /**
  * @param {object} entry
  * @returns {object}

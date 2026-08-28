@@ -20,6 +20,7 @@ import {
   coerceInventoryArray,
   defaultShopkeeperFlags,
   isUnlimitedStock,
+  normalizeRarity,
   sanitizeStockEntry
 } from "./shop-constants.js";
 import { resolveSelectedItemPacks } from "./shop-sources.js";
@@ -435,34 +436,53 @@ export class ShopService {
   }
 
   /**
-   * Richer item detail for the merchant card (description + light properties).
+   * Richer item detail for merchant hover cards (description, properties, rarity).
    * @param {object} stock
-   * @returns {Promise<{description:string, properties:string[]}>}
+   * @returns {Promise<{description:string, properties:string[], rarity:string}>}
    */
   async getStockDetail(stock) {
-    if (!stock?.uuid) return { description: "", properties: [] };
+    const fallback = {
+      description: "",
+      properties: [],
+      rarity: normalizeRarity(stock?.rarity)
+    };
+    if (!stock?.uuid) return fallback;
     const cached = this.#detailCache.get(stock.uuid);
     if (cached && Date.now() - cached.loadedAt < 5 * 60 * 1000) {
       return {
         description: cached.description,
-        properties: cached.properties ?? []
+        properties: cached.properties ?? [],
+        rarity: cached.rarity ?? fallback.rarity
       };
     }
     try {
       const item = await fromUuid(stock.uuid);
-      const raw =
-        item?.system?.description?.value ??
-        item?.system?.description ??
-        item?.system?.unidentified?.description ??
-        "";
-      const description = this.#stripHtml(String(raw)).slice(0, 600);
-      const properties = this.#extractItemProperties(item);
-      this.#detailCache.set(stock.uuid, { description, properties, loadedAt: Date.now() });
-      return { description, properties };
+      const inspected = this.inspectItem(item);
+      this.#detailCache.set(stock.uuid, { ...inspected, loadedAt: Date.now() });
+      return inspected;
     } catch (error) {
       console.warn(`${LOG_PREFIX} Failed loading item detail for ${stock.uuid}`, error);
-      return { description: "", properties: [] };
+      return fallback;
     }
+  }
+
+  /**
+   * Description + properties from a live Item document (player inventory).
+   * @param {Item|null|undefined} item
+   * @returns {{description:string, properties:string[], rarity:string}}
+   */
+  inspectItem(item) {
+    if (!item) return { description: "", properties: [], rarity: "common" };
+    const raw =
+      item.system?.description?.value ??
+      item.system?.description ??
+      item.system?.unidentified?.description ??
+      "";
+    return {
+      description: this.#stripHtml(String(raw)).slice(0, 600),
+      properties: this.#extractItemProperties(item),
+      rarity: normalizeRarity(item.system?.rarity ?? item.rarity)
+    };
   }
 
   /**
@@ -473,7 +493,6 @@ export class ShopService {
     if (!item?.system) return [];
     const props = [];
     const system = item.system;
-    if (system.rarity) props.push(String(system.rarity));
     if (system.armor?.type) props.push(`${system.armor.type} armor`);
     if (system.armor?.value != null) props.push(`AC ${system.armor.value}`);
     if (system.damage?.parts?.length) {
@@ -1534,6 +1553,7 @@ export class ShopService {
       name: item.name,
       img: item.img || "icons/svg/item-bag.svg",
       type: item.type,
+      rarity: normalizeRarity(item.system?.rarity ?? item.rarity),
       priceCP,
       priceLabel: this.formatPrice(priceCP),
       source,
