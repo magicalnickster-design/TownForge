@@ -59,6 +59,14 @@ export class NpcBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
   /** @type {boolean} */
   #stateLoaded = false;
 
+  /** @type {"portrait"|"token"} */
+  #artPreviewMode = "portrait";
+
+  /** @type {boolean} */
+  #artPreviewHydrated = false;
+
+  static ART_PREVIEW_KEY = `${MODULE_ID}.npc-art-preview`;
+
   static DEFAULT_OPTIONS = {
     id: "townforge-npc-browser",
     classes: ["townforge", "townforge-npc-browser"],
@@ -79,6 +87,7 @@ export class NpcBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
       setPage: this.#onSetPage,
       setDetailTab: this.#onSetDetailTab,
       toggleFavorite: this.#onToggleFavorite,
+      setArtPreview: this.#onSetArtPreview,
       importActor: this.#onImportActor,
       addToScene: this.#onAddToScene
     }
@@ -116,6 +125,10 @@ export class NpcBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
   /** @inheritDoc */
   async _prepareContext(options) {
     const context = await super._prepareContext(options);
+    if (!this.#artPreviewHydrated) {
+      this.#artPreviewMode = NpcBrowser.#loadArtPreviewMode();
+      this.#artPreviewHydrated = true;
+    }
     await npcService.ready();
     await this.#ensureUserState(npcService);
 
@@ -214,6 +227,7 @@ export class NpcBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
       sortOccupation: this.#sort === "occupation",
       sortCategory: this.#sort === "category",
       detailTab: this.#detailTab,
+      showTokenArt: this.#artPreviewMode === "token",
       loadFailed: npcService.loadFailed,
       emptyState
     });
@@ -303,6 +317,37 @@ export class NpcBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
     this.#favorites = new Set(favorites);
     this.#recent = recent;
     this.#stateLoaded = true;
+  }
+
+  static #loadArtPreviewMode() {
+    try {
+      const stored = localStorage.getItem(NpcBrowser.ART_PREVIEW_KEY);
+      return stored === "token" ? "token" : "portrait";
+    } catch {
+      return "portrait";
+    }
+  }
+
+  #saveArtPreviewMode(mode) {
+    try {
+      localStorage.setItem(NpcBrowser.ART_PREVIEW_KEY, mode);
+    } catch {
+      // ignore
+    }
+  }
+
+  #previewImage(npc) {
+    if (this.#artPreviewMode === "token") {
+      return npc.token || npc.portrait;
+    }
+    return npc.portrait;
+  }
+
+  #previewFallback(npc) {
+    if (this.#artPreviewMode === "token") {
+      return npc.fallbackToken || npc.fallbackPortrait;
+    }
+    return npc.fallbackPortrait;
   }
 
   static #loadLegacyLocalFavorites() {
@@ -399,6 +444,8 @@ export class NpcBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
       ...npc,
       selected,
       favorite: this.#favorites.has(npc.id),
+      previewImage: this.#previewImage(npc),
+      previewFallback: this.#previewFallback(npc),
       categoryColor,
       categoryLabel,
       location:
@@ -522,6 +569,16 @@ export class NpcBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
     const tab = target.dataset.tab;
     if (!tab || tab === this.#detailTab) return;
     this.#detailTab = tab;
+    await this.render({ force: false });
+  }
+
+  /** @this {NpcBrowser} */
+  static async #onSetArtPreview(_event, target) {
+    const mode = target.dataset.mode;
+    if (!mode || mode === this.#artPreviewMode) return;
+    if (mode !== "portrait" && mode !== "token") return;
+    this.#artPreviewMode = mode;
+    this.#saveArtPreviewMode(mode);
     await this.render({ force: false });
   }
 

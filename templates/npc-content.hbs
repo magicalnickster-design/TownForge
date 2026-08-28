@@ -44,7 +44,22 @@
 
   <div class="townforge-library-meta">
     <span>{{resultCount}} NPCs</span>
-    <label class="townforge-sort">
+    <div class="townforge-library-meta-actions">
+      <div class="townforge-art-toggle" role="group" aria-label="Preview art">
+        <button
+          type="button"
+          class="townforge-art-btn{{#unless showTokenArt}} is-active{{/unless}}"
+          data-action="setArtPreview"
+          data-mode="portrait"
+        >Portrait</button>
+        <button
+          type="button"
+          class="townforge-art-btn{{#if showTokenArt}} is-active{{/if}}"
+          data-action="setArtPreview"
+          data-mode="token"
+        >Token</button>
+      </div>
+      <label class="townforge-sort">
       <span>Sort:</span>
       <select data-townforge-sort>
         <option value="name-asc"{{#if sortAsc}} selected{{/if}}>Name (A-Z)</option>
@@ -54,6 +69,7 @@
         <option value="category"{{#if sortCategory}} selected{{/if}}>Category</option>
       </select>
     </label>
+    </div>
   </div>
 
   <div class="townforge-library-scroll">
@@ -68,13 +84,13 @@
         role="listitem"
         style="--tf-cat: {{categoryColor}}"
       >
-        <div class="townforge-card-media">
+        <div class="townforge-card-media{{#if @root.showTokenArt}} is-token{{/if}}">
           <img
-            src="{{portrait}}"
+            src="{{previewImage}}"
             alt=""
             loading="lazy"
             data-townforge-img
-            data-fallback="{{fallbackPortrait}}"
+            data-fallback="{{previewFallback}}"
           />
           {{#if favorite}}
           <span class="townforge-card-favorite" title="Favorite" aria-hidden="true">
