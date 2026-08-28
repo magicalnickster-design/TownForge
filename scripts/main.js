@@ -14,7 +14,7 @@ console.log(`${LOG_PREFIX} Module scripts loaded`);
 
 Hooks.once("init", () => {
   try {
-    const version = game.modules.get(MODULE_ID)?.version ?? "0.5.8";
+    const version = game.modules.get(MODULE_ID)?.version ?? "0.5.9";
     console.log(`${LOG_PREFIX} Initializing ${MODULE_TITLE} v${version}`);
     registerTownForgeSettings();
   } catch (error) {
@@ -48,7 +48,7 @@ Hooks.once("ready", async () => {
     npcService,
     shopService,
     shop: shopApi,
-    version: game.modules.get(MODULE_ID)?.version ?? "0.5.7"
+    version: game.modules.get(MODULE_ID)?.version ?? "0.5.9"
   });
 });
 
