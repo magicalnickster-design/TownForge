@@ -272,6 +272,20 @@ export function itemQtyBadge(entry) {
   return String(qty);
 }
 
+/** Items that must never appear in merchant buy/sell flows. */
+export function isShopTradeableItem(item) {
+  if (!item) return false;
+  const name = String(item.name ?? "").trim().toLowerCase();
+  if (name === "unarmed strike") return false;
+
+  const weaponType = String(
+    item.weaponType ?? item.system?.type?.value ?? item.system?.weaponType ?? ""
+  ).toLowerCase();
+  if (weaponType === "natural") return false;
+
+  return true;
+}
+
 /**
  * @param {object} entry
  * @returns {object}

@@ -20,6 +20,7 @@ import {
   coerceInventoryArray,
   defaultShopkeeperFlags,
   dedupeStockEntries,
+  isShopTradeableItem,
   isUnlimitedStock,
   normalizeRarity,
   sanitizeStockEntry,
@@ -209,7 +210,7 @@ export class ShopService {
   #sanitizeInventory(inventory) {
     return dedupeStockEntries(
       coerceInventoryArray(inventory)
-        .filter((entry) => entry?.id && entry?.uuid && entry?.name)
+        .filter((entry) => entry?.id && entry?.uuid && entry?.name && isShopTradeableItem(entry))
         .map((entry) => sanitizeStockEntry(entry))
     );
   }
@@ -1068,12 +1069,15 @@ export class ShopService {
    * @returns {boolean}
    */
   #isSellableItem(item) {
+    if (!isShopTradeableItem(item)) return false;
     const type = String(item?.type || "");
     return ["weapon", "equipment", "consumable", "tool", "loot", "container"].includes(type);
   }
 
   /** Restock a sold item onto the merchant shelf. */
   #restockSoldItem(inventory, sell) {
+    if (!isShopTradeableItem(sell.item)) return inventory;
+
     const uuid = sell.item?.uuid;
     const priceCP = Math.max(1, Math.round(sell.unitPriceCP / SELL_PRICE_RATIO) || sell.unitPriceCP);
     const identity = stockIdentityKey(sell.item);
@@ -1243,6 +1247,9 @@ export class ShopService {
     if (!game.user?.isGM) throw new Error("Only the GM can edit shop inventory.");
     const item = typeof itemOrUuid === "string" ? await fromUuid(itemOrUuid) : itemOrUuid;
     if (!item || item.documentName !== "Item") throw new Error("Item not found");
+    if (!isShopTradeableItem(item)) {
+      throw new Error(`${item.name} cannot be added to shop stock.`);
+    }
     const shop = this.getShopkeeper(merchant);
     const priceCP =
       options.priceCP != null
@@ -1665,6 +1672,7 @@ export class ShopService {
 
   #isMundaneSellable(item) {
     if (!item?.uuid || !item?.name) return false;
+    if (!isShopTradeableItem(item)) return false;
     if (!["weapon", "equipment", "consumable", "tool", "container", "loot"].includes(item.type)) {
       return false;
     }

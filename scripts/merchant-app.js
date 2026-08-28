@@ -2,6 +2,7 @@ import { LOG_PREFIX, MODULE_ID } from "./constants.js";
 import { bindItemDropZone, parseDroppedItemUuid } from "./shop-drop.js";
 import { currencyToCopper, normalizeCurrency } from "./shop-currency.js";
 import {
+  isShopTradeableItem,
   isUnlimitedStock,
   itemQtyBadge,
   normalizeRarity,
@@ -235,6 +236,7 @@ export class MerchantApp extends HandlebarsApplicationMixin(ApplicationV2) {
 
   #isSellable(item) {
     if (!item) return false;
+    if (!isShopTradeableItem(item)) return false;
     const type = String(item.type || "");
     if (!["weapon", "equipment", "consumable", "tool", "loot", "container"].includes(type)) {
       return false;
