@@ -12,40 +12,45 @@ const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
 
 /** Module settings. */
 export function registerTownForgeSettings() {
-  game.settings.register(MODULE_ID, ANNOUNCE_TRADES_SETTING, {
-    name: "Announce Shop Trades in Chat",
-    hint: "Post completed shop buys and sells to public chat.",
-    scope: "world",
-    config: true,
-    type: Boolean,
-    default: true,
-    restricted: true
-  });
+  try {
+    game.settings.register(MODULE_ID, ANNOUNCE_TRADES_SETTING, {
+      name: "Announce Shop Trades in Chat",
+      hint: "Post completed shop buys and sells to public chat.",
+      scope: "world",
+      config: true,
+      type: Boolean,
+      default: true,
+      restricted: true
+    });
 
-  game.settings.registerMenu(MODULE_ID, "shopItemSourcesMenu", {
-    name: "Shopkeeper Item Sources",
-    label: "Configure Item Sources",
-    hint: "Pick which Item packs feed automatic shop stock.",
-    icon: "fas fa-book-open",
-    type: ShopItemSourcesApp,
-    restricted: true
-  });
+    game.settings.registerMenu(MODULE_ID, "shopItemSourcesMenu", {
+      name: "Shopkeeper Item Sources",
+      label: "Configure Item Sources",
+      hint: "Pick which Item packs feed automatic shop stock.",
+      icon: "fas fa-book-open",
+      type: ShopItemSourcesApp,
+      restricted: true
+    });
 
-  game.settings.register(MODULE_ID, SHOP_ITEM_SOURCES_SETTING, {
-    name: "Shopkeeper Item Sources",
-    hint: "Saved Item pack IDs used when generating shop stock.",
-    scope: "world",
-    config: false,
-    type: Array,
-    default: [],
-    restricted: true,
-    onChange: () => {
-      shopService.clearItemIndexCache();
-      console.log(`${LOG_PREFIX} Shop item sources setting updated`);
-    }
-  });
+    game.settings.register(MODULE_ID, SHOP_ITEM_SOURCES_SETTING, {
+      name: "Shopkeeper Item Sources",
+      hint: "Saved Item pack IDs used when generating shop stock.",
+      scope: "world",
+      config: false,
+      type: Array,
+      default: [],
+      restricted: true,
+      onChange: () => {
+        shopService.clearItemIndexCache();
+        console.log(`${LOG_PREFIX} Shop item sources setting updated`);
+      }
+    });
 
-  console.log(`${LOG_PREFIX} Settings registered`);
+    console.log(`${LOG_PREFIX} Settings registered`);
+  } catch (error) {
+    console.error(`${LOG_PREFIX} Settings registration failed`, error);
+    throw error;
+  }
 }
 
 /** Item pack picker for shop generation. */

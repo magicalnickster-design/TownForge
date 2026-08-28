@@ -19,6 +19,8 @@ import {
   nextSellOfferQuantity,
   shouldPromptSellQuantity
 } from "../scripts/trade-quantity.js";
+import { registerTownForgeSceneControl } from "../scripts/scene-control.js";
+import { readFileSync } from "node:fs";
 import {
   buildPartyProfile,
   detectAssignedPartyActors,
@@ -783,6 +785,29 @@ test("shouldPromptSellQuantity only when more than one remains", () => {
 test("nextSellOfferQuantity caps at total owned", () => {
   assertEqual(nextSellOfferQuantity(3, 4, 20), 7, "add partial");
   assertEqual(nextSellOfferQuantity(18, 5, 20), 20, "cap total");
+});
+
+console.log("\nTownForge module boot guard tests");
+test("regenerateInventory declares manual stock only once", () => {
+  const src = readFileSync(new URL("../scripts/shop-service.js", import.meta.url), "utf8");
+  const start = src.indexOf("async regenerateInventory(");
+  assert(start >= 0, "regenerateInventory function found");
+  const nextFn = src.indexOf("\n  async ", start + 1);
+  const body = nextFn >= 0 ? src.slice(start, nextFn) : src.slice(start);
+  const manualDecls = [...body.matchAll(/\bconst manual\b/g)];
+  assertEqual(manualDecls.length, 1, "single manual declaration");
+});
+test("scene control registers on token tools", () => {
+  globalThis.game = { user: { isGM: true } };
+  const controls = { tokens: { tools: { select: { name: "select" } } } };
+  let opened = false;
+  const ok = registerTownForgeSceneControl(controls, () => {
+    opened = true;
+  });
+  assertEqual(ok, true, "registered");
+  assert(controls.tokens.tools.townforge, "tool exists");
+  controls.tokens.tools.townforge.onChange();
+  assertEqual(opened, true, "opens browser");
 });
 
 console.log("\nTownForge shop item filter tests");

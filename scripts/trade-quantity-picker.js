@@ -158,7 +158,7 @@ export class TradeQuantityPicker extends HandlebarsApplicationMixin(ApplicationV
 
   /** @inheritDoc */
   close(options = {}) {
-    this.#resolve(null);
+    if (!this.#resolved) this.#resolve(null);
     return super.close(options);
   }
 }

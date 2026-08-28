@@ -3,26 +3,42 @@ import { NpcBrowser } from "./npc-browser.js";
 import { npcService } from "./npc-service.js";
 import { readyShopCatalogs } from "./shop-catalogs.js";
 import { registerTownForgeSettings } from "./settings.js";
-import { registerShopHooks, shopApi } from "./shop-hooks.js";
+import { registerTownForgeSceneControl } from "./scene-control.js";
 import { shopService } from "./shop-service.js";
 
 /**
  * TownForge module entrypoint.
  */
 
+console.log(`${LOG_PREFIX} Module scripts loaded`);
+
 Hooks.once("init", () => {
-  console.log(`${LOG_PREFIX} Initializing ${MODULE_TITLE} v${game.modules.get(MODULE_ID)?.version ?? "0.5.5"}`);
-  registerTownForgeSettings();
+  try {
+    const version = game.modules.get(MODULE_ID)?.version ?? "0.5.6";
+    console.log(`${LOG_PREFIX} Initializing ${MODULE_TITLE} v${version}`);
+    registerTownForgeSettings();
+  } catch (error) {
+    console.error(`${LOG_PREFIX} Init failed — settings and scene controls will be unavailable`, error);
+    ui.notifications?.error?.(`${MODULE_TITLE} failed to initialize. Check the browser console (F12).`);
+  }
 });
 
 Hooks.once("ready", async () => {
+  let shopApi = {};
+  try {
+    const hooks = await import("./shop-hooks.js");
+    shopApi = hooks.shopApi;
+    hooks.registerShopHooks();
+  } catch (error) {
+    console.error(`${LOG_PREFIX} Shop hooks failed to register`, error);
+  }
+
   try {
     await Promise.all([npcService.ready(), readyShopCatalogs()]);
   } catch (error) {
     console.error(`${LOG_PREFIX} Ready hook failed while loading NPC library`, error);
   }
 
-  registerShopHooks();
   console.log(`${LOG_PREFIX} Module ready`);
 
   globalThis.townforge = Object.freeze({
@@ -32,29 +48,14 @@ Hooks.once("ready", async () => {
     npcService,
     shopService,
     shop: shopApi,
-    version: game.modules.get(MODULE_ID)?.version ?? "0.5.5"
+    version: game.modules.get(MODULE_ID)?.version ?? "0.5.6"
   });
 });
 
-/**
- * Foundry v13+ Scene Controls use a keyed Record, not an array.
- */
 Hooks.on("getSceneControlButtons", (controls) => {
-  const tokens = controls.tokens;
-  if (!tokens?.tools) {
-    console.warn(`${LOG_PREFIX} Token scene controls unavailable; browser button not registered`);
-    return;
+  try {
+    registerTownForgeSceneControl(controls, () => NpcBrowser.show());
+  } catch (error) {
+    console.error(`${LOG_PREFIX} Failed to register scene control button`, error);
   }
-
-  tokens.tools.townforge = {
-    name: "townforge",
-    title: MODULE_TITLE,
-    icon: "fa-solid fa-people-group",
-    button: true,
-    visible: Boolean(game.user?.isGM),
-    order: Object.keys(tokens.tools).length,
-    onChange: () => {
-      void NpcBrowser.show();
-    }
-  };
 });
