@@ -13,7 +13,8 @@ export const SHOP_TYPES = Object.freeze([
   { id: "tailor", label: "Tailor", ready: true, icon: "fa-solid fa-scissors" },
   { id: "stable", label: "Stable", ready: true, icon: "fa-solid fa-horse" },
   { id: "bookstore", label: "Bookstore", ready: true, icon: "fa-solid fa-book" },
-  { id: "grocer", label: "Grocer", ready: true, icon: "fa-solid fa-wheat-awn" }
+  { id: "grocer", label: "Grocer", ready: true, icon: "fa-solid fa-wheat-awn" },
+  { id: "shady-lender", label: "Shady Lender", ready: true, icon: "fa-solid fa-user-secret" }
 ]);
 
 export const ECONOMY_TIERS = Object.freeze({
@@ -156,6 +157,16 @@ export const SHOP_FILTERS = Object.freeze({
     { id: "drink", label: "Drinks" },
     { id: "travel", label: "Travel" },
     { id: "provisions", label: "Provisions" }
+  ],
+  "shady-lender": [
+    { id: "all", label: "All Goods" },
+    { id: "infiltration", label: "Infiltration" },
+    { id: "restraints", label: "Restraints" },
+    { id: "tools", label: "Tools" },
+    { id: "disguise", label: "Disguise" },
+    { id: "documents", label: "Documents" },
+    { id: "poison", label: "Poison" },
+    { id: "gear", label: "Gear" }
   ]
 });
 
@@ -170,6 +181,7 @@ export const OCCUPATION_SHOP_MAP = Object.freeze([
   { shopType: "stable", keywords: ["stable", "ostler", "horse"] },
   { shopType: "bookstore", keywords: ["bookstore", "bookshop", "bookseller", "bookstore owner"] },
   { shopType: "grocer", keywords: ["grain dealer", "grain", "grocer", "provisions", "baker", "butcher"] },
+  { shopType: "shady-lender", keywords: ["moneylender", "money lender", "loan", "credit", "debt", "fence"] },
   { shopType: "adventuring-supplies", keywords: ["outfitter", "adventur", "guide"] },
   { shopType: "general-store", keywords: ["merchant", "shop", "general", "store", "trader", "chandler"] }
 ]);

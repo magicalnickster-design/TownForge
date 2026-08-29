@@ -1,0 +1,38 @@
+{
+  "id": "marrow-cline",
+  "npcId": "marrow-cline",
+  "shopType": "shady-lender",
+  "catalogKind": "shady",
+  "shopName": "Suspicious Items Lender",
+  "label": "Marrow Cline — Suspicious Items",
+  "catalogOnly": true,
+  "shadyGoods": [
+    {
+      "id": "debt-marker-chalk",
+      "name": "Debt-Marker Chalk",
+      "topic": "infiltration",
+      "priceGP": 12,
+      "description": "A stub of gray chalk Marrow's collectors use to mark doors without alarming honest folk.",
+      "passive": "When you tail a creature that passed a chalk mark you made within the past hour, you gain a +2 bonus to your next Dexterity (Stealth) check.",
+      "img": "modules/townforge/assets/items/shady/debt-marker-chalk.svg"
+    },
+    {
+      "id": "velvet-pouch-of-quiet-coins",
+      "name": "Velvet Pouch of Quiet Coins",
+      "topic": "tools",
+      "priceGP": 18,
+      "description": "A lined pouch that muffles coin clatter—popular with gamblers and pickpockets alike.",
+      "passive": "You have advantage on your next Dexterity (Sleight of Hand) check made to palm, plant, or swap a coin-sized object.",
+      "img": "modules/townforge/assets/items/shady/velvet-pouch-of-quiet-coins.svg"
+    },
+    {
+      "id": "forged-release-stub",
+      "name": "Forged Release Stub",
+      "topic": "documents",
+      "priceGP": 35,
+      "description": "A convincingly stamped bail chit copied from the magistrate's outer office.",
+      "passive": "Within the next hour, you gain a +1 bonus to your next Charisma (Deception) check made while posing as a courier, clerk, or debt collector.",
+      "img": "modules/townforge/assets/items/shady/forged-release-stub.svg"
+    }
+  ]
+}

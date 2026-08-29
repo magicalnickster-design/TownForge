@@ -359,31 +359,7 @@
             }
           }
         },
-        "items": [
-          {
-            "name": "Rogue",
-            "type": "class",
-            "system": {
-              "identifier": "rogue",
-              "levels": 1
-            }
-          },
-          {
-            "compendium": "Compendium.dnd5e.items.leather-armor",
-            "equipped": true,
-            "quantity": 1
-          },
-          {
-            "compendium": "Compendium.dnd5e.items.dagger",
-            "equipped": true,
-            "quantity": 1
-          },
-          {
-            "compendium": "Compendium.dnd5e.items.thieves-tools",
-            "equipped": false,
-            "quantity": 1
-          }
-        ]
+        "items": []
       },
       "relationships": [
         {

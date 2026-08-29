@@ -21,6 +21,14 @@ import {
   isFoodRelatedName,
   isFoodRelatedShopEntry
 } from "./shop-foods.js";
+import {
+  DEFAULT_COMPENDIUM_SHADY_ITEMS,
+  inferShadyTopic,
+  isShadyIndexRow,
+  isShadyRelatedName,
+  isShadyRelatedShopEntry,
+  SHADY_UUID_PREFIX
+} from "./shop-shady.js";
 
 const CATALOG_ROOT = `modules/${MODULE_ID}/data/shop-catalogs`;
 const BOOK_UUID_PREFIX = "townforge-book:";
@@ -37,6 +45,9 @@ const foodById = new Map();
 /** @type {Map<string, object>} */
 const apparelById = new Map();
 
+/** @type {Map<string, object>} */
+const shadyById = new Map();
+
 /** @type {Promise<void>|null} */
 let loadPromise = null;
 
@@ -50,6 +61,10 @@ export function townforgeFoodUuid(foodId) {
 
 export function townforgeApparelUuid(apparelId) {
   return `${APPAREL_UUID_PREFIX}${apparelId}`;
+}
+
+export function townforgeShadyUuid(shadyId) {
+  return `${SHADY_UUID_PREFIX}${shadyId}`;
 }
 
 export function parseTownforgeBookUuid(uuid) {
@@ -70,6 +85,12 @@ export function parseTownforgeApparelUuid(uuid) {
   return text.slice(APPAREL_UUID_PREFIX.length);
 }
 
+export function parseTownforgeShadyUuid(uuid) {
+  const text = String(uuid ?? "");
+  if (!text.startsWith(SHADY_UUID_PREFIX)) return null;
+  return text.slice(SHADY_UUID_PREFIX.length);
+}
+
 export function isTownforgeBookUuid(uuid) {
   return String(uuid ?? "").startsWith(BOOK_UUID_PREFIX);
 }
@@ -86,6 +107,10 @@ export function isApparelCatalog(catalog) {
   return catalog?.catalogKind === "apparel" || catalog?.shopType === "tailor";
 }
 
+export function isShadyCatalog(catalog) {
+  return catalog?.catalogKind === "shady" || catalog?.shopType === "shady-lender";
+}
+
 /**
  * @param {object} [catalog]
  * @returns {(entry: object|string) => boolean}
@@ -93,6 +118,7 @@ export function isApparelCatalog(catalog) {
 export function getCatalogEntryValidator(catalog) {
   if (isFoodCatalog(catalog)) return isFoodRelatedShopEntry;
   if (isApparelCatalog(catalog)) return isApparelRelatedShopEntry;
+  if (isShadyCatalog(catalog)) return isShadyRelatedShopEntry;
   return isBookRelatedShopEntry;
 }
 
@@ -136,6 +162,14 @@ export function getCatalogApparel(apparelId) {
   return apparelById.get(apparelId) ?? null;
 }
 
+/**
+ * @param {string} shadyId
+ * @returns {object|null}
+ */
+export function getCatalogShadyGood(shadyId) {
+  return shadyById.get(shadyId) ?? null;
+}
+
 export async function readyShopCatalogs() {
   if (!loadPromise) loadPromise = loadAllCatalogs();
   await loadPromise;
@@ -159,6 +193,9 @@ async function loadAllCatalogs() {
       }
       for (const piece of catalog.apparel ?? []) {
         apparelById.set(piece.id, { ...piece, catalogId: catalog.id });
+      }
+      for (const good of catalog.shadyGoods ?? []) {
+        shadyById.set(good.id, { ...good, catalogId: catalog.id });
       }
     }
   } catch (error) {
@@ -299,6 +336,49 @@ export function buildApparelItemData(piece) {
   };
 }
 
+/**
+ * Build a shady catalog item with a passive effect in the description.
+ * @param {object} good
+ * @returns {object}
+ */
+export function buildShadyItemData(good) {
+  const description = String(good.description ?? "").trim();
+  const passive = String(good.passive ?? "").trim();
+  const html = [
+    description ? `<p>${description}</p>` : "",
+    passive ? `<p><strong>Passive:</strong> ${passive}</p>` : ""
+  ]
+    .filter(Boolean)
+    .join("");
+  const itemType =
+    good.topic === "infiltration" || good.topic === "tools" || good.topic === "disguise"
+      ? "tool"
+      : "loot";
+
+  return {
+    name: good.name,
+    type: itemType,
+    img: good.img,
+    system: {
+      description: { value: html },
+      quantity: 1,
+      weight: itemType === "tool" ? { value: 1, units: "lb" } : 1,
+      price: { value: Math.max(1, Number(good.priceGP) || 1), denomination: "gp" },
+      rarity: "",
+      identified: true
+    },
+    flags: {
+      [MODULE_ID]: {
+        catalogShady: true,
+        catalogId: good.catalogId,
+        shadyId: good.id,
+        topic: good.topic,
+        passive
+      }
+    }
+  };
+}
+
 function buildCustomBookStock(catalog, options = {}) {
   const multiplier = Math.max(0.1, Number(options.priceMultiplier) || 1);
   const formatPrice = options.formatPrice ?? ((cp) => `${cp} cp`);
@@ -371,6 +451,34 @@ function buildCustomApparelStock(catalog, options = {}) {
   });
 }
 
+function buildCustomShadyStock(catalog, options = {}) {
+  const multiplier = Math.max(0.1, Number(options.priceMultiplier) || 1);
+  const formatPrice = options.formatPrice ?? ((cp) => `${cp} cp`);
+
+  return (catalog.shadyGoods ?? []).map((good) => {
+    const uuid = townforgeShadyUuid(good.id);
+    const priceCP = Math.max(1, Math.round((Number(good.priceGP) || 1) * 100 * multiplier));
+    const itemType =
+      good.topic === "infiltration" || good.topic === "tools" || good.topic === "disguise"
+        ? "tool"
+        : "loot";
+    return {
+      id: `tfstock-catalog-${stableHash(uuid)}`,
+      uuid,
+      name: good.name,
+      img: good.img,
+      type: itemType,
+      priceCP,
+      priceLabel: formatPrice(priceCP),
+      source: "catalog",
+      pack: catalog.id,
+      filter: good.topic,
+      topic: good.topic,
+      unlimited: true
+    };
+  });
+}
+
 /**
  * @param {object} catalog
  * @param {{priceMultiplier?: number, formatPrice?: (cp:number)=>string}} options
@@ -379,6 +487,7 @@ function buildCustomApparelStock(catalog, options = {}) {
 export function buildCatalogStock(catalog, options = {}) {
   if (isFoodCatalog(catalog)) return buildCustomFoodStock(catalog, options);
   if (isApparelCatalog(catalog)) return buildCustomApparelStock(catalog, options);
+  if (isShadyCatalog(catalog)) return buildCustomShadyStock(catalog, options);
   return buildCustomBookStock(catalog, options);
 }
 
@@ -536,6 +645,49 @@ export async function buildCompendiumApparelStock(catalog, options = {}) {
 }
 
 /**
+ * Discover shady compendium items across installed item packs.
+ * @returns {Promise<{name:string, topic:string}[]>}
+ */
+export async function discoverCompendiumShadyLookups() {
+  const seen = new Set();
+  const lookups = [];
+
+  const add = (name, topic) => {
+    const key = String(name).trim().toLowerCase();
+    if (!key || seen.has(key) || !isShadyRelatedName(name)) return;
+    seen.add(key);
+    lookups.push({ name: String(name).trim(), topic: topic ?? inferShadyTopic(name) });
+  };
+
+  for (const lookup of DEFAULT_COMPENDIUM_SHADY_ITEMS) add(lookup.name, lookup.topic);
+
+  for (const pack of listCandidatePacks("Item")) {
+    const index = pack.index?.length ? pack.index : await pack.getIndex?.().catch(() => []);
+    for (const row of index) {
+      if (!isShadyIndexRow(row)) continue;
+      add(row.name, inferShadyTopic(row.name));
+    }
+  }
+
+  return lookups;
+}
+
+/**
+ * Resolve dnd5e compendium shady goods for a lender catalog.
+ */
+export async function buildCompendiumShadyStock(catalog, options = {}) {
+  const lookups = catalog.compendiumShady?.length
+    ? catalog.compendiumShady
+    : await discoverCompendiumShadyLookups();
+
+  return resolveNamedCompendiumStock(lookups, options, {
+    validateName: isShadyRelatedName,
+    defaultTopic: inferShadyTopic,
+    validateDoc: (doc) => isShadyRelatedName(doc.name)
+  });
+}
+
+/**
  * Merge custom catalog stock with compendium stock, deduped by name.
  */
 export async function buildFullCatalogStock(catalog, options = {}) {
@@ -543,6 +695,7 @@ export async function buildFullCatalogStock(catalog, options = {}) {
   let compendium = [];
   if (isFoodCatalog(catalog)) compendium = await buildCompendiumFoodStock(catalog, options);
   else if (isApparelCatalog(catalog)) compendium = await buildCompendiumApparelStock(catalog, options);
+  else if (isShadyCatalog(catalog)) compendium = await buildCompendiumShadyStock(catalog, options);
   else compendium = await buildCompendiumBookStock(catalog, options);
 
   const validator = getCatalogEntryValidator(catalog);

@@ -11,6 +11,10 @@
     {
       "npcId": "hedda-loom",
       "file": "hedda-loom.json"
+    },
+    {
+      "npcId": "marrow-cline",
+      "file": "marrow-cline.json"
     }
   ]
 }

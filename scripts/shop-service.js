@@ -33,24 +33,29 @@ import {
   buildBookItemData,
   buildFoodItemData,
   buildFullCatalogStock,
+  buildShadyItemData,
   getActorNpcId,
   getCatalogApparel,
   getCatalogBook,
   getCatalogEntryValidator,
   getCatalogFood,
+  getCatalogShadyGood,
   getLoadedCatalog,
   inventoryViolatesCatalogOnly,
   isApparelCatalog,
   isFoodCatalog,
+  isShadyCatalog,
   parseTownforgeApparelUuid,
   parseTownforgeBookUuid,
   parseTownforgeFoodUuid,
+  parseTownforgeShadyUuid,
   readyShopCatalogs,
   resolveShopCatalog
 } from "./shop-catalogs.js";
 import { isApparelRelatedName, isApparelRelatedShopEntry } from "./shop-apparel.js";
 import { isBookRelatedName, isBookRelatedShopEntry } from "./shop-books.js";
 import { isFoodRelatedName, isFoodRelatedShopEntry } from "./shop-foods.js";
+import { isShadyRelatedName, isShadyRelatedShopEntry } from "./shop-shady.js";
 import { refreshOpenShopUIs } from "./shop-sync.js";
 import { newGenerationSalt, randomPick, seededPick, stableHash, weightedRandomPick, weightedSeededPick } from "./shop-random.js";
 import {
@@ -700,6 +705,20 @@ export class ShopService {
         return { description, properties };
       }
 
+      const shadyId = parseTownforgeShadyUuid(stock.uuid);
+      if (shadyId) {
+        await readyShopCatalogs();
+        const good = getCatalogShadyGood(shadyId);
+        if (!good) return { description: "", properties: [] };
+        const description = [good.description, good.passive ? `Passive: ${good.passive}` : ""]
+          .filter(Boolean)
+          .join(" ")
+          .slice(0, 600);
+        const properties = [good.topic, good.passive ? "passive" : ""].filter(Boolean);
+        this.#detailCache.set(stock.uuid, { description, properties, loadedAt: Date.now() });
+        return { description, properties };
+      }
+
       const item = await fromUuid(stock.uuid);
       const inspected = this.inspectItem(item);
       this.#detailCache.set(stock.uuid, { ...inspected, loadedAt: Date.now() });
@@ -806,6 +825,15 @@ export class ShopService {
       const piece = getCatalogApparel(apparelId);
       if (!piece) return null;
       const data = buildApparelItemData(piece);
+      const ItemClass = CONFIG.Item?.documentClass ?? foundry?.documents?.Item?.implementation ?? Item;
+      return new ItemClass(data, { parent: null });
+    }
+    const shadyId = parseTownforgeShadyUuid(uuid);
+    if (shadyId) {
+      await readyShopCatalogs();
+      const good = getCatalogShadyGood(shadyId);
+      if (!good) return null;
+      const data = buildShadyItemData(good);
       const ItemClass = CONFIG.Item?.documentClass ?? foundry?.documents?.Item?.implementation ?? Item;
       return new ItemClass(data, { parent: null });
     }
@@ -1703,6 +1731,8 @@ export class ShopService {
         return isBookRelatedName(name);
       case "grocer":
         return isFoodRelatedName(name);
+      case "shady-lender":
+        return isShadyRelatedName(name);
       case "adventuring-supplies":
         return (
           type === "consumable" ||
