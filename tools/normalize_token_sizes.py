@@ -10,6 +10,11 @@ from pathlib import Path
 
 from PIL import Image
 
+TOOLS_DIR = Path(__file__).resolve().parent
+if str(TOOLS_DIR) not in sys.path:
+    sys.path.insert(0, str(TOOLS_DIR))
+from token_alignment import alpha_bbox, paste_head_centered
+
 ROOT = Path(__file__).resolve().parents[1]
 TOKENS_DIR = ROOT / "assets" / "tokens"
 NPC_DIR = ROOT / "data" / "npcs"
@@ -73,10 +78,6 @@ def target_bucket(species: str) -> str:
     return "medium"
 
 
-def alpha_bbox(img: Image.Image) -> tuple[int, int, int, int] | None:
-    return img.convert("RGBA").split()[3].getbbox()
-
-
 def normalize_token(img: Image.Image, target_height_px: float) -> Image.Image:
     rgba = img.convert("RGBA")
     bbox = alpha_bbox(rgba)
@@ -94,11 +95,7 @@ def normalize_token(img: Image.Image, target_height_px: float) -> Image.Image:
     resized = cropped.resize((new_w, new_h), Image.Resampling.LANCZOS)
 
     canvas = Image.new("RGBA", rgba.size, (0, 0, 0, 0))
-    x = (canvas.width - new_w) // 2
-    y = canvas.height - new_h  # bottom-align like process_npc_art.py
-    if y < 0:
-        y = (canvas.height - new_h) // 2
-    canvas.paste(resized, (x, max(0, y)), resized)
+    paste_head_centered(canvas, resized)
     return canvas
 
 

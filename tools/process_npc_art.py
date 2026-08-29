@@ -16,6 +16,11 @@ from pathlib import Path
 from PIL import Image
 from rembg import remove
 
+TOOLS_DIR = Path(__file__).resolve().parent
+if str(TOOLS_DIR) not in sys.path:
+    sys.path.insert(0, str(TOOLS_DIR))
+from token_alignment import paste_head_centered
+
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -27,11 +32,15 @@ def to_transparent_webp(src: Path, dest: Path, size: tuple[int, int] | None = No
     if size:
         img.thumbnail(size, Image.Resampling.LANCZOS)
         canvas = Image.new("RGBA", size, (0, 0, 0, 0))
-        x = (size[0] - img.width) // 2
-        y = size[1] - img.height  # bottom-align portraits/tokens
-        if y < 0:
-            y = (size[1] - img.height) // 2
-        canvas.paste(img, (x, max(0, y)), img)
+        is_token = size[0] == size[1]
+        if is_token:
+            paste_head_centered(canvas, img)
+        else:
+            x = (size[0] - img.width) // 2
+            y = size[1] - img.height
+            if y < 0:
+                y = (size[1] - img.height) // 2
+            canvas.paste(img, (x, max(0, y)), img)
         img = canvas
     dest.parent.mkdir(parents=True, exist_ok=True)
     img.save(dest, "WEBP", quality=90, method=6)

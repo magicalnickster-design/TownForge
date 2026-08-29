@@ -1,5 +1,4 @@
 import { FLAGS, LOG_PREFIX, MODULE_ID } from "./constants.js";
-import { buildPortraitRingToken, loadTokenThemes } from "./token-ring-service.js";
 
 const FALLBACK_IMAGE = "icons/svg/mystery-man.svg";
 
@@ -166,12 +165,8 @@ export class ActorService {
         x: position.x,
         y: position.y,
         actorLink: true,
-        lockRotation: true,
         texture: {
           src: tokenSrc
-        },
-        ring: {
-          enabled: 0
         }
       },
       { parent: canvas.scene }
@@ -205,24 +200,6 @@ export class ActorService {
     const tokenImg = await this.#resolveImagePath(npc.token || npc.portrait, portrait);
     const biographyHtml = this.#buildBiographyHtml(npc);
 
-    let ringToken = {};
-    try {
-      await loadTokenThemes();
-      ringToken = buildPortraitRingToken(npc, portrait);
-    } catch (error) {
-      console.warn(`${LOG_PREFIX} Token ring theme unavailable; using portrait token`, error);
-      ringToken = {
-        lockRotation: true,
-        texture: { src: tokenImg },
-        ring: { enabled: 0, subject: { texture: portrait } }
-      };
-    }
-
-    // Portrait-ring tokens use the baked circular asset; dynamic ring stays off to avoid double frames.
-    ringToken.texture = { src: tokenImg };
-    ringToken.ring = { ...(ringToken.ring ?? {}), enabled: 0 };
-
-    // Overlay TownForge-required identity fields so catalog actorData cannot strip them.
     const data = foundry.utils.mergeObject(
       base,
       {
@@ -231,8 +208,8 @@ export class ActorService {
         img: portrait,
         prototypeToken: {
           name: npc.name,
-          actorLink: true,
-          ...ringToken
+          texture: { src: tokenImg },
+          actorLink: true
         },
         system: {
           details: {
