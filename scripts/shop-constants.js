@@ -117,9 +117,16 @@ export const SHOP_FILTERS = Object.freeze({
     { id: "supplies", label: "Supplies" }
   ],
   tailor: [
-    { id: "all", label: "All" },
-    { id: "armor", label: "Clothing / Armor" },
-    { id: "gear", label: "Gear" }
+    { id: "all", label: "All Apparel" },
+    { id: "clothing", label: "Clothing" },
+    { id: "light-armor", label: "Light Armor" },
+    { id: "jewelry", label: "Jewelry" },
+    { id: "footwear", label: "Footwear" },
+    { id: "gloves", label: "Gloves" },
+    { id: "outerwear", label: "Outerwear" },
+    { id: "accessories", label: "Accessories" },
+    { id: "formal", label: "Formal" },
+    { id: "workwear", label: "Workwear" }
   ],
   stable: [
     { id: "all", label: "All" },

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256" role="img" aria-label="Scandal Sleeve Gloves">
+  <defs>
+    <linearGradient id="g-scandal-sleeve-gloves" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#e8d8c0"/>
+      <stop offset="100%" stop-color="#5a4a3a"/>
+    </linearGradient>
+  </defs>
+  <rect width="256" height="256" rx="18" fill="#121418"/>
+  <rect x="36" y="48" width="184" height="160" rx="14" fill="url(#g-scandal-sleeve-gloves)" stroke="#e8d8c0" stroke-width="4"/>
+  <text x="128" y="118" text-anchor="middle" font-size="42">🧤</text>
+  <text x="128" y="168" text-anchor="middle" fill="#e8d8c0" font-family="Georgia, serif" font-size="14" font-weight="700">Scandal Sleeve Gloves</text>
+  <text x="128" y="188" text-anchor="middle" fill="#e8d8c0" font-family="Georgia, serif" font-size="12"></text>
+  <text x="128" y="236" text-anchor="middle" fill="#e8d8c0" font-size="10" opacity="0.85">GLOVES</text>
+</svg>

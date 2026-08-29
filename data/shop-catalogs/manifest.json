@@ -7,6 +7,10 @@
     {
       "npcId": "garr-hopsack",
       "file": "garr-hopsack.json"
+    },
+    {
+      "npcId": "hedda-loom",
+      "file": "hedda-loom.json"
     }
   ]
 }

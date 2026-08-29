@@ -29,20 +29,26 @@ import {
 import { resolveSelectedItemPacks } from "./shop-sources.js";
 import { resolveShopItemFilter, itemArmorType } from "./shop-filters.js";
 import {
+  buildApparelItemData,
   buildBookItemData,
   buildFoodItemData,
   buildFullCatalogStock,
   getActorNpcId,
+  getCatalogApparel,
   getCatalogBook,
+  getCatalogEntryValidator,
   getCatalogFood,
   getLoadedCatalog,
   inventoryViolatesCatalogOnly,
+  isApparelCatalog,
   isFoodCatalog,
+  parseTownforgeApparelUuid,
   parseTownforgeBookUuid,
   parseTownforgeFoodUuid,
   readyShopCatalogs,
   resolveShopCatalog
 } from "./shop-catalogs.js";
+import { isApparelRelatedName, isApparelRelatedShopEntry } from "./shop-apparel.js";
 import { isBookRelatedName, isBookRelatedShopEntry } from "./shop-books.js";
 import { isFoodRelatedName, isFoodRelatedShopEntry } from "./shop-foods.js";
 import { refreshOpenShopUIs } from "./shop-sync.js";
@@ -508,10 +514,7 @@ export class ShopService {
       : (shop.inventory ?? []).filter(
           (entry) =>
             entry?.source === "manual" &&
-            (!catalog?.catalogOnly ||
-              (isFoodCatalog(catalog)
-                ? isFoodRelatedShopEntry(entry)
-                : isBookRelatedShopEntry(entry)))
+            (!catalog?.catalogOnly || getCatalogEntryValidator(catalog)(entry))
         );
 
     if (catalog) {
@@ -595,9 +598,7 @@ export class ShopService {
       .filter((entry) => {
         const catalog = getLoadedCatalog(getActorNpcId(actor));
         if (!catalog?.catalogOnly) return true;
-        return isFoodCatalog(catalog)
-          ? isFoodRelatedShopEntry(entry)
-          : isBookRelatedShopEntry(entry);
+        return getCatalogEntryValidator(catalog)(entry);
       })
       .map((entry) => ({
         ...entry,
@@ -681,6 +682,20 @@ export class ShopService {
           .join(" ")
           .slice(0, 600);
         const properties = ["food", food.topic, food.passive ? "passive" : ""].filter(Boolean);
+        this.#detailCache.set(stock.uuid, { description, properties, loadedAt: Date.now() });
+        return { description, properties };
+      }
+
+      const apparelId = parseTownforgeApparelUuid(stock.uuid);
+      if (apparelId) {
+        await readyShopCatalogs();
+        const piece = getCatalogApparel(apparelId);
+        if (!piece) return { description: "", properties: [] };
+        const description = [piece.description, piece.passive ? `Passive: ${piece.passive}` : ""]
+          .filter(Boolean)
+          .join(" ")
+          .slice(0, 600);
+        const properties = [piece.topic, piece.passive ? "passive" : ""].filter(Boolean);
         this.#detailCache.set(stock.uuid, { description, properties, loadedAt: Date.now() });
         return { description, properties };
       }
@@ -782,6 +797,15 @@ export class ShopService {
       const food = getCatalogFood(foodId);
       if (!food) return null;
       const data = buildFoodItemData(food);
+      const ItemClass = CONFIG.Item?.documentClass ?? foundry?.documents?.Item?.implementation ?? Item;
+      return new ItemClass(data, { parent: null });
+    }
+    const apparelId = parseTownforgeApparelUuid(uuid);
+    if (apparelId) {
+      await readyShopCatalogs();
+      const piece = getCatalogApparel(apparelId);
+      if (!piece) return null;
+      const data = buildApparelItemData(piece);
       const ItemClass = CONFIG.Item?.documentClass ?? foundry?.documents?.Item?.implementation ?? Item;
       return new ItemClass(data, { parent: null });
     }
@@ -1672,10 +1696,7 @@ export class ShopService {
       case "inn":
         return /ration|waterskin|ale|wine|food|lamp|oil|candle|bedroll|soap/i.test(name);
       case "tailor":
-        return (
-          (type === "equipment" && (armorType === "clothing" || armorType === "light")) ||
-          /clothes|costume|robe|fine|common clothes|traveler/i.test(name)
-        );
+        return isApparelRelatedName(name);
       case "stable":
         return /feed|bit and bridle|saddle|stabling|animal|pony|horse|mule/i.test(name);
       case "bookstore":

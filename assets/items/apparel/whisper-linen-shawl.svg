@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256" role="img" aria-label="Whisper-Linen Shawl">
+  <defs>
+    <linearGradient id="g-whisper-linen-shawl" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#d0e0f0"/>
+      <stop offset="100%" stop-color="#3a4a5a"/>
+    </linearGradient>
+  </defs>
+  <rect width="256" height="256" rx="18" fill="#121418"/>
+  <rect x="36" y="48" width="184" height="160" rx="14" fill="url(#g-whisper-linen-shawl)" stroke="#d0e0f0" stroke-width="4"/>
+  <text x="128" y="118" text-anchor="middle" font-size="42">🧥</text>
+  <text x="128" y="168" text-anchor="middle" fill="#d0e0f0" font-family="Georgia, serif" font-size="14" font-weight="700">Whisper-Linen Shawl</text>
+  <text x="128" y="188" text-anchor="middle" fill="#d0e0f0" font-family="Georgia, serif" font-size="12"></text>
+  <text x="128" y="236" text-anchor="middle" fill="#d0e0f0" font-size="10" opacity="0.85">OUTERWEAR</text>
+</svg>

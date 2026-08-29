@@ -2,6 +2,14 @@ import { FLAGS, MODULE_ID } from "./constants.js";
 import { findCompendiumItemByName, listCandidatePacks } from "./compendium-resolver.js";
 import { stableHash } from "./shop-random.js";
 import {
+  APPAREL_UUID_PREFIX,
+  inferApparelTopic,
+  isApparelIndexRow,
+  isApparelRelatedName,
+  isApparelRelatedShopEntry,
+  rowArmorType
+} from "./shop-apparel.js";
+import {
   DEFAULT_COMPENDIUM_BOOK_ITEMS,
   isBookRelatedName,
   isBookRelatedShopEntry
@@ -26,6 +34,9 @@ const bookById = new Map();
 /** @type {Map<string, object>} */
 const foodById = new Map();
 
+/** @type {Map<string, object>} */
+const apparelById = new Map();
+
 /** @type {Promise<void>|null} */
 let loadPromise = null;
 
@@ -35,6 +46,10 @@ export function townforgeBookUuid(bookId) {
 
 export function townforgeFoodUuid(foodId) {
   return `${FOOD_UUID_PREFIX}${foodId}`;
+}
+
+export function townforgeApparelUuid(apparelId) {
+  return `${APPAREL_UUID_PREFIX}${apparelId}`;
 }
 
 export function parseTownforgeBookUuid(uuid) {
@@ -49,6 +64,12 @@ export function parseTownforgeFoodUuid(uuid) {
   return text.slice(FOOD_UUID_PREFIX.length);
 }
 
+export function parseTownforgeApparelUuid(uuid) {
+  const text = String(uuid ?? "");
+  if (!text.startsWith(APPAREL_UUID_PREFIX)) return null;
+  return text.slice(APPAREL_UUID_PREFIX.length);
+}
+
 export function isTownforgeBookUuid(uuid) {
   return String(uuid ?? "").startsWith(BOOK_UUID_PREFIX);
 }
@@ -59,6 +80,20 @@ export function isTownforgeFoodUuid(uuid) {
 
 export function isFoodCatalog(catalog) {
   return catalog?.catalogKind === "food" || catalog?.shopType === "grocer";
+}
+
+export function isApparelCatalog(catalog) {
+  return catalog?.catalogKind === "apparel" || catalog?.shopType === "tailor";
+}
+
+/**
+ * @param {object} [catalog]
+ * @returns {(entry: object|string) => boolean}
+ */
+export function getCatalogEntryValidator(catalog) {
+  if (isFoodCatalog(catalog)) return isFoodRelatedShopEntry;
+  if (isApparelCatalog(catalog)) return isApparelRelatedShopEntry;
+  return isBookRelatedShopEntry;
 }
 
 /**
@@ -93,6 +128,14 @@ export function getCatalogFood(foodId) {
   return foodById.get(foodId) ?? null;
 }
 
+/**
+ * @param {string} apparelId
+ * @returns {object|null}
+ */
+export function getCatalogApparel(apparelId) {
+  return apparelById.get(apparelId) ?? null;
+}
+
 export async function readyShopCatalogs() {
   if (!loadPromise) loadPromise = loadAllCatalogs();
   await loadPromise;
@@ -113,6 +156,9 @@ async function loadAllCatalogs() {
       }
       for (const food of catalog.foods ?? []) {
         foodById.set(food.id, { ...food, catalogId: catalog.id });
+      }
+      for (const piece of catalog.apparel ?? []) {
+        apparelById.set(piece.id, { ...piece, catalogId: catalog.id });
       }
     }
   } catch (error) {
@@ -206,6 +252,53 @@ export function buildFoodItemData(food) {
   };
 }
 
+/**
+ * Build wearable equipment with a passive effect in the description.
+ * @param {object} piece
+ * @returns {object}
+ */
+export function buildApparelItemData(piece) {
+  const description = String(piece.description ?? "").trim();
+  const passive = String(piece.passive ?? "").trim();
+  const html = [
+    description ? `<p>${description}</p>` : "",
+    passive ? `<p><strong>Passive:</strong> ${passive}</p>` : ""
+  ]
+    .filter(Boolean)
+    .join("");
+  const lightArmor = piece.topic === "light-armor" || Number(piece.ac) > 0;
+  const armorType = lightArmor ? "light" : "clothing";
+
+  return {
+    name: piece.name,
+    type: "equipment",
+    img: piece.img,
+    system: {
+      description: { value: html },
+      quantity: 1,
+      weight: { value: lightArmor ? 10 : 1, units: "lb" },
+      price: { value: Math.max(1, Number(piece.priceGP) || 1), denomination: "gp" },
+      rarity: "",
+      identified: true,
+      type: { value: armorType },
+      armor: {
+        value: Number(piece.ac) || (lightArmor ? 11 : 0),
+        type: armorType
+      },
+      equipped: false
+    },
+    flags: {
+      [MODULE_ID]: {
+        catalogApparel: true,
+        catalogId: piece.catalogId,
+        apparelId: piece.id,
+        topic: piece.topic,
+        passive
+      }
+    }
+  };
+}
+
 function buildCustomBookStock(catalog, options = {}) {
   const multiplier = Math.max(0.1, Number(options.priceMultiplier) || 1);
   const formatPrice = options.formatPrice ?? ((cp) => `${cp} cp`);
@@ -254,6 +347,30 @@ function buildCustomFoodStock(catalog, options = {}) {
   });
 }
 
+function buildCustomApparelStock(catalog, options = {}) {
+  const multiplier = Math.max(0.1, Number(options.priceMultiplier) || 1);
+  const formatPrice = options.formatPrice ?? ((cp) => `${cp} cp`);
+
+  return (catalog.apparel ?? []).map((piece) => {
+    const uuid = townforgeApparelUuid(piece.id);
+    const priceCP = Math.max(1, Math.round((Number(piece.priceGP) || 1) * 100 * multiplier));
+    return {
+      id: `tfstock-catalog-${stableHash(uuid)}`,
+      uuid,
+      name: piece.name,
+      img: piece.img,
+      type: "equipment",
+      priceCP,
+      priceLabel: formatPrice(priceCP),
+      source: "catalog",
+      pack: catalog.id,
+      filter: piece.topic,
+      topic: piece.topic,
+      unlimited: true
+    };
+  });
+}
+
 /**
  * @param {object} catalog
  * @param {{priceMultiplier?: number, formatPrice?: (cp:number)=>string}} options
@@ -261,10 +378,11 @@ function buildCustomFoodStock(catalog, options = {}) {
  */
 export function buildCatalogStock(catalog, options = {}) {
   if (isFoodCatalog(catalog)) return buildCustomFoodStock(catalog, options);
+  if (isApparelCatalog(catalog)) return buildCustomApparelStock(catalog, options);
   return buildCustomBookStock(catalog, options);
 }
 
-async function resolveNamedCompendiumStock(lookups, options, { validateName, defaultTopic }) {
+async function resolveNamedCompendiumStock(lookups, options, { validateName, defaultTopic, validateDoc }) {
   const formatPrice = options.formatPrice ?? ((cp) => `${cp} cp`);
   const entries = [];
   const seen = new Set();
@@ -282,8 +400,12 @@ async function resolveNamedCompendiumStock(lookups, options, { validateName, def
     const resolvedName = String(doc.name ?? name).trim();
     const identity = resolvedName.toLowerCase();
     if (seen.has(identity)) continue;
+    if (validateDoc && !validateDoc(doc)) continue;
     if (!validateName(resolvedName)) continue;
     seen.add(identity);
+
+    const armorType = rowArmorType(doc.system ?? doc);
+    const topic = lookup.topic ?? defaultTopic(resolvedName, armorType);
 
     const uuid = doc.uuid ?? `Compendium.${doc.pack?.collection ?? "unknown"}.${doc.id}`;
     const priceCP = Math.max(
@@ -302,8 +424,8 @@ async function resolveNamedCompendiumStock(lookups, options, { validateName, def
       priceLabel: formatPrice(priceCP),
       source: "compendium",
       pack: doc.pack?.collection ?? "",
-      filter: lookup.topic ?? defaultTopic(resolvedName),
-      topic: lookup.topic ?? defaultTopic(resolvedName),
+      filter: topic,
+      topic,
       unlimited: true
     });
   }
@@ -361,7 +483,55 @@ export async function buildCompendiumFoodStock(catalog, options = {}) {
     : await discoverCompendiumFoodLookups();
   return resolveNamedCompendiumStock(lookups, options, {
     validateName: isFoodRelatedName,
-    defaultTopic: inferFoodTopic
+    defaultTopic: (name) => inferFoodTopic(name)
+  });
+}
+
+/**
+ * Discover clothing and light armor from installed item packs.
+ * @returns {Promise<{name:string, topic:string}[]>}
+ */
+export async function discoverCompendiumApparelLookups() {
+  const seen = new Set();
+  const lookups = [];
+
+  const add = (name, topic) => {
+    const key = String(name).trim().toLowerCase();
+    if (!key || seen.has(key)) return;
+    if (!isApparelRelatedName(name) && topic !== "light-armor") return;
+    seen.add(key);
+    lookups.push({ name: String(name).trim(), topic });
+  };
+
+  for (const pack of listCandidatePacks("Item")) {
+    const index = pack.index?.length ? pack.index : await pack.getIndex?.().catch(() => []);
+    for (const row of index) {
+      if (!isApparelIndexRow(row)) continue;
+      const armorType = rowArmorType(row);
+      add(row.name, inferApparelTopic(row.name, armorType));
+    }
+  }
+
+  return lookups;
+}
+
+/**
+ * Resolve dnd5e compendium apparel for a tailor catalog.
+ */
+export async function buildCompendiumApparelStock(catalog, options = {}) {
+  const lookups = catalog.compendiumApparel?.length
+    ? catalog.compendiumApparel
+    : await discoverCompendiumApparelLookups();
+
+  return resolveNamedCompendiumStock(lookups, options, {
+    validateName: isApparelRelatedName,
+    defaultTopic: inferApparelTopic,
+    validateDoc: (doc) => {
+      const armorType = rowArmorType(doc.system ?? doc);
+      if (armorType === "medium" || armorType === "heavy" || armorType === "shield") return false;
+      if (armorType === "light" || armorType === "clothing") return true;
+      return isApparelRelatedName(doc.name);
+    }
   });
 }
 
@@ -370,10 +540,12 @@ export async function buildCompendiumFoodStock(catalog, options = {}) {
  */
 export async function buildFullCatalogStock(catalog, options = {}) {
   const custom = buildCatalogStock(catalog, options);
-  const compendium = isFoodCatalog(catalog)
-    ? await buildCompendiumFoodStock(catalog, options)
-    : await buildCompendiumBookStock(catalog, options);
-  const validator = isFoodCatalog(catalog) ? isFoodRelatedShopEntry : isBookRelatedShopEntry;
+  let compendium = [];
+  if (isFoodCatalog(catalog)) compendium = await buildCompendiumFoodStock(catalog, options);
+  else if (isApparelCatalog(catalog)) compendium = await buildCompendiumApparelStock(catalog, options);
+  else compendium = await buildCompendiumBookStock(catalog, options);
+
+  const validator = getCatalogEntryValidator(catalog);
   const seen = new Set();
   const merged = [];
 
@@ -396,7 +568,7 @@ export async function buildFullCatalogStock(catalog, options = {}) {
 export function inventoryViolatesCatalogOnly(inventory, catalog) {
   const catalogOnly = Boolean(catalog?.catalogOnly);
   if (!catalogOnly) return false;
-  const validator = isFoodCatalog(catalog) ? isFoodRelatedShopEntry : isBookRelatedShopEntry;
+  const validator = getCatalogEntryValidator(catalog);
   return (inventory ?? []).some((entry) => entry && !validator(entry));
 }
 

@@ -1,0 +1,101 @@
+{
+  "id": "hedda-loom",
+  "npcId": "hedda-loom",
+  "shopType": "tailor",
+  "catalogKind": "apparel",
+  "shopName": "Hedda Loom — Clothier",
+  "label": "Hedda Loom — Apparel Catalog",
+  "catalogOnly": true,
+  "apparel": [
+    {
+      "id": "moonthread-stud-earrings",
+      "name": "Moonthread Stud Earrings",
+      "topic": "jewelry",
+      "priceGP": 18,
+      "description": "Tiny silver studs threaded with pale blue silk from Hedda's midnight loom.",
+      "passive": "Within the next hour, you gain a +1 bonus to your next Charisma (Performance) check.",
+      "img": "modules/townforge/assets/items/apparel/moonthread-stud-earrings.svg"
+    },
+    {
+      "id": "courtiers-pearl-necklace",
+      "name": "Courtiers Pearl Necklace",
+      "topic": "jewelry",
+      "priceGP": 45,
+      "description": "A single freshwater pearl on a braided cord favored by discreet nobles.",
+      "passive": "When making a Charisma (Persuasion) check at court or a formal gathering, you may roll the check with advantage once.",
+      "img": "modules/townforge/assets/items/apparel/courtiers-pearl-necklace.svg"
+    },
+    {
+      "id": "fleetfoot-wool-socks",
+      "name": "Fleetfoot Wool Socks",
+      "topic": "footwear",
+      "priceGP": 3,
+      "description": "Soft wool socks with reinforced heels for long market days.",
+      "passive": "For 10 minutes after donning, your walking speed increases by 5 feet.",
+      "img": "modules/townforge/assets/items/apparel/fleetfoot-wool-socks.svg"
+    },
+    {
+      "id": "cobblers-road-shoes",
+      "name": "Cobblers Road Shoes",
+      "topic": "footwear",
+      "priceGP": 8,
+      "description": "Sturdy leather shoes with hobnailed soles for cobbled streets and country paths.",
+      "passive": "For 1 hour, difficult terrain composed of rubble, stones, or unpaved roads doesn't cost you extra movement.",
+      "img": "modules/townforge/assets/items/apparel/cobblers-road-shoes.svg"
+    },
+    {
+      "id": "scandal-sleeve-gloves",
+      "name": "Scandal Sleeve Gloves",
+      "topic": "gloves",
+      "priceGP": 12,
+      "description": "Fitted gloves in last season's scandalous sleeve pattern—too bold for some parlors.",
+      "passive": "Within the next hour, you gain a +2 bonus to your next Dexterity (Sleight of Hand) check.",
+      "img": "modules/townforge/assets/items/apparel/scandal-sleeve-gloves.svg"
+    },
+    {
+      "id": "whisper-linen-shawl",
+      "name": "Whisper-Linen Shawl",
+      "topic": "outerwear",
+      "priceGP": 15,
+      "description": "Pale linen dyed to fade into festival crowds and evening mist.",
+      "passive": "Once before your next long rest, you have advantage on a Dexterity (Stealth) check made in a crowd or busy street.",
+      "img": "modules/townforge/assets/items/apparel/whisper-linen-shawl.svg"
+    },
+    {
+      "id": "loom-warden-work-apron",
+      "name": "Loom-Warden Work Apron",
+      "topic": "workwear",
+      "priceGP": 6,
+      "description": "Heavy canvas apron with pockets for pins, chalk, and measuring cord.",
+      "passive": "Within the next hour, you gain a +1 bonus to your next Intelligence (Investigation) check made to examine fabric, clothing, or disguises.",
+      "img": "modules/townforge/assets/items/apparel/loom-warden-work-apron.svg"
+    },
+    {
+      "id": "silk-mask-of-the-masque",
+      "name": "Silk Mask of the Masque",
+      "topic": "accessories",
+      "priceGP": 10,
+      "description": "A half-mask of dyed silk tied with satin ribbons for masked balls.",
+      "passive": "Within the next hour, you gain a +1 bonus to your next Charisma (Deception) check.",
+      "img": "modules/townforge/assets/items/apparel/silk-mask-of-the-masque.svg"
+    },
+    {
+      "id": "heddas-lucky-hairpin",
+      "name": "Heddas Lucky Hairpin",
+      "topic": "jewelry",
+      "priceGP": 22,
+      "description": "A brass hairpin shaped like a weaver's shuttle—Hedda's own good-luck charm.",
+      "passive": "When you fail a Charisma saving throw, you can reroll the save and must use the new roll. Once used, the hairpin loses this property until you finish a long rest.",
+      "img": "modules/townforge/assets/items/apparel/heddas-lucky-hairpin.svg"
+    },
+    {
+      "id": "mourning-black-cloak-pin",
+      "name": "Mourning Black Cloak Pin",
+      "topic": "accessories",
+      "priceGP": 14,
+      "description": "A jet cloak pin polished until it drinks the light—popular for secret mourning orders.",
+      "passive": "Within the next hour, you gain a +2 bonus to your next Charisma (Intimidation) check.",
+      "img": "modules/townforge/assets/items/apparel/mourning-black-cloak-pin.svg"
+    }
+  ]
+}
