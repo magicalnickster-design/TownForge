@@ -98,6 +98,7 @@ export class ActorService {
   async ensureActor(npc) {
     const existing = this.findActorByNpcId(npc.id);
     if (existing) {
+      await this.#syncActorLoadoutIfNeeded(existing, npc);
       console.log(`${LOG_PREFIX} Actor reused for "${npc.name}" (${existing.id})`);
       return { actor: existing, created: false };
     }
@@ -107,6 +108,7 @@ export class ActorService {
       await this.#waitForSiblingCreate(npc.id);
       const raced = this.findActorByNpcId(npc.id);
       if (raced) {
+        await this.#syncActorLoadoutIfNeeded(raced, npc);
         console.log(`${LOG_PREFIX} Actor reused for "${npc.name}" (${raced.id})`);
         return { actor: raced, created: false };
       }
@@ -117,17 +119,26 @@ export class ActorService {
       // Re-check after acquiring the in-flight lock.
       const again = this.findActorByNpcId(npc.id);
       if (again) {
+        await this.#syncActorLoadoutIfNeeded(again, npc);
         console.log(`${LOG_PREFIX} Actor reused for "${npc.name}" (${again.id})`);
         return { actor: again, created: false };
       }
 
       const actorData = await this.#buildActorData(npc);
+      const itemData = actorData.items ?? [];
+      delete actorData.items;
+
       const createdActors = await Actor.implementation.create(actorData);
       const actor = Array.isArray(createdActors) ? createdActors[0] : createdActors;
 
       if (!actor) {
         throw new Error(`Actor.implementation.create returned no document for "${npc.id}"`);
       }
+
+      if (itemData.length) {
+        await actor.createEmbeddedDocuments("Item", itemData);
+      }
+      await this.#markLoadoutVersion(actor, npc);
 
       console.log(`${LOG_PREFIX} Actor created for "${npc.name}" (${actor.id})`);
       return { actor, created: true };
@@ -249,28 +260,75 @@ export class ActorService {
   }
 
   /**
+   * @param {object} npc
+   * @returns {string}
+   */
+  #expectedLoadoutVersion(npc) {
+    const moduleVersion = game.modules.get(MODULE_ID)?.version ?? "0.8.1";
+    const itemCount = Array.isArray(npc.actorData?.items) ? npc.actorData.items.length : 0;
+    return `${moduleVersion}:${itemCount}`;
+  }
+
+  /**
+   * @param {Actor} actor
+   * @param {object} npc
+   */
+  async #markLoadoutVersion(actor, npc) {
+    await actor.setFlag(MODULE_ID, FLAGS.LOADOUT_VERSION, this.#expectedLoadoutVersion(npc));
+  }
+
+  /**
+   * Refresh combat gear on actors imported before loadout updates.
+   * @param {Actor} actor
+   * @param {object} npc
+   */
+  async #syncActorLoadoutIfNeeded(actor, npc) {
+    const expected = this.#expectedLoadoutVersion(npc);
+    const current = actor.getFlag(MODULE_ID, FLAGS.LOADOUT_VERSION);
+    if (current === expected) return;
+
+    const stubs = npc.actorData?.items ?? [];
+    const items = await this.#resolveItemStubs(stubs);
+    if (!items.length) {
+      console.warn(`${LOG_PREFIX} No combat items resolved for "${npc.name}"; loadout sync skipped`);
+      return;
+    }
+
+    const existingIds = actor.items?.map((item) => item.id) ?? [];
+    if (existingIds.length) {
+      await actor.deleteEmbeddedDocuments("Item", existingIds);
+    }
+    await actor.createEmbeddedDocuments("Item", items);
+
+    const prof = npc.actorData?.system?.attributes?.prof;
+    const updates = {};
+    if (Number.isFinite(prof)) updates["system.attributes.prof"] = prof;
+    if (Object.keys(updates).length) await actor.update(updates);
+
+    await this.#markLoadoutVersion(actor, npc);
+    console.log(`${LOG_PREFIX} Synced combat loadout for "${npc.name}" (${items.length} items)`);
+    ui.notifications?.info(`${MODULE_TITLE} updated combat gear for ${npc.name}.`);
+  }
+
+  /**
    * Expand compendium UUID stubs into full dnd5e item data for Actor import.
    * @param {object[]} stubs
    * @returns {Promise<object[]>}
    */
   async #resolveItemStubs(stubs) {
     if (!Array.isArray(stubs) || !stubs.length) return [];
-    if (typeof fromUuid !== "function") {
-      console.warn(`${LOG_PREFIX} fromUuid unavailable; using inline NPC items only`);
-      return stubs.filter((stub) => stub && !stub.compendium);
-    }
 
     const items = [];
     for (const stub of stubs) {
       if (!stub || typeof stub !== "object") continue;
       if (stub.compendium) {
         try {
-          const doc = await fromUuid(stub.compendium);
+          const doc = await this.#resolveCompendiumDocument(stub.compendium);
           if (!doc) {
             console.warn(`${LOG_PREFIX} Compendium entry not found: ${stub.compendium}`);
             continue;
           }
-          const itemData = doc.toObject();
+          const itemData = doc.toObject ? doc.toObject() : foundry.utils.deepClone(doc);
           delete itemData._id;
           if (stub.equipped) foundry.utils.setProperty(itemData, "system.equipped", true);
           if (Number.isFinite(stub.quantity)) {
@@ -285,6 +343,42 @@ export class ActorService {
       items.push(foundry.utils.deepClone(stub));
     }
     return items;
+  }
+
+  /**
+   * Resolve a compendium UUID with pack/index fallbacks for slug-style ids.
+   * @param {string} uuid
+   * @returns {Promise<Item|undefined>}
+   */
+  async #resolveCompendiumDocument(uuid) {
+    if (typeof fromUuid === "function") {
+      const direct = await fromUuid(uuid);
+      if (direct) return direct;
+    }
+
+    const parts = String(uuid).split(".");
+    if (parts[0] !== "Compendium" || parts.length < 4) return undefined;
+
+    const packId = `${parts[1]}.${parts[2]}`;
+    const docId = parts.slice(3).join(".");
+    const pack = game.packs?.get(packId);
+    if (!pack) return undefined;
+
+    let doc = await pack.getDocument(docId).catch(() => null);
+    if (doc) return doc;
+
+    const slug = docId.toLowerCase();
+    const entry =
+      pack.index?.find?.(
+        (row) =>
+          row._id === docId ||
+          String(row.name ?? "")
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, "-")
+            .replace(/^-|-$/g, "") === slug
+      ) ?? null;
+    if (!entry) return undefined;
+    return pack.getDocument(entry._id).catch(() => null);
   }
 
   /**

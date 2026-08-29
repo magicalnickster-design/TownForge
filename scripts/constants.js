@@ -13,7 +13,8 @@ export const FLAGS = Object.freeze({
   NPC_ID: "npcId",
   LIBRARY: "library",
   SOURCE: "source",
-  OCCUPATION: "occupation"
+  OCCUPATION: "occupation",
+  LOADOUT_VERSION: "loadoutVersion"
 });
 
 /** Browser category filters — ids must stay stable for data files. */

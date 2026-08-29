@@ -458,10 +458,21 @@ export class NpcBrowser extends HandlebarsApplicationV2 {
 
   #extractInventory(npc) {
     const items = Array.isArray(npc.actorData?.items) ? npc.actorData.items : [];
-    return items.map((item) => ({
-      name: item?.name ?? "Unknown Item",
-      type: item?.type ?? "item"
-    }));
+    return items.map((item) => {
+      if (item?.compendium) {
+        const slug = String(item.compendium).split(".").pop() ?? "item";
+        const label = slug
+          .split("-")
+          .filter(Boolean)
+          .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+          .join(" ");
+        return { name: label || slug, type: item.type ?? "item" };
+      }
+      return {
+        name: item?.name ?? "Unknown Item",
+        type: item?.type ?? "item"
+      };
+    });
   }
 
   #tabContent(npc, decorated) {
