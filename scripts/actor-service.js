@@ -1,4 +1,8 @@
-import { FLAGS, LOG_PREFIX, MODULE_ID } from "./constants.js";
+import {
+  resolveClassItemStub,
+  resolveCompendiumDocument
+} from "./compendium-resolver.js";
+import { FLAGS, LOG_PREFIX, MODULE_ID, MODULE_TITLE } from "./constants.js";
 
 const FALLBACK_IMAGE = "icons/svg/mystery-man.svg";
 
@@ -264,7 +268,7 @@ export class ActorService {
    * @returns {string}
    */
   #expectedLoadoutVersion(npc) {
-    const moduleVersion = game.modules.get(MODULE_ID)?.version ?? "0.8.1";
+    const moduleVersion = game.modules.get(MODULE_ID)?.version ?? "0.8.2";
     const itemCount = Array.isArray(npc.actorData?.items) ? npc.actorData.items.length : 0;
     return `${moduleVersion}:${itemCount}`;
   }
@@ -307,7 +311,11 @@ export class ActorService {
 
     await this.#markLoadoutVersion(actor, npc);
     console.log(`${LOG_PREFIX} Synced combat loadout for "${npc.name}" (${items.length} items)`);
-    ui.notifications?.info(`${MODULE_TITLE} updated combat gear for ${npc.name}.`);
+    try {
+      ui.notifications?.info(`${MODULE_TITLE} updated combat gear for ${npc.name}.`);
+    } catch (error) {
+      console.warn(`${LOG_PREFIX} Loadout sync notification failed for "${npc.name}"`, error);
+    }
   }
 
   /**
@@ -323,7 +331,11 @@ export class ActorService {
       if (!stub || typeof stub !== "object") continue;
       if (stub.compendium) {
         try {
-          const doc = await this.#resolveCompendiumDocument(stub.compendium);
+          const documentName = stub.type === "spell" ? "Spell" : "Item";
+          const doc = await resolveCompendiumDocument(stub.compendium, {
+            documentName,
+            name: stub.name
+          });
           if (!doc) {
             console.warn(`${LOG_PREFIX} Compendium entry not found: ${stub.compendium}`);
             continue;
@@ -340,45 +352,13 @@ export class ActorService {
         }
         continue;
       }
+      if (stub.type === "class") {
+        items.push(await resolveClassItemStub(stub));
+        continue;
+      }
       items.push(foundry.utils.deepClone(stub));
     }
     return items;
-  }
-
-  /**
-   * Resolve a compendium UUID with pack/index fallbacks for slug-style ids.
-   * @param {string} uuid
-   * @returns {Promise<Item|undefined>}
-   */
-  async #resolveCompendiumDocument(uuid) {
-    if (typeof fromUuid === "function") {
-      const direct = await fromUuid(uuid);
-      if (direct) return direct;
-    }
-
-    const parts = String(uuid).split(".");
-    if (parts[0] !== "Compendium" || parts.length < 4) return undefined;
-
-    const packId = `${parts[1]}.${parts[2]}`;
-    const docId = parts.slice(3).join(".");
-    const pack = game.packs?.get(packId);
-    if (!pack) return undefined;
-
-    let doc = await pack.getDocument(docId).catch(() => null);
-    if (doc) return doc;
-
-    const slug = docId.toLowerCase();
-    const entry =
-      pack.index?.find?.(
-        (row) =>
-          row._id === docId ||
-          String(row.name ?? "")
-            .toLowerCase()
-            .replace(/[^a-z0-9]+/g, "-")
-            .replace(/^-|-$/g, "") === slug
-      ) ?? null;
-    if (!entry) return undefined;
-    return pack.getDocument(entry._id).catch(() => null);
   }
 
   /**
