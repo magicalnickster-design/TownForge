@@ -1,11 +1,18 @@
 import { FLAGS, MODULE_ID } from "./constants.js";
-import { findCompendiumItemByName } from "./compendium-resolver.js";
+import { findCompendiumItemByName, listCandidatePacks } from "./compendium-resolver.js";
 import { stableHash } from "./shop-random.js";
 import {
   DEFAULT_COMPENDIUM_BOOK_ITEMS,
   isBookRelatedName,
   isBookRelatedShopEntry
 } from "./shop-books.js";
+import {
+  DEFAULT_COMPENDIUM_FOOD_ITEMS,
+  FOOD_UUID_PREFIX,
+  inferFoodTopic,
+  isFoodRelatedName,
+  isFoodRelatedShopEntry
+} from "./shop-foods.js";
 
 const CATALOG_ROOT = `modules/${MODULE_ID}/data/shop-catalogs`;
 const BOOK_UUID_PREFIX = "townforge-book:";
@@ -16,11 +23,18 @@ const catalogByNpcId = new Map();
 /** @type {Map<string, object>} */
 const bookById = new Map();
 
+/** @type {Map<string, object>} */
+const foodById = new Map();
+
 /** @type {Promise<void>|null} */
 let loadPromise = null;
 
 export function townforgeBookUuid(bookId) {
   return `${BOOK_UUID_PREFIX}${bookId}`;
+}
+
+export function townforgeFoodUuid(foodId) {
+  return `${FOOD_UUID_PREFIX}${foodId}`;
 }
 
 export function parseTownforgeBookUuid(uuid) {
@@ -29,8 +43,22 @@ export function parseTownforgeBookUuid(uuid) {
   return text.slice(BOOK_UUID_PREFIX.length);
 }
 
+export function parseTownforgeFoodUuid(uuid) {
+  const text = String(uuid ?? "");
+  if (!text.startsWith(FOOD_UUID_PREFIX)) return null;
+  return text.slice(FOOD_UUID_PREFIX.length);
+}
+
 export function isTownforgeBookUuid(uuid) {
   return String(uuid ?? "").startsWith(BOOK_UUID_PREFIX);
+}
+
+export function isTownforgeFoodUuid(uuid) {
+  return String(uuid ?? "").startsWith(FOOD_UUID_PREFIX);
+}
+
+export function isFoodCatalog(catalog) {
+  return catalog?.catalogKind === "food" || catalog?.shopType === "grocer";
 }
 
 /**
@@ -57,6 +85,14 @@ export function getCatalogBook(bookId) {
   return bookById.get(bookId) ?? null;
 }
 
+/**
+ * @param {string} foodId
+ * @returns {object|null}
+ */
+export function getCatalogFood(foodId) {
+  return foodById.get(foodId) ?? null;
+}
+
 export async function readyShopCatalogs() {
   if (!loadPromise) loadPromise = loadAllCatalogs();
   await loadPromise;
@@ -74,6 +110,9 @@ async function loadAllCatalogs() {
       catalogByNpcId.set(catalog.npcId, catalog);
       for (const book of catalog.books ?? []) {
         bookById.set(book.id, { ...book, catalogId: catalog.id });
+      }
+      for (const food of catalog.foods ?? []) {
+        foodById.set(food.id, { ...food, catalogId: catalog.id });
       }
     }
   } catch (error) {
@@ -122,11 +161,52 @@ export function buildBookItemData(book) {
 }
 
 /**
- * @param {object} catalog
- * @param {{priceMultiplier?: number, formatPrice?: (cp:number)=>string}} options
- * @returns {object[]}
+ * Build a consumable food item with a passive effect in the description.
+ * @param {object} food
+ * @returns {object}
  */
-export function buildCatalogStock(catalog, options = {}) {
+export function buildFoodItemData(food) {
+  const description = String(food.description ?? "").trim();
+  const passive = String(food.passive ?? "").trim();
+  const html = [
+    description ? `<p>${description}</p>` : "",
+    passive ? `<p><strong>Passive:</strong> ${passive}</p>` : ""
+  ]
+    .filter(Boolean)
+    .join("");
+
+  return {
+    name: food.name,
+    type: "consumable",
+    img: food.img,
+    system: {
+      description: { value: html },
+      quantity: 1,
+      weight: { value: 1, units: "lb" },
+      price: { value: Math.max(1, Number(food.priceGP) || 1), denomination: "gp" },
+      rarity: "",
+      identified: true,
+      type: { value: "food" },
+      uses: {
+        max: 1,
+        spent: 0,
+        autoDestroy: true,
+        recovery: []
+      }
+    },
+    flags: {
+      [MODULE_ID]: {
+        catalogFood: true,
+        catalogId: food.catalogId,
+        foodId: food.id,
+        topic: food.topic,
+        passive
+      }
+    }
+  };
+}
+
+function buildCustomBookStock(catalog, options = {}) {
   const multiplier = Math.max(0.1, Number(options.priceMultiplier) || 1);
   const formatPrice = options.formatPrice ?? ((cp) => `${cp} cp`);
 
@@ -150,19 +230,42 @@ export function buildCatalogStock(catalog, options = {}) {
   });
 }
 
-/**
- * Resolve dnd5e compendium book-related items for a catalog NPC.
- * @param {object} catalog
- * @param {{priceMultiplier?: number, formatPrice?: (cp:number)=>string}} options
- * @returns {Promise<object[]>}
- */
-export async function buildCompendiumBookStock(catalog, options = {}) {
+function buildCustomFoodStock(catalog, options = {}) {
   const multiplier = Math.max(0.1, Number(options.priceMultiplier) || 1);
   const formatPrice = options.formatPrice ?? ((cp) => `${cp} cp`);
-  const lookups = catalog.compendiumBooks?.length
-    ? catalog.compendiumBooks
-    : DEFAULT_COMPENDIUM_BOOK_ITEMS;
 
+  return (catalog.foods ?? []).map((food) => {
+    const uuid = townforgeFoodUuid(food.id);
+    const priceCP = Math.max(1, Math.round((Number(food.priceGP) || 1) * 100 * multiplier));
+    return {
+      id: `tfstock-catalog-${stableHash(uuid)}`,
+      uuid,
+      name: food.name,
+      img: food.img,
+      type: "consumable",
+      priceCP,
+      priceLabel: formatPrice(priceCP),
+      source: "catalog",
+      pack: catalog.id,
+      filter: food.topic,
+      topic: food.topic,
+      unlimited: true
+    };
+  });
+}
+
+/**
+ * @param {object} catalog
+ * @param {{priceMultiplier?: number, formatPrice?: (cp:number)=>string}} options
+ * @returns {object[]}
+ */
+export function buildCatalogStock(catalog, options = {}) {
+  if (isFoodCatalog(catalog)) return buildCustomFoodStock(catalog, options);
+  return buildCustomBookStock(catalog, options);
+}
+
+async function resolveNamedCompendiumStock(lookups, options, { validateName, defaultTopic }) {
+  const formatPrice = options.formatPrice ?? ((cp) => `${cp} cp`);
   const entries = [];
   const seen = new Set();
 
@@ -172,14 +275,14 @@ export async function buildCompendiumBookStock(catalog, options = {}) {
 
     const doc = await findCompendiumItemByName(name);
     if (!doc) {
-      console.warn(`[TownForge] Bookshop compendium item not found: ${name}`);
+      console.warn(`[TownForge] Catalog compendium item not found: ${name}`);
       continue;
     }
 
     const resolvedName = String(doc.name ?? name).trim();
     const identity = resolvedName.toLowerCase();
     if (seen.has(identity)) continue;
-    if (!isBookRelatedName(resolvedName)) continue;
+    if (!validateName(resolvedName)) continue;
     seen.add(identity);
 
     const uuid = doc.uuid ?? `Compendium.${doc.pack?.collection ?? "unknown"}.${doc.id}`;
@@ -199,8 +302,8 @@ export async function buildCompendiumBookStock(catalog, options = {}) {
       priceLabel: formatPrice(priceCP),
       source: "compendium",
       pack: doc.pack?.collection ?? "",
-      filter: lookup.topic ?? "gear",
-      topic: lookup.topic ?? "gear",
+      filter: lookup.topic ?? defaultTopic(resolvedName),
+      topic: lookup.topic ?? defaultTopic(resolvedName),
       unlimited: true
     });
   }
@@ -209,21 +312,75 @@ export async function buildCompendiumBookStock(catalog, options = {}) {
 }
 
 /**
- * Merge custom catalog books with compendium book stock, deduped by name.
- * @param {object} catalog
- * @param {{priceMultiplier?: number, formatPrice?: (cp:number)=>string, priceFromItem?: (doc:object)=>number}} options
- * @returns {Promise<object[]>}
+ * Resolve dnd5e compendium book-related items for a catalog NPC.
+ */
+export async function buildCompendiumBookStock(catalog, options = {}) {
+  const lookups = catalog.compendiumBooks?.length
+    ? catalog.compendiumBooks
+    : DEFAULT_COMPENDIUM_BOOK_ITEMS;
+  return resolveNamedCompendiumStock(lookups, options, {
+    validateName: isBookRelatedName,
+    defaultTopic: () => "gear"
+  });
+}
+
+/**
+ * Discover food-related compendium items across installed item packs.
+ * @returns {Promise<{name:string, topic:string}[]>}
+ */
+export async function discoverCompendiumFoodLookups() {
+  const seen = new Set();
+  const lookups = [];
+
+  const add = (name, topic) => {
+    const key = String(name).trim().toLowerCase();
+    if (!key || seen.has(key) || !isFoodRelatedName(name)) return;
+    seen.add(key);
+    lookups.push({ name: String(name).trim(), topic: topic ?? inferFoodTopic(name) });
+  };
+
+  for (const lookup of DEFAULT_COMPENDIUM_FOOD_ITEMS) add(lookup.name, lookup.topic);
+
+  for (const pack of listCandidatePacks("Item")) {
+    const index = pack.index?.length ? pack.index : await pack.getIndex?.().catch(() => []);
+    for (const row of index) {
+      if (!row?.name) continue;
+      add(row.name, inferFoodTopic(row.name));
+    }
+  }
+
+  return lookups;
+}
+
+/**
+ * Resolve dnd5e compendium food-related items for a grocer catalog.
+ */
+export async function buildCompendiumFoodStock(catalog, options = {}) {
+  const lookups = catalog.compendiumFoods?.length
+    ? catalog.compendiumFoods
+    : await discoverCompendiumFoodLookups();
+  return resolveNamedCompendiumStock(lookups, options, {
+    validateName: isFoodRelatedName,
+    defaultTopic: inferFoodTopic
+  });
+}
+
+/**
+ * Merge custom catalog stock with compendium stock, deduped by name.
  */
 export async function buildFullCatalogStock(catalog, options = {}) {
   const custom = buildCatalogStock(catalog, options);
-  const compendium = await buildCompendiumBookStock(catalog, options);
+  const compendium = isFoodCatalog(catalog)
+    ? await buildCompendiumFoodStock(catalog, options)
+    : await buildCompendiumBookStock(catalog, options);
+  const validator = isFoodCatalog(catalog) ? isFoodRelatedShopEntry : isBookRelatedShopEntry;
   const seen = new Set();
   const merged = [];
 
   for (const entry of [...custom, ...compendium]) {
     const key = String(entry.name ?? "").trim().toLowerCase();
     if (!key || seen.has(key)) continue;
-    if (!isBookRelatedShopEntry(entry)) continue;
+    if (!validator(entry)) continue;
     seen.add(key);
     merged.push(entry);
   }
@@ -236,8 +393,14 @@ export async function buildFullCatalogStock(catalog, options = {}) {
  * @param {object} [catalog]
  * @returns {boolean}
  */
-export function inventoryHasNonBookEntries(inventory, catalog) {
+export function inventoryViolatesCatalogOnly(inventory, catalog) {
   const catalogOnly = Boolean(catalog?.catalogOnly);
   if (!catalogOnly) return false;
-  return (inventory ?? []).some((entry) => entry && !isBookRelatedShopEntry(entry));
+  const validator = isFoodCatalog(catalog) ? isFoodRelatedShopEntry : isBookRelatedShopEntry;
+  return (inventory ?? []).some((entry) => entry && !validator(entry));
+}
+
+/** @deprecated Use inventoryViolatesCatalogOnly */
+export function inventoryHasNonBookEntries(inventory, catalog) {
+  return inventoryViolatesCatalogOnly(inventory, catalog);
 }

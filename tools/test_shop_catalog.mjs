@@ -10,6 +10,7 @@ import {
   buildBookItemData,
   buildCatalogStock,
   inventoryHasNonBookEntries,
+  inventoryViolatesCatalogOnly,
   townforgeBookUuid
 } from "../scripts/shop-catalogs.js";
 import { isBookRelatedName, isBookRelatedShopEntry } from "../scripts/shop-books.js";

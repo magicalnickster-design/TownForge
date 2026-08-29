@@ -8,7 +8,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-SHOP_ONLY_NPCS = frozenset({"vela-inkwell"})
+SHOP_ONLY_NPCS = frozenset({"vela-inkwell", "garr-hopsack"})
 sys.path.insert(0, str(ROOT / "tools"))
 
 from build_launch_library import OCC_ARCH

@@ -30,17 +30,21 @@ import { resolveSelectedItemPacks } from "./shop-sources.js";
 import { resolveShopItemFilter, itemArmorType } from "./shop-filters.js";
 import {
   buildBookItemData,
-  buildCatalogStock,
+  buildFoodItemData,
   buildFullCatalogStock,
   getActorNpcId,
   getCatalogBook,
+  getCatalogFood,
   getLoadedCatalog,
-  inventoryHasNonBookEntries,
+  inventoryViolatesCatalogOnly,
+  isFoodCatalog,
   parseTownforgeBookUuid,
+  parseTownforgeFoodUuid,
   readyShopCatalogs,
   resolveShopCatalog
 } from "./shop-catalogs.js";
 import { isBookRelatedName, isBookRelatedShopEntry } from "./shop-books.js";
+import { isFoodRelatedName, isFoodRelatedShopEntry } from "./shop-foods.js";
 import { refreshOpenShopUIs } from "./shop-sync.js";
 import { newGenerationSalt, randomPick, seededPick, stableHash, weightedRandomPick, weightedSeededPick } from "./shop-random.js";
 import {
@@ -504,7 +508,10 @@ export class ShopService {
       : (shop.inventory ?? []).filter(
           (entry) =>
             entry?.source === "manual" &&
-            (!catalog?.catalogOnly || isBookRelatedShopEntry(entry))
+            (!catalog?.catalogOnly ||
+              (isFoodCatalog(catalog)
+                ? isFoodRelatedShopEntry(entry)
+                : isBookRelatedShopEntry(entry)))
         );
 
     if (catalog) {
@@ -517,7 +524,7 @@ export class ShopService {
       ).map((entry) => sanitizeStockEntry(entry));
       const inventory = this.#sanitizeInventory([...automatic, ...manual]);
       console.log(
-        `${LOG_PREFIX} Loaded ${automatic.length} bookshop item(s) for ${actor.name} (${catalog.id})`
+        `${LOG_PREFIX} Loaded ${automatic.length} catalog item(s) for ${actor.name} (${catalog.id})`
       );
       return this.updateShopkeeper(actor, {
         inventory,
@@ -587,8 +594,10 @@ export class ShopService {
       .filter((entry) => entry?.id && entry?.uuid && entry?.name)
       .filter((entry) => {
         const catalog = getLoadedCatalog(getActorNpcId(actor));
-        if (catalog?.catalogOnly) return isBookRelatedShopEntry(entry);
-        return true;
+        if (!catalog?.catalogOnly) return true;
+        return isFoodCatalog(catalog)
+          ? isFoodRelatedShopEntry(entry)
+          : isBookRelatedShopEntry(entry);
       })
       .map((entry) => ({
         ...entry,
@@ -658,6 +667,20 @@ export class ShopService {
         if (!book) return { description: "", properties: [] };
         const description = String(book.description ?? "").slice(0, 600);
         const properties = [book.topic].filter(Boolean);
+        this.#detailCache.set(stock.uuid, { description, properties, loadedAt: Date.now() });
+        return { description, properties };
+      }
+
+      const foodId = parseTownforgeFoodUuid(stock.uuid);
+      if (foodId) {
+        await readyShopCatalogs();
+        const food = getCatalogFood(foodId);
+        if (!food) return { description: "", properties: [] };
+        const description = [food.description, food.passive ? `Passive: ${food.passive}` : ""]
+          .filter(Boolean)
+          .join(" ")
+          .slice(0, 600);
+        const properties = ["food", food.topic, food.passive ? "passive" : ""].filter(Boolean);
         this.#detailCache.set(stock.uuid, { description, properties, loadedAt: Date.now() });
         return { description, properties };
       }
@@ -750,6 +773,15 @@ export class ShopService {
       const book = getCatalogBook(bookId);
       if (!book) return null;
       const data = buildBookItemData(book);
+      const ItemClass = CONFIG.Item?.documentClass ?? foundry?.documents?.Item?.implementation ?? Item;
+      return new ItemClass(data, { parent: null });
+    }
+    const foodId = parseTownforgeFoodUuid(uuid);
+    if (foodId) {
+      await readyShopCatalogs();
+      const food = getCatalogFood(foodId);
+      if (!food) return null;
+      const data = buildFoodItemData(food);
       const ItemClass = CONFIG.Item?.documentClass ?? foundry?.documents?.Item?.implementation ?? Item;
       return new ItemClass(data, { parent: null });
     }
@@ -1648,6 +1680,8 @@ export class ShopService {
         return /feed|bit and bridle|saddle|stabling|animal|pony|horse|mule/i.test(name);
       case "bookstore":
         return isBookRelatedName(name);
+      case "grocer":
+        return isFoodRelatedName(name);
       case "adventuring-supplies":
         return (
           type === "consumable" ||

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256" role="img" aria-label="Smoked Barley Porridge">
+  <defs>
+    <radialGradient id="g-smoked-barley-porridge" cx="35%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#f0c8b0"/>
+      <stop offset="100%" stop-color="#7a3a2a"/>
+    </radialGradient>
+  </defs>
+  <rect width="256" height="256" rx="18" fill="#121418"/>
+  <circle cx="128" cy="108" r="78" fill="url(#g-smoked-barley-porridge)" stroke="#f0c8b0" stroke-width="4"/>
+  <text x="128" y="118" text-anchor="middle" font-size="42">🍲</text>
+  <text x="128" y="188" text-anchor="middle" fill="#f0c8b0" font-family="Georgia, serif" font-size="14" font-weight="700">Smoked Barley Porridge</text>
+  <text x="128" y="208" text-anchor="middle" fill="#f0c8b0" font-family="Georgia, serif" font-size="12"></text>
+  <text x="128" y="236" text-anchor="middle" fill="#f0c8b0" font-size="10" opacity="0.85">HEARTY</text>
+</svg>

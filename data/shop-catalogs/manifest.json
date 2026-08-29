@@ -3,6 +3,10 @@
     {
       "npcId": "vela-inkwell",
       "file": "vela-inkwell.json"
+    },
+    {
+      "npcId": "garr-hopsack",
+      "file": "garr-hopsack.json"
     }
   ]
 }

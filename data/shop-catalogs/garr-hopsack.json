@@ -1,0 +1,101 @@
+{
+  "id": "garr-hopsack",
+  "npcId": "garr-hopsack",
+  "shopType": "grocer",
+  "catalogKind": "food",
+  "shopName": "Hopsack Grain & Provisions",
+  "label": "Garr Hopsack — Provisions",
+  "catalogOnly": true,
+  "foods": [
+    {
+      "id": "amber-harvest-flatbread",
+      "name": "Amber Harvest Flatbread",
+      "topic": "baked",
+      "priceGP": 2,
+      "description": "Warm barley flatbread from Garr's morning kiln, still soft at the edges.",
+      "passive": "After you finish a Short Rest where you ate this flatbread, you gain 1d4 temporary hit points.",
+      "img": "modules/townforge/assets/items/foods/amber-harvest-flatbread.svg"
+    },
+    {
+      "id": "sun-kissed-dried-apricots",
+      "name": "Sun-Kissed Dried Apricots",
+      "topic": "produce",
+      "priceGP": 3,
+      "description": "River-valley apricots dried on wicker racks until honey-sweet.",
+      "passive": "Within the next hour, you have advantage on your next Wisdom (Perception) check.",
+      "img": "modules/townforge/assets/items/foods/sun-kissed-dried-apricots.svg"
+    },
+    {
+      "id": "river-town-pickled-herring",
+      "name": "River-Town Pickled Herring",
+      "topic": "preserved",
+      "priceGP": 4,
+      "description": "Brined herring packed in oak barrels for dockhands and carters.",
+      "passive": "Within the next 8 hours, you gain a +2 bonus to your next Constitution saving throw against poison.",
+      "img": "modules/townforge/assets/items/foods/river-town-pickled-herring.svg"
+    },
+    {
+      "id": "smoked-barley-porridge",
+      "name": "Smoked Barley Porridge",
+      "topic": "hearty",
+      "priceGP": 3,
+      "description": "Slow-smoked grain porridge sold by the ladle to cold morning crews.",
+      "passive": "If you eat this during breakfast, you can reduce your exhaustion level by 1 (no effect if you have 0 exhaustion). You can benefit once per long rest.",
+      "img": "modules/townforge/assets/items/foods/smoked-barley-porridge.svg"
+    },
+    {
+      "id": "honey-oat-bites",
+      "name": "Honey Oat Bites",
+      "topic": "baked",
+      "priceGP": 2,
+      "description": "Chewy oat clusters bound with local honey from Moll's hives.",
+      "passive": "For 1 minute after eating, your walking speed increases by 10 feet.",
+      "img": "modules/townforge/assets/items/foods/honey-oat-bites.svg"
+    },
+    {
+      "id": "caravan-spice-nuts",
+      "name": "Caravan Spice Nuts",
+      "topic": "travel",
+      "priceGP": 5,
+      "description": "Roasted nuts tossed in pepper, cumin, and road-salt for long hauls.",
+      "passive": "For 1 hour after eating, you have resistance to cold damage.",
+      "img": "modules/townforge/assets/items/foods/caravan-spice-nuts.svg"
+    },
+    {
+      "id": "garr-s-trail-crunch",
+      "name": "Garr's Trail Crunch",
+      "topic": "travel",
+      "priceGP": 6,
+      "description": "A dense mix of grain, nuts, and dried fruit measured for a full day's march.",
+      "passive": "You do not need to consume additional food or water for the next 24 hours.",
+      "img": "modules/townforge/assets/items/foods/garr-s-trail-crunch.svg"
+    },
+    {
+      "id": "golden-millet-cakes",
+      "name": "Golden Millet Cakes",
+      "topic": "grain",
+      "priceGP": 2,
+      "description": "Small millet cakes stamped with the Hopsack yard mark.",
+      "passive": "Within the next hour, you gain a +1 bonus to your next Charisma (Persuasion) check.",
+      "img": "modules/townforge/assets/items/foods/golden-millet-cakes.svg"
+    },
+    {
+      "id": "fermented-cabbage-kraut",
+      "name": "Fermented Cabbage Kraut",
+      "topic": "preserved",
+      "priceGP": 3,
+      "description": "Sharp kraut fermented in stone crocks behind the grain yard.",
+      "passive": "Within the next 24 hours, you have advantage on your next saving throw against disease.",
+      "img": "modules/townforge/assets/items/foods/fermented-cabbage-kraut.svg"
+    },
+    {
+      "id": "harvest-moon-stew",
+      "name": "Harvest Moon Stew",
+      "topic": "hearty",
+      "priceGP": 8,
+      "description": "A sealed jar of root-vegetable stew slow-cooked after the autumn moon.",
+      "passive": "When you consume this stew during a Short Rest, you regain 1d4 + 1 hit points.",
+      "img": "modules/townforge/assets/items/foods/harvest-moon-stew.svg"
+    }
+  ]
+}

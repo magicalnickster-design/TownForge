@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256" role="img" aria-label="Honey Oat Bites">
+  <defs>
+    <radialGradient id="g-honey-oat-bites" cx="35%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#f4e2c0"/>
+      <stop offset="100%" stop-color="#8b5a2b"/>
+    </radialGradient>
+  </defs>
+  <rect width="256" height="256" rx="18" fill="#121418"/>
+  <circle cx="128" cy="108" r="78" fill="url(#g-honey-oat-bites)" stroke="#f4e2c0" stroke-width="4"/>
+  <text x="128" y="118" text-anchor="middle" font-size="42">🍞</text>
+  <text x="128" y="188" text-anchor="middle" fill="#f4e2c0" font-family="Georgia, serif" font-size="14" font-weight="700">Honey Oat Bites</text>
+  <text x="128" y="208" text-anchor="middle" fill="#f4e2c0" font-family="Georgia, serif" font-size="12"></text>
+  <text x="128" y="236" text-anchor="middle" fill="#f4e2c0" font-size="10" opacity="0.85">BAKED</text>
+</svg>
