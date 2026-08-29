@@ -128,7 +128,7 @@
             {{/each}}
           </div>
           {{else}}
-          <p class="townforge-muted">{{#if isGM}}Hover a ware to inspect it.{{else}}Click or drag merchant wares here to buy.{{/if}}</p>
+          <p class="townforge-muted">{{#if isGM}}Hover a ware to preview it. Right-click for full details.{{else}}Click or drag merchant wares here to buy.{{/if}}</p>
           {{/if}}
         </div>
         <div class="townforge-offer-block" data-townforge-offer-drop="sell">
@@ -166,7 +166,7 @@
       </div>
 
       <div class="townforge-trade-item-detail" data-townforge-item-detail aria-live="polite">
-        <p class="townforge-trade-item-detail-empty" data-item-detail-empty>Hover an item to inspect it.</p>
+        <p class="townforge-trade-item-detail-empty" data-item-detail-empty>Hover to preview · Right-click for full details</p>
         <div class="townforge-trade-item-detail-body" data-item-detail-body hidden>
           <img data-tip-img alt="" />
           <div class="townforge-item-detail-copy">

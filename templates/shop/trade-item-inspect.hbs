@@ -1,0 +1,29 @@
+<section class="townforge-item-inspect">
+  <header class="townforge-item-inspect-header">
+    <img class="townforge-item-inspect-img" src="{{img}}" alt="" width="96" height="96" />
+    <div class="townforge-item-inspect-heading">
+      <h3>{{name}}</h3>
+      {{#if meta}}<p class="townforge-item-inspect-meta">{{meta}}</p>{{/if}}
+      {{#if priceLabel}}<p class="townforge-item-inspect-price">{{priceLabel}}</p>{{/if}}
+      {{#if hasProperties}}
+      <ul class="townforge-item-props">
+        {{#each properties}}
+        <li>{{this}}</li>
+        {{/each}}
+      </ul>
+      {{/if}}
+    </div>
+  </header>
+
+  <div class="townforge-item-inspect-desc">
+    {{#if hasDescription}}
+    <p>{{description}}</p>
+    {{else}}
+    <p class="townforge-muted">No description available.</p>
+    {{/if}}
+  </div>
+
+  <footer class="townforge-item-inspect-footer">
+    <button type="button" class="townforge-btn townforge-btn-secondary" data-action="closeInspect">Close</button>
+  </footer>
+</section>

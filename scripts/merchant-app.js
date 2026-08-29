@@ -13,6 +13,7 @@ import { getActorNpcId, inventoryViolatesCatalogOnly, resolveShopCatalog } from 
 import { MERCHANT_PRICE_FILTERS, matchesMerchantPriceFilter } from "./shop-price-filters.js";
 import { getShopTypeLabel, shopService } from "./shop-service.js";
 import { getRemainingSellQuantity, nextSellOfferQuantity, shouldPromptSellQuantity } from "./trade-quantity.js";
+import { loadTradeItemDetail } from "./trade-item-detail.js";
 import { getHandlebarsApplicationV2Base } from "./app-api.js";
 
 const HandlebarsApplicationV2 = getHandlebarsApplicationV2Base();
@@ -497,6 +498,7 @@ export class MerchantApp extends HandlebarsApplicationV2 {
   _onRender(context, options) {
     super._onRender?.(context, options);
     this.#bindItemHover();
+    this.#bindItemInspect();
 
     const search = this.element.querySelector("[data-townforge-merchant-search]");
     if (search && !search.dataset.bound) {
@@ -676,6 +678,31 @@ export class MerchantApp extends HandlebarsApplicationV2 {
     }
   }
 
+  #bindItemInspect() {
+    const root = this.element;
+    if (!root || root.dataset.itemInspectBound) return;
+    root.dataset.itemInspectBound = "1";
+    root.addEventListener("contextmenu", (event) => {
+      const cell = event.target.closest("[data-townforge-item-cell]");
+      if (!cell || !root.contains(cell)) return;
+      if (cell.disabled || cell.classList.contains("is-sold-out")) return;
+      event.preventDefault();
+      event.stopPropagation();
+      void this.#openItemInspect(cell, event);
+    });
+  }
+
+  async #openItemInspect(cell, event) {
+    const { TradeItemInspect } = await import("./trade-item-inspect.js");
+    await TradeItemInspect.show({
+      merchant: this.#merchant,
+      buyerUuid: this.#buyerUuid,
+      cell,
+      left: event.clientX + 12,
+      top: event.clientY + 12
+    });
+  }
+
   #bindItemHover() {
     const root = this.element;
     if (!root || root.dataset.itemHoverBound) return;
@@ -793,39 +820,7 @@ export class MerchantApp extends HandlebarsApplicationV2 {
   }
 
   async #detailForCell(cell) {
-    const kind = cell.dataset.kind || "";
-    const priceKind = kind === "player" || kind === "offer-sell" ? "Sell" : "Buy";
-    if (kind === "stock" || kind === "offer-buy") {
-      const stock = shopService
-        .getDisplayInventory(this.#merchant)
-        .find((entry) => entry.id === cell.dataset.stockId);
-      const detail = await shopService.getStockDetail(stock ?? { uuid: "", rarity: cell.dataset.rarity });
-      return {
-        name: stock?.name ?? cell.dataset.name ?? "",
-        img: stock?.img || cell.dataset.img || "",
-        type: stock?.type || cell.dataset.type || "",
-        rarity: detail.rarity || cell.dataset.rarity || "common",
-        qtyLabel: stock ? stockQuantityLabel(stock) : cell.dataset.qty || "",
-        priceLabel: stock?.priceLabel ? `${priceKind} ${stock.priceLabel}` : cell.dataset.price || "",
-        properties: detail.properties,
-        description: detail.description
-      };
-    }
-
-    const buyer = this.#buyerUuid ? await fromUuid(this.#buyerUuid) : null;
-    const item = buyer?.items?.get?.(cell.dataset.itemId);
-    const inspected = shopService.inspectItem(item);
-    const sellPriceCP = item ? shopService.getSellPriceCP(item, this.#merchant) : 0;
-    return {
-      name: item?.name ?? cell.dataset.name ?? "",
-      img: item?.img || cell.dataset.img || "",
-      type: item?.type || cell.dataset.type || "",
-      rarity: inspected.rarity,
-      qtyLabel: item ? String(Math.max(1, Number(item.system?.quantity) || 1)) : cell.dataset.qty || "",
-      priceLabel: item ? `${priceKind} ${shopService.formatPrice(sellPriceCP)}` : cell.dataset.price || "",
-      properties: inspected.properties,
-      description: inspected.description
-    };
+    return loadTradeItemDetail(this.#merchant, this.#buyerUuid, cell);
   }
 
   #ownedCharacters() {
