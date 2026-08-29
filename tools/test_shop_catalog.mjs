@@ -55,6 +55,13 @@ test("book item data includes description and price", () => {
   assert(data.type === "loot", "loot item");
   assert(data.system.price.value === book.priceGP, "price");
   assert(data.system.description.value.includes(book.description), "description");
+  assert(book.passive, "catalog passive");
+  assert(data.system.description.value.includes("Study Benefit"), "study benefit");
+  assert(data.flags.townforge.passive === book.passive, "passive flag");
+});
+
+test("every catalog book has a study benefit", () => {
+  assert(catalog.books.every((book) => String(book.passive ?? "").trim().length > 0), "all passives");
 });
 
 test("catalog is books-only", () => {

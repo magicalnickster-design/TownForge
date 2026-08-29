@@ -220,12 +220,20 @@ export async function resolveShopCatalog(npcId) {
  */
 export function buildBookItemData(book) {
   const description = String(book.description ?? "").trim();
+  const passive = String(book.passive ?? "").trim();
+  const html = [
+    description ? `<p>${description}</p>` : "",
+    passive ? `<p><strong>Study Benefit:</strong> ${passive}</p>` : ""
+  ]
+    .filter(Boolean)
+    .join("");
+
   return {
     name: book.name,
     type: "loot",
     img: book.img,
     system: {
-      description: { value: description ? `<p>${description}</p>` : "" },
+      description: { value: html },
       quantity: 1,
       weight: 3,
       price: { value: Math.max(1, Number(book.priceGP) || 1), denomination: "gp" },
@@ -237,7 +245,8 @@ export function buildBookItemData(book) {
         catalogBook: true,
         catalogId: book.catalogId,
         bookId: book.id,
-        topic: book.topic
+        topic: book.topic,
+        passive
       }
     }
   };

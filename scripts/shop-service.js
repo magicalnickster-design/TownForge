@@ -681,8 +681,11 @@ export class ShopService {
         await readyShopCatalogs();
         const book = getCatalogBook(bookId);
         if (!book) return { description: "", properties: [] };
-        const description = String(book.description ?? "").slice(0, 600);
-        const properties = [book.topic].filter(Boolean);
+        const description = [book.description, book.passive ? `Study Benefit: ${book.passive}` : ""]
+          .filter(Boolean)
+          .join(" ")
+          .slice(0, 1200);
+        const properties = [book.topic, book.passive ? "study benefit" : ""].filter(Boolean);
         this.#detailCache.set(stock.uuid, { description, properties, loadedAt: Date.now() });
         return { description, properties };
       }
