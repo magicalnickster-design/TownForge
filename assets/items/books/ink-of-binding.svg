@@ -1,15 +1,37 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="256" height="320" viewBox="0 0 256 320" role="img" aria-label="Ink of Binding">
   <defs>
     <linearGradient id="g-ink-of-binding" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#4a5a2a"/>
+      <stop offset="0%" stop-color="#4d5b29"/>
+      <stop offset="55%" stop-color="#41552d"/>
       <stop offset="100%" stop-color="#141418"/>
     </linearGradient>
+    <radialGradient id="shine-ink-of-binding" cx="30%" cy="20%" r="70%">
+      <stop offset="0%" stop-color="#e1f0b8" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#e1f0b8" stop-opacity="0"/>
+    </radialGradient>
   </defs>
   <rect width="256" height="320" rx="10" fill="#0f1014"/>
-  <rect x="28" y="20" width="200" height="280" rx="6" fill="url(#g-ink-of-binding)" stroke="#e0f0b0" stroke-width="3"/>
-  <rect x="36" y="28" width="12" height="264" fill="#e0f0b0" opacity="0.35"/>
-  <text x="128" y="118" text-anchor="middle" fill="#e0f0b0" font-family="Georgia, serif" font-size="28">⚗</text>
-  <text x="128" y="168" text-anchor="middle" fill="#e0f0b0" font-family="Georgia, serif" font-size="15" font-weight="700">Ink of Binding</text>
-  <text x="128" y="190" text-anchor="middle" fill="#e0f0b0" font-family="Georgia, serif" font-size="13"></text>
-  <text x="128" y="262" text-anchor="middle" fill="#e0f0b0" font-size="11" opacity="0.8">ALCHEMY</text>
+  <rect x="18" y="12" width="220" height="296" rx="8" fill="#090a0d" opacity="0.55"/>
+
+  <rect x="36" y="24" width="184" height="272" rx="5" fill="url(#g-ink-of-binding)" stroke="#e1f0b8" stroke-width="3"/>
+  <rect x="44" y="32" width="14" height="256" fill="#e1f0b8" opacity="0.32"/>
+  <circle cx="198" cy="58" r="16" fill="none" stroke="#dfefc5" stroke-width="2" opacity="0.75"/>
+  <circle cx="198" cy="58" r="6" fill="#dfefc5" opacity="0.35"/>
+  <rect x="36" y="24" width="184" height="272" rx="6" fill="url(#shine-ink-of-binding)" pointer-events="none"/>
+  <g transform="translate(0,-2)">
+  <g opacity="0.34" fill="none" stroke="#dfefc5" stroke-width="2">
+    <circle cx="128" cy="102" r="34"/>
+    <circle cx="128" cy="102" r="22"/>
+    <path d="M128 68 L140 92 L166 92 L146 108 L154 132 L128 118 L102 132 L110 108 L90 92 L116 92 Z" opacity="0.5"/>
+  </g></g>
+  
+  <rect x="44" y="32" width="18" height="18" fill="none" stroke="#dfefc5" opacity="0.35"/>
+  <rect x="194" y="32" width="18" height="18" fill="none" stroke="#dfefc5" opacity="0.35"/>
+  <rect x="44" y="270" width="18" height="18" fill="none" stroke="#dfefc5" opacity="0.35"/>
+  <rect x="194" y="270" width="18" height="18" fill="none" stroke="#dfefc5" opacity="0.35"/>
+  <text x="128" y="147" text-anchor="middle" fill="#e1f0b8" font-family="Georgia, serif" font-size="13" font-weight="700">Ink of Binding</text>
+  <text x="128" y="165" text-anchor="middle" fill="#e1f0b8" font-family="Georgia, serif" font-size="12"></text>
+  <text x="128" y="183" text-anchor="middle" fill="#e1f0b8" font-family="Georgia, serif" font-size="11"></text>
+  <text x="128" y="262" text-anchor="middle" fill="#dfefc5" font-size="10" letter-spacing="1.2">ALCHEMY</text>
+  <text x="128" y="42" text-anchor="middle" fill="#e1f0b8" font-family="Georgia, serif" font-size="20" opacity="0.85">⚗</text>
 </svg>

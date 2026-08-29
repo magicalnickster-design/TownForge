@@ -1,15 +1,35 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="256" height="320" viewBox="0 0 256 320" role="img" aria-label="Guild Charters of Old">
   <defs>
     <linearGradient id="g-guild-charters-of-old" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#6b4f2f"/>
+      <stop offset="0%" stop-color="#654c31"/>
+      <stop offset="55%" stop-color="#594635"/>
       <stop offset="100%" stop-color="#141418"/>
     </linearGradient>
+    <radialGradient id="shine-guild-charters-of-old" cx="30%" cy="20%" r="70%">
+      <stop offset="0%" stop-color="#e5d0b1" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#e5d0b1" stop-opacity="0"/>
+    </radialGradient>
   </defs>
   <rect width="256" height="320" rx="10" fill="#0f1014"/>
-  <rect x="28" y="20" width="200" height="280" rx="6" fill="url(#g-guild-charters-of-old)" stroke="#e8d2a8" stroke-width="3"/>
-  <rect x="36" y="28" width="12" height="264" fill="#e8d2a8" opacity="0.35"/>
-  <text x="128" y="118" text-anchor="middle" fill="#e8d2a8" font-family="Georgia, serif" font-size="28">⌛</text>
-  <text x="128" y="168" text-anchor="middle" fill="#e8d2a8" font-family="Georgia, serif" font-size="15" font-weight="700">Guild Charters of</text>
-  <text x="128" y="190" text-anchor="middle" fill="#e8d2a8" font-family="Georgia, serif" font-size="13">Old</text>
-  <text x="128" y="262" text-anchor="middle" fill="#e8d2a8" font-size="11" opacity="0.8">HISTORY</text>
+  <rect x="18" y="12" width="220" height="296" rx="8" fill="#090a0d" opacity="0.55"/>
+
+  <rect x="28" y="20" width="200" height="280" rx="6" fill="url(#g-guild-charters-of-old)" stroke="#e5d0b1" stroke-width="3"/>
+  <rect x="36" y="28" width="12" height="264" fill="#e5d0b1" opacity="0.35"/>
+  <rect x="214" y="138" width="10" height="44" rx="3" fill="#e8d1bc" opacity="0.8"/>
+  <circle cx="219" cy="160" r="4" fill="#e5d0b1"/>
+  <rect x="28" y="20" width="200" height="280" rx="6" fill="url(#shine-guild-charters-of-old)" pointer-events="none"/>
+  <g transform="translate(0,-4)">
+  <g opacity="0.22" fill="#e8d1bc">
+    <path d="M96 112 L104 92 L116 104 L128 86 L140 104 L152 92 L160 112 Z"/>
+  </g></g>
+  
+  <path d="M38 30 L56 30 M38 30 L38 48" stroke="#e8d1bc" opacity="0.45" fill="none"/>
+  <path d="M218 30 L200 30 M218 30 L218 48" stroke="#e8d1bc" opacity="0.45" fill="none"/>
+  <path d="M38 290 L56 290 M38 290 L38 272" stroke="#e8d1bc" opacity="0.45" fill="none"/>
+  <path d="M218 290 L200 290 M218 290 L218 272" stroke="#e8d1bc" opacity="0.45" fill="none"/>
+  <text x="128" y="147" text-anchor="middle" fill="#e5d0b1" font-family="Georgia, serif" font-size="13" font-weight="700">Guild Charters of</text>
+  <text x="128" y="165" text-anchor="middle" fill="#e5d0b1" font-family="Georgia, serif" font-size="12">Old</text>
+  <text x="128" y="183" text-anchor="middle" fill="#e5d0b1" font-family="Georgia, serif" font-size="11"></text>
+  <text x="128" y="266" text-anchor="middle" fill="#e8d1bc" font-size="10" letter-spacing="1.2">HISTORY</text>
+  <text x="128" y="38" text-anchor="middle" fill="#e5d0b1" font-family="Georgia, serif" font-size="20" opacity="0.85">⌛</text>
 </svg>

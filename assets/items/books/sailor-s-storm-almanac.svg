@@ -1,15 +1,37 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="256" height="320" viewBox="0 0 256 320" role="img" aria-label="Sailor's Storm Almanac">
   <defs>
     <linearGradient id="g-sailor-s-storm-almanac" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#4a3a2a"/>
+      <stop offset="0%" stop-color="#533e27"/>
+      <stop offset="55%" stop-color="#47382b"/>
       <stop offset="100%" stop-color="#141418"/>
     </linearGradient>
+    <radialGradient id="shine-sailor-s-storm-almanac" cx="30%" cy="20%" r="70%">
+      <stop offset="0%" stop-color="#eccaa7" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#eccaa7" stop-opacity="0"/>
+    </radialGradient>
   </defs>
   <rect width="256" height="320" rx="10" fill="#0f1014"/>
-  <rect x="28" y="20" width="200" height="280" rx="6" fill="url(#g-sailor-s-storm-almanac)" stroke="#e8c8a0" stroke-width="3"/>
-  <rect x="36" y="28" width="12" height="264" fill="#e8c8a0" opacity="0.35"/>
-  <text x="128" y="118" text-anchor="middle" fill="#e8c8a0" font-family="Georgia, serif" font-size="28">⚔</text>
-  <text x="128" y="168" text-anchor="middle" fill="#e8c8a0" font-family="Georgia, serif" font-size="15" font-weight="700">Sailor's Storm Almanac</text>
-  <text x="128" y="190" text-anchor="middle" fill="#e8c8a0" font-family="Georgia, serif" font-size="13"></text>
-  <text x="128" y="262" text-anchor="middle" fill="#e8c8a0" font-size="11" opacity="0.8">ADVENTURE</text>
+  <rect x="18" y="12" width="220" height="296" rx="8" fill="#090a0d" opacity="0.55"/>
+
+  <rect x="34" y="48" width="188" height="224" rx="4" fill="url(#g-sailor-s-storm-almanac)" stroke="#eccaa7" stroke-width="2"/>
+  <path d="M128 48 L128 272" stroke="#eccaa7" opacity="0.35"/>
+  <rect x="40" y="54" width="10" height="212" fill="#eccaa7" opacity="0.22"/>
+  <rect x="206" y="54" width="10" height="212" fill="#eccaa7" opacity="0.22"/>
+  <rect x="34" y="48" width="188" height="224" rx="6" fill="url(#shine-sailor-s-storm-almanac)" pointer-events="none"/>
+  <g transform="translate(0,8)">
+  <g opacity="0.34" fill="none" stroke="#e7c7b5" stroke-width="2" stroke-linecap="round">
+    <path d="M82 86 C104 80, 118 92, 140 86"/>
+    <path d="M78 102 C102 96, 122 110, 152 102"/>
+    <path d="M86 118 C108 112, 126 124, 146 118"/>
+  </g></g>
+  
+  <rect x="42" y="56" width="18" height="18" fill="none" stroke="#e7c7b5" opacity="0.35"/>
+  <rect x="196" y="56" width="18" height="18" fill="none" stroke="#e7c7b5" opacity="0.35"/>
+  <rect x="42" y="246" width="18" height="18" fill="none" stroke="#e7c7b5" opacity="0.35"/>
+  <rect x="196" y="246" width="18" height="18" fill="none" stroke="#e7c7b5" opacity="0.35"/>
+  <text x="128" y="146" text-anchor="middle" fill="#eccaa7" font-family="Georgia, serif" font-size="13" font-weight="700">Sailor's Storm Almanac</text>
+  <text x="128" y="164" text-anchor="middle" fill="#eccaa7" font-family="Georgia, serif" font-size="12"></text>
+  <text x="128" y="182" text-anchor="middle" fill="#eccaa7" font-family="Georgia, serif" font-size="11"></text>
+  <text x="128" y="238" text-anchor="middle" fill="#e7c7b5" font-size="10" letter-spacing="1.2">ADVENTURE</text>
+  <text x="128" y="66" text-anchor="middle" fill="#eccaa7" font-family="Georgia, serif" font-size="20" opacity="0.85">⚔</text>
 </svg>

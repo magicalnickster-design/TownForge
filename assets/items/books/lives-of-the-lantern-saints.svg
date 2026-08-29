@@ -1,15 +1,35 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="256" height="320" viewBox="0 0 256 320" role="img" aria-label="Lives of the Lantern Saints">
   <defs>
     <linearGradient id="g-lives-of-the-lantern-saints" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#5a4a2a"/>
+      <stop offset="0%" stop-color="#57482b"/>
+      <stop offset="55%" stop-color="#4b422f"/>
       <stop offset="100%" stop-color="#141418"/>
     </linearGradient>
+    <radialGradient id="shine-lives-of-the-lantern-saints" cx="30%" cy="20%" r="70%">
+      <stop offset="0%" stop-color="#eee1b9" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#eee1b9" stop-opacity="0"/>
+    </radialGradient>
   </defs>
   <rect width="256" height="320" rx="10" fill="#0f1014"/>
-  <rect x="28" y="20" width="200" height="280" rx="6" fill="url(#g-lives-of-the-lantern-saints)" stroke="#f0e2b0" stroke-width="3"/>
-  <rect x="36" y="28" width="12" height="264" fill="#f0e2b0" opacity="0.35"/>
-  <text x="128" y="118" text-anchor="middle" fill="#f0e2b0" font-family="Georgia, serif" font-size="28">☼</text>
-  <text x="128" y="168" text-anchor="middle" fill="#f0e2b0" font-family="Georgia, serif" font-size="15" font-weight="700">Lives of the</text>
-  <text x="128" y="190" text-anchor="middle" fill="#f0e2b0" font-family="Georgia, serif" font-size="13">Lantern Saints</text>
-  <text x="128" y="262" text-anchor="middle" fill="#f0e2b0" font-size="11" opacity="0.8">RELIGION</text>
+  <rect x="18" y="12" width="220" height="296" rx="8" fill="#090a0d" opacity="0.55"/>
+
+  <rect x="46" y="34" width="164" height="252" rx="4" fill="url(#g-lives-of-the-lantern-saints)" stroke="#eee1b9" stroke-width="2"/>
+  <rect x="52" y="40" width="8" height="240" fill="#eee1b9" opacity="0.28"/>
+  <rect x="196" y="120" width="6" height="80" rx="2" fill="#f3e3c4" opacity="0.55"/>
+  <rect x="46" y="34" width="164" height="252" rx="6" fill="url(#shine-lives-of-the-lantern-saints)" pointer-events="none"/>
+  <g transform="translate(0,2)">
+  <g opacity="0.28" fill="none" stroke="#f3e3c4" stroke-width="2">
+    <path d="M128 78 C118 98, 112 108, 128 128 C144 108, 138 98, 128 78 Z"/>
+    <path d="M128 92 C122 104, 120 110, 128 118 C136 110, 134 104, 128 92 Z" fill="#f3e3c4" opacity="0.35"/>
+  </g></g>
+  
+  <circle cx="62" cy="50" r="5" fill="none" stroke="#f3e3c4" opacity="0.4"/>
+  <circle cx="194" cy="50" r="5" fill="none" stroke="#f3e3c4" opacity="0.4"/>
+  <circle cx="62" cy="270" r="5" fill="none" stroke="#f3e3c4" opacity="0.4"/>
+  <circle cx="194" cy="270" r="5" fill="none" stroke="#f3e3c4" opacity="0.4"/>
+  <text x="128" y="147" text-anchor="middle" fill="#eee1b9" font-family="Georgia, serif" font-size="13" font-weight="700">Lives of the</text>
+  <text x="128" y="165" text-anchor="middle" fill="#eee1b9" font-family="Georgia, serif" font-size="12">Lantern Saints</text>
+  <text x="128" y="183" text-anchor="middle" fill="#eee1b9" font-family="Georgia, serif" font-size="11"></text>
+  <text x="128" y="252" text-anchor="middle" fill="#f3e3c4" font-size="10" letter-spacing="1.2">RELIGION</text>
+  <text x="128" y="52" text-anchor="middle" fill="#eee1b9" font-family="Georgia, serif" font-size="20" opacity="0.85">☼</text>
 </svg>

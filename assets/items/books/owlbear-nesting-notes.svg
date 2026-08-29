@@ -1,15 +1,38 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="256" height="320" viewBox="0 0 256 320" role="img" aria-label="Owlbear Nesting Notes">
   <defs>
     <linearGradient id="g-owlbear-nesting-notes" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#5a2f2f"/>
+      <stop offset="0%" stop-color="#492635"/>
+      <stop offset="55%" stop-color="#3d2039"/>
       <stop offset="100%" stop-color="#141418"/>
     </linearGradient>
+    <radialGradient id="shine-owlbear-nesting-notes" cx="30%" cy="20%" r="70%">
+      <stop offset="0%" stop-color="#e7c3c3" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#e7c3c3" stop-opacity="0"/>
+    </radialGradient>
   </defs>
   <rect width="256" height="320" rx="10" fill="#0f1014"/>
-  <rect x="28" y="20" width="200" height="280" rx="6" fill="url(#g-owlbear-nesting-notes)" stroke="#f0c8b8" stroke-width="3"/>
-  <rect x="36" y="28" width="12" height="264" fill="#f0c8b8" opacity="0.35"/>
-  <text x="128" y="118" text-anchor="middle" fill="#f0c8b8" font-family="Georgia, serif" font-size="28">🐉</text>
-  <text x="128" y="168" text-anchor="middle" fill="#f0c8b8" font-family="Georgia, serif" font-size="15" font-weight="700">Owlbear Nesting Notes</text>
-  <text x="128" y="190" text-anchor="middle" fill="#f0c8b8" font-family="Georgia, serif" font-size="13"></text>
-  <text x="128" y="262" text-anchor="middle" fill="#f0c8b8" font-size="11" opacity="0.8">CREATURES</text>
+  <rect x="18" y="12" width="220" height="296" rx="8" fill="#090a0d" opacity="0.55"/>
+
+  <rect x="40" y="28" width="176" height="264" rx="5" fill="url(#g-owlbear-nesting-notes)" stroke="#e7c3c3" stroke-width="2"/>
+  <rect x="48" y="36" width="10" height="248" fill="#e7c3c3" opacity="0.3"/>
+  <line x1="72" y1="52" x2="200" y2="52" stroke="#e7c3c3" opacity="0.18"/>
+  <line x1="72" y1="72" x2="200" y2="72" stroke="#e7c3c3" opacity="0.18"/>
+  <rect x="188" y="120" width="18" height="72" rx="3" fill="none" stroke="#e0bfd2" stroke-width="2" opacity="0.7"/>
+  <rect x="40" y="28" width="176" height="264" rx="6" fill="url(#shine-owlbear-nesting-notes)" pointer-events="none"/>
+  <g transform="translate(0,-1)">
+  <g opacity="0.28" fill="none" stroke="#e0bfd2" stroke-width="2" stroke-linecap="round">
+    <path d="M108 118 C104 100, 112 86, 120 96"/>
+    <path d="M128 120 C124 98, 132 82, 140 94"/>
+    <path d="M148 118 C144 102, 150 88, 156 98"/>
+  </g></g>
+  
+  <circle cx="56" cy="44" r="5" fill="none" stroke="#e0bfd2" opacity="0.4"/>
+  <circle cx="200" cy="44" r="5" fill="none" stroke="#e0bfd2" opacity="0.4"/>
+  <circle cx="56" cy="276" r="5" fill="none" stroke="#e0bfd2" opacity="0.4"/>
+  <circle cx="200" cy="276" r="5" fill="none" stroke="#e0bfd2" opacity="0.4"/>
+  <text x="128" y="147" text-anchor="middle" fill="#e7c3c3" font-family="Georgia, serif" font-size="13" font-weight="700">Owlbear Nesting Notes</text>
+  <text x="128" y="165" text-anchor="middle" fill="#e7c3c3" font-family="Georgia, serif" font-size="12"></text>
+  <text x="128" y="183" text-anchor="middle" fill="#e7c3c3" font-family="Georgia, serif" font-size="11"></text>
+  <text x="128" y="258" text-anchor="middle" fill="#e0bfd2" font-size="10" letter-spacing="1.2">CREATURES</text>
+  <text x="128" y="46" text-anchor="middle" fill="#e7c3c3" font-family="Georgia, serif" font-size="20" opacity="0.85">🐉</text>
 </svg>

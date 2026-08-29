@@ -2,14 +2,31 @@
   <defs>
     <linearGradient id="g-wards-for-the-wary" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0%" stop-color="#4a3b7a"/>
+      <stop offset="55%" stop-color="#3e357e"/>
       <stop offset="100%" stop-color="#141418"/>
     </linearGradient>
+    <radialGradient id="shine-wards-for-the-wary" cx="30%" cy="20%" r="70%">
+      <stop offset="0%" stop-color="#c9b6ff" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#c9b6ff" stop-opacity="0"/>
+    </radialGradient>
   </defs>
   <rect width="256" height="320" rx="10" fill="#0f1014"/>
+  <rect x="18" y="12" width="220" height="296" rx="8" fill="#090a0d" opacity="0.55"/>
+
   <rect x="28" y="20" width="200" height="280" rx="6" fill="url(#g-wards-for-the-wary)" stroke="#c9b6ff" stroke-width="3"/>
   <rect x="36" y="28" width="12" height="264" fill="#c9b6ff" opacity="0.35"/>
-  <text x="128" y="118" text-anchor="middle" fill="#c9b6ff" font-family="Georgia, serif" font-size="28">✦</text>
-  <text x="128" y="168" text-anchor="middle" fill="#c9b6ff" font-family="Georgia, serif" font-size="15" font-weight="700">Wards for the</text>
-  <text x="128" y="190" text-anchor="middle" fill="#c9b6ff" font-family="Georgia, serif" font-size="13">Wary</text>
-  <text x="128" y="262" text-anchor="middle" fill="#c9b6ff" font-size="11" opacity="0.8">MAGIC</text>
+  <rect x="214" y="141" width="10" height="44" rx="3" fill="#c6b4ff" opacity="0.8"/>
+  <circle cx="219" cy="163" r="4" fill="#c9b6ff"/>
+  <rect x="28" y="20" width="200" height="280" rx="6" fill="url(#shine-wards-for-the-wary)" pointer-events="none"/>
+  <g transform="translate(0,-4)">
+  <g opacity="0.40" fill="none" stroke="#c6b4ff" stroke-width="2">
+    <path d="M72 108 C88 98, 104 118, 120 108 C136 98, 152 118, 168 108"/>
+    <path d="M68 124 C92 114, 108 134, 132 124 C148 118, 160 130, 184 124"/>
+  </g></g>
+  <path d="M42 28 L48 34 L42 40 L36 34 Z" fill="#c6b4ff" opacity="0.28"/><path d="M214 28 L220 34 L214 40 L208 34 Z" fill="#c6b4ff" opacity="0.28"/><path d="M42 280 L48 286 L42 292 L36 286 Z" fill="#c6b4ff" opacity="0.28"/><path d="M214 280 L220 286 L214 292 L208 286 Z" fill="#c6b4ff" opacity="0.28"/>
+  <text x="128" y="147" text-anchor="middle" fill="#c9b6ff" font-family="Georgia, serif" font-size="13" font-weight="700">Wards for the</text>
+  <text x="128" y="165" text-anchor="middle" fill="#c9b6ff" font-family="Georgia, serif" font-size="12">Wary</text>
+  <text x="128" y="183" text-anchor="middle" fill="#c9b6ff" font-family="Georgia, serif" font-size="11"></text>
+  <text x="128" y="266" text-anchor="middle" fill="#c6b4ff" font-size="10" letter-spacing="1.2">MAGIC</text>
+  <text x="128" y="38" text-anchor="middle" fill="#c9b6ff" font-family="Georgia, serif" font-size="20" opacity="0.85">✦</text>
 </svg>

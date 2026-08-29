@@ -1,15 +1,34 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="256" height="320" viewBox="0 0 256 320" role="img" aria-label="Love Letters Never Sent">
   <defs>
     <linearGradient id="g-love-letters-never-sent" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#5a3a5a"/>
+      <stop offset="0%" stop-color="#603d58"/>
+      <stop offset="55%" stop-color="#54375c"/>
       <stop offset="100%" stop-color="#141418"/>
     </linearGradient>
+    <radialGradient id="shine-love-letters-never-sent" cx="30%" cy="20%" r="70%">
+      <stop offset="0%" stop-color="#f3c9ef" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#f3c9ef" stop-opacity="0"/>
+    </radialGradient>
   </defs>
   <rect width="256" height="320" rx="10" fill="#0f1014"/>
-  <rect x="28" y="20" width="200" height="280" rx="6" fill="url(#g-love-letters-never-sent)" stroke="#f0c8e8" stroke-width="3"/>
-  <rect x="36" y="28" width="12" height="264" fill="#f0c8e8" opacity="0.35"/>
-  <text x="128" y="118" text-anchor="middle" fill="#f0c8e8" font-family="Georgia, serif" font-size="28">♪</text>
-  <text x="128" y="168" text-anchor="middle" fill="#f0c8e8" font-family="Georgia, serif" font-size="15" font-weight="700">Love Letters Never</text>
-  <text x="128" y="190" text-anchor="middle" fill="#f0c8e8" font-family="Georgia, serif" font-size="13">Sent</text>
-  <text x="128" y="262" text-anchor="middle" fill="#f0c8e8" font-size="11" opacity="0.8">POETRY</text>
+  <rect x="18" y="12" width="220" height="296" rx="8" fill="#090a0d" opacity="0.55"/>
+
+  <rect x="46" y="34" width="164" height="252" rx="4" fill="url(#g-love-letters-never-sent)" stroke="#f3c9ef" stroke-width="2"/>
+  <rect x="52" y="40" width="8" height="240" fill="#f3c9ef" opacity="0.28"/>
+  <rect x="196" y="120" width="6" height="80" rx="2" fill="#f9ccf9" opacity="0.55"/>
+  <rect x="46" y="34" width="164" height="252" rx="6" fill="url(#shine-love-letters-never-sent)" pointer-events="none"/>
+  <g transform="translate(0,2)">
+  <g opacity="0.22" fill="#f9ccf9">
+    <path d="M128 126 C108 108, 104 92, 118 88 C124 86, 128 92, 132 88 C146 92, 148 108, 128 126 Z"/>
+  </g></g>
+  
+  <path d="M56 44 L74 44 M56 44 L56 62" stroke="#f9ccf9" opacity="0.45" fill="none"/>
+  <path d="M200 44 L182 44 M200 44 L200 62" stroke="#f9ccf9" opacity="0.45" fill="none"/>
+  <path d="M56 276 L74 276 M56 276 L56 258" stroke="#f9ccf9" opacity="0.45" fill="none"/>
+  <path d="M200 276 L182 276 M200 276 L200 258" stroke="#f9ccf9" opacity="0.45" fill="none"/>
+  <text x="128" y="147" text-anchor="middle" fill="#f3c9ef" font-family="Georgia, serif" font-size="13" font-weight="700">Love Letters Never</text>
+  <text x="128" y="165" text-anchor="middle" fill="#f3c9ef" font-family="Georgia, serif" font-size="12">Sent</text>
+  <text x="128" y="183" text-anchor="middle" fill="#f3c9ef" font-family="Georgia, serif" font-size="11"></text>
+  <text x="128" y="252" text-anchor="middle" fill="#f9ccf9" font-size="10" letter-spacing="1.2">POETRY</text>
+  <text x="128" y="52" text-anchor="middle" fill="#f3c9ef" font-family="Georgia, serif" font-size="20" opacity="0.85">♪</text>
 </svg>

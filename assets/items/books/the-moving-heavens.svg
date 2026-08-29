@@ -1,15 +1,32 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="256" height="320" viewBox="0 0 256 320" role="img" aria-label="The Moving Heavens">
   <defs>
     <linearGradient id="g-the-moving-heavens" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#2f5f6b"/>
+      <stop offset="0%" stop-color="#3c6567"/>
+      <stop offset="55%" stop-color="#305f6b"/>
       <stop offset="100%" stop-color="#141418"/>
     </linearGradient>
+    <radialGradient id="shine-the-moving-heavens" cx="30%" cy="20%" r="70%">
+      <stop offset="0%" stop-color="#beebf6" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#beebf6" stop-opacity="0"/>
+    </radialGradient>
   </defs>
   <rect width="256" height="320" rx="10" fill="#0f1014"/>
-  <rect x="28" y="20" width="200" height="280" rx="6" fill="url(#g-the-moving-heavens)" stroke="#b8e8f0" stroke-width="3"/>
-  <rect x="36" y="28" width="12" height="264" fill="#b8e8f0" opacity="0.35"/>
-  <text x="128" y="118" text-anchor="middle" fill="#b8e8f0" font-family="Georgia, serif" font-size="28">⚗</text>
-  <text x="128" y="168" text-anchor="middle" fill="#b8e8f0" font-family="Georgia, serif" font-size="15" font-weight="700">The Moving Heavens</text>
-  <text x="128" y="190" text-anchor="middle" fill="#b8e8f0" font-family="Georgia, serif" font-size="13"></text>
-  <text x="128" y="262" text-anchor="middle" fill="#b8e8f0" font-size="11" opacity="0.8">SCIENCE</text>
+  <rect x="18" y="12" width="220" height="296" rx="8" fill="#090a0d" opacity="0.55"/>
+
+  <rect x="28" y="20" width="200" height="280" rx="6" fill="url(#g-the-moving-heavens)" stroke="#beebf6" stroke-width="3"/>
+  <rect x="36" y="28" width="12" height="264" fill="#beebf6" opacity="0.35"/>
+  <rect x="214" y="131" width="10" height="44" rx="3" fill="#beebff" opacity="0.8"/>
+  <circle cx="219" cy="153" r="4" fill="#beebf6"/>
+  <rect x="28" y="20" width="200" height="280" rx="6" fill="url(#shine-the-moving-heavens)" pointer-events="none"/>
+  <g transform="translate(0,-4)"><g opacity="0.43"><circle cx="93" cy="77" r="2" fill="#beebff"/><circle cx="110" cy="100" r="3" fill="#beebff"/><circle cx="127" cy="123" r="4" fill="#beebff"/><circle cx="144" cy="90" r="2" fill="#beebff"/><circle cx="161" cy="113" r="3" fill="#beebff"/></g></g>
+  
+  <circle cx="44" cy="36" r="5" fill="none" stroke="#beebff" opacity="0.4"/>
+  <circle cx="212" cy="36" r="5" fill="none" stroke="#beebff" opacity="0.4"/>
+  <circle cx="44" cy="284" r="5" fill="none" stroke="#beebff" opacity="0.4"/>
+  <circle cx="212" cy="284" r="5" fill="none" stroke="#beebff" opacity="0.4"/>
+  <text x="128" y="147" text-anchor="middle" fill="#beebf6" font-family="Georgia, serif" font-size="13" font-weight="700">The Moving Heavens</text>
+  <text x="128" y="165" text-anchor="middle" fill="#beebf6" font-family="Georgia, serif" font-size="12"></text>
+  <text x="128" y="183" text-anchor="middle" fill="#beebf6" font-family="Georgia, serif" font-size="11"></text>
+  <text x="128" y="266" text-anchor="middle" fill="#beebff" font-size="10" letter-spacing="1.2">SCIENCE</text>
+  <text x="128" y="38" text-anchor="middle" fill="#beebf6" font-family="Georgia, serif" font-size="20" opacity="0.85">⚗</text>
 </svg>
