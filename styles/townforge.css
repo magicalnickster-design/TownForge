@@ -1186,79 +1186,114 @@
   background: rgba(255, 255, 255, 0.08);
 }
 
-.townforge-item-tip {
-  position: fixed;
-  z-index: 10000;
-  width: min(300px, calc(100vw - 16px));
-  pointer-events: none;
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(4px);
-  transition: opacity 0.12s ease, transform 0.12s ease, visibility 0.12s;
-  padding: 0.65rem 0.7rem;
-  border: 1px solid color-mix(in srgb, var(--tf-accent) 35%, var(--tf-border));
-  border-radius: 0.65rem;
-  background:
-    linear-gradient(180deg, rgba(196, 163, 90, 0.1), transparent 40%),
-    linear-gradient(180deg, #2a2420 0%, #171410 100%);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55);
+.townforge-trade-item-detail {
+  flex: 0 0 auto;
+  min-height: 7.5rem;
+  max-height: min(14rem, 28vh);
   display: grid;
-  grid-template-columns: 112px minmax(0, 1fr);
+  align-content: stretch;
+  margin-top: 0.15rem;
+  padding: 0.55rem 0.6rem;
+  border: 1px solid color-mix(in srgb, var(--tf-accent) 28%, var(--tf-border));
+  border-radius: 0.55rem;
+  background:
+    linear-gradient(180deg, rgba(196, 163, 90, 0.08), transparent 45%),
+    rgba(0, 0, 0, 0.28);
+}
+
+.townforge-trade-item-detail-empty {
+  margin: 0;
+  align-self: center;
+  justify-self: center;
+  color: var(--tf-muted);
+  font-size: 0.82rem;
+  text-align: center;
+}
+
+.townforge-trade-item-detail.is-open .townforge-trade-item-detail-empty {
+  display: none;
+}
+
+.townforge-trade-item-detail-body {
+  display: grid;
+  grid-template-columns: 88px minmax(0, 1fr);
   gap: 0.55rem;
-  color: var(--tf-text);
+  min-height: 0;
+  overflow: hidden;
 }
 
-.townforge-item-tip.is-open {
-  opacity: 1;
-  visibility: visible;
-  transform: none;
-}
-
-.townforge-item-tip img {
-  width: 112px;
-  height: 112px;
+.townforge-trade-item-detail-body img {
+  width: 88px;
+  height: 88px;
   object-fit: contain;
   border-radius: 0.4rem;
   background: rgba(0, 0, 0, 0.35);
   border: 1px solid var(--tf-border);
+  align-self: start;
 }
 
-.townforge-item-tip-copy {
+.townforge-item-detail-copy {
   min-width: 0;
+  min-height: 0;
   display: grid;
-  gap: 0.2rem;
+  grid-template-rows: auto auto auto auto minmax(0, 1fr);
+  gap: 0.18rem;
+  overflow: hidden;
 }
 
-.townforge-item-tip h4 {
+.townforge-item-detail-copy h4 {
   margin: 0;
   font-family: var(--tf-display);
-  font-size: 1.05rem;
+  font-size: 0.98rem;
   line-height: 1.15;
 }
 
-.townforge-item-tip-meta,
-.townforge-item-tip-desc {
+.townforge-item-detail-meta,
+.townforge-item-detail-desc {
   margin: 0;
   color: var(--tf-muted);
-  font-size: 0.75rem;
+  font-size: 0.74rem;
 }
 
-.townforge-item-tip-price {
+.townforge-item-detail-price {
   margin: 0;
   color: var(--tf-accent-strong);
   font-weight: 700;
-  font-size: 0.88rem;
+  font-size: 0.84rem;
 }
 
-.townforge-item-tip .townforge-item-props {
+.townforge-item-detail-copy .townforge-item-props {
   justify-content: flex-start;
-  margin: 0.1rem 0 0;
+  margin: 0;
 }
 
-.townforge-item-tip-desc {
-  line-height: 1.4;
-  max-height: 9.5em;
-  overflow: hidden;
+.townforge-item-detail-desc-scroll {
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 0.2rem;
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--tf-accent) 45%, transparent) transparent;
+}
+
+.townforge-item-detail-desc-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.townforge-item-detail-desc-scroll::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--tf-accent) 45%, transparent);
+}
+
+.townforge-item-detail-desc {
+  line-height: 1.45;
+  white-space: pre-wrap;
+}
+
+.townforge-item-cell.is-inspecting {
+  outline: 2px solid color-mix(in srgb, var(--tf-accent) 70%, transparent);
+  outline-offset: -1px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.35);
 }
 
 .townforge-trade-row.is-in-offer {
@@ -2564,34 +2599,41 @@
   font-size: calc(0.92rem * var(--tf-trade-text-scale));
 }
 
-.townforge-merchant-shell.townforge-trade .townforge-item-tip {
-  width: min(calc(300px * var(--tf-trade-text-scale)), calc(100vw - 1rem));
-  padding: calc(0.65rem * var(--tf-trade-text-scale)) calc(0.7rem * var(--tf-trade-text-scale));
-  grid-template-columns: calc(112px * var(--tf-trade-text-scale)) minmax(0, 1fr);
+.townforge-merchant-shell.townforge-trade .townforge-trade-item-detail {
+  min-height: calc(7.5rem * var(--tf-trade-text-scale));
+  max-height: min(calc(14rem * var(--tf-trade-text-scale)), 28vh);
+  padding: calc(0.55rem * var(--tf-trade-text-scale)) calc(0.6rem * var(--tf-trade-text-scale));
+}
+
+.townforge-merchant-shell.townforge-trade .townforge-trade-item-detail-empty {
+  font-size: calc(0.82rem * var(--tf-trade-text-scale));
+}
+
+.townforge-merchant-shell.townforge-trade .townforge-trade-item-detail-body {
+  grid-template-columns: calc(88px * var(--tf-trade-text-scale)) minmax(0, 1fr);
   gap: calc(0.55rem * var(--tf-trade-text-scale));
 }
 
-.townforge-merchant-shell.townforge-trade .townforge-item-tip img {
-  width: calc(112px * var(--tf-trade-text-scale));
-  height: calc(112px * var(--tf-trade-text-scale));
+.townforge-merchant-shell.townforge-trade .townforge-trade-item-detail-body img {
+  width: calc(88px * var(--tf-trade-text-scale));
+  height: calc(88px * var(--tf-trade-text-scale));
 }
 
-.townforge-merchant-shell.townforge-trade .townforge-item-tip h4 {
-  font-size: calc(1.05rem * var(--tf-trade-text-scale));
+.townforge-merchant-shell.townforge-trade .townforge-item-detail-copy h4 {
+  font-size: calc(0.98rem * var(--tf-trade-text-scale));
 }
 
-.townforge-merchant-shell.townforge-trade .townforge-item-tip-meta,
-.townforge-merchant-shell.townforge-trade .townforge-item-tip-desc,
-.townforge-merchant-shell.townforge-trade .townforge-item-tip .townforge-item-props li {
-  font-size: calc(0.75rem * var(--tf-trade-text-scale));
+.townforge-merchant-shell.townforge-trade .townforge-item-detail-meta,
+.townforge-merchant-shell.townforge-trade .townforge-item-detail-desc,
+.townforge-merchant-shell.townforge-trade .townforge-item-detail-copy .townforge-item-props li {
+  font-size: calc(0.74rem * var(--tf-trade-text-scale));
 }
 
-.townforge-merchant-shell.townforge-trade .townforge-item-tip-price {
-  font-size: calc(0.88rem * var(--tf-trade-text-scale));
+.townforge-merchant-shell.townforge-trade .townforge-item-detail-price {
+  font-size: calc(0.84rem * var(--tf-trade-text-scale));
 }
 
-.townforge-merchant-shell.townforge-trade .townforge-item-tip-desc {
-  max-height: calc(9.5em * var(--tf-trade-text-scale));
+.townforge-merchant-shell.townforge-trade .townforge-item-detail-desc {
   line-height: 1.45;
 }
 

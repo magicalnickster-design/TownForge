@@ -59,6 +59,9 @@ export class MerchantApp extends HandlebarsApplicationV2 {
   /** @type {number} */
   #hoverSeq = 0;
 
+  /** @type {HTMLElement | null} */
+  #detailCell = null;
+
   static DEFAULT_OPTIONS = {
     id: "townforge-merchant",
     classes: ["townforge", "townforge-merchant", "townforge-trade"],
@@ -87,7 +90,7 @@ export class MerchantApp extends HandlebarsApplicationV2 {
   static PARTS = {
     body: {
       template: `modules/${MODULE_ID}/templates/shop/merchant.hbs`,
-      scrollable: [".townforge-trade-list", ".townforge-trade-offer-scroll"]
+      scrollable: [".townforge-trade-list", ".townforge-trade-offer-scroll", ".townforge-item-detail-desc-scroll"]
     }
   };
 
@@ -681,50 +684,52 @@ export class MerchantApp extends HandlebarsApplicationV2 {
       const cell = event.target.closest("[data-townforge-item-cell]");
       if (!cell || !root.contains(cell)) return;
       if (event.relatedTarget instanceof Node && cell.contains(event.relatedTarget)) return;
-      void this.#showItemTip(cell);
+      void this.#showItemDetail(cell);
     });
     root.addEventListener("pointerout", (event) => {
       const cell = event.target.closest("[data-townforge-item-cell]");
       if (!cell) return;
       if (event.relatedTarget instanceof Node && cell.contains(event.relatedTarget)) return;
-      this.#hideItemTip();
+      this.#hideItemDetail();
     });
     root.addEventListener("focusin", (event) => {
       const cell = event.target.closest("[data-townforge-item-cell]");
-      if (cell) void this.#showItemTip(cell);
+      if (cell) void this.#showItemDetail(cell);
     });
     root.addEventListener("focusout", (event) => {
       const cell = event.target.closest("[data-townforge-item-cell]");
       if (!cell) return;
       if (event.relatedTarget instanceof Node && cell.contains(event.relatedTarget)) return;
-      this.#hideItemTip();
+      this.#hideItemDetail();
     });
-    root.addEventListener(
-      "scroll",
-      (event) => {
-        if (event.target?.closest?.(".townforge-trade-list, .townforge-trade-offer-scroll")) {
-          this.#hideItemTip();
-        }
-      },
-      true
-    );
   }
 
-  #hideItemTip() {
+  #hideItemDetail() {
     this.#hoverSeq += 1;
-    const tip = this.element?.querySelector("[data-townforge-item-tip]");
-    if (!tip) return;
-    tip.classList.remove("is-open");
-    tip.setAttribute("aria-hidden", "true");
+    this.#detailCell?.classList.remove("is-inspecting");
+    this.#detailCell = null;
+    const panel = this.element?.querySelector("[data-townforge-item-detail]");
+    if (!panel) return;
+    panel.classList.remove("is-open");
+    const empty = panel.querySelector("[data-item-detail-empty]");
+    const body = panel.querySelector("[data-item-detail-body]");
+    if (empty) empty.hidden = false;
+    if (body) body.hidden = true;
+    const scroll = panel.querySelector("[data-tip-desc-scroll]");
+    if (scroll) scroll.scrollTop = 0;
   }
 
-  async #showItemTip(cell) {
-    const tip = this.element?.querySelector("[data-townforge-item-tip]");
-    if (!tip || !cell) return;
+  async #showItemDetail(cell) {
+    const panel = this.element?.querySelector("[data-townforge-item-detail]");
+    if (!panel || !cell) return;
     const seq = ++this.#hoverSeq;
+    this.#detailCell?.classList.remove("is-inspecting");
+    this.#detailCell = cell;
+    cell.classList.add("is-inspecting");
     const kind = cell.dataset.kind || "";
     const priceKind = kind === "player" || kind === "offer-sell" ? "Sell" : "Buy";
-    this.#fillItemTip(tip, {
+    const inOffer = kind === "offer-buy" || kind === "offer-sell";
+    this.#fillItemDetail(panel, {
       name: cell.dataset.name || "",
       img: cell.dataset.img || "",
       type: cell.dataset.type || "",
@@ -734,14 +739,16 @@ export class MerchantApp extends HandlebarsApplicationV2 {
       properties: [],
       description: ""
     });
-    this.#positionItemTip(tip, cell);
-    tip.classList.add("is-open");
-    tip.setAttribute("aria-hidden", "false");
+    panel.classList.add("is-open");
+    panel.classList.toggle("is-in-offer", inOffer);
+    const empty = panel.querySelector("[data-item-detail-empty]");
+    const body = panel.querySelector("[data-item-detail-body]");
+    if (empty) empty.hidden = true;
+    if (body) body.hidden = false;
 
     const detail = await this.#detailForCell(cell);
     if (seq !== this.#hoverSeq) return;
-    this.#fillItemTip(tip, detail);
-    this.#positionItemTip(tip, cell);
+    this.#fillItemDetail(panel, detail);
     if (detail.rarity) {
       for (const cls of [...cell.classList]) {
         if (cls.startsWith("rarity-")) cell.classList.remove(cls);
@@ -750,28 +757,30 @@ export class MerchantApp extends HandlebarsApplicationV2 {
     }
   }
 
-  #fillItemTip(tip, data) {
-    const img = tip.querySelector("[data-tip-img]");
+  #fillItemDetail(panel, data) {
+    const img = panel.querySelector("[data-tip-img]");
     if (img) {
       img.src = data.img || "icons/svg/item-bag.svg";
       img.alt = "";
     }
-    const name = tip.querySelector("[data-tip-name]");
+    const name = panel.querySelector("[data-tip-name]");
     if (name) name.textContent = data.name || "";
-    const meta = tip.querySelector("[data-tip-meta]");
+    const meta = panel.querySelector("[data-tip-meta]");
     if (meta) {
       meta.textContent = [data.type, rarityLabel(data.rarity), data.qtyLabel ? `Qty ${data.qtyLabel}` : ""]
         .filter(Boolean)
         .join(" · ");
     }
-    const price = tip.querySelector("[data-tip-price]");
+    const price = panel.querySelector("[data-tip-price]");
     if (price) price.textContent = data.priceLabel || "";
-    const desc = tip.querySelector("[data-tip-desc]");
+    const desc = panel.querySelector("[data-tip-desc]");
     if (desc) {
       desc.textContent = data.description || "";
       desc.hidden = !data.description;
     }
-    const props = tip.querySelector("[data-tip-props]");
+    const scroll = panel.querySelector("[data-tip-desc-scroll]");
+    if (scroll) scroll.hidden = !data.description;
+    const props = panel.querySelector("[data-tip-props]");
     if (props) {
       props.replaceChildren();
       for (const entry of data.properties ?? []) {
@@ -781,20 +790,6 @@ export class MerchantApp extends HandlebarsApplicationV2 {
       }
       props.hidden = !(data.properties ?? []).length;
     }
-  }
-
-  #positionItemTip(tip, cell) {
-    const rect = cell.getBoundingClientRect();
-    const width = tip.offsetWidth || 300;
-    const height = tip.offsetHeight || 160;
-    let left = rect.right + 10;
-    let top = rect.top;
-    if (left + width > window.innerWidth - 8) left = rect.left - width - 10;
-    if (left < 8) left = 8;
-    if (top + height > window.innerHeight - 8) top = window.innerHeight - height - 8;
-    if (top < 8) top = 8;
-    tip.style.left = `${Math.round(left)}px`;
-    tip.style.top = `${Math.round(top)}px`;
   }
 
   async #detailForCell(cell) {

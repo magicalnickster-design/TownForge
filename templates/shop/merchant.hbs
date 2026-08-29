@@ -165,6 +165,22 @@
         </div>
       </div>
 
+      <div class="townforge-trade-item-detail" data-townforge-item-detail aria-live="polite">
+        <p class="townforge-trade-item-detail-empty" data-item-detail-empty>Hover an item to inspect it.</p>
+        <div class="townforge-trade-item-detail-body" data-item-detail-body hidden>
+          <img data-tip-img alt="" />
+          <div class="townforge-item-detail-copy">
+            <h4 data-tip-name></h4>
+            <p class="townforge-item-detail-meta" data-tip-meta></p>
+            <p class="townforge-item-detail-price" data-tip-price></p>
+            <ul class="townforge-item-props" data-tip-props></ul>
+            <div class="townforge-item-detail-desc-scroll" data-tip-desc-scroll>
+              <p class="townforge-item-detail-desc" data-tip-desc></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <footer class="townforge-trade-footer">
         <div class="townforge-trade-summary">
           <div class="townforge-trade-net{{#if netPositive}} is-pay{{/if}}{{#if netNegative}} is-gain{{/if}}">
@@ -246,15 +262,4 @@
       </div>
     </section>
   </div>
-
-  <aside class="townforge-item-tip" data-townforge-item-tip aria-hidden="true">
-    <img data-tip-img alt="" />
-    <div class="townforge-item-tip-copy">
-      <h4 data-tip-name></h4>
-      <p class="townforge-item-tip-meta" data-tip-meta></p>
-      <p class="townforge-item-tip-price" data-tip-price></p>
-      <ul class="townforge-item-props" data-tip-props></ul>
-      <p class="townforge-item-tip-desc" data-tip-desc></p>
-    </div>
-  </aside>
 </section>
