@@ -4,6 +4,19 @@
   "shopType": "bookstore",
   "shopName": "The Quiet Quire",
   "label": "Vela Inkwell — Book Catalog",
+  "catalogOnly": true,
+  "compendiumBooks": [
+    { "name": "Spellbook", "topic": "magic" },
+    { "name": "Book", "topic": "gear" },
+    { "name": "Map", "topic": "adventure" },
+    { "name": "Parchment (one sheet)", "topic": "gear" },
+    { "name": "Paper (one sheet)", "topic": "gear" },
+    { "name": "Ink (1 ounce bottle)", "topic": "gear" },
+    { "name": "Ink Pen", "topic": "gear" },
+    { "name": "Spell Scroll (Cantrip)", "topic": "magic" },
+    { "name": "Spell Scroll (Level 1)", "topic": "magic" },
+    { "name": "Case, Map or Scroll", "topic": "gear" }
+  ],
   "books": [
     {
       "id": "principles-of-cantrip-craft",

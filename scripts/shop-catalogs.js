@@ -1,5 +1,11 @@
 import { FLAGS, MODULE_ID } from "./constants.js";
+import { findCompendiumItemByName } from "./compendium-resolver.js";
 import { stableHash } from "./shop-random.js";
+import {
+  DEFAULT_COMPENDIUM_BOOK_ITEMS,
+  isBookRelatedName,
+  isBookRelatedShopEntry
+} from "./shop-books.js";
 
 const CATALOG_ROOT = `modules/${MODULE_ID}/data/shop-catalogs`;
 const BOOK_UUID_PREFIX = "townforge-book:";
@@ -142,4 +148,96 @@ export function buildCatalogStock(catalog, options = {}) {
       unlimited: true
     };
   });
+}
+
+/**
+ * Resolve dnd5e compendium book-related items for a catalog NPC.
+ * @param {object} catalog
+ * @param {{priceMultiplier?: number, formatPrice?: (cp:number)=>string}} options
+ * @returns {Promise<object[]>}
+ */
+export async function buildCompendiumBookStock(catalog, options = {}) {
+  const multiplier = Math.max(0.1, Number(options.priceMultiplier) || 1);
+  const formatPrice = options.formatPrice ?? ((cp) => `${cp} cp`);
+  const lookups = catalog.compendiumBooks?.length
+    ? catalog.compendiumBooks
+    : DEFAULT_COMPENDIUM_BOOK_ITEMS;
+
+  const entries = [];
+  const seen = new Set();
+
+  for (const lookup of lookups) {
+    const name = String(lookup?.name ?? "").trim();
+    if (!name) continue;
+
+    const doc = await findCompendiumItemByName(name);
+    if (!doc) {
+      console.warn(`[TownForge] Bookshop compendium item not found: ${name}`);
+      continue;
+    }
+
+    const resolvedName = String(doc.name ?? name).trim();
+    const identity = resolvedName.toLowerCase();
+    if (seen.has(identity)) continue;
+    if (!isBookRelatedName(resolvedName)) continue;
+    seen.add(identity);
+
+    const uuid = doc.uuid ?? `Compendium.${doc.pack?.collection ?? "unknown"}.${doc.id}`;
+    const priceCP = Math.max(
+      1,
+      Math.round(
+        typeof options.priceFromItem === "function" ? options.priceFromItem(doc) : 25 * 100
+      )
+    );
+    entries.push({
+      id: `tfstock-compendium-${stableHash(uuid)}`,
+      uuid,
+      name: resolvedName,
+      img: doc.img || "icons/svg/item-bag.svg",
+      type: doc.type || "loot",
+      priceCP,
+      priceLabel: formatPrice(priceCP),
+      source: "compendium",
+      pack: doc.pack?.collection ?? "",
+      filter: lookup.topic ?? "gear",
+      topic: lookup.topic ?? "gear",
+      unlimited: true
+    });
+  }
+
+  return entries;
+}
+
+/**
+ * Merge custom catalog books with compendium book stock, deduped by name.
+ * @param {object} catalog
+ * @param {{priceMultiplier?: number, formatPrice?: (cp:number)=>string, priceFromItem?: (doc:object)=>number}} options
+ * @returns {Promise<object[]>}
+ */
+export async function buildFullCatalogStock(catalog, options = {}) {
+  const custom = buildCatalogStock(catalog, options);
+  const compendium = await buildCompendiumBookStock(catalog, options);
+  const seen = new Set();
+  const merged = [];
+
+  for (const entry of [...custom, ...compendium]) {
+    const key = String(entry.name ?? "").trim().toLowerCase();
+    if (!key || seen.has(key)) continue;
+    if (!isBookRelatedShopEntry(entry)) continue;
+    seen.add(key);
+    merged.push(entry);
+  }
+
+  return merged;
+}
+
+/**
+ * @param {object[]} inventory
+ * @param {object} [catalog]
+ * @returns {boolean}
+ */
+export function inventoryHasNonBookEntries(inventory, catalog) {
+  const catalogOnly = Boolean(catalog?.catalogOnly);
+  if (!catalogOnly) return false;
+  return (inventory ?? []).some((entry) => entry && !isBookRelatedShopEntry(entry));
 }

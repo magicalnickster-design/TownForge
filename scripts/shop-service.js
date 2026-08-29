@@ -31,12 +31,16 @@ import { resolveShopItemFilter, itemArmorType } from "./shop-filters.js";
 import {
   buildBookItemData,
   buildCatalogStock,
+  buildFullCatalogStock,
   getActorNpcId,
   getCatalogBook,
+  getLoadedCatalog,
+  inventoryHasNonBookEntries,
   parseTownforgeBookUuid,
   readyShopCatalogs,
   resolveShopCatalog
 } from "./shop-catalogs.js";
+import { isBookRelatedName, isBookRelatedShopEntry } from "./shop-books.js";
 import { refreshOpenShopUIs } from "./shop-sync.js";
 import { newGenerationSalt, randomPick, seededPick, stableHash, weightedRandomPick, weightedSeededPick } from "./shop-random.js";
 import {
@@ -497,16 +501,23 @@ export class ShopService {
 
     const manual = clearManual
       ? []
-      : (shop.inventory ?? []).filter((entry) => entry?.source === "manual");
+      : (shop.inventory ?? []).filter(
+          (entry) =>
+            entry?.source === "manual" &&
+            (!catalog?.catalogOnly || isBookRelatedShopEntry(entry))
+        );
 
     if (catalog) {
-      const automatic = buildCatalogStock(catalog, {
-        priceMultiplier: shop.priceMultiplier,
-        formatPrice: (cp) => this.formatPrice(cp)
-      }).map((entry) => sanitizeStockEntry(entry));
+      const automatic = (
+        await buildFullCatalogStock(catalog, {
+          priceMultiplier: shop.priceMultiplier,
+          formatPrice: (cp) => this.formatPrice(cp),
+          priceFromItem: (doc) => this.#priceFromItem(doc, shop.priceMultiplier)
+        })
+      ).map((entry) => sanitizeStockEntry(entry));
       const inventory = this.#sanitizeInventory([...automatic, ...manual]);
       console.log(
-        `${LOG_PREFIX} Loaded ${automatic.length} catalog book(s) for ${actor.name} (${catalog.id})`
+        `${LOG_PREFIX} Loaded ${automatic.length} bookshop item(s) for ${actor.name} (${catalog.id})`
       );
       return this.updateShopkeeper(actor, {
         inventory,
@@ -574,6 +585,11 @@ export class ShopService {
     if (!shop.enabled) return [];
     return (shop.inventory ?? [])
       .filter((entry) => entry?.id && entry?.uuid && entry?.name)
+      .filter((entry) => {
+        const catalog = getLoadedCatalog(getActorNpcId(actor));
+        if (catalog?.catalogOnly) return isBookRelatedShopEntry(entry);
+        return true;
+      })
       .map((entry) => ({
         ...entry,
         filter: resolveShopItemFilter(entry)
@@ -1472,10 +1488,13 @@ export class ShopService {
   async #generateAutomaticStock(actor, shop, partyLevel, economy, options = {}) {
     const catalog = await this.#getCatalogForActor(actor);
     if (catalog) {
-      return buildCatalogStock(catalog, {
-        priceMultiplier: shop.priceMultiplier,
-        formatPrice: (cp) => this.formatPrice(cp)
-      }).map((entry) => sanitizeStockEntry(entry));
+      return (
+        await buildFullCatalogStock(catalog, {
+          priceMultiplier: shop.priceMultiplier,
+          formatPrice: (cp) => this.formatPrice(cp),
+          priceFromItem: (doc) => this.#priceFromItem(doc, shop.priceMultiplier)
+        })
+      ).map((entry) => sanitizeStockEntry(entry));
     }
 
     const seedSalt = options.seedSalt || "stable";
@@ -1627,6 +1646,8 @@ export class ShopService {
         );
       case "stable":
         return /feed|bit and bridle|saddle|stabling|animal|pony|horse|mule/i.test(name);
+      case "bookstore":
+        return isBookRelatedName(name);
       case "adventuring-supplies":
         return (
           type === "consumable" ||

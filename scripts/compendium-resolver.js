@@ -184,6 +184,44 @@ export async function resolveCompendiumDocument(uuid, options = {}) {
  * @param {object} stub
  * @returns {Promise<object>}
  */
+/**
+ * Find an Item document by exact or close display name across installed packs.
+ * @param {string} name
+ * @param {"Item"|"Spell"} [documentName]
+ * @returns {Promise<Item|undefined>}
+ */
+export async function findCompendiumItemByName(name, documentName = "Item") {
+  const target = String(name ?? "").trim();
+  if (!target) return undefined;
+
+  const slug = toCompendiumSlug(target);
+  const targetLower = target.toLowerCase();
+
+  for (const pack of listCandidatePacks(documentName)) {
+    const direct = await getDocumentFromPack(pack, { slug, name: target });
+    if (direct && String(direct.name ?? "").trim().toLowerCase() === targetLower) return direct;
+
+    const index = pack.index?.length ? pack.index : await pack.getIndex?.().catch(() => []);
+    const exact =
+      index.find((row) => String(row.name ?? "").trim().toLowerCase() === targetLower) ?? null;
+    if (exact) return pack.getDocument(exact._id).catch(() => null);
+
+    const collapsedTarget = collapseCompendiumSlug(target);
+    const collapsed =
+      index.find(
+        (row) =>
+          collapseCompendiumSlug(row.name) === collapsedTarget ||
+          String(row.name ?? "")
+            .trim()
+            .toLowerCase()
+            .startsWith(targetLower)
+      ) ?? null;
+    if (collapsed) return pack.getDocument(collapsed._id).catch(() => null);
+  }
+
+  return undefined;
+}
+
 export async function resolveClassItemStub(stub) {
   const identifier = String(stub?.system?.identifier ?? toCompendiumSlug(stub?.name)).trim();
   const name = stub?.name;

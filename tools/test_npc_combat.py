@@ -8,6 +8,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+SHOP_ONLY_NPCS = frozenset({"vela-inkwell"})
 sys.path.insert(0, str(ROOT / "tools"))
 
 from build_launch_library import OCC_ARCH
@@ -38,6 +39,8 @@ def main() -> int:
             continue
         data = json.loads(path.read_text(encoding="utf-8"))
         for npc in data.get("npcs", []):
+            if npc["id"] in SHOP_ONLY_NPCS:
+                continue
             items = npc.get("actorData", {}).get("items", [])
             assert items, f"{npc['id']} missing combat items"
             assert any(i.get("type") == "class" for i in items), f"{npc['id']} missing class item"

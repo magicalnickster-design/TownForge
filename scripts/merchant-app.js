@@ -9,7 +9,7 @@ import {
   rarityLabel,
   stockQuantityLabel
 } from "./shop-constants.js";
-import { getActorNpcId, resolveShopCatalog } from "./shop-catalogs.js";
+import { getActorNpcId, inventoryHasNonBookEntries, resolveShopCatalog } from "./shop-catalogs.js";
 import { MERCHANT_PRICE_FILTERS, matchesMerchantPriceFilter } from "./shop-price-filters.js";
 import { getShopTypeLabel, shopService } from "./shop-service.js";
 import { getRemainingSellQuantity, nextSellOfferQuantity, shouldPromptSellQuantity } from "./trade-quantity.js";
@@ -114,8 +114,12 @@ export class MerchantApp extends HandlebarsApplicationV2 {
       const catalog = await resolveShopCatalog(getActorNpcId(merchant));
       if (game.user.isGM && catalog) {
         const current = shopService.getShopkeeper(merchant);
-        const hasCatalogStock = (current.inventory ?? []).some((entry) => entry.source === "catalog");
-        if (!hasCatalogStock) {
+        const shouldRefresh =
+          inventoryHasNonBookEntries(current.inventory, catalog) ||
+          !(current.inventory ?? []).some(
+            (entry) => entry.source === "catalog" || entry.source === "compendium"
+          );
+        if (shouldRefresh) {
           await shopService.regenerateInventory(merchant, { force: true });
         }
       }

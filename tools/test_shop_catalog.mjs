@@ -6,7 +6,13 @@
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
-import { buildBookItemData, buildCatalogStock, townforgeBookUuid } from "../scripts/shop-catalogs.js";
+import {
+  buildBookItemData,
+  buildCatalogStock,
+  inventoryHasNonBookEntries,
+  townforgeBookUuid
+} from "../scripts/shop-catalogs.js";
+import { isBookRelatedName, isBookRelatedShopEntry } from "../scripts/shop-books.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const catalog = JSON.parse(
@@ -48,6 +54,42 @@ test("book item data includes description and price", () => {
   assert(data.type === "loot", "loot item");
   assert(data.system.price.value === book.priceGP, "price");
   assert(data.system.description.value.includes(book.description), "description");
+});
+
+test("catalog is books-only", () => {
+  assert(catalog.catalogOnly === true, "catalogOnly flag");
+  assert(Array.isArray(catalog.compendiumBooks) && catalog.compendiumBooks.length > 0, "compendium books");
+});
+
+test("bookshop filters reject general store junk", () => {
+  assert(isBookRelatedName("Spellbook"), "spellbook");
+  assert(isBookRelatedName("The Ember Codex"), "codex title");
+  assert(!isBookRelatedName("Dwarven Thrower"), "magic weapon");
+  assert(!isBookRelatedName("Trident"), "weapon");
+  assert(!isBookRelatedName("Torch"), "torch");
+  assert(!isBookRelatedName("Tinderbox"), "tinderbox");
+  assert(!isBookRelatedName("Fine Clothes"), "clothes");
+  assert(
+    inventoryHasNonBookEntries(
+      [
+        { name: "Torch", uuid: "Compendium.dnd5e.items.torch", source: "automatic" },
+        { name: "Principles of Cantrip Craft", uuid: townforgeBookUuid("x"), source: "catalog" }
+      ],
+      catalog
+    ),
+    "detects mixed inventory"
+  );
+  assert(
+    !inventoryHasNonBookEntries(
+      [{ name: "Principles of Cantrip Craft", uuid: townforgeBookUuid("x"), source: "catalog" }],
+      catalog
+    ),
+    "catalog-only inventory passes"
+  );
+  assert(
+    isBookRelatedShopEntry({ name: "Spellbook", uuid: "Compendium.dnd5e.items.spellbook", source: "compendium" }),
+    "compendium book entry"
+  );
 });
 
 console.log(`\n${passed} tests passed`);
