@@ -101,62 +101,32 @@
         },
         "items": [
           {
-            "name": "Breastplate",
-            "type": "equipment",
-            "img": "icons/svg/shield.svg",
+            "name": "Fighter",
+            "type": "class",
             "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "medium"
-              },
-              "armor": {
-                "value": 14,
-                "dex": 0
-              }
+              "identifier": "fighter",
+              "levels": 4
             }
           },
           {
-            "name": "Longsword",
-            "type": "weapon",
-            "img": "icons/svg/sword.svg",
-            "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "martialM"
-              },
-              "damage": {
-                "parts": [
-                  [
-                    "1d8",
-                    "slashing"
-                  ]
-                ]
-              },
-              "actionType": "mwak"
-            }
+            "compendium": "Compendium.dnd5e.items.breastplate",
+            "equipped": true,
+            "quantity": 1
           },
           {
-            "name": "Light Crossbow",
-            "type": "weapon",
-            "img": "icons/svg/sword.svg",
-            "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "simpleR"
-              },
-              "damage": {
-                "parts": [
-                  [
-                    "1d8",
-                    "piercing"
-                  ]
-                ]
-              },
-              "actionType": "mwak"
-            }
+            "compendium": "Compendium.dnd5e.items.shield",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.longsword",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.light-crossbow",
+            "equipped": false,
+            "quantity": 1
           }
         ]
       },
@@ -275,62 +245,32 @@
         },
         "items": [
           {
-            "name": "Chain Shirt",
-            "type": "equipment",
-            "img": "icons/svg/shield.svg",
+            "name": "Fighter",
+            "type": "class",
             "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "medium"
-              },
-              "armor": {
-                "value": 13,
-                "dex": 0
-              }
+              "identifier": "fighter",
+              "levels": 2
             }
           },
           {
-            "name": "Spear",
-            "type": "weapon",
-            "img": "icons/svg/sword.svg",
-            "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "simpleM"
-              },
-              "damage": {
-                "parts": [
-                  [
-                    "1d6",
-                    "piercing"
-                  ]
-                ]
-              },
-              "actionType": "mwak"
-            }
+            "compendium": "Compendium.dnd5e.items.chain-shirt",
+            "equipped": true,
+            "quantity": 1
           },
           {
-            "name": "Shortsword",
-            "type": "weapon",
-            "img": "icons/svg/sword.svg",
-            "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "martialM"
-              },
-              "damage": {
-                "parts": [
-                  [
-                    "1d6",
-                    "piercing"
-                  ]
-                ]
-              },
-              "actionType": "mwak"
-            }
+            "compendium": "Compendium.dnd5e.items.shield",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.spear",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.shortsword",
+            "equipped": false,
+            "quantity": 1
           }
         ]
       },
@@ -444,62 +384,32 @@
         },
         "items": [
           {
-            "name": "Chain Shirt",
-            "type": "equipment",
-            "img": "icons/svg/shield.svg",
+            "name": "Fighter",
+            "type": "class",
             "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "medium"
-              },
-              "armor": {
-                "value": 13,
-                "dex": 0
-              }
+              "identifier": "fighter",
+              "levels": 2
             }
           },
           {
-            "name": "Spear",
-            "type": "weapon",
-            "img": "icons/svg/sword.svg",
-            "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "simpleM"
-              },
-              "damage": {
-                "parts": [
-                  [
-                    "1d6",
-                    "piercing"
-                  ]
-                ]
-              },
-              "actionType": "mwak"
-            }
+            "compendium": "Compendium.dnd5e.items.chain-shirt",
+            "equipped": true,
+            "quantity": 1
           },
           {
-            "name": "Shortsword",
-            "type": "weapon",
-            "img": "icons/svg/sword.svg",
-            "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "martialM"
-              },
-              "damage": {
-                "parts": [
-                  [
-                    "1d6",
-                    "piercing"
-                  ]
-                ]
-              },
-              "actionType": "mwak"
-            }
+            "compendium": "Compendium.dnd5e.items.shield",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.spear",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.shortsword",
+            "equipped": false,
+            "quantity": 1
           }
         ]
       },
@@ -608,62 +518,27 @@
         },
         "items": [
           {
-            "name": "Chain Shirt",
-            "type": "equipment",
-            "img": "icons/svg/shield.svg",
+            "name": "Fighter",
+            "type": "class",
             "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "medium"
-              },
-              "armor": {
-                "value": 13,
-                "dex": 0
-              }
+              "identifier": "fighter",
+              "levels": 2
             }
           },
           {
-            "name": "Spear",
-            "type": "weapon",
-            "img": "icons/svg/sword.svg",
-            "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "simpleM"
-              },
-              "damage": {
-                "parts": [
-                  [
-                    "1d6",
-                    "piercing"
-                  ]
-                ]
-              },
-              "actionType": "mwak"
-            }
+            "compendium": "Compendium.dnd5e.items.studded-leather",
+            "equipped": true,
+            "quantity": 1
           },
           {
-            "name": "Shortsword",
-            "type": "weapon",
-            "img": "icons/svg/sword.svg",
-            "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "martialM"
-              },
-              "damage": {
-                "parts": [
-                  [
-                    "1d6",
-                    "piercing"
-                  ]
-                ]
-              },
-              "actionType": "mwak"
-            }
+            "compendium": "Compendium.dnd5e.items.shortbow",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.shortsword",
+            "equipped": false,
+            "quantity": 1
           }
         ]
       }
@@ -765,62 +640,32 @@
         },
         "items": [
           {
-            "name": "Chain Shirt",
-            "type": "equipment",
-            "img": "icons/svg/shield.svg",
+            "name": "Fighter",
+            "type": "class",
             "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "medium"
-              },
-              "armor": {
-                "value": 13,
-                "dex": 0
-              }
+              "identifier": "fighter",
+              "levels": 2
             }
           },
           {
-            "name": "Spear",
-            "type": "weapon",
-            "img": "icons/svg/sword.svg",
-            "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "simpleM"
-              },
-              "damage": {
-                "parts": [
-                  [
-                    "1d6",
-                    "piercing"
-                  ]
-                ]
-              },
-              "actionType": "mwak"
-            }
+            "compendium": "Compendium.dnd5e.items.chain-shirt",
+            "equipped": true,
+            "quantity": 1
           },
           {
-            "name": "Shortsword",
-            "type": "weapon",
-            "img": "icons/svg/sword.svg",
-            "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "martialM"
-              },
-              "damage": {
-                "parts": [
-                  [
-                    "1d6",
-                    "piercing"
-                  ]
-                ]
-              },
-              "actionType": "mwak"
-            }
+            "compendium": "Compendium.dnd5e.items.shield",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.spear",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.shortsword",
+            "equipped": false,
+            "quantity": 1
           }
         ]
       },
@@ -929,62 +774,32 @@
         },
         "items": [
           {
-            "name": "Chain Shirt",
-            "type": "equipment",
-            "img": "icons/svg/shield.svg",
+            "name": "Fighter",
+            "type": "class",
             "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "medium"
-              },
-              "armor": {
-                "value": 13,
-                "dex": 0
-              }
+              "identifier": "fighter",
+              "levels": 2
             }
           },
           {
-            "name": "Spear",
-            "type": "weapon",
-            "img": "icons/svg/sword.svg",
-            "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "simpleM"
-              },
-              "damage": {
-                "parts": [
-                  [
-                    "1d6",
-                    "piercing"
-                  ]
-                ]
-              },
-              "actionType": "mwak"
-            }
+            "compendium": "Compendium.dnd5e.items.chain-shirt",
+            "equipped": true,
+            "quantity": 1
           },
           {
-            "name": "Shortsword",
-            "type": "weapon",
-            "img": "icons/svg/sword.svg",
-            "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "martialM"
-              },
-              "damage": {
-                "parts": [
-                  [
-                    "1d6",
-                    "piercing"
-                  ]
-                ]
-              },
-              "actionType": "mwak"
-            }
+            "compendium": "Compendium.dnd5e.items.shield",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.spear",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.shortsword",
+            "equipped": false,
+            "quantity": 1
           }
         ]
       }
@@ -1086,62 +901,32 @@
         },
         "items": [
           {
-            "name": "Chain Shirt",
-            "type": "equipment",
-            "img": "icons/svg/shield.svg",
+            "name": "Fighter",
+            "type": "class",
             "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "medium"
-              },
-              "armor": {
-                "value": 13,
-                "dex": 0
-              }
+              "identifier": "fighter",
+              "levels": 2
             }
           },
           {
-            "name": "Spear",
-            "type": "weapon",
-            "img": "icons/svg/sword.svg",
-            "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "simpleM"
-              },
-              "damage": {
-                "parts": [
-                  [
-                    "1d6",
-                    "piercing"
-                  ]
-                ]
-              },
-              "actionType": "mwak"
-            }
+            "compendium": "Compendium.dnd5e.items.chain-shirt",
+            "equipped": true,
+            "quantity": 1
           },
           {
-            "name": "Shortsword",
-            "type": "weapon",
-            "img": "icons/svg/sword.svg",
-            "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "martialM"
-              },
-              "damage": {
-                "parts": [
-                  [
-                    "1d6",
-                    "piercing"
-                  ]
-                ]
-              },
-              "actionType": "mwak"
-            }
+            "compendium": "Compendium.dnd5e.items.shield",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.spear",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.shortsword",
+            "equipped": false,
+            "quantity": 1
           }
         ]
       }
@@ -1243,62 +1028,32 @@
         },
         "items": [
           {
-            "name": "Chain Shirt",
-            "type": "equipment",
-            "img": "icons/svg/shield.svg",
+            "name": "Fighter",
+            "type": "class",
             "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "medium"
-              },
-              "armor": {
-                "value": 13,
-                "dex": 0
-              }
+              "identifier": "fighter",
+              "levels": 2
             }
           },
           {
-            "name": "Spear",
-            "type": "weapon",
-            "img": "icons/svg/sword.svg",
-            "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "simpleM"
-              },
-              "damage": {
-                "parts": [
-                  [
-                    "1d6",
-                    "piercing"
-                  ]
-                ]
-              },
-              "actionType": "mwak"
-            }
+            "compendium": "Compendium.dnd5e.items.chain-shirt",
+            "equipped": true,
+            "quantity": 1
           },
           {
-            "name": "Shortsword",
-            "type": "weapon",
-            "img": "icons/svg/sword.svg",
-            "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "martialM"
-              },
-              "damage": {
-                "parts": [
-                  [
-                    "1d6",
-                    "piercing"
-                  ]
-                ]
-              },
-              "actionType": "mwak"
-            }
+            "compendium": "Compendium.dnd5e.items.shield",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.spear",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.shortsword",
+            "equipped": false,
+            "quantity": 1
           }
         ]
       }
@@ -1403,46 +1158,32 @@
         },
         "items": [
           {
-            "name": "Dagger",
-            "type": "weapon",
-            "img": "icons/svg/sword.svg",
+            "name": "Rogue",
+            "type": "class",
             "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "simpleM"
-              },
-              "damage": {
-                "parts": [
-                  [
-                    "1d4",
-                    "piercing"
-                  ]
-                ]
-              },
-              "actionType": "mwak"
+              "identifier": "rogue",
+              "levels": 3
             }
           },
           {
-            "name": "Shortsword",
-            "type": "weapon",
-            "img": "icons/svg/sword.svg",
-            "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "martialM"
-              },
-              "damage": {
-                "parts": [
-                  [
-                    "1d6",
-                    "piercing"
-                  ]
-                ]
-              },
-              "actionType": "mwak"
-            }
+            "compendium": "Compendium.dnd5e.items.leather-armor",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.shortsword",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.hand-crossbow",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.thieves-tools",
+            "equipped": false,
+            "quantity": 1
           }
         ]
       }
@@ -1544,62 +1285,32 @@
         },
         "items": [
           {
-            "name": "Chain Shirt",
-            "type": "equipment",
-            "img": "icons/svg/shield.svg",
+            "name": "Fighter",
+            "type": "class",
             "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "medium"
-              },
-              "armor": {
-                "value": 13,
-                "dex": 0
-              }
+              "identifier": "fighter",
+              "levels": 3
             }
           },
           {
-            "name": "Spear",
-            "type": "weapon",
-            "img": "icons/svg/sword.svg",
-            "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "simpleM"
-              },
-              "damage": {
-                "parts": [
-                  [
-                    "1d6",
-                    "piercing"
-                  ]
-                ]
-              },
-              "actionType": "mwak"
-            }
+            "compendium": "Compendium.dnd5e.items.chain-shirt",
+            "equipped": true,
+            "quantity": 1
           },
           {
-            "name": "Shortsword",
-            "type": "weapon",
-            "img": "icons/svg/sword.svg",
-            "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "martialM"
-              },
-              "damage": {
-                "parts": [
-                  [
-                    "1d6",
-                    "piercing"
-                  ]
-                ]
-              },
-              "actionType": "mwak"
-            }
+            "compendium": "Compendium.dnd5e.items.shield",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.longsword",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.javelin",
+            "equipped": false,
+            "quantity": 1
           }
         ]
       }

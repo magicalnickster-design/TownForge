@@ -243,7 +243,48 @@ export class ActorService {
       npc.occupation ?? ""
     );
 
+    data.items = await this.#resolveItemStubs(data.items ?? []);
+
     return data;
+  }
+
+  /**
+   * Expand compendium UUID stubs into full dnd5e item data for Actor import.
+   * @param {object[]} stubs
+   * @returns {Promise<object[]>}
+   */
+  async #resolveItemStubs(stubs) {
+    if (!Array.isArray(stubs) || !stubs.length) return [];
+    if (typeof fromUuid !== "function") {
+      console.warn(`${LOG_PREFIX} fromUuid unavailable; using inline NPC items only`);
+      return stubs.filter((stub) => stub && !stub.compendium);
+    }
+
+    const items = [];
+    for (const stub of stubs) {
+      if (!stub || typeof stub !== "object") continue;
+      if (stub.compendium) {
+        try {
+          const doc = await fromUuid(stub.compendium);
+          if (!doc) {
+            console.warn(`${LOG_PREFIX} Compendium entry not found: ${stub.compendium}`);
+            continue;
+          }
+          const itemData = doc.toObject();
+          delete itemData._id;
+          if (stub.equipped) foundry.utils.setProperty(itemData, "system.equipped", true);
+          if (Number.isFinite(stub.quantity)) {
+            foundry.utils.setProperty(itemData, "system.quantity", stub.quantity);
+          }
+          items.push(itemData);
+        } catch (error) {
+          console.warn(`${LOG_PREFIX} Failed to resolve compendium item ${stub.compendium}`, error);
+        }
+        continue;
+      }
+      items.push(foundry.utils.deepClone(stub));
+    }
+    return items;
   }
 
   /**

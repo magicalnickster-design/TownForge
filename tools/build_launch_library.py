@@ -8,6 +8,7 @@ import re
 from pathlib import Path
 
 from actor_builders import build_actor_data
+from npc_combat_loadouts import apply_combat_to_actor_data
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "data" / "npcs"
@@ -379,7 +380,11 @@ def build() -> None:
             "appearance": fields["appearance"],
             "portrait": f"modules/townforge/assets/portraits/{npc_id}.webp",
             "token": f"modules/townforge/assets/tokens/{npc_id}.webp",
-            "actorData": build_actor_data(archetype, n["species"]),
+            "actorData": apply_combat_to_actor_data(
+                build_actor_data(archetype, n["species"]),
+                archetype,
+                n["occupation"],
+            ),
         }
         if n.get("relationships"):
             npc["relationships"] = n["relationships"]

@@ -98,33 +98,40 @@
         },
         "items": [
           {
-            "name": "Shortsword",
-            "type": "weapon",
-            "img": "icons/svg/sword.svg",
+            "name": "Ranger",
+            "type": "class",
             "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "martialM"
-              },
-              "damage": {
-                "parts": [
-                  [
-                    "1d6",
-                    "piercing"
-                  ]
-                ]
-              },
-              "actionType": "mwak"
+              "identifier": "ranger",
+              "levels": 2
             }
           },
           {
-            "name": "Traveler's Pack",
-            "type": "tool",
-            "img": "icons/svg/eye.svg",
-            "system": {
-              "quantity": 1
-            }
+            "compendium": "Compendium.dnd5e.items.leather-armor",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.shortsword",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.shortbow",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.explorers-pack",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.hunters-mark",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.cure-wounds",
+            "type": "spell"
           }
         ]
       }
@@ -226,33 +233,40 @@
         },
         "items": [
           {
-            "name": "Shortsword",
-            "type": "weapon",
-            "img": "icons/svg/sword.svg",
+            "name": "Ranger",
+            "type": "class",
             "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "martialM"
-              },
-              "damage": {
-                "parts": [
-                  [
-                    "1d6",
-                    "piercing"
-                  ]
-                ]
-              },
-              "actionType": "mwak"
+              "identifier": "ranger",
+              "levels": 3
             }
           },
           {
-            "name": "Traveler's Pack",
-            "type": "tool",
-            "img": "icons/svg/eye.svg",
-            "system": {
-              "quantity": 1
-            }
+            "compendium": "Compendium.dnd5e.items.leather-armor",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.shortsword",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.shortbow",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.explorers-pack",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.hunters-mark",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.cure-wounds",
+            "type": "spell"
           }
         ]
       }
@@ -345,7 +359,33 @@
               "value": 1
             }
           }
-        }
+        },
+        "items": [
+          {
+            "name": "Bard",
+            "type": "class",
+            "system": {
+              "identifier": "bard",
+              "levels": 2
+            }
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.vicious-mockery",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.prestidigitation",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.healing-word",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.faerie-fire",
+            "type": "spell"
+          }
+        ]
       }
     },
     {
@@ -448,41 +488,43 @@
         },
         "items": [
           {
-            "name": "Holy Vestments",
-            "type": "equipment",
-            "img": "icons/svg/shield.svg",
+            "name": "Cleric",
+            "type": "class",
             "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "clothing"
-              },
-              "armor": {
-                "value": 1,
-                "dex": 0
-              }
+              "identifier": "cleric",
+              "levels": 2
             }
           },
           {
-            "name": "Mace",
-            "type": "weapon",
-            "img": "icons/svg/sword.svg",
-            "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "simpleM"
-              },
-              "damage": {
-                "parts": [
-                  [
-                    "1d6",
-                    "bludgeoning"
-                  ]
-                ]
-              },
-              "actionType": "mwak"
-            }
+            "compendium": "Compendium.dnd5e.items.chain-shirt",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.quarterstaff",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.holy-symbol",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.sacred-flame",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.spare-the-dying",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.cure-wounds",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.bless",
+            "type": "spell"
           }
         ]
       }
@@ -584,33 +626,40 @@
         },
         "items": [
           {
-            "name": "Shortsword",
-            "type": "weapon",
-            "img": "icons/svg/sword.svg",
+            "name": "Ranger",
+            "type": "class",
             "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "martialM"
-              },
-              "damage": {
-                "parts": [
-                  [
-                    "1d6",
-                    "piercing"
-                  ]
-                ]
-              },
-              "actionType": "mwak"
+              "identifier": "ranger",
+              "levels": 2
             }
           },
           {
-            "name": "Traveler's Pack",
-            "type": "tool",
-            "img": "icons/svg/eye.svg",
-            "system": {
-              "quantity": 1
-            }
+            "compendium": "Compendium.dnd5e.items.leather-armor",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.shortsword",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.shortbow",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.explorers-pack",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.hunters-mark",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.cure-wounds",
+            "type": "spell"
           }
         ]
       }
@@ -712,33 +761,40 @@
         },
         "items": [
           {
-            "name": "Shortsword",
-            "type": "weapon",
-            "img": "icons/svg/sword.svg",
+            "name": "Ranger",
+            "type": "class",
             "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "martialM"
-              },
-              "damage": {
-                "parts": [
-                  [
-                    "1d6",
-                    "piercing"
-                  ]
-                ]
-              },
-              "actionType": "mwak"
+              "identifier": "ranger",
+              "levels": 3
             }
           },
           {
-            "name": "Traveler's Pack",
-            "type": "tool",
-            "img": "icons/svg/eye.svg",
-            "system": {
-              "quantity": 1
-            }
+            "compendium": "Compendium.dnd5e.items.leather-armor",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.longbow",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.shortsword",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.explorers-pack",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.hunters-mark",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.cure-wounds",
+            "type": "spell"
           }
         ]
       }
@@ -840,33 +896,40 @@
         },
         "items": [
           {
-            "name": "Shortsword",
-            "type": "weapon",
-            "img": "icons/svg/sword.svg",
+            "name": "Ranger",
+            "type": "class",
             "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "martialM"
-              },
-              "damage": {
-                "parts": [
-                  [
-                    "1d6",
-                    "piercing"
-                  ]
-                ]
-              },
-              "actionType": "mwak"
+              "identifier": "ranger",
+              "levels": 2
             }
           },
           {
-            "name": "Traveler's Pack",
-            "type": "tool",
-            "img": "icons/svg/eye.svg",
-            "system": {
-              "quantity": 1
-            }
+            "compendium": "Compendium.dnd5e.items.leather-armor",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.shortsword",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.shortbow",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.explorers-pack",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.hunters-mark",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.cure-wounds",
+            "type": "spell"
           }
         ]
       },

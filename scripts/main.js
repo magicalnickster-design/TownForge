@@ -33,7 +33,7 @@ Hooks.on("getSceneControlButtons", (controls) => {
 
 Hooks.once("init", async () => {
   try {
-    const version = game.modules.get(MODULE_ID)?.version ?? "0.7.2";
+    const version = game.modules.get(MODULE_ID)?.version ?? "0.8.0";
     console.log(`${LOG_PREFIX} Initializing ${MODULE_TITLE} v${version}`);
     const { registerTownForgeSettings } = await import("./settings.js");
     registerTownForgeSettings();
@@ -81,6 +81,6 @@ Hooks.once("ready", async () => {
     npcService,
     shopService,
     shop: shopApi,
-    version: game.modules.get(MODULE_ID)?.version ?? "0.7.2"
+    version: game.modules.get(MODULE_ID)?.version ?? "0.8.0"
   });
 });

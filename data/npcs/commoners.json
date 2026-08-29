@@ -89,7 +89,17 @@
               "value": 1
             }
           }
-        }
+        },
+        "items": [
+          {
+            "name": "Commoner",
+            "type": "class",
+            "system": {
+              "identifier": "commoner",
+              "levels": 1
+            }
+          }
+        ]
       },
       "relationships": [
         {
@@ -187,7 +197,17 @@
               "value": 1
             }
           }
-        }
+        },
+        "items": [
+          {
+            "name": "Commoner",
+            "type": "class",
+            "system": {
+              "identifier": "commoner",
+              "levels": 1
+            }
+          }
+        ]
       }
     },
     {
@@ -278,7 +298,17 @@
               "value": 1
             }
           }
-        }
+        },
+        "items": [
+          {
+            "name": "Commoner",
+            "type": "class",
+            "system": {
+              "identifier": "commoner",
+              "levels": 1
+            }
+          }
+        ]
       }
     },
     {
@@ -378,33 +408,40 @@
         },
         "items": [
           {
-            "name": "Shortsword",
-            "type": "weapon",
-            "img": "icons/svg/sword.svg",
+            "name": "Ranger",
+            "type": "class",
             "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "martialM"
-              },
-              "damage": {
-                "parts": [
-                  [
-                    "1d6",
-                    "piercing"
-                  ]
-                ]
-              },
-              "actionType": "mwak"
+              "identifier": "ranger",
+              "levels": 2
             }
           },
           {
-            "name": "Traveler's Pack",
-            "type": "tool",
-            "img": "icons/svg/eye.svg",
-            "system": {
-              "quantity": 1
-            }
+            "compendium": "Compendium.dnd5e.items.leather-armor",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.shortsword",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.shortbow",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.explorers-pack",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.hunters-mark",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.cure-wounds",
+            "type": "spell"
           }
         ]
       },
@@ -504,7 +541,17 @@
               "value": 1
             }
           }
-        }
+        },
+        "items": [
+          {
+            "name": "Commoner",
+            "type": "class",
+            "system": {
+              "identifier": "commoner",
+              "levels": 1
+            }
+          }
+        ]
       }
     },
     {
@@ -595,7 +642,17 @@
               "value": 1
             }
           }
-        }
+        },
+        "items": [
+          {
+            "name": "Commoner",
+            "type": "class",
+            "system": {
+              "identifier": "commoner",
+              "levels": 1
+            }
+          }
+        ]
       }
     },
     {
@@ -686,7 +743,17 @@
               "value": 1
             }
           }
-        }
+        },
+        "items": [
+          {
+            "name": "Commoner",
+            "type": "class",
+            "system": {
+              "identifier": "commoner",
+              "levels": 1
+            }
+          }
+        ]
       }
     },
     {
@@ -786,12 +853,27 @@
         },
         "items": [
           {
-            "name": "Merchant's Scale",
-            "type": "tool",
-            "img": "icons/svg/eye.svg",
+            "name": "Rogue",
+            "type": "class",
             "system": {
-              "quantity": 1
+              "identifier": "rogue",
+              "levels": 1
             }
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.leather-armor",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.dagger",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.thieves-tools",
+            "equipped": false,
+            "quantity": 1
           }
         ]
       }
@@ -884,7 +966,17 @@
               "value": 1
             }
           }
-        }
+        },
+        "items": [
+          {
+            "name": "Commoner",
+            "type": "class",
+            "system": {
+              "identifier": "commoner",
+              "levels": 1
+            }
+          }
+        ]
       }
     },
     {
@@ -981,33 +1073,22 @@
         },
         "items": [
           {
-            "name": "Artisan's Tools",
-            "type": "tool",
-            "img": "icons/svg/eye.svg",
+            "name": "Fighter",
+            "type": "class",
             "system": {
-              "quantity": 1
+              "identifier": "fighter",
+              "levels": 1
             }
           },
           {
-            "name": "Light Hammer",
-            "type": "weapon",
-            "img": "icons/svg/sword.svg",
-            "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "simpleM"
-              },
-              "damage": {
-                "parts": [
-                  [
-                    "1d4",
-                    "bludgeoning"
-                  ]
-                ]
-              },
-              "actionType": "mwak"
-            }
+            "compendium": "Compendium.dnd5e.items.light-hammer",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.artisans-tools",
+            "equipped": false,
+            "quantity": 1
           }
         ]
       }
@@ -1100,7 +1181,17 @@
               "value": 1
             }
           }
-        }
+        },
+        "items": [
+          {
+            "name": "Commoner",
+            "type": "class",
+            "system": {
+              "identifier": "commoner",
+              "levels": 1
+            }
+          }
+        ]
       }
     },
     {
@@ -1200,33 +1291,40 @@
         },
         "items": [
           {
-            "name": "Shortsword",
-            "type": "weapon",
-            "img": "icons/svg/sword.svg",
+            "name": "Ranger",
+            "type": "class",
             "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "martialM"
-              },
-              "damage": {
-                "parts": [
-                  [
-                    "1d6",
-                    "piercing"
-                  ]
-                ]
-              },
-              "actionType": "mwak"
+              "identifier": "ranger",
+              "levels": 2
             }
           },
           {
-            "name": "Traveler's Pack",
-            "type": "tool",
-            "img": "icons/svg/eye.svg",
-            "system": {
-              "quantity": 1
-            }
+            "compendium": "Compendium.dnd5e.items.leather-armor",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.shortsword",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.shortbow",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.explorers-pack",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.hunters-mark",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.cure-wounds",
+            "type": "spell"
           }
         ]
       }

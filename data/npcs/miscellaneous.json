@@ -89,7 +89,17 @@
               "value": 1
             }
           }
-        }
+        },
+        "items": [
+          {
+            "name": "Commoner",
+            "type": "class",
+            "system": {
+              "identifier": "commoner",
+              "levels": 1
+            }
+          }
+        ]
       }
     },
     {
@@ -180,7 +190,17 @@
               "value": 1
             }
           }
-        }
+        },
+        "items": [
+          {
+            "name": "Commoner",
+            "type": "class",
+            "system": {
+              "identifier": "commoner",
+              "levels": 1
+            }
+          }
+        ]
       }
     },
     {
@@ -283,46 +303,32 @@
         },
         "items": [
           {
-            "name": "Dagger",
-            "type": "weapon",
-            "img": "icons/svg/sword.svg",
+            "name": "Rogue",
+            "type": "class",
             "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "simpleM"
-              },
-              "damage": {
-                "parts": [
-                  [
-                    "1d4",
-                    "piercing"
-                  ]
-                ]
-              },
-              "actionType": "mwak"
+              "identifier": "rogue",
+              "levels": 2
             }
           },
           {
-            "name": "Shortsword",
-            "type": "weapon",
-            "img": "icons/svg/sword.svg",
-            "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "martialM"
-              },
-              "damage": {
-                "parts": [
-                  [
-                    "1d6",
-                    "piercing"
-                  ]
-                ]
-              },
-              "actionType": "mwak"
-            }
+            "compendium": "Compendium.dnd5e.items.leather-armor",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.shortsword",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.dagger",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.thieves-tools",
+            "equipped": false,
+            "quantity": 1
           }
         ]
       }
@@ -415,7 +421,17 @@
               "value": 1
             }
           }
-        }
+        },
+        "items": [
+          {
+            "name": "Commoner",
+            "type": "class",
+            "system": {
+              "identifier": "commoner",
+              "levels": 1
+            }
+          }
+        ]
       }
     }
   ]

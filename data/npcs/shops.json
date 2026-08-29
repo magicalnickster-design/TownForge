@@ -98,12 +98,27 @@
         },
         "items": [
           {
-            "name": "Merchant's Scale",
-            "type": "tool",
-            "img": "icons/svg/eye.svg",
+            "name": "Rogue",
+            "type": "class",
             "system": {
-              "quantity": 1
+              "identifier": "rogue",
+              "levels": 1
             }
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.leather-armor",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.dagger",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.thieves-tools",
+            "equipped": false,
+            "quantity": 1
           }
         ]
       },
@@ -217,12 +232,27 @@
         },
         "items": [
           {
-            "name": "Merchant's Scale",
-            "type": "tool",
-            "img": "icons/svg/eye.svg",
+            "name": "Rogue",
+            "type": "class",
             "system": {
-              "quantity": 1
+              "identifier": "rogue",
+              "levels": 1
             }
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.leather-armor",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.dagger",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.thieves-tools",
+            "equipped": false,
+            "quantity": 1
           }
         ]
       },
@@ -331,12 +361,27 @@
         },
         "items": [
           {
-            "name": "Merchant's Scale",
-            "type": "tool",
-            "img": "icons/svg/eye.svg",
+            "name": "Rogue",
+            "type": "class",
             "system": {
-              "quantity": 1
+              "identifier": "rogue",
+              "levels": 1
             }
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.leather-armor",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.dagger",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.thieves-tools",
+            "equipped": false,
+            "quantity": 1
           }
         ]
       },
@@ -450,12 +495,27 @@
         },
         "items": [
           {
-            "name": "Merchant's Scale",
-            "type": "tool",
-            "img": "icons/svg/eye.svg",
+            "name": "Rogue",
+            "type": "class",
             "system": {
-              "quantity": 1
+              "identifier": "rogue",
+              "levels": 1
             }
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.leather-armor",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.dagger",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.thieves-tools",
+            "equipped": false,
+            "quantity": 1
           }
         ]
       },
@@ -564,12 +624,27 @@
         },
         "items": [
           {
-            "name": "Merchant's Scale",
-            "type": "tool",
-            "img": "icons/svg/eye.svg",
+            "name": "Rogue",
+            "type": "class",
             "system": {
-              "quantity": 1
+              "identifier": "rogue",
+              "levels": 1
             }
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.leather-armor",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.dagger",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.thieves-tools",
+            "equipped": false,
+            "quantity": 1
           }
         ]
       }
@@ -674,12 +749,42 @@
         },
         "items": [
           {
-            "name": "Scholar's Kit",
-            "type": "tool",
-            "img": "icons/svg/eye.svg",
+            "name": "Wizard",
+            "type": "class",
             "system": {
-              "quantity": 1
+              "identifier": "wizard",
+              "levels": 2
             }
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.dagger",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.scholars-pack",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.fire-bolt",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.light",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.mage-hand",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.magic-missile",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.shield",
+            "type": "spell"
           }
         ]
       }
@@ -781,12 +886,27 @@
         },
         "items": [
           {
-            "name": "Merchant's Scale",
-            "type": "tool",
-            "img": "icons/svg/eye.svg",
+            "name": "Rogue",
+            "type": "class",
             "system": {
-              "quantity": 1
+              "identifier": "rogue",
+              "levels": 1
             }
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.leather-armor",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.dagger",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.thieves-tools",
+            "equipped": false,
+            "quantity": 1
           }
         ]
       }
@@ -888,12 +1008,27 @@
         },
         "items": [
           {
-            "name": "Merchant's Scale",
-            "type": "tool",
-            "img": "icons/svg/eye.svg",
+            "name": "Rogue",
+            "type": "class",
             "system": {
-              "quantity": 1
+              "identifier": "rogue",
+              "levels": 1
             }
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.leather-armor",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.dagger",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.thieves-tools",
+            "equipped": false,
+            "quantity": 1
           }
         ]
       }
@@ -992,33 +1127,22 @@
         },
         "items": [
           {
-            "name": "Artisan's Tools",
-            "type": "tool",
-            "img": "icons/svg/eye.svg",
+            "name": "Fighter",
+            "type": "class",
             "system": {
-              "quantity": 1
+              "identifier": "fighter",
+              "levels": 1
             }
           },
           {
-            "name": "Light Hammer",
-            "type": "weapon",
-            "img": "icons/svg/sword.svg",
-            "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "simpleM"
-              },
-              "damage": {
-                "parts": [
-                  [
-                    "1d4",
-                    "bludgeoning"
-                  ]
-                ]
-              },
-              "actionType": "mwak"
-            }
+            "compendium": "Compendium.dnd5e.items.light-hammer",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.artisans-tools",
+            "equipped": false,
+            "quantity": 1
           }
         ]
       }
@@ -1123,12 +1247,42 @@
         },
         "items": [
           {
-            "name": "Scholar's Kit",
-            "type": "tool",
-            "img": "icons/svg/eye.svg",
+            "name": "Wizard",
+            "type": "class",
             "system": {
-              "quantity": 1
+              "identifier": "wizard",
+              "levels": 2
             }
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.dagger",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.scholars-pack",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.fire-bolt",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.light",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.mage-hand",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.magic-missile",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.shield",
+            "type": "spell"
           }
         ]
       }
@@ -1230,12 +1384,27 @@
         },
         "items": [
           {
-            "name": "Merchant's Scale",
-            "type": "tool",
-            "img": "icons/svg/eye.svg",
+            "name": "Rogue",
+            "type": "class",
             "system": {
-              "quantity": 1
+              "identifier": "rogue",
+              "levels": 1
             }
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.leather-armor",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.dagger",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.thieves-tools",
+            "equipped": false,
+            "quantity": 1
           }
         ]
       }

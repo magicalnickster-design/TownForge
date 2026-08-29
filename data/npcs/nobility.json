@@ -98,25 +98,38 @@
         },
         "items": [
           {
-            "name": "Rapier",
-            "type": "weapon",
-            "img": "icons/svg/sword.svg",
+            "name": "Bard",
+            "type": "class",
             "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "martialM"
-              },
-              "damage": {
-                "parts": [
-                  [
-                    "1d8",
-                    "piercing"
-                  ]
-                ]
-              },
-              "actionType": "mwak"
+              "identifier": "bard",
+              "levels": 2
             }
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.leather-armor",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.rapier",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.vicious-mockery",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.prestidigitation",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.healing-word",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.faerie-fire",
+            "type": "spell"
           }
         ]
       },
@@ -230,25 +243,38 @@
         },
         "items": [
           {
-            "name": "Rapier",
-            "type": "weapon",
-            "img": "icons/svg/sword.svg",
+            "name": "Bard",
+            "type": "class",
             "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "martialM"
-              },
-              "damage": {
-                "parts": [
-                  [
-                    "1d8",
-                    "piercing"
-                  ]
-                ]
-              },
-              "actionType": "mwak"
+              "identifier": "bard",
+              "levels": 2
             }
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.leather-armor",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.rapier",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.vicious-mockery",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.prestidigitation",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.healing-word",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.faerie-fire",
+            "type": "spell"
           }
         ]
       },
@@ -360,62 +386,32 @@
         },
         "items": [
           {
-            "name": "Breastplate",
-            "type": "equipment",
-            "img": "icons/svg/shield.svg",
+            "name": "Fighter",
+            "type": "class",
             "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "medium"
-              },
-              "armor": {
-                "value": 14,
-                "dex": 0
-              }
+              "identifier": "fighter",
+              "levels": 4
             }
           },
           {
-            "name": "Longsword",
-            "type": "weapon",
-            "img": "icons/svg/sword.svg",
-            "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "martialM"
-              },
-              "damage": {
-                "parts": [
-                  [
-                    "1d8",
-                    "slashing"
-                  ]
-                ]
-              },
-              "actionType": "mwak"
-            }
+            "compendium": "Compendium.dnd5e.items.plate",
+            "equipped": true,
+            "quantity": 1
           },
           {
-            "name": "Light Crossbow",
-            "type": "weapon",
-            "img": "icons/svg/sword.svg",
-            "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "simpleR"
-              },
-              "damage": {
-                "parts": [
-                  [
-                    "1d8",
-                    "piercing"
-                  ]
-                ]
-              },
-              "actionType": "mwak"
-            }
+            "compendium": "Compendium.dnd5e.items.shield",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.longsword",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.lance",
+            "equipped": false,
+            "quantity": 1
           }
         ]
       }
@@ -517,25 +513,38 @@
         },
         "items": [
           {
-            "name": "Rapier",
-            "type": "weapon",
-            "img": "icons/svg/sword.svg",
+            "name": "Bard",
+            "type": "class",
             "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "martialM"
-              },
-              "damage": {
-                "parts": [
-                  [
-                    "1d8",
-                    "piercing"
-                  ]
-                ]
-              },
-              "actionType": "mwak"
+              "identifier": "bard",
+              "levels": 2
             }
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.leather-armor",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.rapier",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.vicious-mockery",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.prestidigitation",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.healing-word",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.faerie-fire",
+            "type": "spell"
           }
         ]
       }
@@ -637,25 +646,38 @@
         },
         "items": [
           {
-            "name": "Rapier",
-            "type": "weapon",
-            "img": "icons/svg/sword.svg",
+            "name": "Bard",
+            "type": "class",
             "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "martialM"
-              },
-              "damage": {
-                "parts": [
-                  [
-                    "1d8",
-                    "piercing"
-                  ]
-                ]
-              },
-              "actionType": "mwak"
+              "identifier": "bard",
+              "levels": 2
             }
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.leather-armor",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.rapier",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.vicious-mockery",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.prestidigitation",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.healing-word",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.faerie-fire",
+            "type": "spell"
           }
         ]
       }
@@ -748,7 +770,17 @@
               "value": 1
             }
           }
-        }
+        },
+        "items": [
+          {
+            "name": "Commoner",
+            "type": "class",
+            "system": {
+              "identifier": "commoner",
+              "levels": 1
+            }
+          }
+        ]
       },
       "relationships": [
         {
@@ -851,7 +883,17 @@
               "value": 1
             }
           }
-        }
+        },
+        "items": [
+          {
+            "name": "Commoner",
+            "type": "class",
+            "system": {
+              "identifier": "commoner",
+              "levels": 1
+            }
+          }
+        ]
       }
     },
     {
@@ -951,25 +993,38 @@
         },
         "items": [
           {
-            "name": "Rapier",
-            "type": "weapon",
-            "img": "icons/svg/sword.svg",
+            "name": "Bard",
+            "type": "class",
             "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "martialM"
-              },
-              "damage": {
-                "parts": [
-                  [
-                    "1d8",
-                    "piercing"
-                  ]
-                ]
-              },
-              "actionType": "mwak"
+              "identifier": "bard",
+              "levels": 2
             }
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.leather-armor",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.rapier",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.vicious-mockery",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.prestidigitation",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.healing-word",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.faerie-fire",
+            "type": "spell"
           }
         ]
       }

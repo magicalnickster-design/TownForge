@@ -101,41 +101,59 @@
         },
         "items": [
           {
-            "name": "Holy Vestments",
-            "type": "equipment",
-            "img": "icons/svg/shield.svg",
+            "name": "Cleric",
+            "type": "class",
             "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "clothing"
-              },
-              "armor": {
-                "value": 1,
-                "dex": 0
-              }
+              "identifier": "cleric",
+              "levels": 3
             }
           },
           {
-            "name": "Mace",
-            "type": "weapon",
-            "img": "icons/svg/sword.svg",
-            "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "simpleM"
-              },
-              "damage": {
-                "parts": [
-                  [
-                    "1d6",
-                    "bludgeoning"
-                  ]
-                ]
-              },
-              "actionType": "mwak"
-            }
+            "compendium": "Compendium.dnd5e.items.chain-shirt",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.mace",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.holy-symbol",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.sacred-flame",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.guidance",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.spare-the-dying",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.cure-wounds",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.bless",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.shield-of-faith",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.lesser-restoration",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.spiritual-weapon",
+            "type": "spell"
           }
         ]
       },
@@ -247,12 +265,42 @@
         },
         "items": [
           {
-            "name": "Scholar's Kit",
-            "type": "tool",
-            "img": "icons/svg/eye.svg",
+            "name": "Wizard",
+            "type": "class",
             "system": {
-              "quantity": 1
+              "identifier": "wizard",
+              "levels": 2
             }
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.dagger",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.scholars-pack",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.fire-bolt",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.light",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.mage-hand",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.magic-missile",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.shield",
+            "type": "spell"
           }
         ]
       },
@@ -364,41 +412,59 @@
         },
         "items": [
           {
-            "name": "Holy Vestments",
-            "type": "equipment",
-            "img": "icons/svg/shield.svg",
+            "name": "Cleric",
+            "type": "class",
             "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "clothing"
-              },
-              "armor": {
-                "value": 1,
-                "dex": 0
-              }
+              "identifier": "cleric",
+              "levels": 3
             }
           },
           {
-            "name": "Mace",
-            "type": "weapon",
-            "img": "icons/svg/sword.svg",
-            "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "simpleM"
-              },
-              "damage": {
-                "parts": [
-                  [
-                    "1d6",
-                    "bludgeoning"
-                  ]
-                ]
-              },
-              "actionType": "mwak"
-            }
+            "compendium": "Compendium.dnd5e.items.chain-shirt",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.mace",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.holy-symbol",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.sacred-flame",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.guidance",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.spare-the-dying",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.cure-wounds",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.bless",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.shield-of-faith",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.lesser-restoration",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.spiritual-weapon",
+            "type": "spell"
           }
         ]
       }
@@ -503,41 +569,59 @@
         },
         "items": [
           {
-            "name": "Holy Vestments",
-            "type": "equipment",
-            "img": "icons/svg/shield.svg",
+            "name": "Cleric",
+            "type": "class",
             "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "clothing"
-              },
-              "armor": {
-                "value": 1,
-                "dex": 0
-              }
+              "identifier": "cleric",
+              "levels": 3
             }
           },
           {
-            "name": "Mace",
-            "type": "weapon",
-            "img": "icons/svg/sword.svg",
-            "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "simpleM"
-              },
-              "damage": {
-                "parts": [
-                  [
-                    "1d6",
-                    "bludgeoning"
-                  ]
-                ]
-              },
-              "actionType": "mwak"
-            }
+            "compendium": "Compendium.dnd5e.items.chain-shirt",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.mace",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.holy-symbol",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.sacred-flame",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.guidance",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.spare-the-dying",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.cure-wounds",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.bless",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.shield-of-faith",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.lesser-restoration",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.spiritual-weapon",
+            "type": "spell"
           }
         ]
       }
@@ -630,7 +714,33 @@
               "value": 1
             }
           }
-        }
+        },
+        "items": [
+          {
+            "name": "Cleric",
+            "type": "class",
+            "system": {
+              "identifier": "cleric",
+              "levels": 1
+            }
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.sacred-flame",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.spare-the-dying",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.cure-wounds",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.bless",
+            "type": "spell"
+          }
+        ]
       }
     },
     {
@@ -698,7 +808,7 @@
               "tremorsense": 0,
               "truesight": 0
             },
-            "prof": 2
+            "prof": 3
           },
           "details": {
             "cr": 1,
@@ -730,33 +840,58 @@
         },
         "items": [
           {
-            "name": "Quarterstaff",
-            "type": "weapon",
-            "img": "icons/svg/sword.svg",
+            "name": "Sorcerer",
+            "type": "class",
             "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "simpleM"
-              },
-              "damage": {
-                "parts": [
-                  [
-                    "1d6",
-                    "bludgeoning"
-                  ]
-                ]
-              },
-              "actionType": "mwak"
+              "identifier": "sorcerer",
+              "levels": 5
             }
           },
           {
-            "name": "Component Pouch",
-            "type": "tool",
-            "img": "icons/svg/eye.svg",
-            "system": {
-              "quantity": 1
-            }
+            "compendium": "Compendium.dnd5e.items.quarterstaff",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.component-pouch",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.fire-bolt",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.light",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.mage-hand",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.burning-hands",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.chromatic-orb",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.shield",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.misty-step",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.fireball",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.counterspell",
+            "type": "spell"
           }
         ]
       }
@@ -861,41 +996,59 @@
         },
         "items": [
           {
-            "name": "Holy Vestments",
-            "type": "equipment",
-            "img": "icons/svg/shield.svg",
+            "name": "Cleric",
+            "type": "class",
             "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "clothing"
-              },
-              "armor": {
-                "value": 1,
-                "dex": 0
-              }
+              "identifier": "cleric",
+              "levels": 3
             }
           },
           {
-            "name": "Mace",
-            "type": "weapon",
-            "img": "icons/svg/sword.svg",
-            "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "simpleM"
-              },
-              "damage": {
-                "parts": [
-                  [
-                    "1d6",
-                    "bludgeoning"
-                  ]
-                ]
-              },
-              "actionType": "mwak"
-            }
+            "compendium": "Compendium.dnd5e.items.chain-shirt",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.mace",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.holy-symbol",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.sacred-flame",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.guidance",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.spare-the-dying",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.cure-wounds",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.bless",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.shield-of-faith",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.lesser-restoration",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.spiritual-weapon",
+            "type": "spell"
           }
         ]
       }
@@ -1000,41 +1153,59 @@
         },
         "items": [
           {
-            "name": "Holy Vestments",
-            "type": "equipment",
-            "img": "icons/svg/shield.svg",
+            "name": "Cleric",
+            "type": "class",
             "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "clothing"
-              },
-              "armor": {
-                "value": 1,
-                "dex": 0
-              }
+              "identifier": "cleric",
+              "levels": 3
             }
           },
           {
-            "name": "Mace",
-            "type": "weapon",
-            "img": "icons/svg/sword.svg",
-            "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "simpleM"
-              },
-              "damage": {
-                "parts": [
-                  [
-                    "1d6",
-                    "bludgeoning"
-                  ]
-                ]
-              },
-              "actionType": "mwak"
-            }
+            "compendium": "Compendium.dnd5e.items.chain-shirt",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.mace",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.holy-symbol",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.sacred-flame",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.guidance",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.spare-the-dying",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.cure-wounds",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.bless",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.shield-of-faith",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.lesser-restoration",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.spiritual-weapon",
+            "type": "spell"
           }
         ]
       }

@@ -98,12 +98,22 @@
         },
         "items": [
           {
-            "name": "Ledger and Seal",
-            "type": "tool",
-            "img": "icons/svg/eye.svg",
+            "name": "Fighter",
+            "type": "class",
             "system": {
-              "quantity": 1
+              "identifier": "fighter",
+              "levels": 1
             }
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.rapier",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.calligraphers-supplies",
+            "equipped": false,
+            "quantity": 1
           }
         ]
       },
@@ -212,12 +222,22 @@
         },
         "items": [
           {
-            "name": "Ledger and Seal",
-            "type": "tool",
-            "img": "icons/svg/eye.svg",
+            "name": "Fighter",
+            "type": "class",
             "system": {
-              "quantity": 1
+              "identifier": "fighter",
+              "levels": 1
             }
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.rapier",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.calligraphers-supplies",
+            "equipped": false,
+            "quantity": 1
           }
         ]
       },
@@ -326,12 +346,22 @@
         },
         "items": [
           {
-            "name": "Ledger and Seal",
-            "type": "tool",
-            "img": "icons/svg/eye.svg",
+            "name": "Fighter",
+            "type": "class",
             "system": {
-              "quantity": 1
+              "identifier": "fighter",
+              "levels": 1
             }
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.rapier",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.calligraphers-supplies",
+            "equipped": false,
+            "quantity": 1
           }
         ]
       }
@@ -433,12 +463,22 @@
         },
         "items": [
           {
-            "name": "Ledger and Seal",
-            "type": "tool",
-            "img": "icons/svg/eye.svg",
+            "name": "Fighter",
+            "type": "class",
             "system": {
-              "quantity": 1
+              "identifier": "fighter",
+              "levels": 1
             }
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.rapier",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.calligraphers-supplies",
+            "equipped": false,
+            "quantity": 1
           }
         ]
       }
@@ -540,12 +580,22 @@
         },
         "items": [
           {
-            "name": "Ledger and Seal",
-            "type": "tool",
-            "img": "icons/svg/eye.svg",
+            "name": "Fighter",
+            "type": "class",
             "system": {
-              "quantity": 1
+              "identifier": "fighter",
+              "levels": 1
             }
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.rapier",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.calligraphers-supplies",
+            "equipped": false,
+            "quantity": 1
           }
         ]
       }
@@ -638,7 +688,17 @@
               "value": 1
             }
           }
-        }
+        },
+        "items": [
+          {
+            "name": "Commoner",
+            "type": "class",
+            "system": {
+              "identifier": "commoner",
+              "levels": 1
+            }
+          }
+        ]
       }
     }
   ]

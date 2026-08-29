@@ -66,7 +66,7 @@
               "tremorsense": 0,
               "truesight": 0
             },
-            "prof": 2
+            "prof": 3
           },
           "details": {
             "cr": 1,
@@ -98,33 +98,66 @@
         },
         "items": [
           {
-            "name": "Quarterstaff",
-            "type": "weapon",
-            "img": "icons/svg/sword.svg",
+            "name": "Wizard",
+            "type": "class",
             "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "simpleM"
-              },
-              "damage": {
-                "parts": [
-                  [
-                    "1d6",
-                    "bludgeoning"
-                  ]
-                ]
-              },
-              "actionType": "mwak"
+              "identifier": "wizard",
+              "levels": 5
             }
           },
           {
-            "name": "Component Pouch",
-            "type": "tool",
-            "img": "icons/svg/eye.svg",
-            "system": {
-              "quantity": 1
-            }
+            "compendium": "Compendium.dnd5e.items.quarterstaff",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.component-pouch",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.fire-bolt",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.light",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.mage-hand",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.prestidigitation",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.magic-missile",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.shield",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.detect-magic",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.misty-step",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.web",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.fireball",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.counterspell",
+            "type": "spell"
           }
         ]
       },
@@ -241,12 +274,42 @@
         },
         "items": [
           {
-            "name": "Scholar's Kit",
-            "type": "tool",
-            "img": "icons/svg/eye.svg",
+            "name": "Wizard",
+            "type": "class",
             "system": {
-              "quantity": 1
+              "identifier": "wizard",
+              "levels": 2
             }
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.dagger",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.scholars-pack",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.fire-bolt",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.light",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.mage-hand",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.magic-missile",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.shield",
+            "type": "spell"
           }
         ]
       }
@@ -351,12 +414,42 @@
         },
         "items": [
           {
-            "name": "Scholar's Kit",
-            "type": "tool",
-            "img": "icons/svg/eye.svg",
+            "name": "Wizard",
+            "type": "class",
             "system": {
-              "quantity": 1
+              "identifier": "wizard",
+              "levels": 2
             }
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.dagger",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.scholars-pack",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.fire-bolt",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.light",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.mage-hand",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.magic-missile",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.shield",
+            "type": "spell"
           }
         ]
       }
@@ -461,12 +554,42 @@
         },
         "items": [
           {
-            "name": "Scholar's Kit",
-            "type": "tool",
-            "img": "icons/svg/eye.svg",
+            "name": "Wizard",
+            "type": "class",
             "system": {
-              "quantity": 1
+              "identifier": "wizard",
+              "levels": 3
             }
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.dagger",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.alchemists-supplies",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.fire-bolt",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.light",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.mage-hand",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.magic-missile",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.shield",
+            "type": "spell"
           }
         ]
       }
@@ -571,12 +694,42 @@
         },
         "items": [
           {
-            "name": "Scholar's Kit",
-            "type": "tool",
-            "img": "icons/svg/eye.svg",
+            "name": "Wizard",
+            "type": "class",
             "system": {
-              "quantity": 1
+              "identifier": "wizard",
+              "levels": 2
             }
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.dagger",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.scholars-pack",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.fire-bolt",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.light",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.mage-hand",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.magic-missile",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.shield",
+            "type": "spell"
           }
         ]
       }
@@ -681,12 +834,42 @@
         },
         "items": [
           {
-            "name": "Scholar's Kit",
-            "type": "tool",
-            "img": "icons/svg/eye.svg",
+            "name": "Wizard",
+            "type": "class",
             "system": {
-              "quantity": 1
+              "identifier": "wizard",
+              "levels": 2
             }
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.dagger",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.scholars-pack",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.fire-bolt",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.light",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.mage-hand",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.magic-missile",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.shield",
+            "type": "spell"
           }
         ]
       }
@@ -791,12 +974,42 @@
         },
         "items": [
           {
-            "name": "Scholar's Kit",
-            "type": "tool",
-            "img": "icons/svg/eye.svg",
+            "name": "Wizard",
+            "type": "class",
             "system": {
-              "quantity": 1
+              "identifier": "wizard",
+              "levels": 2
             }
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.dagger",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.scholars-pack",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.fire-bolt",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.light",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.mage-hand",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.magic-missile",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.shield",
+            "type": "spell"
           }
         ]
       }

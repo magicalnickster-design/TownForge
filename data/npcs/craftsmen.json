@@ -95,49 +95,27 @@
         },
         "items": [
           {
-            "name": "Smith's Tools",
-            "type": "tool",
-            "img": "icons/svg/eye.svg",
+            "name": "Fighter",
+            "type": "class",
             "system": {
-              "quantity": 1
+              "identifier": "fighter",
+              "levels": 3
             }
           },
           {
-            "name": "Smith's Apron",
-            "type": "equipment",
-            "img": "icons/svg/shield.svg",
-            "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "clothing"
-              },
-              "armor": {
-                "value": 1,
-                "dex": 0
-              }
-            }
+            "compendium": "Compendium.dnd5e.items.studded-leather",
+            "equipped": true,
+            "quantity": 1
           },
           {
-            "name": "Warhammer",
-            "type": "weapon",
-            "img": "icons/svg/sword.svg",
-            "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "martialM"
-              },
-              "damage": {
-                "parts": [
-                  [
-                    "1d8",
-                    "bludgeoning"
-                  ]
-                ]
-              },
-              "actionType": "mwak"
-            }
+            "compendium": "Compendium.dnd5e.items.warhammer",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.smiths-tools",
+            "equipped": false,
+            "quantity": 1
           }
         ]
       },
@@ -243,33 +221,22 @@
         },
         "items": [
           {
-            "name": "Artisan's Tools",
-            "type": "tool",
-            "img": "icons/svg/eye.svg",
+            "name": "Fighter",
+            "type": "class",
             "system": {
-              "quantity": 1
+              "identifier": "fighter",
+              "levels": 1
             }
           },
           {
-            "name": "Light Hammer",
-            "type": "weapon",
-            "img": "icons/svg/sword.svg",
-            "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "simpleM"
-              },
-              "damage": {
-                "parts": [
-                  [
-                    "1d4",
-                    "bludgeoning"
-                  ]
-                ]
-              },
-              "actionType": "mwak"
-            }
+            "compendium": "Compendium.dnd5e.items.light-hammer",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.artisans-tools",
+            "equipped": false,
+            "quantity": 1
           }
         ]
       }
@@ -368,33 +335,22 @@
         },
         "items": [
           {
-            "name": "Artisan's Tools",
-            "type": "tool",
-            "img": "icons/svg/eye.svg",
+            "name": "Fighter",
+            "type": "class",
             "system": {
-              "quantity": 1
+              "identifier": "fighter",
+              "levels": 1
             }
           },
           {
-            "name": "Light Hammer",
-            "type": "weapon",
-            "img": "icons/svg/sword.svg",
-            "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "simpleM"
-              },
-              "damage": {
-                "parts": [
-                  [
-                    "1d4",
-                    "bludgeoning"
-                  ]
-                ]
-              },
-              "actionType": "mwak"
-            }
+            "compendium": "Compendium.dnd5e.items.light-hammer",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.artisans-tools",
+            "equipped": false,
+            "quantity": 1
           }
         ]
       }
@@ -493,33 +449,22 @@
         },
         "items": [
           {
-            "name": "Artisan's Tools",
-            "type": "tool",
-            "img": "icons/svg/eye.svg",
+            "name": "Fighter",
+            "type": "class",
             "system": {
-              "quantity": 1
+              "identifier": "fighter",
+              "levels": 1
             }
           },
           {
-            "name": "Light Hammer",
-            "type": "weapon",
-            "img": "icons/svg/sword.svg",
-            "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "simpleM"
-              },
-              "damage": {
-                "parts": [
-                  [
-                    "1d4",
-                    "bludgeoning"
-                  ]
-                ]
-              },
-              "actionType": "mwak"
-            }
+            "compendium": "Compendium.dnd5e.items.light-hammer",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.artisans-tools",
+            "equipped": false,
+            "quantity": 1
           }
         ]
       }
@@ -618,33 +563,22 @@
         },
         "items": [
           {
-            "name": "Artisan's Tools",
-            "type": "tool",
-            "img": "icons/svg/eye.svg",
+            "name": "Fighter",
+            "type": "class",
             "system": {
-              "quantity": 1
+              "identifier": "fighter",
+              "levels": 1
             }
           },
           {
-            "name": "Light Hammer",
-            "type": "weapon",
-            "img": "icons/svg/sword.svg",
-            "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "simpleM"
-              },
-              "damage": {
-                "parts": [
-                  [
-                    "1d4",
-                    "bludgeoning"
-                  ]
-                ]
-              },
-              "actionType": "mwak"
-            }
+            "compendium": "Compendium.dnd5e.items.light-hammer",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.artisans-tools",
+            "equipped": false,
+            "quantity": 1
           }
         ]
       }
@@ -743,33 +677,22 @@
         },
         "items": [
           {
-            "name": "Artisan's Tools",
-            "type": "tool",
-            "img": "icons/svg/eye.svg",
+            "name": "Fighter",
+            "type": "class",
             "system": {
-              "quantity": 1
+              "identifier": "fighter",
+              "levels": 1
             }
           },
           {
-            "name": "Light Hammer",
-            "type": "weapon",
-            "img": "icons/svg/sword.svg",
-            "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "simpleM"
-              },
-              "damage": {
-                "parts": [
-                  [
-                    "1d4",
-                    "bludgeoning"
-                  ]
-                ]
-              },
-              "actionType": "mwak"
-            }
+            "compendium": "Compendium.dnd5e.items.light-hammer",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.artisans-tools",
+            "equipped": false,
+            "quantity": 1
           }
         ]
       }
@@ -862,7 +785,17 @@
               "value": 1
             }
           }
-        }
+        },
+        "items": [
+          {
+            "name": "Commoner",
+            "type": "class",
+            "system": {
+              "identifier": "commoner",
+              "levels": 1
+            }
+          }
+        ]
       }
     },
     {
@@ -959,33 +892,22 @@
         },
         "items": [
           {
-            "name": "Artisan's Tools",
-            "type": "tool",
-            "img": "icons/svg/eye.svg",
+            "name": "Fighter",
+            "type": "class",
             "system": {
-              "quantity": 1
+              "identifier": "fighter",
+              "levels": 1
             }
           },
           {
-            "name": "Light Hammer",
-            "type": "weapon",
-            "img": "icons/svg/sword.svg",
-            "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "simpleM"
-              },
-              "damage": {
-                "parts": [
-                  [
-                    "1d4",
-                    "bludgeoning"
-                  ]
-                ]
-              },
-              "actionType": "mwak"
-            }
+            "compendium": "Compendium.dnd5e.items.light-hammer",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.artisans-tools",
+            "equipped": false,
+            "quantity": 1
           }
         ]
       }
@@ -1084,33 +1006,22 @@
         },
         "items": [
           {
-            "name": "Artisan's Tools",
-            "type": "tool",
-            "img": "icons/svg/eye.svg",
+            "name": "Fighter",
+            "type": "class",
             "system": {
-              "quantity": 1
+              "identifier": "fighter",
+              "levels": 1
             }
           },
           {
-            "name": "Light Hammer",
-            "type": "weapon",
-            "img": "icons/svg/sword.svg",
-            "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "simpleM"
-              },
-              "damage": {
-                "parts": [
-                  [
-                    "1d4",
-                    "bludgeoning"
-                  ]
-                ]
-              },
-              "actionType": "mwak"
-            }
+            "compendium": "Compendium.dnd5e.items.light-hammer",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.artisans-tools",
+            "equipped": false,
+            "quantity": 1
           }
         ]
       }
@@ -1209,33 +1120,22 @@
         },
         "items": [
           {
-            "name": "Artisan's Tools",
-            "type": "tool",
-            "img": "icons/svg/eye.svg",
+            "name": "Fighter",
+            "type": "class",
             "system": {
-              "quantity": 1
+              "identifier": "fighter",
+              "levels": 1
             }
           },
           {
-            "name": "Light Hammer",
-            "type": "weapon",
-            "img": "icons/svg/sword.svg",
-            "system": {
-              "quantity": 1,
-              "equipped": true,
-              "type": {
-                "value": "simpleM"
-              },
-              "damage": {
-                "parts": [
-                  [
-                    "1d4",
-                    "bludgeoning"
-                  ]
-                ]
-              },
-              "actionType": "mwak"
-            }
+            "compendium": "Compendium.dnd5e.items.light-hammer",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.artisans-tools",
+            "equipped": false,
+            "quantity": 1
           }
         ]
       }
