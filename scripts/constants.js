@@ -5,6 +5,7 @@ export const MODULE_TITLE = "TownForge";
 export const LOG_PREFIX = "[TownForge]";
 
 export const ANNOUNCE_TRADES_SETTING = "announceTrades";
+export const SANE_MAGICAL_PRICES_SETTING = "useSaneMagicalPrices";
 
 export const LIBRARY_FREE = "free";
 export const LIBRARY_PRO = "pro";

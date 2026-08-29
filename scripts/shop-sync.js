@@ -44,7 +44,13 @@ export function buyerCurrencyChanged(changes) {
 }
 
 /**
- * Re-render open TownForge merchant / shopkeeper windows for a merchant.
+ * Re-render every open TownForge merchant window (e.g. after global price mode change).
+ */
+export function refreshAllOpenShopUIs() {
+  void renderMatchingShopApps(["*"]);
+}
+
+/**
  * Debounced so Actor update + socket broadcast do not double-flash the UI.
  * @param {string|Actor|null|undefined} merchantRef Actor id, uuid, or Actor
  * @param {{immediate?: boolean}} [options]
@@ -108,9 +114,10 @@ function merchantRefKeys(merchantRef) {
  */
 async function renderMatchingShopApps(keys) {
   const keySet = new Set(keys);
+  const matchAll = keySet.has("*");
   for (const app of listAppInstances()) {
     if (typeof app?.matchesMerchant !== "function") continue;
-    if (!app.matchesMerchant(keySet)) continue;
+    if (!matchAll && !app.matchesMerchant(keySet)) continue;
     try {
       await app.render?.({ force: false });
     } catch (_error) {

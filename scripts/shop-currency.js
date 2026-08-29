@@ -195,7 +195,8 @@ export function validatePurchaseRequest({
   buyerCurrency,
   clientPriceCP = null,
   clientUuid = null,
-  quantity = 1
+  quantity = 1,
+  unitPriceCP = null
 }) {
   if (!shop?.enabled) {
     return { ok: false, message: "Shop unavailable." };
@@ -224,16 +225,17 @@ export function validatePurchaseRequest({
 
   void clientPriceCP;
   void clientUuid;
-  const unitPriceCP = Math.max(0, Number(stock.priceCP) || 0);
-  if (!unitPriceCP) {
+  const resolvedUnitPriceCP =
+    unitPriceCP != null ? Math.max(0, Number(unitPriceCP) || 0) : Math.max(0, Number(stock.priceCP) || 0);
+  if (!resolvedUnitPriceCP) {
     return { ok: false, message: "Item unavailable." };
   }
-  const priceCP = unitPriceCP * qty;
+  const priceCP = resolvedUnitPriceCP * qty;
 
   const totalCP = currencyToCopper(buyerCurrency);
   if (totalCP < priceCP) {
     return { ok: false, message: "Not enough gold." };
   }
 
-  return { ok: true, priceCP, unitPriceCP, quantity: qty, stock };
+  return { ok: true, priceCP, unitPriceCP: resolvedUnitPriceCP, quantity: qty, stock };
 }

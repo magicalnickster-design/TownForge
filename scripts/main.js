@@ -49,6 +49,8 @@ Hooks.once("ready", async () => {
     const hooks = await import("./shop-hooks.js");
     shopApi = hooks.shopApi;
     hooks.registerShopHooks();
+    const { readySaneMagicalPrices } = await import("./sane-magical-prices.js");
+    await readySaneMagicalPrices();
   } catch (error) {
     console.error(`${LOG_PREFIX} Shop hooks failed to register`, error);
   }

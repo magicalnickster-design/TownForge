@@ -1,5 +1,7 @@
-import { ANNOUNCE_TRADES_SETTING, LOG_PREFIX, MODULE_ID, MODULE_TITLE } from "./constants.js";
+import { ANNOUNCE_TRADES_SETTING, LOG_PREFIX, MODULE_ID, MODULE_TITLE, SANE_MAGICAL_PRICES_SETTING } from "./constants.js";
 import { shopService } from "./shop-service.js";
+import { readySaneMagicalPrices } from "./sane-magical-prices.js";
+import { refreshAllOpenShopUIs } from "./shop-sync.js";
 import {
   SHOP_ITEM_SOURCES_SETTING,
   discoverInstalledItemPacks,
@@ -22,6 +24,20 @@ export function registerTownForgeSettings() {
       type: Boolean,
       default: true,
       restricted: true
+    });
+
+    game.settings.register(MODULE_ID, SANE_MAGICAL_PRICES_SETTING, {
+      name: "Use Sane Magical Prices",
+      hint: "When enabled, TownForge shops use Saidoro's Sane Magical Prices for matching magic items instead of default compendium prices. Custom catalog items (books, food, apparel) keep their catalog prices.",
+      scope: "world",
+      config: true,
+      type: Boolean,
+      default: false,
+      restricted: true,
+      onChange: () => {
+        console.log(`${LOG_PREFIX} Sane Magical Prices setting updated`);
+        void readySaneMagicalPrices().then(() => refreshAllOpenShopUIs());
+      }
     });
 
     game.settings.registerMenu(MODULE_ID, "shopItemSourcesMenu", {

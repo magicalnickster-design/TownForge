@@ -1,5 +1,10 @@
 import { ANNOUNCE_TRADES_SETTING, FLAGS, LOG_PREFIX, MODULE_ID } from "./constants.js";
 import {
+  isSaneMagicalPricesEnabled,
+  lookupSaneMagicalPriceCP,
+  readySaneMagicalPrices
+} from "./sane-magical-prices.js";
+import {
   addCopper as addCopperPure,
   currencyToCopper as currencyToCopperPure,
   deductCopper as deductCopperPure,
@@ -605,10 +610,15 @@ export class ShopService {
         if (!catalog?.catalogOnly) return true;
         return getCatalogEntryValidator(catalog)(entry);
       })
-      .map((entry) => ({
-        ...entry,
-        filter: resolveShopItemFilter(entry)
-      }));
+      .map((entry) => {
+        const priceCP = this.#resolveStockUnitPriceCP(entry, shop);
+        return {
+          ...entry,
+          priceCP,
+          priceLabel: this.formatPrice(priceCP),
+          filter: resolveShopItemFilter(entry)
+        };
+      });
   }
 
   /**
@@ -910,13 +920,16 @@ export class ShopService {
       /** @type {{stock:object, qty:number, sourceItem:Item}[]} */
       const resolvedBuys = [];
       for (const buy of request.buys) {
+        const stock = (shop.inventory ?? []).find((entry) => entry?.id === buy.stockId);
+        if (!stock) return { ok: false, message: "Item unavailable." };
         const check = validatePurchaseRequest({
           shop,
           stockId: buy.stockId,
           buyerOwned: true,
           buyerType: buyer.type,
           buyerCurrency: { pp: 999999, gp: 999999, ep: 999999, sp: 999999, cp: 999999 },
-          quantity: buy.quantity
+          quantity: buy.quantity,
+          unitPriceCP: this.#resolveStockUnitPriceCP(stock, shop)
         });
         if (!check.ok) return { ok: false, message: check.message };
         const sourceItem = await this.#resolveStockItem(check.stock);
@@ -1892,15 +1905,34 @@ export class ShopService {
   }
 
   #priceFromIndexItem(item, multiplier = 1) {
-    return Math.max(1, Math.round(item.valueCP * Math.max(0.1, Number(multiplier) || 1)));
+    const mult = Math.max(0.1, Number(multiplier) || 1);
+    if (isSaneMagicalPricesEnabled()) {
+      const saneCP = lookupSaneMagicalPriceCP(item?.name);
+      if (saneCP != null) return Math.max(1, Math.round(saneCP * mult));
+    }
+    return Math.max(1, Math.round(item.valueCP * mult));
   }
 
   #priceFromItem(item, multiplier = 1) {
+    const mult = Math.max(0.1, Number(multiplier) || 1);
+    if (isSaneMagicalPricesEnabled()) {
+      const saneCP = lookupSaneMagicalPriceCP(item?.name, item);
+      if (saneCP != null) return Math.max(1, Math.round(saneCP * mult));
+    }
     const price = item.system?.price ?? {};
     const value = Number(price.value ?? 0) || 0;
     const denom = String(price.denomination ?? "gp");
     const valueCP = value * (COIN_CP[denom] ?? COIN_CP.gp);
-    return Math.max(1, Math.round(valueCP * Math.max(0.1, Number(multiplier) || 1)));
+    return Math.max(1, Math.round(valueCP * mult));
+  }
+
+  #resolveStockUnitPriceCP(stock, shop) {
+    const multiplier = Math.max(0.1, Number(shop?.priceMultiplier) || 1);
+    if (isSaneMagicalPricesEnabled()) {
+      const saneCP = lookupSaneMagicalPriceCP(stock?.name);
+      if (saneCP != null) return Math.max(1, Math.round(saneCP * multiplier));
+    }
+    return Math.max(1, Number(stock?.priceCP) || 1);
   }
 
   #toStockEntry(item, { source, priceCP, quantity }) {
