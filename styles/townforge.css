@@ -2470,7 +2470,7 @@
 
 /* Trade window — 3× text for readability (especially item hover tooltips). */
 .townforge-merchant-shell.townforge-trade {
-  --tf-trade-text-scale: 3;
+  --tf-trade-text-scale: 1.8;
   font-size: calc(0.92rem * var(--tf-trade-text-scale));
 }
 
@@ -2596,7 +2596,7 @@
 }
 
 .townforge.townforge-trade-qty-picker {
-  --tf-trade-text-scale: 3;
+  --tf-trade-text-scale: 1.8;
   font-size: calc(0.92rem * var(--tf-trade-text-scale));
 }
 
