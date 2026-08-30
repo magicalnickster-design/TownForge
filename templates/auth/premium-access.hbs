@@ -1,0 +1,41 @@
+<div class="townforge-premium-access">
+  <div class="townforge-premium-access-icon" aria-hidden="true">
+    <i class="fa-solid fa-scale-balanced"></i>
+  </div>
+
+  {{#if isPlayerBlocked}}
+  <h3>Barter &amp; Trade Unavailable</h3>
+  <p class="townforge-premium-lead">Barter &amp; Trade is a Gambits Forge Premium feature.</p>
+  <p>Ask your GM to connect a Gambits Forge account with a Tier 1 subscription or higher.</p>
+  {{else if signedIn}}
+  <h3>Premium Feature</h3>
+  <p class="townforge-premium-lead">Barter &amp; Trade is a Gambits Forge Premium feature.</p>
+  <p>Unlock Barter &amp; Trade with a Tier 1 subscription or higher.</p>
+  {{else}}
+  <h3>Barter &amp; Trade is a Gambits Forge Premium feature.</h3>
+  <p class="townforge-premium-lead">Unlock Barter &amp; Trade with a Tier 1 subscription or higher.</p>
+  <p>Connect your Gambits Forge account to verify your subscription.</p>
+  {{/if}}
+
+  {{#if detailMessage}}
+  <p class="townforge-premium-detail">{{detailMessage}}</p>
+  {{/if}}
+
+  <div class="townforge-premium-actions">
+    {{#unless signedIn}}
+    <button type="button" class="townforge-btn townforge-btn-primary" data-action="connectAccount">
+      Connect Gambits Forge Account
+    </button>
+    {{/unless}}
+    {{#if showSubscribe}}
+    <button type="button" class="townforge-btn townforge-btn-secondary" data-action="openSubscribe">
+      View Subscriptions
+    </button>
+    {{/if}}
+    {{#if signedIn}}
+    <button type="button" class="townforge-btn townforge-btn-secondary" data-action="disconnectAccount">
+      Disconnect
+    </button>
+    {{/if}}
+  </div>
+</div>

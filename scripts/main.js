@@ -36,7 +36,9 @@ Hooks.once("init", async () => {
     const version = game.modules.get(MODULE_ID)?.version ?? "0.8.1";
     console.log(`${LOG_PREFIX} Initializing ${MODULE_TITLE} v${version}`);
     const { registerTownForgeSettings } = await import("./settings.js");
+    const { registerGambitsAuthSettings } = await import("./auth-settings-panel.js");
     registerTownForgeSettings();
+    registerGambitsAuthSettings();
   } catch (error) {
     console.error(`${LOG_PREFIX} Init failed — settings and scene controls will be unavailable`, error);
     ui.notifications?.error?.(`${MODULE_TITLE} failed to initialize. Check the browser console (F12).`);
@@ -51,6 +53,8 @@ Hooks.once("ready", async () => {
     hooks.registerShopHooks();
     const { readySaneMagicalPrices } = await import("./sane-magical-prices.js");
     await readySaneMagicalPrices();
+    const { initializeGambitsAuth } = await import("./auth-settings-panel.js");
+    await initializeGambitsAuth();
   } catch (error) {
     console.error(`${LOG_PREFIX} Shop hooks failed to register`, error);
   }

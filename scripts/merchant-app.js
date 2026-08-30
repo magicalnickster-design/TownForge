@@ -104,6 +104,9 @@ export class MerchantApp extends HandlebarsApplicationV2 {
   static async show(merchant) {
     if (!merchant) return null;
     try {
+      const { requireBarterTradeAccess } = await import("./auth/access.js");
+      if (!(await requireBarterTradeAccess({ openWindow: true }))) return null;
+
       const shop = shopService.getShopkeeper(merchant);
       if (!shop.enabled) {
         ui.notifications?.warn("Shop unavailable.");
