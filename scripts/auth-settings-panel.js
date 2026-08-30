@@ -1,38 +1,90 @@
 import { LOG_PREFIX, MODULE_ID } from "./constants.js";
 import { getAccessStatus, refreshAccessAndPublish } from "./auth/access.js";
 import { isSignedIn } from "./auth/account-identity.js";
-import { logoutGambitsAccount, openLoginWindow } from "./auth/login-window.js";
-import { restoreSessionOnStartup } from "./auth/entitlement-service.js";
+import { checkSubscription, restoreSessionOnStartup } from "./auth/entitlement-service.js";
 import { registerEntitlementSettings } from "./auth/entitlement-service.js";
 import { registerSessionSettings } from "./auth/session-store.js";
 import { registerWorldAccessSettings } from "./auth/access.js";
 import { DEFAULT_AUTH_API_BASE_URL, SETTING_AUTH_API_BASE_URL } from "./auth/auth-constants.js";
+import { logoutGambitsAccount, openAccountPage, openLoginWindow } from "./auth/login-window.js";
+import { getHandlebarsApplicationV2Base } from "./app-api.js";
 
-function getHtmlElement(html) {
-  if (html instanceof HTMLElement) return html;
-  if (html?.[0] instanceof HTMLElement) return html[0];
-  return null;
-}
+const HandlebarsApplicationV2 = getHandlebarsApplicationV2Base();
 
-function accountLabel() {
-  const status = getAccessStatus();
-  if (!isSignedIn(status.authState)) return "";
-  return status.accountLabel || status.accountEmail || "Connected";
-}
+/** Gambits Forge account settings — prominent sign-in for Barter & Trade. */
+export class GambitsAccountSettingsApp extends HandlebarsApplicationV2 {
+  static DEFAULT_OPTIONS = {
+    id: "townforge-gambits-account-settings",
+    classes: ["townforge", "townforge-gambits-account-settings"],
+    tag: "div",
+    window: {
+      title: "Gambits Forge Account",
+      icon: "fa-solid fa-user-shield",
+      resizable: false,
+      contentClasses: ["townforge-window-content"]
+    },
+    position: { width: 480, height: "auto" },
+    actions: {
+      signIn: GambitsAccountSettingsApp.#onSignIn,
+      disconnectAccount: GambitsAccountSettingsApp.#onDisconnect,
+      syncAccount: GambitsAccountSettingsApp.#onSync,
+      openAccount: GambitsAccountSettingsApp.#onOpenAccount
+    }
+  };
 
-function rerenderAuthPanel(rootElement) {
-  const panel = rootElement?.querySelector?.(".townforge-gambits-auth-panel");
-  if (!panel) return;
-  const signedIn = isSignedIn();
-  const label = accountLabel();
-  const status = panel.querySelector(".townforge-gambits-auth-status");
-  const connectBtn = panel.querySelector('[data-action="connectGambits"]');
-  const disconnectBtn = panel.querySelector('[data-action="disconnectGambits"]');
-  if (status) {
-    status.textContent = signedIn ? `Connected as: ${label}` : "Not connected";
+  static PARTS = {
+    body: {
+      template: `modules/${MODULE_ID}/templates/auth/account-settings.hbs`
+    }
+  };
+
+  static async show() {
+    const existing = foundry.applications.instances.get("townforge-gambits-account-settings");
+    if (existing) {
+      await existing.render({ force: true });
+      existing.bringToFront?.();
+      return existing;
+    }
+    const app = new GambitsAccountSettingsApp();
+    await app.render({ force: true });
+    return app;
   }
-  if (connectBtn) connectBtn.hidden = signedIn;
-  if (disconnectBtn) disconnectBtn.hidden = !signedIn;
+
+  async _prepareContext() {
+    const status = getAccessStatus();
+    return {
+      signedIn: status.signedIn,
+      accountLabel: status.accountLabel || status.accountEmail || "Connected",
+      plan: status.plan || "",
+      accessLabel: status.canUse ? "Barter & Trade unlocked" : "Barter & Trade locked",
+      message: status.message || ""
+    };
+  }
+
+  /** @this {GambitsAccountSettingsApp} */
+  static async #onSignIn() {
+    const ok = await openLoginWindow();
+    if (ok) await refreshAccessAndPublish({ notify: false });
+    await this.render({ force: true });
+  }
+
+  /** @this {GambitsAccountSettingsApp} */
+  static async #onDisconnect() {
+    await logoutGambitsAccount();
+    await this.render({ force: true });
+  }
+
+  /** @this {GambitsAccountSettingsApp} */
+  static async #onSync() {
+    await checkSubscription({ notify: true });
+    await refreshAccessAndPublish({ notify: false });
+    await this.render({ force: true });
+  }
+
+  /** @this {GambitsAccountSettingsApp} */
+  static #onOpenAccount() {
+    openAccountPage();
+  }
 }
 
 export function registerGambitsAuthSettings() {
@@ -50,46 +102,6 @@ export function registerGambitsAuthSettings() {
       restricted: false
     });
   }
-
-  Hooks.on("renderSettingsConfig", (_app, html) => {
-    const rootElement = getHtmlElement(html);
-    if (!rootElement) return;
-    if (rootElement.querySelector(".townforge-gambits-auth-panel")) return;
-
-    const anchorInput = rootElement.querySelector(`input[name^="${MODULE_ID}."]`);
-    const anchorGroup = anchorInput?.closest(".form-group");
-    if (!anchorGroup) return;
-
-    const signedIn = isSignedIn();
-    const label = accountLabel();
-    const panel = document.createElement("div");
-    panel.className = "form-group townforge-gambits-auth-panel";
-    panel.innerHTML = `
-      <label>Gambits Forge Account</label>
-      <div class="form-fields" style="display:flex; gap:0.5rem; flex-wrap:wrap; align-items:center;">
-        <button type="button" class="townforge-btn townforge-btn-primary" data-action="connectGambits" ${signedIn ? "hidden" : ""}>
-          Connect Gambits Forge Account
-        </button>
-        <button type="button" class="townforge-btn townforge-btn-secondary" data-action="disconnectGambits" ${signedIn ? "" : "hidden"}>
-          Disconnect
-        </button>
-      </div>
-      <p class="notes townforge-gambits-auth-status" style="margin-top:0.35rem;">
-        ${signedIn ? `Connected as: ${foundry.utils.escapeHTML(label)}` : "Not connected"}
-      </p>
-    `;
-    anchorGroup.after(panel);
-
-    panel.querySelector('[data-action="connectGambits"]')?.addEventListener("click", async () => {
-      const ok = await openLoginWindow();
-      if (ok) await refreshAccessAndPublish({ notify: false });
-      rerenderAuthPanel(rootElement);
-    });
-    panel.querySelector('[data-action="disconnectGambits"]')?.addEventListener("click", async () => {
-      await logoutGambitsAccount();
-      rerenderAuthPanel(rootElement);
-    });
-  });
 
   console.log(`${LOG_PREFIX} Gambits Forge auth settings registered`);
 }

@@ -2833,3 +2833,127 @@
   font-size: 0.85rem;
 }
 
+.townforge-gambits-account-settings {
+  display: grid;
+  gap: 1rem;
+  padding: 0.35rem 0.15rem 0.15rem;
+}
+
+.townforge-gambits-account-header {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.townforge-gambits-account-icon {
+  width: 3rem;
+  height: 3rem;
+  display: grid;
+  place-items: center;
+  border-radius: 0.65rem;
+  background: color-mix(in srgb, var(--tf-accent) 18%, transparent);
+  color: var(--tf-accent-strong);
+  font-size: 1.35rem;
+}
+
+.townforge-gambits-account-header h3 {
+  margin: 0;
+  font-family: var(--tf-display);
+  font-size: 1.15rem;
+}
+
+.townforge-gambits-account-header p {
+  margin: 0.15rem 0 0;
+}
+
+.townforge-gambits-account-status {
+  padding: 0.75rem 0.85rem;
+  border-radius: 0.55rem;
+  border: 1px solid var(--tf-border);
+  background: rgba(0, 0, 0, 0.18);
+}
+
+.townforge-gambits-account-status.is-connected {
+  border-color: color-mix(in srgb, var(--tf-accent) 45%, var(--tf-border));
+}
+
+.townforge-gambits-account-status p {
+  margin: 0;
+  color: var(--tf-muted);
+  font-size: 0.88rem;
+  line-height: 1.45;
+}
+
+.townforge-gambits-connected-label {
+  font-size: 0.78rem !important;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.townforge-gambits-connected-name {
+  margin-top: 0.2rem !important;
+  color: var(--tf-text) !important;
+  font-size: 1rem !important;
+  font-weight: 700;
+}
+
+.townforge-gambits-plan,
+.townforge-gambits-access {
+  margin-top: 0.25rem !important;
+}
+
+.townforge-gambits-account-actions {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.townforge-gambits-sign-in-btn {
+  width: 100%;
+  min-height: 2.75rem;
+  font-size: 1rem !important;
+  font-weight: 700;
+  justify-content: center;
+  gap: 0.55rem;
+}
+
+.townforge-gambits-account-actions .townforge-btn:not(.townforge-gambits-sign-in-btn) {
+  width: 100%;
+  justify-content: center;
+  gap: 0.45rem;
+}
+
+.townforge-gambits-account-message {
+  margin: 0;
+  color: var(--tf-accent-strong);
+  font-size: 0.84rem;
+}
+
+/* Prominent sign-in entry in Configure Settings → TownForge */
+button.townforge-gambits-settings-menu-btn {
+  width: 100%;
+  min-height: 2.4rem;
+  padding: 0.55rem 0.85rem;
+  border-radius: 0.45rem;
+  border: 1px solid color-mix(in srgb, var(--tf-accent-strong) 70%, #000);
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--tf-accent-strong) 92%, #fff 8%),
+    color-mix(in srgb, var(--tf-accent-strong) 78%, #000 22%)
+  );
+  color: #1a1208;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.18) inset;
+}
+
+button.townforge-gambits-settings-menu-btn:hover {
+  filter: brightness(1.06);
+}
+
+button.townforge-gambits-settings-menu-btn i {
+  margin-right: 0.35rem;
+}
+

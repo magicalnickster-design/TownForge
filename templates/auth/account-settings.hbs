@@ -1,0 +1,56 @@
+<section class="townforge-gambits-account-settings">
+  <header class="townforge-gambits-account-header">
+    <div class="townforge-gambits-account-icon" aria-hidden="true">
+      <i class="fa-solid fa-user-shield"></i>
+    </div>
+    <div>
+      <h3>Gambits Forge Account</h3>
+      <p class="townforge-muted">Required for Barter &amp; Trade (Tier 1 or higher).</p>
+    </div>
+  </header>
+
+  {{#if signedIn}}
+  <div class="townforge-gambits-account-status is-connected">
+    <p class="townforge-gambits-connected-label">Connected as:</p>
+    <p class="townforge-gambits-connected-name">{{accountLabel}}</p>
+    {{#if plan}}
+    <p class="townforge-gambits-plan">Plan: {{plan}}</p>
+    {{/if}}
+    {{#if accessLabel}}
+    <p class="townforge-gambits-access">{{accessLabel}}</p>
+    {{/if}}
+  </div>
+  <div class="townforge-gambits-account-actions">
+    <button type="button" class="townforge-btn townforge-btn-secondary" data-action="syncAccount">
+      <i class="fa-solid fa-rotate" aria-hidden="true"></i>
+      <span>Check Subscription</span>
+    </button>
+    <button type="button" class="townforge-btn townforge-btn-secondary" data-action="openAccount">
+      <i class="fa-solid fa-up-right-from-square" aria-hidden="true"></i>
+      <span>View Subscriptions</span>
+    </button>
+    <button type="button" class="townforge-btn townforge-btn-secondary" data-action="disconnectAccount">
+      <i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i>
+      <span>Disconnect</span>
+    </button>
+  </div>
+  {{else}}
+  <div class="townforge-gambits-account-status">
+    <p>You are not signed in. Sign in to unlock Barter &amp; Trade with a Tier 1 subscription or higher.</p>
+  </div>
+  <div class="townforge-gambits-account-actions">
+    <button type="button" class="townforge-btn townforge-btn-primary townforge-gambits-sign-in-btn" data-action="signIn">
+      <i class="fa-solid fa-right-to-bracket" aria-hidden="true"></i>
+      <span>Sign In to Gambits Forge</span>
+    </button>
+    <button type="button" class="townforge-btn townforge-btn-secondary" data-action="openAccount">
+      <i class="fa-solid fa-up-right-from-square" aria-hidden="true"></i>
+      <span>Create Account / Subscriptions</span>
+    </button>
+  </div>
+  {{/if}}
+
+  {{#if message}}
+  <p class="townforge-gambits-account-message">{{message}}</p>
+  {{/if}}
+</section>

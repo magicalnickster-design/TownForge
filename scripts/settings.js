@@ -1,4 +1,5 @@
 import { ANNOUNCE_TRADES_SETTING, LOG_PREFIX, MODULE_ID, MODULE_TITLE, SANE_MAGICAL_PRICES_SETTING } from "./constants.js";
+import { GambitsAccountSettingsApp } from "./auth-settings-panel.js";
 import { shopService } from "./shop-service.js";
 import { readySaneMagicalPrices } from "./sane-magical-prices.js";
 import { refreshAllOpenShopUIs } from "./shop-sync.js";
@@ -16,6 +17,40 @@ const HandlebarsApplicationV2 = getHandlebarsApplicationV2Base();
 /** Module settings. */
 export function registerTownForgeSettings() {
   try {
+    if (!game.settings.menus?.get?.(`${MODULE_ID}.gambitsAccountMenu`)) {
+      game.settings.registerMenu(MODULE_ID, "gambitsAccountMenu", {
+        name: "Gambits Forge Account",
+        label: "Sign In to Gambits Forge",
+        hint: "Connect your Gambits Forge account to unlock Barter & Trade (Tier 1 or higher).",
+        icon: "fas fa-right-to-bracket",
+        type: GambitsAccountSettingsApp,
+        restricted: false
+      });
+    }
+
+    game.settings.registerMenu(MODULE_ID, "shopItemSourcesMenu", {
+      name: "Shopkeeper Item Sources",
+      label: "Configure Item Sources",
+      hint: "Pick which Item packs feed automatic shop stock.",
+      icon: "fas fa-book-open",
+      type: ShopItemSourcesApp,
+      restricted: true
+    });
+
+    game.settings.register(MODULE_ID, SHOP_ITEM_SOURCES_SETTING, {
+      name: "Shopkeeper Item Sources",
+      hint: "Saved Item pack IDs used when generating shop stock.",
+      scope: "world",
+      config: false,
+      type: Array,
+      default: [],
+      restricted: true,
+      onChange: () => {
+        shopService.clearItemIndexCache();
+        console.log(`${LOG_PREFIX} Shop item sources setting updated`);
+      }
+    });
+
     game.settings.register(MODULE_ID, ANNOUNCE_TRADES_SETTING, {
       name: "Announce Shop Trades in Chat",
       hint: "Post completed shop buys and sells to public chat.",
@@ -45,34 +80,61 @@ export function registerTownForgeSettings() {
       }
     });
 
-    game.settings.registerMenu(MODULE_ID, "shopItemSourcesMenu", {
-      name: "Shopkeeper Item Sources",
-      label: "Configure Item Sources",
-      hint: "Pick which Item packs feed automatic shop stock.",
-      icon: "fas fa-book-open",
-      type: ShopItemSourcesApp,
-      restricted: true
-    });
-
-    game.settings.register(MODULE_ID, SHOP_ITEM_SOURCES_SETTING, {
-      name: "Shopkeeper Item Sources",
-      hint: "Saved Item pack IDs used when generating shop stock.",
-      scope: "world",
-      config: false,
-      type: Array,
-      default: [],
-      restricted: true,
-      onChange: () => {
-        shopService.clearItemIndexCache();
-        console.log(`${LOG_PREFIX} Shop item sources setting updated`);
-      }
-    });
+    registerTownForgeSettingsMenuEnhancements();
 
     console.log(`${LOG_PREFIX} Settings registered`);
   } catch (error) {
     console.error(`${LOG_PREFIX} Settings registration failed`, error);
     throw error;
   }
+}
+
+/**
+ * Keep Gambits Forge sign-in first and visually obvious in module settings.
+ */
+function registerTownForgeSettingsMenuEnhancements() {
+  if (registerTownForgeSettingsMenuEnhancements._hooked) return;
+  registerTownForgeSettingsMenuEnhancements._hooked = true;
+
+  Hooks.on("renderSettingsConfig", (_app, html) => {
+    const root = html instanceof HTMLElement ? html : html?.[0];
+    if (!root?.querySelector) return;
+
+    root.querySelector(".townforge-gambits-auth-panel")?.remove();
+
+    const gambitsGroup = findSettingsMenuGroup(root, "gambitsAccountMenu");
+    const shopGroup = findSettingsMenuGroup(root, "shopItemSourcesMenu");
+    if (gambitsGroup && shopGroup && gambitsGroup !== shopGroup.parentElement?.firstElementChild) {
+      shopGroup.parentElement?.insertBefore(gambitsGroup, shopGroup);
+    }
+
+    const signInButton =
+      gambitsGroup?.querySelector("button") ??
+      root.querySelector(`button[data-key="${MODULE_ID}.gambitsAccountMenu"]`);
+    if (signInButton) {
+      signInButton.classList.add("townforge-gambits-settings-menu-btn");
+      if (!signInButton.querySelector(".fa-right-to-bracket")) {
+        signInButton.insertAdjacentHTML("afterbegin", '<i class="fas fa-right-to-bracket" aria-hidden="true"></i> ');
+      }
+    }
+  });
+}
+
+/**
+ * @param {ParentNode} root
+ * @param {string} menuKey
+ */
+function findSettingsMenuGroup(root, menuKey) {
+  const button = root.querySelector(`button[data-key="${MODULE_ID}.${menuKey}"]`);
+  if (button) return button.closest(".form-group");
+  const groups = [...root.querySelectorAll(".form-group")];
+  if (menuKey === "gambitsAccountMenu") {
+    return groups.find((group) => /gambits forge account|sign in to gambits forge/i.test(group.textContent ?? ""));
+  }
+  if (menuKey === "shopItemSourcesMenu") {
+    return groups.find((group) => /shopkeeper item sources|configure item sources/i.test(group.textContent ?? ""));
+  }
+  return null;
 }
 
 /** Item pack picker for shop generation. */
