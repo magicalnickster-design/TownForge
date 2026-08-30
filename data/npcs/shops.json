@@ -49,12 +49,12 @@
           },
           "attributes": {
             "ac": {
-              "flat": 11,
+              "flat": 12,
               "calc": "flat"
             },
             "hp": {
-              "value": 8,
-              "max": 8
+              "value": 13,
+              "max": 13
             },
             "movement": {
               "walk": 30,
@@ -69,12 +69,13 @@
             "prof": 2
           },
           "details": {
-            "cr": 0.125,
+            "cr": 0.25,
             "alignment": "neutral",
             "type": {
               "value": "humanoid",
               "subtype": "dwarf"
-            }
+            },
+            "level": 2
           },
           "traits": {
             "size": "med",
@@ -102,7 +103,7 @@
             "type": "class",
             "system": {
               "identifier": "rogue",
-              "levels": 1
+              "levels": 2
             }
           },
           {
@@ -117,6 +118,21 @@
           },
           {
             "compendium": "Compendium.dnd5e.items.thieves-tools",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.backpack",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.pouch",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.merchant-scale",
             "equipped": false,
             "quantity": 1
           }
@@ -183,12 +199,12 @@
           },
           "attributes": {
             "ac": {
-              "flat": 11,
+              "flat": 12,
               "calc": "flat"
             },
             "hp": {
-              "value": 8,
-              "max": 8
+              "value": 13,
+              "max": 13
             },
             "movement": {
               "walk": 30,
@@ -203,12 +219,13 @@
             "prof": 2
           },
           "details": {
-            "cr": 0.125,
+            "cr": 0.25,
             "alignment": "neutral",
             "type": {
               "value": "humanoid",
               "subtype": "dwarf"
-            }
+            },
+            "level": 2
           },
           "traits": {
             "size": "med",
@@ -236,7 +253,7 @@
             "type": "class",
             "system": {
               "identifier": "rogue",
-              "levels": 1
+              "levels": 2
             }
           },
           {
@@ -251,6 +268,21 @@
           },
           {
             "compendium": "Compendium.dnd5e.items.thieves-tools",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.backpack",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.pouch",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.merchant-scale",
             "equipped": false,
             "quantity": 1
           }
@@ -312,12 +344,12 @@
           },
           "attributes": {
             "ac": {
-              "flat": 11,
+              "flat": 12,
               "calc": "flat"
             },
             "hp": {
-              "value": 8,
-              "max": 8
+              "value": 13,
+              "max": 13
             },
             "movement": {
               "walk": 30,
@@ -332,12 +364,13 @@
             "prof": 2
           },
           "details": {
-            "cr": 0.125,
+            "cr": 0.25,
             "alignment": "neutral",
             "type": {
               "value": "humanoid",
               "subtype": "human"
-            }
+            },
+            "level": 2
           },
           "traits": {
             "size": "med",
@@ -359,7 +392,46 @@
             }
           }
         },
-        "items": []
+        "items": [
+          {
+            "name": "Rogue",
+            "type": "class",
+            "system": {
+              "identifier": "rogue",
+              "levels": 2
+            }
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.leather-armor",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.dagger",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.thieves-tools",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.backpack",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.pouch",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.merchant-scale",
+            "equipped": false,
+            "quantity": 1
+          }
+        ]
       },
       "relationships": [
         {
@@ -422,12 +494,12 @@
           },
           "attributes": {
             "ac": {
-              "flat": 11,
+              "flat": 12,
               "calc": "flat"
             },
             "hp": {
-              "value": 8,
-              "max": 8
+              "value": 13,
+              "max": 13
             },
             "movement": {
               "walk": 30,
@@ -442,12 +514,13 @@
             "prof": 2
           },
           "details": {
-            "cr": 0.125,
+            "cr": 0.25,
             "alignment": "neutral",
             "type": {
               "value": "humanoid",
               "subtype": "human"
-            }
+            },
+            "level": 2
           },
           "traits": {
             "size": "med",
@@ -469,7 +542,46 @@
             }
           }
         },
-        "items": []
+        "items": [
+          {
+            "name": "Rogue",
+            "type": "class",
+            "system": {
+              "identifier": "rogue",
+              "levels": 2
+            }
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.leather-armor",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.dagger",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.thieves-tools",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.backpack",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.pouch",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.merchant-scale",
+            "equipped": false,
+            "quantity": 1
+          }
+        ]
       },
       "relationships": [
         {
@@ -527,12 +639,12 @@
           },
           "attributes": {
             "ac": {
-              "flat": 11,
+              "flat": 12,
               "calc": "flat"
             },
             "hp": {
-              "value": 8,
-              "max": 8
+              "value": 13,
+              "max": 13
             },
             "movement": {
               "walk": 30,
@@ -547,12 +659,13 @@
             "prof": 2
           },
           "details": {
-            "cr": 0.125,
+            "cr": 0.25,
             "alignment": "neutral",
             "type": {
               "value": "humanoid",
               "subtype": "halfling"
-            }
+            },
+            "level": 2
           },
           "traits": {
             "size": "med",
@@ -580,7 +693,7 @@
             "type": "class",
             "system": {
               "identifier": "rogue",
-              "levels": 1
+              "levels": 2
             }
           },
           {
@@ -595,6 +708,21 @@
           },
           {
             "compendium": "Compendium.dnd5e.items.thieves-tools",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.backpack",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.pouch",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.merchant-scale",
             "equipped": false,
             "quantity": 1
           }
@@ -649,12 +777,12 @@
           },
           "attributes": {
             "ac": {
-              "flat": 11,
+              "flat": 10,
               "calc": "flat"
             },
             "hp": {
-              "value": 7,
-              "max": 7
+              "value": 10,
+              "max": 10
             },
             "movement": {
               "walk": 30,
@@ -669,12 +797,13 @@
             "prof": 2
           },
           "details": {
-            "cr": 0.125,
+            "cr": 0.25,
             "alignment": "neutral",
             "type": {
               "value": "humanoid",
               "subtype": "elf"
-            }
+            },
+            "level": 2
           },
           "traits": {
             "size": "med",
@@ -699,7 +828,71 @@
             }
           }
         },
-        "items": []
+        "items": [
+          {
+            "name": "Wizard",
+            "type": "class",
+            "system": {
+              "identifier": "wizard",
+              "levels": 2
+            }
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.dagger",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.scholars-pack",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.backpack",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.book",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.ink",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.ink-pen",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.parchment",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.fire-bolt",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.light",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.mage-hand",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.magic-missile",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.shield",
+            "type": "spell"
+          }
+        ]
       }
     },
     {
@@ -750,12 +943,12 @@
           },
           "attributes": {
             "ac": {
-              "flat": 11,
+              "flat": 12,
               "calc": "flat"
             },
             "hp": {
-              "value": 8,
-              "max": 8
+              "value": 13,
+              "max": 13
             },
             "movement": {
               "walk": 30,
@@ -770,12 +963,13 @@
             "prof": 2
           },
           "details": {
-            "cr": 0.125,
+            "cr": 0.25,
             "alignment": "neutral",
             "type": {
               "value": "humanoid",
               "subtype": "human"
-            }
+            },
+            "level": 2
           },
           "traits": {
             "size": "med",
@@ -797,7 +991,46 @@
             }
           }
         },
-        "items": []
+        "items": [
+          {
+            "name": "Rogue",
+            "type": "class",
+            "system": {
+              "identifier": "rogue",
+              "levels": 2
+            }
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.leather-armor",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.dagger",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.thieves-tools",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.backpack",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.pouch",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.merchant-scale",
+            "equipped": false,
+            "quantity": 1
+          }
+        ]
       }
     },
     {
@@ -848,12 +1081,12 @@
           },
           "attributes": {
             "ac": {
-              "flat": 11,
+              "flat": 12,
               "calc": "flat"
             },
             "hp": {
-              "value": 8,
-              "max": 8
+              "value": 13,
+              "max": 13
             },
             "movement": {
               "walk": 30,
@@ -868,12 +1101,13 @@
             "prof": 2
           },
           "details": {
-            "cr": 0.125,
+            "cr": 0.25,
             "alignment": "neutral",
             "type": {
               "value": "humanoid",
               "subtype": "gnome"
-            }
+            },
+            "level": 2
           },
           "traits": {
             "size": "med",
@@ -901,7 +1135,7 @@
             "type": "class",
             "system": {
               "identifier": "rogue",
-              "levels": 1
+              "levels": 2
             }
           },
           {
@@ -916,6 +1150,21 @@
           },
           {
             "compendium": "Compendium.dnd5e.items.thieves-tools",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.backpack",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.pouch",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.merchant-scale",
             "equipped": false,
             "quantity": 1
           }
@@ -970,12 +1219,12 @@
           },
           "attributes": {
             "ac": {
-              "flat": 12,
+              "flat": 11,
               "calc": "flat"
             },
             "hp": {
-              "value": 12,
-              "max": 12
+              "value": 18,
+              "max": 18
             },
             "movement": {
               "walk": 30,
@@ -995,7 +1244,8 @@
             "type": {
               "value": "humanoid",
               "subtype": "human"
-            }
+            },
+            "level": 2
           },
           "traits": {
             "size": "med",
@@ -1020,7 +1270,7 @@
             "type": "class",
             "system": {
               "identifier": "fighter",
-              "levels": 1
+              "levels": 2
             }
           },
           {
@@ -1030,6 +1280,21 @@
           },
           {
             "compendium": "Compendium.dnd5e.items.artisans-tools",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.hammer",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.rations",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.waterskin",
             "equipped": false,
             "quantity": 1
           }
@@ -1084,12 +1349,12 @@
           },
           "attributes": {
             "ac": {
-              "flat": 11,
+              "flat": 10,
               "calc": "flat"
             },
             "hp": {
-              "value": 7,
-              "max": 7
+              "value": 10,
+              "max": 10
             },
             "movement": {
               "walk": 30,
@@ -1104,12 +1369,13 @@
             "prof": 2
           },
           "details": {
-            "cr": 0.125,
+            "cr": 0.25,
             "alignment": "neutral",
             "type": {
               "value": "humanoid",
               "subtype": "half-elf"
-            }
+            },
+            "level": 2
           },
           "traits": {
             "size": "med",
@@ -1149,7 +1415,37 @@
             "quantity": 1
           },
           {
-            "compendium": "Compendium.dnd5e.items.scholars-pack",
+            "compendium": "Compendium.dnd5e.items.herbalism-kit",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.alchemists-supplies",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.backpack",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.book",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.ink",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.ink-pen",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.parchment",
             "equipped": false,
             "quantity": 1
           },
@@ -1224,12 +1520,12 @@
           },
           "attributes": {
             "ac": {
-              "flat": 11,
+              "flat": 12,
               "calc": "flat"
             },
             "hp": {
-              "value": 8,
-              "max": 8
+              "value": 13,
+              "max": 13
             },
             "movement": {
               "walk": 30,
@@ -1244,12 +1540,13 @@
             "prof": 2
           },
           "details": {
-            "cr": 0.125,
+            "cr": 0.25,
             "alignment": "neutral",
             "type": {
               "value": "humanoid",
               "subtype": "human"
-            }
+            },
+            "level": 2
           },
           "traits": {
             "size": "med",
@@ -1277,7 +1574,7 @@
             "type": "class",
             "system": {
               "identifier": "rogue",
-              "levels": 1
+              "levels": 2
             }
           },
           {
@@ -1292,6 +1589,21 @@
           },
           {
             "compendium": "Compendium.dnd5e.items.thieves-tools",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.backpack",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.pouch",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.merchant-scale",
             "equipped": false,
             "quantity": 1
           }

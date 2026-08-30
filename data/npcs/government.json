@@ -53,8 +53,8 @@
               "calc": "flat"
             },
             "hp": {
-              "value": 10,
-              "max": 10
+              "value": 33,
+              "max": 33
             },
             "movement": {
               "walk": 30,
@@ -66,15 +66,16 @@
               "tremorsense": 0,
               "truesight": 0
             },
-            "prof": 2
+            "prof": 3
           },
           "details": {
-            "cr": 0.125,
+            "cr": 2,
             "alignment": "lawful neutral",
             "type": {
               "value": "humanoid",
               "subtype": "human"
-            }
+            },
+            "level": 5
           },
           "traits": {
             "size": "med",
@@ -98,12 +99,17 @@
         },
         "items": [
           {
-            "name": "Fighter",
+            "name": "Bard",
             "type": "class",
             "system": {
-              "identifier": "fighter",
-              "levels": 1
+              "identifier": "bard",
+              "levels": 5
             }
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.leather-armor",
+            "equipped": true,
+            "quantity": 1
           },
           {
             "compendium": "Compendium.dnd5e.items.rapier",
@@ -114,6 +120,54 @@
             "compendium": "Compendium.dnd5e.items.calligraphers-supplies",
             "equipped": false,
             "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.manacles",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.ink",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.ink-pen",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.parchment",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.vicious-mockery",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.prestidigitation",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.healing-word",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.faerie-fire",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.disguise-self",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.suggestion",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.hold-person",
+            "type": "spell"
           }
         ]
       },
@@ -173,12 +227,12 @@
           },
           "attributes": {
             "ac": {
-              "flat": 11,
+              "flat": 12,
               "calc": "flat"
             },
             "hp": {
-              "value": 10,
-              "max": 10
+              "value": 15,
+              "max": 15
             },
             "movement": {
               "walk": 30,
@@ -193,12 +247,13 @@
             "prof": 2
           },
           "details": {
-            "cr": 0.125,
+            "cr": 0.25,
             "alignment": "lawful neutral",
             "type": {
               "value": "humanoid",
               "subtype": "human"
-            }
+            },
+            "level": 2
           },
           "traits": {
             "size": "med",
@@ -222,12 +277,17 @@
         },
         "items": [
           {
-            "name": "Fighter",
+            "name": "Rogue",
             "type": "class",
             "system": {
-              "identifier": "fighter",
-              "levels": 1
+              "identifier": "rogue",
+              "levels": 2
             }
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.studded-leather",
+            "equipped": true,
+            "quantity": 1
           },
           {
             "compendium": "Compendium.dnd5e.items.rapier",
@@ -235,7 +295,32 @@
             "quantity": 1
           },
           {
+            "compendium": "Compendium.dnd5e.items.club",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
             "compendium": "Compendium.dnd5e.items.calligraphers-supplies",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.manacles",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.ink",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.ink-pen",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.parchment",
             "equipped": false,
             "quantity": 1
           }
@@ -297,12 +382,12 @@
           },
           "attributes": {
             "ac": {
-              "flat": 11,
+              "flat": 12,
               "calc": "flat"
             },
             "hp": {
-              "value": 10,
-              "max": 10
+              "value": 32,
+              "max": 32
             },
             "movement": {
               "walk": 30,
@@ -317,12 +402,13 @@
             "prof": 2
           },
           "details": {
-            "cr": 0.125,
+            "cr": 1,
             "alignment": "lawful neutral",
             "type": {
               "value": "humanoid",
               "subtype": "human"
-            }
+            },
+            "level": 4
           },
           "traits": {
             "size": "med",
@@ -350,16 +436,46 @@
             "type": "class",
             "system": {
               "identifier": "fighter",
-              "levels": 1
+              "levels": 4
             }
           },
           {
-            "compendium": "Compendium.dnd5e.items.rapier",
+            "compendium": "Compendium.dnd5e.items.studded-leather",
             "equipped": true,
             "quantity": 1
           },
           {
+            "compendium": "Compendium.dnd5e.items.club",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.light-crossbow",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
             "compendium": "Compendium.dnd5e.items.calligraphers-supplies",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.manacles",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.ink",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.ink-pen",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.parchment",
             "equipped": false,
             "quantity": 1
           }
@@ -414,12 +530,12 @@
           },
           "attributes": {
             "ac": {
-              "flat": 11,
+              "flat": 12,
               "calc": "flat"
             },
             "hp": {
-              "value": 10,
-              "max": 10
+              "value": 21,
+              "max": 21
             },
             "movement": {
               "walk": 30,
@@ -434,12 +550,13 @@
             "prof": 2
           },
           "details": {
-            "cr": 0.125,
+            "cr": 0.5,
             "alignment": "lawful neutral",
             "type": {
               "value": "humanoid",
               "subtype": "halfling"
-            }
+            },
+            "level": 3
           },
           "traits": {
             "size": "med",
@@ -463,12 +580,17 @@
         },
         "items": [
           {
-            "name": "Fighter",
+            "name": "Rogue",
             "type": "class",
             "system": {
-              "identifier": "fighter",
-              "levels": 1
+              "identifier": "rogue",
+              "levels": 3
             }
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.studded-leather",
+            "equipped": true,
+            "quantity": 1
           },
           {
             "compendium": "Compendium.dnd5e.items.rapier",
@@ -476,7 +598,32 @@
             "quantity": 1
           },
           {
+            "compendium": "Compendium.dnd5e.items.club",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
             "compendium": "Compendium.dnd5e.items.calligraphers-supplies",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.manacles",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.ink",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.ink-pen",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.parchment",
             "equipped": false,
             "quantity": 1
           }
@@ -531,12 +678,12 @@
           },
           "attributes": {
             "ac": {
-              "flat": 11,
+              "flat": 15,
               "calc": "flat"
             },
             "hp": {
-              "value": 10,
-              "max": 10
+              "value": 33,
+              "max": 33
             },
             "movement": {
               "walk": 30,
@@ -548,15 +695,16 @@
               "tremorsense": 0,
               "truesight": 0
             },
-            "prof": 2
+            "prof": 3
           },
           "details": {
-            "cr": 0.125,
+            "cr": 2,
             "alignment": "lawful neutral",
             "type": {
               "value": "humanoid",
               "subtype": "half-elf"
-            }
+            },
+            "level": 5
           },
           "traits": {
             "size": "med",
@@ -580,15 +728,25 @@
         },
         "items": [
           {
-            "name": "Fighter",
+            "name": "Cleric",
             "type": "class",
             "system": {
-              "identifier": "fighter",
-              "levels": 1
+              "identifier": "cleric",
+              "levels": 5
             }
           },
           {
-            "compendium": "Compendium.dnd5e.items.rapier",
+            "compendium": "Compendium.dnd5e.items.chain-shirt",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.shield",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.mace",
             "equipped": true,
             "quantity": 1
           },
@@ -596,6 +754,66 @@
             "compendium": "Compendium.dnd5e.items.calligraphers-supplies",
             "equipped": false,
             "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.manacles",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.ink",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.ink-pen",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.parchment",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.sacred-flame",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.guidance",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.spare-the-dying",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.cure-wounds",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.bless",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.shield-of-faith",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.lesser-restoration",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.spiritual-weapon",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.revivify",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.spirit-guardians",
+            "type": "spell"
           }
         ]
       }
@@ -668,12 +886,13 @@
             "prof": 2
           },
           "details": {
-            "cr": 0,
+            "cr": 0.125,
             "alignment": "neutral",
             "type": {
               "value": "humanoid",
               "subtype": "human"
-            }
+            },
+            "level": 1
           },
           "traits": {
             "size": "med",
@@ -697,6 +916,26 @@
               "identifier": "commoner",
               "levels": 1
             }
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.backpack",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.bedroll",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.rations",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.waterskin",
+            "equipped": false,
+            "quantity": 1
           }
         ]
       }

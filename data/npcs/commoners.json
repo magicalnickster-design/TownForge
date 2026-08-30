@@ -69,12 +69,13 @@
             "prof": 2
           },
           "details": {
-            "cr": 0,
+            "cr": 0.125,
             "alignment": "neutral",
             "type": {
               "value": "humanoid",
               "subtype": "human"
-            }
+            },
+            "level": 1
           },
           "traits": {
             "size": "med",
@@ -98,6 +99,26 @@
               "identifier": "commoner",
               "levels": 1
             }
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.backpack",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.bedroll",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.rations",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.waterskin",
+            "equipped": false,
+            "quantity": 1
           }
         ]
       },
@@ -177,12 +198,13 @@
             "prof": 2
           },
           "details": {
-            "cr": 0,
+            "cr": 0.125,
             "alignment": "neutral",
             "type": {
               "value": "humanoid",
               "subtype": "human"
-            }
+            },
+            "level": 1
           },
           "traits": {
             "size": "med",
@@ -206,6 +228,26 @@
               "identifier": "commoner",
               "levels": 1
             }
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.backpack",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.bedroll",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.rations",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.waterskin",
+            "equipped": false,
+            "quantity": 1
           }
         ]
       }
@@ -278,12 +320,13 @@
             "prof": 2
           },
           "details": {
-            "cr": 0,
+            "cr": 0.125,
             "alignment": "neutral",
             "type": {
               "value": "humanoid",
               "subtype": "halfling"
-            }
+            },
+            "level": 1
           },
           "traits": {
             "size": "med",
@@ -307,6 +350,26 @@
               "identifier": "commoner",
               "levels": 1
             }
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.backpack",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.bedroll",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.rations",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.waterskin",
+            "equipped": false,
+            "quantity": 1
           }
         ]
       }
@@ -363,8 +426,8 @@
               "calc": "flat"
             },
             "hp": {
-              "value": 11,
-              "max": 11
+              "value": 18,
+              "max": 18
             },
             "movement": {
               "walk": 30,
@@ -384,7 +447,8 @@
             "type": {
               "value": "humanoid",
               "subtype": "human"
-            }
+            },
+            "level": 2
           },
           "traits": {
             "size": "med",
@@ -436,11 +500,35 @@
             "quantity": 1
           },
           {
+            "compendium": "Compendium.dnd5e.items.bedroll",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.rations",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.waterskin",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.tinderbox",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
             "compendium": "Compendium.dnd5e.spells.hunters-mark",
             "type": "spell"
           },
           {
             "compendium": "Compendium.dnd5e.spells.cure-wounds",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.goodberry",
             "type": "spell"
           }
         ]
@@ -521,12 +609,13 @@
             "prof": 2
           },
           "details": {
-            "cr": 0,
+            "cr": 0.125,
             "alignment": "neutral",
             "type": {
               "value": "humanoid",
               "subtype": "human"
-            }
+            },
+            "level": 1
           },
           "traits": {
             "size": "med",
@@ -550,6 +639,26 @@
               "identifier": "commoner",
               "levels": 1
             }
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.backpack",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.bedroll",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.rations",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.waterskin",
+            "equipped": false,
+            "quantity": 1
           }
         ]
       }
@@ -622,12 +731,13 @@
             "prof": 2
           },
           "details": {
-            "cr": 0,
+            "cr": 0.125,
             "alignment": "neutral",
             "type": {
               "value": "humanoid",
               "subtype": "half-orc"
-            }
+            },
+            "level": 1
           },
           "traits": {
             "size": "med",
@@ -651,6 +761,26 @@
               "identifier": "commoner",
               "levels": 1
             }
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.backpack",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.bedroll",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.rations",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.waterskin",
+            "equipped": false,
+            "quantity": 1
           }
         ]
       }
@@ -723,12 +853,13 @@
             "prof": 2
           },
           "details": {
-            "cr": 0,
+            "cr": 0.125,
             "alignment": "neutral",
             "type": {
               "value": "humanoid",
               "subtype": "human"
-            }
+            },
+            "level": 1
           },
           "traits": {
             "size": "med",
@@ -752,6 +883,26 @@
               "identifier": "commoner",
               "levels": 1
             }
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.backpack",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.bedroll",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.rations",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.waterskin",
+            "equipped": false,
+            "quantity": 1
           }
         ]
       }
@@ -804,12 +955,12 @@
           },
           "attributes": {
             "ac": {
-              "flat": 11,
+              "flat": 12,
               "calc": "flat"
             },
             "hp": {
-              "value": 8,
-              "max": 8
+              "value": 13,
+              "max": 13
             },
             "movement": {
               "walk": 30,
@@ -824,12 +975,13 @@
             "prof": 2
           },
           "details": {
-            "cr": 0.125,
+            "cr": 0.25,
             "alignment": "neutral",
             "type": {
               "value": "humanoid",
               "subtype": "gnome"
-            }
+            },
+            "level": 2
           },
           "traits": {
             "size": "med",
@@ -857,7 +1009,7 @@
             "type": "class",
             "system": {
               "identifier": "rogue",
-              "levels": 1
+              "levels": 2
             }
           },
           {
@@ -872,6 +1024,21 @@
           },
           {
             "compendium": "Compendium.dnd5e.items.thieves-tools",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.backpack",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.pouch",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.merchant-scale",
             "equipped": false,
             "quantity": 1
           }
@@ -946,12 +1113,13 @@
             "prof": 2
           },
           "details": {
-            "cr": 0,
+            "cr": 0.125,
             "alignment": "neutral",
             "type": {
               "value": "humanoid",
               "subtype": "human"
-            }
+            },
+            "level": 1
           },
           "traits": {
             "size": "med",
@@ -975,6 +1143,26 @@
               "identifier": "commoner",
               "levels": 1
             }
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.backpack",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.bedroll",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.rations",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.waterskin",
+            "equipped": false,
+            "quantity": 1
           }
         ]
       }
@@ -1027,12 +1215,12 @@
           },
           "attributes": {
             "ac": {
-              "flat": 12,
+              "flat": 11,
               "calc": "flat"
             },
             "hp": {
-              "value": 12,
-              "max": 12
+              "value": 18,
+              "max": 18
             },
             "movement": {
               "walk": 30,
@@ -1052,7 +1240,8 @@
             "type": {
               "value": "humanoid",
               "subtype": "human"
-            }
+            },
+            "level": 2
           },
           "traits": {
             "size": "med",
@@ -1077,7 +1266,7 @@
             "type": "class",
             "system": {
               "identifier": "fighter",
-              "levels": 1
+              "levels": 2
             }
           },
           {
@@ -1087,6 +1276,21 @@
           },
           {
             "compendium": "Compendium.dnd5e.items.artisans-tools",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.hammer",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.rations",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.waterskin",
             "equipped": false,
             "quantity": 1
           }
@@ -1161,12 +1365,13 @@
             "prof": 2
           },
           "details": {
-            "cr": 0,
+            "cr": 0.125,
             "alignment": "neutral",
             "type": {
               "value": "humanoid",
               "subtype": "halfling"
-            }
+            },
+            "level": 1
           },
           "traits": {
             "size": "med",
@@ -1190,6 +1395,26 @@
               "identifier": "commoner",
               "levels": 1
             }
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.backpack",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.bedroll",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.rations",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.waterskin",
+            "equipped": false,
+            "quantity": 1
           }
         ]
       }
@@ -1246,8 +1471,8 @@
               "calc": "flat"
             },
             "hp": {
-              "value": 11,
-              "max": 11
+              "value": 18,
+              "max": 18
             },
             "movement": {
               "walk": 30,
@@ -1267,7 +1492,8 @@
             "type": {
               "value": "humanoid",
               "subtype": "half-elf"
-            }
+            },
+            "level": 2
           },
           "traits": {
             "size": "med",
@@ -1314,7 +1540,32 @@
             "quantity": 1
           },
           {
+            "compendium": "Compendium.dnd5e.items.herbalism-kit",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
             "compendium": "Compendium.dnd5e.items.explorers-pack",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.bedroll",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.rations",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.waterskin",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.tinderbox",
             "equipped": false,
             "quantity": 1
           },
@@ -1324,6 +1575,10 @@
           },
           {
             "compendium": "Compendium.dnd5e.spells.cure-wounds",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.goodberry",
             "type": "spell"
           }
         ]

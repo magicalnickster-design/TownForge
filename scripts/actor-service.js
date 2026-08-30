@@ -305,8 +305,20 @@ export class ActorService {
     await actor.createEmbeddedDocuments("Item", items);
 
     const prof = npc.actorData?.system?.attributes?.prof;
+    const hp = npc.actorData?.system?.attributes?.hp;
+    const ac = npc.actorData?.system?.attributes?.ac?.flat;
+    const level = npc.actorData?.system?.details?.level;
     const updates = {};
     if (Number.isFinite(prof)) updates["system.attributes.prof"] = prof;
+    if (Number.isFinite(hp?.max)) {
+      updates["system.attributes.hp.max"] = hp.max;
+      updates["system.attributes.hp.value"] = hp.value ?? hp.max;
+    }
+    if (Number.isFinite(ac)) {
+      updates["system.attributes.ac.flat"] = ac;
+      updates["system.attributes.ac.calc"] = "flat";
+    }
+    if (Number.isFinite(level)) updates["system.details.level"] = level;
     if (Object.keys(updates).length) await actor.update(updates);
 
     await this.#markLoadoutVersion(actor, npc);

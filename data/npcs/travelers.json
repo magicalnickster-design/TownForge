@@ -53,8 +53,8 @@
               "calc": "flat"
             },
             "hp": {
-              "value": 11,
-              "max": 11
+              "value": 18,
+              "max": 18
             },
             "movement": {
               "walk": 30,
@@ -74,7 +74,8 @@
             "type": {
               "value": "humanoid",
               "subtype": "human"
-            }
+            },
+            "level": 2
           },
           "traits": {
             "size": "med",
@@ -126,11 +127,35 @@
             "quantity": 1
           },
           {
+            "compendium": "Compendium.dnd5e.items.bedroll",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.rations",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.waterskin",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.tinderbox",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
             "compendium": "Compendium.dnd5e.spells.hunters-mark",
             "type": "spell"
           },
           {
             "compendium": "Compendium.dnd5e.spells.cure-wounds",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.goodberry",
             "type": "spell"
           }
         ]
@@ -188,8 +213,8 @@
               "calc": "flat"
             },
             "hp": {
-              "value": 11,
-              "max": 11
+              "value": 25,
+              "max": 25
             },
             "movement": {
               "walk": 30,
@@ -204,12 +229,13 @@
             "prof": 2
           },
           "details": {
-            "cr": 0.25,
+            "cr": 0.5,
             "alignment": "neutral",
             "type": {
               "value": "humanoid",
               "subtype": "elf"
-            }
+            },
+            "level": 3
           },
           "traits": {
             "size": "med",
@@ -261,11 +287,39 @@
             "quantity": 1
           },
           {
+            "compendium": "Compendium.dnd5e.items.bedroll",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.rations",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.waterskin",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.tinderbox",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
             "compendium": "Compendium.dnd5e.spells.hunters-mark",
             "type": "spell"
           },
           {
             "compendium": "Compendium.dnd5e.spells.cure-wounds",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.goodberry",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.pass-without-trace",
             "type": "spell"
           }
         ]
@@ -323,8 +377,8 @@
               "calc": "flat"
             },
             "hp": {
-              "value": 4,
-              "max": 4
+              "value": 13,
+              "max": 13
             },
             "movement": {
               "walk": 30,
@@ -339,12 +393,13 @@
             "prof": 2
           },
           "details": {
-            "cr": 0,
+            "cr": 0.25,
             "alignment": "neutral",
             "type": {
               "value": "humanoid",
               "subtype": "half-elf"
-            }
+            },
+            "level": 2
           },
           "traits": {
             "size": "med",
@@ -370,6 +425,26 @@
             }
           },
           {
+            "compendium": "Compendium.dnd5e.items.backpack",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.bedroll",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.rations",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.waterskin",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
             "compendium": "Compendium.dnd5e.spells.vicious-mockery",
             "type": "spell"
           },
@@ -383,6 +458,10 @@
           },
           {
             "compendium": "Compendium.dnd5e.spells.faerie-fire",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.disguise-self",
             "type": "spell"
           }
         ]
@@ -436,12 +515,12 @@
           },
           "attributes": {
             "ac": {
-              "flat": 13,
+              "flat": 15,
               "calc": "flat"
             },
             "hp": {
-              "value": 14,
-              "max": 14
+              "value": 15,
+              "max": 15
             },
             "movement": {
               "walk": 30,
@@ -456,12 +535,13 @@
             "prof": 2
           },
           "details": {
-            "cr": 0.5,
+            "cr": 0.25,
             "alignment": "lawful good",
             "type": {
               "value": "humanoid",
               "subtype": "human"
-            }
+            },
+            "level": 2
           },
           "traits": {
             "size": "med",
@@ -501,6 +581,11 @@
             "quantity": 1
           },
           {
+            "compendium": "Compendium.dnd5e.items.shield",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
             "compendium": "Compendium.dnd5e.items.quarterstaff",
             "equipped": true,
             "quantity": 1
@@ -511,7 +596,26 @@
             "quantity": 1
           },
           {
+            "compendium": "Compendium.dnd5e.items.healers-kit",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.candle",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.incense",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
             "compendium": "Compendium.dnd5e.spells.sacred-flame",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.guidance",
             "type": "spell"
           },
           {
@@ -581,8 +685,8 @@
               "calc": "flat"
             },
             "hp": {
-              "value": 11,
-              "max": 11
+              "value": 18,
+              "max": 18
             },
             "movement": {
               "walk": 30,
@@ -602,7 +706,8 @@
             "type": {
               "value": "humanoid",
               "subtype": "human"
-            }
+            },
+            "level": 2
           },
           "traits": {
             "size": "med",
@@ -654,11 +759,35 @@
             "quantity": 1
           },
           {
+            "compendium": "Compendium.dnd5e.items.bedroll",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.rations",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.waterskin",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.tinderbox",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
             "compendium": "Compendium.dnd5e.spells.hunters-mark",
             "type": "spell"
           },
           {
             "compendium": "Compendium.dnd5e.spells.cure-wounds",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.goodberry",
             "type": "spell"
           }
         ]
@@ -716,8 +845,8 @@
               "calc": "flat"
             },
             "hp": {
-              "value": 11,
-              "max": 11
+              "value": 25,
+              "max": 25
             },
             "movement": {
               "walk": 30,
@@ -732,12 +861,13 @@
             "prof": 2
           },
           "details": {
-            "cr": 0.25,
+            "cr": 0.5,
             "alignment": "neutral",
             "type": {
               "value": "humanoid",
               "subtype": "half-orc"
-            }
+            },
+            "level": 3
           },
           "traits": {
             "size": "med",
@@ -789,11 +919,39 @@
             "quantity": 1
           },
           {
+            "compendium": "Compendium.dnd5e.items.bedroll",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.rations",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.waterskin",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.tinderbox",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
             "compendium": "Compendium.dnd5e.spells.hunters-mark",
             "type": "spell"
           },
           {
             "compendium": "Compendium.dnd5e.spells.cure-wounds",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.goodberry",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.pass-without-trace",
             "type": "spell"
           }
         ]
@@ -851,8 +1009,8 @@
               "calc": "flat"
             },
             "hp": {
-              "value": 11,
-              "max": 11
+              "value": 18,
+              "max": 18
             },
             "movement": {
               "walk": 30,
@@ -872,7 +1030,8 @@
             "type": {
               "value": "humanoid",
               "subtype": "halfling"
-            }
+            },
+            "level": 2
           },
           "traits": {
             "size": "med",
@@ -924,11 +1083,35 @@
             "quantity": 1
           },
           {
+            "compendium": "Compendium.dnd5e.items.bedroll",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.rations",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.waterskin",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.tinderbox",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
             "compendium": "Compendium.dnd5e.spells.hunters-mark",
             "type": "spell"
           },
           {
             "compendium": "Compendium.dnd5e.spells.cure-wounds",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.goodberry",
             "type": "spell"
           }
         ]

@@ -53,8 +53,8 @@
               "calc": "flat"
             },
             "hp": {
-              "value": 11,
-              "max": 11
+              "value": 21,
+              "max": 21
             },
             "movement": {
               "walk": 30,
@@ -69,12 +69,13 @@
             "prof": 2
           },
           "details": {
-            "cr": 0.25,
+            "cr": 0.5,
             "alignment": "chaotic neutral",
             "type": {
               "value": "humanoid",
               "subtype": "human"
-            }
+            },
+            "level": 3
           },
           "traits": {
             "size": "med",
@@ -125,6 +126,21 @@
           },
           {
             "compendium": "Compendium.dnd5e.items.thieves-tools",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.crowbar",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.common-clothes",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.pouch",
             "equipped": false,
             "quantity": 1
           }
@@ -190,8 +206,8 @@
               "calc": "flat"
             },
             "hp": {
-              "value": 11,
-              "max": 11
+              "value": 9,
+              "max": 9
             },
             "movement": {
               "walk": 30,
@@ -206,12 +222,13 @@
             "prof": 2
           },
           "details": {
-            "cr": 0.25,
+            "cr": 0.125,
             "alignment": "chaotic neutral",
             "type": {
               "value": "humanoid",
               "subtype": "half-elf"
-            }
+            },
+            "level": 1
           },
           "traits": {
             "size": "med",
@@ -262,6 +279,21 @@
           },
           {
             "compendium": "Compendium.dnd5e.items.thieves-tools",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.crowbar",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.common-clothes",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.pouch",
             "equipped": false,
             "quantity": 1
           }
@@ -320,8 +352,8 @@
               "calc": "flat"
             },
             "hp": {
-              "value": 11,
-              "max": 11
+              "value": 15,
+              "max": 15
             },
             "movement": {
               "walk": 30,
@@ -341,7 +373,8 @@
             "type": {
               "value": "humanoid",
               "subtype": "human"
-            }
+            },
+            "level": 2
           },
           "traits": {
             "size": "med",
@@ -392,6 +425,21 @@
           },
           {
             "compendium": "Compendium.dnd5e.items.thieves-tools",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.crowbar",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.common-clothes",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.pouch",
             "equipped": false,
             "quantity": 1
           }
@@ -450,8 +498,8 @@
               "calc": "flat"
             },
             "hp": {
-              "value": 11,
-              "max": 11
+              "value": 15,
+              "max": 15
             },
             "movement": {
               "walk": 30,
@@ -471,7 +519,8 @@
             "type": {
               "value": "humanoid",
               "subtype": "dwarf"
-            }
+            },
+            "level": 2
           },
           "traits": {
             "size": "med",
@@ -522,6 +571,21 @@
           },
           {
             "compendium": "Compendium.dnd5e.items.thieves-tools",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.crowbar",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.common-clothes",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.pouch",
             "equipped": false,
             "quantity": 1
           }
@@ -583,12 +647,12 @@
           },
           "attributes": {
             "ac": {
-              "flat": 11,
+              "flat": 10,
               "calc": "flat"
             },
             "hp": {
-              "value": 7,
-              "max": 7
+              "value": 10,
+              "max": 10
             },
             "movement": {
               "walk": 30,
@@ -603,12 +667,13 @@
             "prof": 2
           },
           "details": {
-            "cr": 0.125,
+            "cr": 0.25,
             "alignment": "neutral",
             "type": {
               "value": "humanoid",
               "subtype": "human"
-            }
+            },
+            "level": 2
           },
           "traits": {
             "size": "med",
@@ -648,7 +713,32 @@
             "quantity": 1
           },
           {
-            "compendium": "Compendium.dnd5e.items.scholars-pack",
+            "compendium": "Compendium.dnd5e.items.calligraphers-supplies",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.backpack",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.book",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.ink",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.ink-pen",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.parchment",
             "equipped": false,
             "quantity": 1
           },
@@ -727,8 +817,8 @@
               "calc": "flat"
             },
             "hp": {
-              "value": 11,
-              "max": 11
+              "value": 15,
+              "max": 15
             },
             "movement": {
               "walk": 30,
@@ -748,7 +838,8 @@
             "type": {
               "value": "humanoid",
               "subtype": "tiefling"
-            }
+            },
+            "level": 2
           },
           "traits": {
             "size": "med",
@@ -799,6 +890,21 @@
           },
           {
             "compendium": "Compendium.dnd5e.items.thieves-tools",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.crowbar",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.common-clothes",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.pouch",
             "equipped": false,
             "quantity": 1
           }
@@ -857,8 +963,8 @@
               "calc": "flat"
             },
             "hp": {
-              "value": 11,
-              "max": 11
+              "value": 15,
+              "max": 15
             },
             "movement": {
               "walk": 30,
@@ -878,7 +984,8 @@
             "type": {
               "value": "humanoid",
               "subtype": "half-orc"
-            }
+            },
+            "level": 2
           },
           "traits": {
             "size": "med",
@@ -929,6 +1036,21 @@
           },
           {
             "compendium": "Compendium.dnd5e.items.thieves-tools",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.crowbar",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.common-clothes",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.pouch",
             "equipped": false,
             "quantity": 1
           }
@@ -994,8 +1116,8 @@
               "calc": "flat"
             },
             "hp": {
-              "value": 11,
-              "max": 11
+              "value": 15,
+              "max": 15
             },
             "movement": {
               "walk": 30,
@@ -1015,7 +1137,8 @@
             "type": {
               "value": "humanoid",
               "subtype": "halfling"
-            }
+            },
+            "level": 2
           },
           "traits": {
             "size": "med",
@@ -1066,6 +1189,21 @@
           },
           {
             "compendium": "Compendium.dnd5e.items.thieves-tools",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.crowbar",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.common-clothes",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.pouch",
             "equipped": false,
             "quantity": 1
           }

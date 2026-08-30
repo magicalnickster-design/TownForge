@@ -49,12 +49,12 @@
           },
           "attributes": {
             "ac": {
-              "flat": 12,
+              "flat": 11,
               "calc": "flat"
             },
             "hp": {
-              "value": 18,
-              "max": 18
+              "value": 27,
+              "max": 27
             },
             "movement": {
               "walk": 30,
@@ -69,12 +69,13 @@
             "prof": 3
           },
           "details": {
-            "cr": 1,
+            "cr": 2,
             "alignment": "neutral",
             "type": {
               "value": "humanoid",
               "subtype": "elf"
-            }
+            },
+            "level": 5
           },
           "traits": {
             "size": "med",
@@ -112,6 +113,26 @@
           },
           {
             "compendium": "Compendium.dnd5e.items.component-pouch",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.arcane-focus",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.book",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.ink",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.ink-pen",
             "equipped": false,
             "quantity": 1
           },
@@ -222,12 +243,12 @@
           },
           "attributes": {
             "ac": {
-              "flat": 11,
+              "flat": 10,
               "calc": "flat"
             },
             "hp": {
-              "value": 7,
-              "max": 7
+              "value": 10,
+              "max": 10
             },
             "movement": {
               "walk": 30,
@@ -242,12 +263,13 @@
             "prof": 2
           },
           "details": {
-            "cr": 0.125,
+            "cr": 0.25,
             "alignment": "neutral",
             "type": {
               "value": "humanoid",
               "subtype": "human"
-            }
+            },
+            "level": 2
           },
           "traits": {
             "size": "med",
@@ -288,6 +310,31 @@
           },
           {
             "compendium": "Compendium.dnd5e.items.scholars-pack",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.backpack",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.book",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.ink",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.ink-pen",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.parchment",
             "equipped": false,
             "quantity": 1
           },
@@ -362,12 +409,12 @@
           },
           "attributes": {
             "ac": {
-              "flat": 11,
+              "flat": 10,
               "calc": "flat"
             },
             "hp": {
-              "value": 7,
-              "max": 7
+              "value": 14,
+              "max": 14
             },
             "movement": {
               "walk": 30,
@@ -382,12 +429,13 @@
             "prof": 2
           },
           "details": {
-            "cr": 0.125,
+            "cr": 0.5,
             "alignment": "neutral",
             "type": {
               "value": "humanoid",
               "subtype": "human"
-            }
+            },
+            "level": 3
           },
           "traits": {
             "size": "med",
@@ -418,7 +466,7 @@
             "type": "class",
             "system": {
               "identifier": "wizard",
-              "levels": 2
+              "levels": 3
             }
           },
           {
@@ -428,6 +476,31 @@
           },
           {
             "compendium": "Compendium.dnd5e.items.scholars-pack",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.backpack",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.book",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.ink",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.ink-pen",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.parchment",
             "equipped": false,
             "quantity": 1
           },
@@ -502,12 +575,12 @@
           },
           "attributes": {
             "ac": {
-              "flat": 11,
+              "flat": 10,
               "calc": "flat"
             },
             "hp": {
-              "value": 7,
-              "max": 7
+              "value": 18,
+              "max": 18
             },
             "movement": {
               "walk": 30,
@@ -522,12 +595,13 @@
             "prof": 2
           },
           "details": {
-            "cr": 0.125,
+            "cr": 1,
             "alignment": "neutral",
             "type": {
               "value": "humanoid",
               "subtype": "gnome"
-            }
+            },
+            "level": 4
           },
           "traits": {
             "size": "med",
@@ -558,7 +632,7 @@
             "type": "class",
             "system": {
               "identifier": "wizard",
-              "levels": 3
+              "levels": 4
             }
           },
           {
@@ -568,6 +642,36 @@
           },
           {
             "compendium": "Compendium.dnd5e.items.alchemists-supplies",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.herbalism-kit",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.backpack",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.book",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.ink",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.ink-pen",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.parchment",
             "equipped": false,
             "quantity": 1
           },
@@ -642,12 +746,12 @@
           },
           "attributes": {
             "ac": {
-              "flat": 11,
+              "flat": 10,
               "calc": "flat"
             },
             "hp": {
-              "value": 7,
-              "max": 7
+              "value": 10,
+              "max": 10
             },
             "movement": {
               "walk": 30,
@@ -662,12 +766,13 @@
             "prof": 2
           },
           "details": {
-            "cr": 0.125,
+            "cr": 0.25,
             "alignment": "neutral",
             "type": {
               "value": "humanoid",
               "subtype": "half-elf"
-            }
+            },
+            "level": 2
           },
           "traits": {
             "size": "med",
@@ -708,6 +813,31 @@
           },
           {
             "compendium": "Compendium.dnd5e.items.scholars-pack",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.backpack",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.book",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.ink",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.ink-pen",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.parchment",
             "equipped": false,
             "quantity": 1
           },
@@ -782,12 +912,12 @@
           },
           "attributes": {
             "ac": {
-              "flat": 11,
+              "flat": 10,
               "calc": "flat"
             },
             "hp": {
-              "value": 7,
-              "max": 7
+              "value": 10,
+              "max": 10
             },
             "movement": {
               "walk": 30,
@@ -802,12 +932,13 @@
             "prof": 2
           },
           "details": {
-            "cr": 0.125,
+            "cr": 0.25,
             "alignment": "neutral",
             "type": {
               "value": "humanoid",
               "subtype": "human"
-            }
+            },
+            "level": 2
           },
           "traits": {
             "size": "med",
@@ -848,6 +979,31 @@
           },
           {
             "compendium": "Compendium.dnd5e.items.scholars-pack",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.backpack",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.book",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.ink",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.ink-pen",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.parchment",
             "equipped": false,
             "quantity": 1
           },
@@ -922,12 +1078,12 @@
           },
           "attributes": {
             "ac": {
-              "flat": 11,
+              "flat": 10,
               "calc": "flat"
             },
             "hp": {
-              "value": 7,
-              "max": 7
+              "value": 14,
+              "max": 14
             },
             "movement": {
               "walk": 30,
@@ -942,12 +1098,13 @@
             "prof": 2
           },
           "details": {
-            "cr": 0.125,
+            "cr": 0.5,
             "alignment": "neutral",
             "type": {
               "value": "humanoid",
               "subtype": "dwarf"
-            }
+            },
+            "level": 3
           },
           "traits": {
             "size": "med",
@@ -978,7 +1135,7 @@
             "type": "class",
             "system": {
               "identifier": "wizard",
-              "levels": 2
+              "levels": 3
             }
           },
           {
@@ -988,6 +1145,31 @@
           },
           {
             "compendium": "Compendium.dnd5e.items.scholars-pack",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.backpack",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.book",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.ink",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.ink-pen",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.parchment",
             "equipped": false,
             "quantity": 1
           },

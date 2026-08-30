@@ -49,12 +49,12 @@
           },
           "attributes": {
             "ac": {
-              "flat": 13,
+              "flat": 15,
               "calc": "flat"
             },
             "hp": {
-              "value": 14,
-              "max": 14
+              "value": 33,
+              "max": 33
             },
             "movement": {
               "walk": 30,
@@ -66,15 +66,16 @@
               "tremorsense": 0,
               "truesight": 0
             },
-            "prof": 2
+            "prof": 3
           },
           "details": {
-            "cr": 0.5,
+            "cr": 2,
             "alignment": "lawful good",
             "type": {
               "value": "humanoid",
               "subtype": "human"
-            }
+            },
+            "level": 5
           },
           "traits": {
             "size": "med",
@@ -105,11 +106,16 @@
             "type": "class",
             "system": {
               "identifier": "cleric",
-              "levels": 3
+              "levels": 5
             }
           },
           {
             "compendium": "Compendium.dnd5e.items.chain-shirt",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.shield",
             "equipped": true,
             "quantity": 1
           },
@@ -120,6 +126,21 @@
           },
           {
             "compendium": "Compendium.dnd5e.items.holy-symbol",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.healers-kit",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.candle",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.incense",
             "equipped": false,
             "quantity": 1
           },
@@ -153,6 +174,14 @@
           },
           {
             "compendium": "Compendium.dnd5e.spells.spiritual-weapon",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.revivify",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.spirit-guardians",
             "type": "spell"
           }
         ]
@@ -213,12 +242,12 @@
           },
           "attributes": {
             "ac": {
-              "flat": 11,
+              "flat": 10,
               "calc": "flat"
             },
             "hp": {
-              "value": 7,
-              "max": 7
+              "value": 10,
+              "max": 10
             },
             "movement": {
               "walk": 30,
@@ -233,12 +262,13 @@
             "prof": 2
           },
           "details": {
-            "cr": 0.125,
+            "cr": 0.25,
             "alignment": "neutral",
             "type": {
               "value": "humanoid",
               "subtype": "human"
-            }
+            },
+            "level": 2
           },
           "traits": {
             "size": "med",
@@ -279,6 +309,31 @@
           },
           {
             "compendium": "Compendium.dnd5e.items.scholars-pack",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.backpack",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.book",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.ink",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.ink-pen",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.parchment",
             "equipped": false,
             "quantity": 1
           },
@@ -360,12 +415,12 @@
           },
           "attributes": {
             "ac": {
-              "flat": 13,
+              "flat": 15,
               "calc": "flat"
             },
             "hp": {
-              "value": 14,
-              "max": 14
+              "value": 21,
+              "max": 21
             },
             "movement": {
               "walk": 30,
@@ -385,7 +440,8 @@
             "type": {
               "value": "humanoid",
               "subtype": "halfling"
-            }
+            },
+            "level": 3
           },
           "traits": {
             "size": "med",
@@ -425,12 +481,32 @@
             "quantity": 1
           },
           {
+            "compendium": "Compendium.dnd5e.items.shield",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
             "compendium": "Compendium.dnd5e.items.mace",
             "equipped": true,
             "quantity": 1
           },
           {
             "compendium": "Compendium.dnd5e.items.holy-symbol",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.healers-kit",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.candle",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.incense",
             "equipped": false,
             "quantity": 1
           },
@@ -517,12 +593,12 @@
           },
           "attributes": {
             "ac": {
-              "flat": 13,
+              "flat": 15,
               "calc": "flat"
             },
             "hp": {
-              "value": 14,
-              "max": 14
+              "value": 27,
+              "max": 27
             },
             "movement": {
               "walk": 30,
@@ -537,12 +613,13 @@
             "prof": 2
           },
           "details": {
-            "cr": 0.5,
+            "cr": 1,
             "alignment": "lawful good",
             "type": {
               "value": "humanoid",
               "subtype": "dwarf"
-            }
+            },
+            "level": 4
           },
           "traits": {
             "size": "med",
@@ -573,11 +650,16 @@
             "type": "class",
             "system": {
               "identifier": "cleric",
-              "levels": 3
+              "levels": 4
             }
           },
           {
             "compendium": "Compendium.dnd5e.items.chain-shirt",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.shield",
             "equipped": true,
             "quantity": 1
           },
@@ -588,6 +670,21 @@
           },
           {
             "compendium": "Compendium.dnd5e.items.holy-symbol",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.healers-kit",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.candle",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.incense",
             "equipped": false,
             "quantity": 1
           },
@@ -678,8 +775,8 @@
               "calc": "flat"
             },
             "hp": {
-              "value": 4,
-              "max": 4
+              "value": 13,
+              "max": 13
             },
             "movement": {
               "walk": 30,
@@ -694,12 +791,13 @@
             "prof": 2
           },
           "details": {
-            "cr": 0,
+            "cr": 0.25,
             "alignment": "neutral",
             "type": {
               "value": "humanoid",
               "subtype": "human"
-            }
+            },
+            "level": 2
           },
           "traits": {
             "size": "med",
@@ -721,11 +819,40 @@
             "type": "class",
             "system": {
               "identifier": "cleric",
-              "levels": 1
+              "levels": 2
             }
           },
           {
+            "compendium": "Compendium.dnd5e.items.quarterstaff",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.backpack",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.bedroll",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.rations",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.waterskin",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
             "compendium": "Compendium.dnd5e.spells.sacred-flame",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.guidance",
             "type": "spell"
           },
           {
@@ -791,12 +918,12 @@
           },
           "attributes": {
             "ac": {
-              "flat": 12,
+              "flat": 11,
               "calc": "flat"
             },
             "hp": {
-              "value": 18,
-              "max": 18
+              "value": 27,
+              "max": 27
             },
             "movement": {
               "walk": 30,
@@ -811,12 +938,13 @@
             "prof": 3
           },
           "details": {
-            "cr": 1,
+            "cr": 2,
             "alignment": "neutral",
             "type": {
               "value": "humanoid",
               "subtype": "tiefling"
-            }
+            },
+            "level": 5
           },
           "traits": {
             "size": "med",
@@ -854,6 +982,26 @@
           },
           {
             "compendium": "Compendium.dnd5e.items.component-pouch",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.arcane-focus",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.book",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.ink",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.ink-pen",
             "equipped": false,
             "quantity": 1
           },
@@ -944,12 +1092,12 @@
           },
           "attributes": {
             "ac": {
-              "flat": 13,
+              "flat": 10,
               "calc": "flat"
             },
             "hp": {
-              "value": 14,
-              "max": 14
+              "value": 21,
+              "max": 21
             },
             "movement": {
               "walk": 30,
@@ -969,7 +1117,8 @@
             "type": {
               "value": "humanoid",
               "subtype": "human"
-            }
+            },
+            "level": 3
           },
           "traits": {
             "size": "med",
@@ -1004,17 +1153,27 @@
             }
           },
           {
-            "compendium": "Compendium.dnd5e.items.chain-shirt",
-            "equipped": true,
-            "quantity": 1
-          },
-          {
-            "compendium": "Compendium.dnd5e.items.mace",
+            "compendium": "Compendium.dnd5e.items.quarterstaff",
             "equipped": true,
             "quantity": 1
           },
           {
             "compendium": "Compendium.dnd5e.items.holy-symbol",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.healers-kit",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.candle",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.incense",
             "equipped": false,
             "quantity": 1
           },
@@ -1101,12 +1260,12 @@
           },
           "attributes": {
             "ac": {
-              "flat": 13,
+              "flat": 15,
               "calc": "flat"
             },
             "hp": {
-              "value": 14,
-              "max": 14
+              "value": 21,
+              "max": 21
             },
             "movement": {
               "walk": 30,
@@ -1126,7 +1285,8 @@
             "type": {
               "value": "humanoid",
               "subtype": "half-orc"
-            }
+            },
+            "level": 3
           },
           "traits": {
             "size": "med",
@@ -1166,12 +1326,32 @@
             "quantity": 1
           },
           {
+            "compendium": "Compendium.dnd5e.items.shield",
+            "equipped": true,
+            "quantity": 1
+          },
+          {
             "compendium": "Compendium.dnd5e.items.mace",
             "equipped": true,
             "quantity": 1
           },
           {
             "compendium": "Compendium.dnd5e.items.holy-symbol",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.healers-kit",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.candle",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.incense",
             "equipped": false,
             "quantity": 1
           },

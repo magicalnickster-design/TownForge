@@ -69,12 +69,13 @@
             "prof": 2
           },
           "details": {
-            "cr": 0,
+            "cr": 0.125,
             "alignment": "neutral",
             "type": {
               "value": "humanoid",
               "subtype": "human"
-            }
+            },
+            "level": 1
           },
           "traits": {
             "size": "med",
@@ -98,6 +99,26 @@
               "identifier": "commoner",
               "levels": 1
             }
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.backpack",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.bedroll",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.rations",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.waterskin",
+            "equipped": false,
+            "quantity": 1
           }
         ]
       }
@@ -170,12 +191,13 @@
             "prof": 2
           },
           "details": {
-            "cr": 0,
+            "cr": 0.125,
             "alignment": "neutral",
             "type": {
               "value": "humanoid",
               "subtype": "human"
-            }
+            },
+            "level": 1
           },
           "traits": {
             "size": "med",
@@ -199,6 +221,26 @@
               "identifier": "commoner",
               "levels": 1
             }
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.backpack",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.bedroll",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.rations",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.waterskin",
+            "equipped": false,
+            "quantity": 1
           }
         ]
       }
@@ -255,8 +297,8 @@
               "calc": "flat"
             },
             "hp": {
-              "value": 11,
-              "max": 11
+              "value": 15,
+              "max": 15
             },
             "movement": {
               "walk": 30,
@@ -276,7 +318,8 @@
             "type": {
               "value": "humanoid",
               "subtype": "gnome"
-            }
+            },
+            "level": 2
           },
           "traits": {
             "size": "med",
@@ -327,6 +370,21 @@
           },
           {
             "compendium": "Compendium.dnd5e.items.thieves-tools",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.crowbar",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.common-clothes",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.pouch",
             "equipped": false,
             "quantity": 1
           }
@@ -401,12 +459,13 @@
             "prof": 2
           },
           "details": {
-            "cr": 0,
+            "cr": 0.125,
             "alignment": "neutral",
             "type": {
               "value": "humanoid",
               "subtype": "halfling"
-            }
+            },
+            "level": 1
           },
           "traits": {
             "size": "med",
@@ -430,6 +489,26 @@
               "identifier": "commoner",
               "levels": 1
             }
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.backpack",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.bedroll",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.rations",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.waterskin",
+            "equipped": false,
+            "quantity": 1
           }
         ]
       }

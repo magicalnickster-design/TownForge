@@ -12,7 +12,7 @@ SHOP_ONLY_NPCS = frozenset({"vela-inkwell", "garr-hopsack", "hedda-loom", "marro
 sys.path.insert(0, str(ROOT / "tools"))
 
 from build_launch_library import OCC_ARCH
-from npc_combat_loadouts import build_combat_items, resolve_loadout
+from npc_combat_loadouts import apply_combat_to_actor_data, build_combat_items, estimate_hp, resolve_loadout
 
 
 def main() -> int:
@@ -33,6 +33,12 @@ def main() -> int:
     oracle_items = build_combat_items("mage", "Oracle")
     assert any(i.get("system", {}).get("identifier") == "sorcerer" for i in oracle_items if i.get("type") == "class")
 
+    bailiff = resolve_loadout("official", "Bailiff")
+    assert bailiff.level == 4 and bailiff.class_id == "fighter"
+    bailiff_items = build_combat_items("official", "Bailiff")
+    assert len(bailiff_items) >= 8, "bailiff has expanded loadout"
+    assert any(i.get("type") == "spell" for i in build_combat_items("mage", "Town Mage"))
+
     # Every NPC pack should have compendium-backed combat items after enrichment.
     for path in sorted((ROOT / "data" / "npcs").glob("*.json")):
         if path.name == "manifest.json":
@@ -50,8 +56,22 @@ def main() -> int:
                 "Town Mage",
                 "Acolyte",
                 "Evening Singer",
+                "Temple Priestess",
+                "Magistrate",
+                "Town Mayor",
+                "Apothecary Clerk",
+                "Alchemist",
             }:
                 assert any(i.get("type") == "spell" for i in items), f"{npc['id']} missing spells"
+            cls = next(i for i in items if i.get("type") == "class")
+            level = cls.get("system", {}).get("levels", 1)
+            hp = npc.get("actorData", {}).get("system", {}).get("attributes", {}).get("hp", {}).get("max", 0)
+            con = npc.get("actorData", {}).get("system", {}).get("abilities", {}).get("con", {}).get("value", 10)
+            expected_hp = estimate_hp(cls.get("system", {}).get("identifier", "commoner"), level, con)
+            assert hp == expected_hp, f"{npc['id']} hp {hp} != expected {expected_hp} for level {level}"
+            assert npc.get("actorData", {}).get("system", {}).get("details", {}).get("level") == level, (
+                f"{npc['id']} details.level mismatch"
+            )
 
     print("OK: npc combat loadout tests passed")
     return 0

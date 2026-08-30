@@ -49,12 +49,12 @@
           },
           "attributes": {
             "ac": {
-              "flat": 13,
+              "flat": 12,
               "calc": "flat"
             },
             "hp": {
-              "value": 18,
-              "max": 18
+              "value": 28,
+              "max": 28
             },
             "movement": {
               "walk": 30,
@@ -74,7 +74,8 @@
             "type": {
               "value": "humanoid",
               "subtype": "dwarf"
-            }
+            },
+            "level": 3
           },
           "traits": {
             "size": "med",
@@ -114,6 +115,21 @@
           },
           {
             "compendium": "Compendium.dnd5e.items.smiths-tools",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.hammer",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.shovel",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.rations",
             "equipped": false,
             "quantity": 1
           }
@@ -175,12 +191,12 @@
           },
           "attributes": {
             "ac": {
-              "flat": 12,
+              "flat": 11,
               "calc": "flat"
             },
             "hp": {
-              "value": 12,
-              "max": 12
+              "value": 18,
+              "max": 18
             },
             "movement": {
               "walk": 30,
@@ -200,7 +216,8 @@
             "type": {
               "value": "humanoid",
               "subtype": "human"
-            }
+            },
+            "level": 2
           },
           "traits": {
             "size": "med",
@@ -225,7 +242,7 @@
             "type": "class",
             "system": {
               "identifier": "fighter",
-              "levels": 1
+              "levels": 2
             }
           },
           {
@@ -235,6 +252,21 @@
           },
           {
             "compendium": "Compendium.dnd5e.items.artisans-tools",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.hammer",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.rations",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.waterskin",
             "equipped": false,
             "quantity": 1
           }
@@ -289,12 +321,12 @@
           },
           "attributes": {
             "ac": {
-              "flat": 12,
+              "flat": 11,
               "calc": "flat"
             },
             "hp": {
-              "value": 12,
-              "max": 12
+              "value": 18,
+              "max": 18
             },
             "movement": {
               "walk": 30,
@@ -314,7 +346,8 @@
             "type": {
               "value": "humanoid",
               "subtype": "gnome"
-            }
+            },
+            "level": 2
           },
           "traits": {
             "size": "med",
@@ -339,7 +372,7 @@
             "type": "class",
             "system": {
               "identifier": "fighter",
-              "levels": 1
+              "levels": 2
             }
           },
           {
@@ -349,6 +382,21 @@
           },
           {
             "compendium": "Compendium.dnd5e.items.artisans-tools",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.hammer",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.rations",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.waterskin",
             "equipped": false,
             "quantity": 1
           }
@@ -403,12 +451,12 @@
           },
           "attributes": {
             "ac": {
-              "flat": 12,
+              "flat": 11,
               "calc": "flat"
             },
             "hp": {
-              "value": 12,
-              "max": 12
+              "value": 18,
+              "max": 18
             },
             "movement": {
               "walk": 30,
@@ -428,7 +476,8 @@
             "type": {
               "value": "humanoid",
               "subtype": "human"
-            }
+            },
+            "level": 2
           },
           "traits": {
             "size": "med",
@@ -453,7 +502,7 @@
             "type": "class",
             "system": {
               "identifier": "fighter",
-              "levels": 1
+              "levels": 2
             }
           },
           {
@@ -463,6 +512,21 @@
           },
           {
             "compendium": "Compendium.dnd5e.items.artisans-tools",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.hammer",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.rations",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.waterskin",
             "equipped": false,
             "quantity": 1
           }
@@ -517,12 +581,12 @@
           },
           "attributes": {
             "ac": {
-              "flat": 12,
+              "flat": 11,
               "calc": "flat"
             },
             "hp": {
-              "value": 12,
-              "max": 12
+              "value": 18,
+              "max": 18
             },
             "movement": {
               "walk": 30,
@@ -542,7 +606,8 @@
             "type": {
               "value": "humanoid",
               "subtype": "halfling"
-            }
+            },
+            "level": 2
           },
           "traits": {
             "size": "med",
@@ -567,7 +632,7 @@
             "type": "class",
             "system": {
               "identifier": "fighter",
-              "levels": 1
+              "levels": 2
             }
           },
           {
@@ -577,6 +642,21 @@
           },
           {
             "compendium": "Compendium.dnd5e.items.artisans-tools",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.hammer",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.rations",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.waterskin",
             "equipped": false,
             "quantity": 1
           }
@@ -631,12 +711,12 @@
           },
           "attributes": {
             "ac": {
-              "flat": 12,
+              "flat": 11,
               "calc": "flat"
             },
             "hp": {
-              "value": 12,
-              "max": 12
+              "value": 18,
+              "max": 18
             },
             "movement": {
               "walk": 30,
@@ -656,7 +736,8 @@
             "type": {
               "value": "humanoid",
               "subtype": "elf"
-            }
+            },
+            "level": 2
           },
           "traits": {
             "size": "med",
@@ -681,7 +762,7 @@
             "type": "class",
             "system": {
               "identifier": "fighter",
-              "levels": 1
+              "levels": 2
             }
           },
           {
@@ -691,6 +772,21 @@
           },
           {
             "compendium": "Compendium.dnd5e.items.artisans-tools",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.hammer",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.rations",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.waterskin",
             "equipped": false,
             "quantity": 1
           }
@@ -765,12 +861,13 @@
             "prof": 2
           },
           "details": {
-            "cr": 0,
+            "cr": 0.125,
             "alignment": "neutral",
             "type": {
               "value": "humanoid",
               "subtype": "human"
-            }
+            },
+            "level": 1
           },
           "traits": {
             "size": "med",
@@ -794,6 +891,26 @@
               "identifier": "commoner",
               "levels": 1
             }
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.backpack",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.bedroll",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.rations",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.waterskin",
+            "equipped": false,
+            "quantity": 1
           }
         ]
       }
@@ -846,12 +963,12 @@
           },
           "attributes": {
             "ac": {
-              "flat": 12,
+              "flat": 11,
               "calc": "flat"
             },
             "hp": {
-              "value": 12,
-              "max": 12
+              "value": 18,
+              "max": 18
             },
             "movement": {
               "walk": 30,
@@ -871,7 +988,8 @@
             "type": {
               "value": "humanoid",
               "subtype": "gnome"
-            }
+            },
+            "level": 2
           },
           "traits": {
             "size": "med",
@@ -896,7 +1014,7 @@
             "type": "class",
             "system": {
               "identifier": "fighter",
-              "levels": 1
+              "levels": 2
             }
           },
           {
@@ -906,6 +1024,21 @@
           },
           {
             "compendium": "Compendium.dnd5e.items.artisans-tools",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.hammer",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.rations",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.waterskin",
             "equipped": false,
             "quantity": 1
           }
@@ -960,12 +1093,12 @@
           },
           "attributes": {
             "ac": {
-              "flat": 12,
+              "flat": 11,
               "calc": "flat"
             },
             "hp": {
-              "value": 12,
-              "max": 12
+              "value": 18,
+              "max": 18
             },
             "movement": {
               "walk": 30,
@@ -985,7 +1118,8 @@
             "type": {
               "value": "humanoid",
               "subtype": "half-elf"
-            }
+            },
+            "level": 2
           },
           "traits": {
             "size": "med",
@@ -1010,7 +1144,7 @@
             "type": "class",
             "system": {
               "identifier": "fighter",
-              "levels": 1
+              "levels": 2
             }
           },
           {
@@ -1020,6 +1154,21 @@
           },
           {
             "compendium": "Compendium.dnd5e.items.artisans-tools",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.hammer",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.rations",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.waterskin",
             "equipped": false,
             "quantity": 1
           }
@@ -1074,12 +1223,12 @@
           },
           "attributes": {
             "ac": {
-              "flat": 12,
+              "flat": 11,
               "calc": "flat"
             },
             "hp": {
-              "value": 12,
-              "max": 12
+              "value": 18,
+              "max": 18
             },
             "movement": {
               "walk": 30,
@@ -1099,7 +1248,8 @@
             "type": {
               "value": "humanoid",
               "subtype": "dwarf"
-            }
+            },
+            "level": 2
           },
           "traits": {
             "size": "med",
@@ -1124,7 +1274,7 @@
             "type": "class",
             "system": {
               "identifier": "fighter",
-              "levels": 1
+              "levels": 2
             }
           },
           {
@@ -1134,6 +1284,21 @@
           },
           {
             "compendium": "Compendium.dnd5e.items.artisans-tools",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.hammer",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.rations",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.waterskin",
             "equipped": false,
             "quantity": 1
           }

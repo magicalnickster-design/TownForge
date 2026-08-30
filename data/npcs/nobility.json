@@ -53,8 +53,8 @@
               "calc": "flat"
             },
             "hp": {
-              "value": 12,
-              "max": 12
+              "value": 23,
+              "max": 23
             },
             "movement": {
               "walk": 30,
@@ -69,12 +69,13 @@
             "prof": 2
           },
           "details": {
-            "cr": 0.25,
+            "cr": 1,
             "alignment": "lawful neutral",
             "type": {
               "value": "humanoid",
               "subtype": "human"
-            }
+            },
+            "level": 4
           },
           "traits": {
             "size": "med",
@@ -102,7 +103,7 @@
             "type": "class",
             "system": {
               "identifier": "bard",
-              "levels": 2
+              "levels": 4
             }
           },
           {
@@ -113,6 +114,21 @@
           {
             "compendium": "Compendium.dnd5e.items.rapier",
             "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.common-clothes",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.pouch",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.candle",
+            "equipped": false,
             "quantity": 1
           },
           {
@@ -129,6 +145,18 @@
           },
           {
             "compendium": "Compendium.dnd5e.spells.faerie-fire",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.disguise-self",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.suggestion",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.hold-person",
             "type": "spell"
           }
         ]
@@ -198,8 +226,8 @@
               "calc": "flat"
             },
             "hp": {
-              "value": 12,
-              "max": 12
+              "value": 13,
+              "max": 13
             },
             "movement": {
               "walk": 30,
@@ -219,7 +247,8 @@
             "type": {
               "value": "humanoid",
               "subtype": "human"
-            }
+            },
+            "level": 2
           },
           "traits": {
             "size": "med",
@@ -261,6 +290,21 @@
             "quantity": 1
           },
           {
+            "compendium": "Compendium.dnd5e.items.common-clothes",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.pouch",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.candle",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
             "compendium": "Compendium.dnd5e.spells.vicious-mockery",
             "type": "spell"
           },
@@ -274,6 +318,10 @@
           },
           {
             "compendium": "Compendium.dnd5e.spells.faerie-fire",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.disguise-self",
             "type": "spell"
           }
         ]
@@ -334,12 +382,12 @@
           },
           "attributes": {
             "ac": {
-              "flat": 17,
+              "flat": 20,
               "calc": "flat"
             },
             "hp": {
-              "value": 32,
-              "max": 32
+              "value": 44,
+              "max": 44
             },
             "movement": {
               "walk": 30,
@@ -351,15 +399,16 @@
               "tremorsense": 0,
               "truesight": 0
             },
-            "prof": 2
+            "prof": 3
           },
           "details": {
-            "cr": 1,
+            "cr": 2,
             "alignment": "neutral",
             "type": {
               "value": "humanoid",
               "subtype": "human"
-            }
+            },
+            "level": 5
           },
           "traits": {
             "size": "med",
@@ -390,7 +439,7 @@
             "type": "class",
             "system": {
               "identifier": "fighter",
-              "levels": 4
+              "levels": 5
             }
           },
           {
@@ -410,6 +459,31 @@
           },
           {
             "compendium": "Compendium.dnd5e.items.lance",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.hempen-rope",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.manacles",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.hooded-lantern",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.signal-whistle",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.healing-potion",
             "equipped": false,
             "quantity": 1
           }
@@ -468,8 +542,8 @@
               "calc": "flat"
             },
             "hp": {
-              "value": 12,
-              "max": 12
+              "value": 13,
+              "max": 13
             },
             "movement": {
               "walk": 30,
@@ -489,7 +563,8 @@
             "type": {
               "value": "humanoid",
               "subtype": "half-elf"
-            }
+            },
+            "level": 2
           },
           "traits": {
             "size": "med",
@@ -531,6 +606,21 @@
             "quantity": 1
           },
           {
+            "compendium": "Compendium.dnd5e.items.common-clothes",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.pouch",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.candle",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
             "compendium": "Compendium.dnd5e.spells.vicious-mockery",
             "type": "spell"
           },
@@ -544,6 +634,10 @@
           },
           {
             "compendium": "Compendium.dnd5e.spells.faerie-fire",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.disguise-self",
             "type": "spell"
           }
         ]
@@ -597,12 +691,12 @@
           },
           "attributes": {
             "ac": {
-              "flat": 12,
+              "flat": 14,
               "calc": "flat"
             },
             "hp": {
-              "value": 12,
-              "max": 12
+              "value": 28,
+              "max": 28
             },
             "movement": {
               "walk": 30,
@@ -617,12 +711,13 @@
             "prof": 2
           },
           "details": {
-            "cr": 0.25,
+            "cr": 1,
             "alignment": "lawful neutral",
             "type": {
               "value": "humanoid",
               "subtype": "dwarf"
-            }
+            },
+            "level": 4
           },
           "traits": {
             "size": "med",
@@ -646,21 +741,36 @@
         },
         "items": [
           {
-            "name": "Bard",
+            "name": "Fighter",
             "type": "class",
             "system": {
-              "identifier": "bard",
-              "levels": 2
+              "identifier": "fighter",
+              "levels": 4
             }
           },
           {
-            "compendium": "Compendium.dnd5e.items.leather-armor",
+            "compendium": "Compendium.dnd5e.items.breastplate",
             "equipped": true,
             "quantity": 1
           },
           {
             "compendium": "Compendium.dnd5e.items.rapier",
             "equipped": true,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.common-clothes",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.pouch",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.candle",
+            "equipped": false,
             "quantity": 1
           },
           {
@@ -677,6 +787,10 @@
           },
           {
             "compendium": "Compendium.dnd5e.spells.faerie-fire",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.disguise-self",
             "type": "spell"
           }
         ]
@@ -750,12 +864,13 @@
             "prof": 2
           },
           "details": {
-            "cr": 0,
+            "cr": 0.125,
             "alignment": "neutral",
             "type": {
               "value": "humanoid",
               "subtype": "human"
-            }
+            },
+            "level": 1
           },
           "traits": {
             "size": "med",
@@ -779,6 +894,26 @@
               "identifier": "commoner",
               "levels": 1
             }
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.backpack",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.bedroll",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.rations",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.waterskin",
+            "equipped": false,
+            "quantity": 1
           }
         ]
       },
@@ -863,12 +998,13 @@
             "prof": 2
           },
           "details": {
-            "cr": 0,
+            "cr": 0.125,
             "alignment": "neutral",
             "type": {
               "value": "humanoid",
               "subtype": "human"
-            }
+            },
+            "level": 1
           },
           "traits": {
             "size": "med",
@@ -892,6 +1028,26 @@
               "identifier": "commoner",
               "levels": 1
             }
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.backpack",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.bedroll",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.rations",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.waterskin",
+            "equipped": false,
+            "quantity": 1
           }
         ]
       }
@@ -948,8 +1104,8 @@
               "calc": "flat"
             },
             "hp": {
-              "value": 12,
-              "max": 12
+              "value": 13,
+              "max": 13
             },
             "movement": {
               "walk": 30,
@@ -969,7 +1125,8 @@
             "type": {
               "value": "humanoid",
               "subtype": "elf"
-            }
+            },
+            "level": 2
           },
           "traits": {
             "size": "med",
@@ -1011,6 +1168,21 @@
             "quantity": 1
           },
           {
+            "compendium": "Compendium.dnd5e.items.common-clothes",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.pouch",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.candle",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
             "compendium": "Compendium.dnd5e.spells.vicious-mockery",
             "type": "spell"
           },
@@ -1024,6 +1196,10 @@
           },
           {
             "compendium": "Compendium.dnd5e.spells.faerie-fire",
+            "type": "spell"
+          },
+          {
+            "compendium": "Compendium.dnd5e.spells.disguise-self",
             "type": "spell"
           }
         ]

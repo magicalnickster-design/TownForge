@@ -49,12 +49,12 @@
           },
           "attributes": {
             "ac": {
-              "flat": 17,
+              "flat": 16,
               "calc": "flat"
             },
             "hp": {
-              "value": 32,
-              "max": 32
+              "value": 44,
+              "max": 44
             },
             "movement": {
               "walk": 30,
@@ -66,15 +66,16 @@
               "tremorsense": 0,
               "truesight": 0
             },
-            "prof": 2
+            "prof": 3
           },
           "details": {
-            "cr": 1,
+            "cr": 2,
             "alignment": "neutral",
             "type": {
               "value": "humanoid",
               "subtype": "human"
-            }
+            },
+            "level": 5
           },
           "traits": {
             "size": "med",
@@ -105,7 +106,7 @@
             "type": "class",
             "system": {
               "identifier": "fighter",
-              "levels": 4
+              "levels": 5
             }
           },
           {
@@ -125,6 +126,31 @@
           },
           {
             "compendium": "Compendium.dnd5e.items.light-crossbow",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.hempen-rope",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.manacles",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.hooded-lantern",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.signal-whistle",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.healing-potion",
             "equipped": false,
             "quantity": 1
           }
@@ -200,8 +226,8 @@
               "calc": "flat"
             },
             "hp": {
-              "value": 16,
-              "max": 16
+              "value": 20,
+              "max": 20
             },
             "movement": {
               "walk": 30,
@@ -216,12 +242,13 @@
             "prof": 2
           },
           "details": {
-            "cr": 0.5,
+            "cr": 0.25,
             "alignment": "neutral",
             "type": {
               "value": "humanoid",
               "subtype": "human"
-            }
+            },
+            "level": 2
           },
           "traits": {
             "size": "med",
@@ -269,6 +296,31 @@
           },
           {
             "compendium": "Compendium.dnd5e.items.shortsword",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.hempen-rope",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.manacles",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.hooded-lantern",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.signal-whistle",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.rations",
             "equipped": false,
             "quantity": 1
           }
@@ -339,8 +391,8 @@
               "calc": "flat"
             },
             "hp": {
-              "value": 16,
-              "max": 16
+              "value": 28,
+              "max": 28
             },
             "movement": {
               "walk": 30,
@@ -360,7 +412,8 @@
             "type": {
               "value": "humanoid",
               "subtype": "dwarf"
-            }
+            },
+            "level": 3
           },
           "traits": {
             "size": "med",
@@ -388,7 +441,7 @@
             "type": "class",
             "system": {
               "identifier": "fighter",
-              "levels": 2
+              "levels": 3
             }
           },
           {
@@ -402,12 +455,37 @@
             "quantity": 1
           },
           {
-            "compendium": "Compendium.dnd5e.items.spear",
+            "compendium": "Compendium.dnd5e.items.longsword",
             "equipped": true,
             "quantity": 1
           },
           {
-            "compendium": "Compendium.dnd5e.items.shortsword",
+            "compendium": "Compendium.dnd5e.items.javelin",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.hempen-rope",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.manacles",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.hooded-lantern",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.signal-whistle",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.rations",
             "equipped": false,
             "quantity": 1
           }
@@ -469,12 +547,12 @@
           },
           "attributes": {
             "ac": {
-              "flat": 16,
+              "flat": 13,
               "calc": "flat"
             },
             "hp": {
-              "value": 16,
-              "max": 16
+              "value": 28,
+              "max": 28
             },
             "movement": {
               "walk": 30,
@@ -494,7 +572,8 @@
             "type": {
               "value": "humanoid",
               "subtype": "elf"
-            }
+            },
+            "level": 3
           },
           "traits": {
             "size": "med",
@@ -522,7 +601,7 @@
             "type": "class",
             "system": {
               "identifier": "fighter",
-              "levels": 2
+              "levels": 3
             }
           },
           {
@@ -537,6 +616,31 @@
           },
           {
             "compendium": "Compendium.dnd5e.items.shortsword",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.hempen-rope",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.manacles",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.hooded-lantern",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.signal-whistle",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.rations",
             "equipped": false,
             "quantity": 1
           }
@@ -595,8 +699,8 @@
               "calc": "flat"
             },
             "hp": {
-              "value": 16,
-              "max": 16
+              "value": 20,
+              "max": 20
             },
             "movement": {
               "walk": 30,
@@ -611,12 +715,13 @@
             "prof": 2
           },
           "details": {
-            "cr": 0.5,
+            "cr": 0.25,
             "alignment": "neutral",
             "type": {
               "value": "humanoid",
               "subtype": "human"
-            }
+            },
+            "level": 2
           },
           "traits": {
             "size": "med",
@@ -664,6 +769,31 @@
           },
           {
             "compendium": "Compendium.dnd5e.items.shortsword",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.hempen-rope",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.manacles",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.hooded-lantern",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.signal-whistle",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.rations",
             "equipped": false,
             "quantity": 1
           }
@@ -729,8 +859,8 @@
               "calc": "flat"
             },
             "hp": {
-              "value": 16,
-              "max": 16
+              "value": 20,
+              "max": 20
             },
             "movement": {
               "walk": 30,
@@ -745,12 +875,13 @@
             "prof": 2
           },
           "details": {
-            "cr": 0.5,
+            "cr": 0.25,
             "alignment": "neutral",
             "type": {
               "value": "humanoid",
               "subtype": "half-orc"
-            }
+            },
+            "level": 2
           },
           "traits": {
             "size": "med",
@@ -798,6 +929,31 @@
           },
           {
             "compendium": "Compendium.dnd5e.items.shortsword",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.hempen-rope",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.manacles",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.hooded-lantern",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.signal-whistle",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.rations",
             "equipped": false,
             "quantity": 1
           }
@@ -856,8 +1012,8 @@
               "calc": "flat"
             },
             "hp": {
-              "value": 16,
-              "max": 16
+              "value": 28,
+              "max": 28
             },
             "movement": {
               "walk": 30,
@@ -877,7 +1033,8 @@
             "type": {
               "value": "humanoid",
               "subtype": "halfling"
-            }
+            },
+            "level": 3
           },
           "traits": {
             "size": "med",
@@ -905,7 +1062,7 @@
             "type": "class",
             "system": {
               "identifier": "fighter",
-              "levels": 2
+              "levels": 3
             }
           },
           {
@@ -925,6 +1082,31 @@
           },
           {
             "compendium": "Compendium.dnd5e.items.shortsword",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.hempen-rope",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.manacles",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.hooded-lantern",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.signal-whistle",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.rations",
             "equipped": false,
             "quantity": 1
           }
@@ -979,12 +1161,12 @@
           },
           "attributes": {
             "ac": {
-              "flat": 16,
+              "flat": 14,
               "calc": "flat"
             },
             "hp": {
-              "value": 16,
-              "max": 16
+              "value": 36,
+              "max": 36
             },
             "movement": {
               "walk": 30,
@@ -999,12 +1181,13 @@
             "prof": 2
           },
           "details": {
-            "cr": 0.5,
+            "cr": 1,
             "alignment": "neutral",
             "type": {
               "value": "humanoid",
               "subtype": "human"
-            }
+            },
+            "level": 4
           },
           "traits": {
             "size": "med",
@@ -1032,26 +1215,46 @@
             "type": "class",
             "system": {
               "identifier": "fighter",
-              "levels": 2
+              "levels": 4
             }
           },
           {
-            "compendium": "Compendium.dnd5e.items.chain-shirt",
+            "compendium": "Compendium.dnd5e.items.breastplate",
             "equipped": true,
             "quantity": 1
           },
           {
-            "compendium": "Compendium.dnd5e.items.shield",
+            "compendium": "Compendium.dnd5e.items.warhammer",
             "equipped": true,
             "quantity": 1
           },
           {
-            "compendium": "Compendium.dnd5e.items.spear",
-            "equipped": true,
+            "compendium": "Compendium.dnd5e.items.light-crossbow",
+            "equipped": false,
             "quantity": 1
           },
           {
-            "compendium": "Compendium.dnd5e.items.shortsword",
+            "compendium": "Compendium.dnd5e.items.hempen-rope",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.manacles",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.hooded-lantern",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.signal-whistle",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.rations",
             "equipped": false,
             "quantity": 1
           }
@@ -1110,8 +1313,8 @@
               "calc": "flat"
             },
             "hp": {
-              "value": 11,
-              "max": 11
+              "value": 21,
+              "max": 21
             },
             "movement": {
               "walk": 30,
@@ -1126,12 +1329,13 @@
             "prof": 2
           },
           "details": {
-            "cr": 0.25,
+            "cr": 0.5,
             "alignment": "chaotic neutral",
             "type": {
               "value": "humanoid",
               "subtype": "half-elf"
-            }
+            },
+            "level": 3
           },
           "traits": {
             "size": "med",
@@ -1182,6 +1386,21 @@
           },
           {
             "compendium": "Compendium.dnd5e.items.thieves-tools",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.crowbar",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.common-clothes",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.pouch",
             "equipped": false,
             "quantity": 1
           }
@@ -1236,12 +1455,12 @@
           },
           "attributes": {
             "ac": {
-              "flat": 16,
+              "flat": 14,
               "calc": "flat"
             },
             "hp": {
-              "value": 16,
-              "max": 16
+              "value": 36,
+              "max": 36
             },
             "movement": {
               "walk": 30,
@@ -1256,12 +1475,13 @@
             "prof": 2
           },
           "details": {
-            "cr": 0.5,
+            "cr": 1,
             "alignment": "neutral",
             "type": {
               "value": "humanoid",
               "subtype": "human"
-            }
+            },
+            "level": 4
           },
           "traits": {
             "size": "med",
@@ -1289,16 +1509,11 @@
             "type": "class",
             "system": {
               "identifier": "fighter",
-              "levels": 3
+              "levels": 4
             }
           },
           {
-            "compendium": "Compendium.dnd5e.items.chain-shirt",
-            "equipped": true,
-            "quantity": 1
-          },
-          {
-            "compendium": "Compendium.dnd5e.items.shield",
+            "compendium": "Compendium.dnd5e.items.breastplate",
             "equipped": true,
             "quantity": 1
           },
@@ -1309,6 +1524,31 @@
           },
           {
             "compendium": "Compendium.dnd5e.items.javelin",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.hempen-rope",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.manacles",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.hooded-lantern",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.signal-whistle",
+            "equipped": false,
+            "quantity": 1
+          },
+          {
+            "compendium": "Compendium.dnd5e.items.rations",
             "equipped": false,
             "quantity": 1
           }
