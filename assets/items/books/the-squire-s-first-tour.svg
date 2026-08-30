@@ -1,32 +1,35 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="256" height="320" viewBox="0 0 256 320" role="img" aria-label="The Squire's First Tour">
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256" role="img" aria-label="The Squire's First Tour">
   <defs>
-    <linearGradient id="g-the-squire-s-first-tour" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#533e27"/>
-      <stop offset="55%" stop-color="#47382b"/>
-      <stop offset="100%" stop-color="#141418"/>
+    <linearGradient id="cover-the-squire-s-first-tour" x1="0.15" y1="0" x2="0.85" y2="1">
+      <stop offset="0%" stop-color="#c9a66b"/>
+      <stop offset="45%" stop-color="#8f6a45"/>
+      <stop offset="100%" stop-color="#6b4a2e"/>
     </linearGradient>
-    <radialGradient id="shine-the-squire-s-first-tour" cx="30%" cy="20%" r="70%">
-      <stop offset="0%" stop-color="#eccaa7" stop-opacity="0.18"/>
-      <stop offset="100%" stop-color="#eccaa7" stop-opacity="0"/>
+    <radialGradient id="glow-the-squire-s-first-tour" cx="40%" cy="30%" r="65%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
     </radialGradient>
   </defs>
-  <rect width="256" height="320" rx="10" fill="#0f1014"/>
-  <rect x="18" y="12" width="220" height="296" rx="8" fill="#090a0d" opacity="0.55"/>
-
-  <rect x="46" y="34" width="164" height="252" rx="4" fill="url(#g-the-squire-s-first-tour)" stroke="#eccaa7" stroke-width="2"/>
-  <rect x="52" y="40" width="8" height="240" fill="#eccaa7" opacity="0.28"/>
-  <rect x="196" y="120" width="6" height="80" rx="2" fill="#e4c6b6" opacity="0.55"/>
-  <rect x="46" y="34" width="164" height="252" rx="6" fill="url(#shine-the-squire-s-first-tour)" pointer-events="none"/>
-  <g transform="translate(0,2)">
-  <g opacity="0.40" fill="none" stroke="#e4c6b6" stroke-width="2">
-    <circle cx="128" cy="102" r="28"/>
-    <path d="M128 78 L134 102 L128 126 L122 102 Z" fill="#e4c6b6" opacity="0.25"/>
-    <path d="M128 74 L128 82 M128 122 L128 130 M104 102 L112 102 M144 102 L152 102"/>
-  </g></g>
-  <path d="M60 42 L66 48 L60 54 L54 48 Z" fill="#e4c6b6" opacity="0.28"/><path d="M196 42 L202 48 L196 54 L190 48 Z" fill="#e4c6b6" opacity="0.28"/><path d="M60 266 L66 272 L60 278 L54 272 Z" fill="#e4c6b6" opacity="0.28"/><path d="M196 266 L202 272 L196 278 L190 272 Z" fill="#e4c6b6" opacity="0.28"/>
-  <text x="128" y="147" text-anchor="middle" fill="#eccaa7" font-family="Georgia, serif" font-size="13" font-weight="700">The Squire's First</text>
-  <text x="128" y="165" text-anchor="middle" fill="#eccaa7" font-family="Georgia, serif" font-size="12">Tour</text>
-  <text x="128" y="183" text-anchor="middle" fill="#eccaa7" font-family="Georgia, serif" font-size="11"></text>
-  <text x="128" y="252" text-anchor="middle" fill="#e4c6b6" font-size="10" letter-spacing="1.2">ADVENTURE</text>
-  <text x="128" y="52" text-anchor="middle" fill="#eccaa7" font-family="Georgia, serif" font-size="20" opacity="0.85">⚔</text>
+  <rect width="256" height="256" fill="#101012"/>
+  <rect x="10" y="10" width="236" height="236" rx="6" fill="#08080a" stroke="#3a3a42" stroke-width="2"/>
+  
+  <g>
+    <polygon points="92,170 172,170 180,198 84,198" fill="#523d37"/>
+    <polygon points="172,118 200,136 200,198 172,170" fill="#d6cfc2"/>
+    <polygon points="84,138 172,118 172,170 84,198" fill="#e8d8bc"/>
+    <polygon points="76,112 164,92 172,118 84,138" fill="url(#cover-the-squire-s-first-tour)"/>
+    <polygon points="164,92 188,108 172,118 76,112" fill="#6b4a2e" opacity="0.5"/>
+    <path d="M76 112 L84 138 L84 198 L76 176 Z" fill="#523d37"/>
+    <rect x="78" y="108" width="88" height="8" rx="2" fill="#5c4233" opacity="0.85"/>
+    <rect x="78" y="148" width="88" height="8" rx="2" fill="#5c4233" opacity="0.85"/>
+    <rect x="102" y="118" width="52" height="36" rx="3" fill="#e8d8bc" stroke="#e7b589" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="108" cy="124" r="2" fill="#e7b589" opacity="0.45"/>
+    <circle cx="148" cy="124" r="2" fill="#e7b589" opacity="0.45"/>
+    <circle cx="108" cy="148" r="2" fill="#e7b589" opacity="0.45"/>
+    <circle cx="148" cy="148" r="2" fill="#e7b589" opacity="0.45"/>
+    <rect x="125" y="126" width="6" height="20" rx="2" fill="#e7b589" opacity="0.12"/>
+    <rect x="126" y="186" width="8" height="22" rx="2" fill="#c8b888" opacity="0.9"/>
+    <path d="M90 98 L154 84 L162 86 L98 100 Z" fill="#c9a66b" opacity="0.18"/>
+  </g>
+  <rect x="10" y="10" width="236" height="236" rx="6" fill="url(#glow-the-squire-s-first-tour)" pointer-events="none"/>
 </svg>

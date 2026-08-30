@@ -1,37 +1,35 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="256" height="320" viewBox="0 0 256 320" role="img" aria-label="Clockwork &amp; Counterweights">
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256" role="img" aria-label="Clockwork &amp; Counterweights">
   <defs>
-    <linearGradient id="g-clockwork-counterweights" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#305f6b"/>
-      <stop offset="55%" stop-color="#24596f"/>
-      <stop offset="100%" stop-color="#141418"/>
+    <linearGradient id="cover-clockwork-counterweights" x1="0.15" y1="0" x2="0.85" y2="1">
+      <stop offset="0%" stop-color="#c9a66b"/>
+      <stop offset="45%" stop-color="#8f6a45"/>
+      <stop offset="100%" stop-color="#6b4a2e"/>
     </linearGradient>
-    <radialGradient id="shine-clockwork-counterweights" cx="30%" cy="20%" r="70%">
-      <stop offset="0%" stop-color="#b8e8f8" stop-opacity="0.18"/>
-      <stop offset="100%" stop-color="#b8e8f8" stop-opacity="0"/>
+    <radialGradient id="glow-clockwork-counterweights" cx="40%" cy="30%" r="65%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
     </radialGradient>
   </defs>
-  <rect width="256" height="320" rx="10" fill="#0f1014"/>
-  <rect x="18" y="12" width="220" height="296" rx="8" fill="#090a0d" opacity="0.55"/>
-
-  <rect x="34" y="48" width="188" height="224" rx="4" fill="url(#g-clockwork-counterweights)" stroke="#b8e8f8" stroke-width="2"/>
-  <path d="M128 48 L128 272" stroke="#b8e8f8" opacity="0.35"/>
-  <rect x="40" y="54" width="10" height="212" fill="#b8e8f8" opacity="0.22"/>
-  <rect x="206" y="54" width="10" height="212" fill="#b8e8f8" opacity="0.22"/>
-  <rect x="34" y="48" width="188" height="224" rx="6" fill="url(#shine-clockwork-counterweights)" pointer-events="none"/>
-  <g transform="translate(0,8)">
-  <g opacity="0.28" fill="none" stroke="#bceaff" stroke-width="2">
-    <circle cx="108" cy="98" r="16"/><circle cx="108" cy="98" r="6"/>
-    <circle cx="148" cy="108" r="12"/><circle cx="148" cy="108" r="4"/>
-    <path d="M108 82 L108 86 M108 110 L108 114 M92 98 L96 98 M120 98 L124 98"/>
-  </g></g>
+  <rect width="256" height="256" fill="#101012"/>
+  <rect x="10" y="10" width="236" height="236" rx="6" fill="#08080a" stroke="#3a3a42" stroke-width="2"/>
   
-  <circle cx="50" cy="64" r="5" fill="none" stroke="#bceaff" opacity="0.4"/>
-  <circle cx="206" cy="64" r="5" fill="none" stroke="#bceaff" opacity="0.4"/>
-  <circle cx="50" cy="256" r="5" fill="none" stroke="#bceaff" opacity="0.4"/>
-  <circle cx="206" cy="256" r="5" fill="none" stroke="#bceaff" opacity="0.4"/>
-  <text x="128" y="146" text-anchor="middle" fill="#b8e8f8" font-family="Georgia, serif" font-size="13" font-weight="700">Clockwork &amp; Counterweights</text>
-  <text x="128" y="164" text-anchor="middle" fill="#b8e8f8" font-family="Georgia, serif" font-size="12"></text>
-  <text x="128" y="182" text-anchor="middle" fill="#b8e8f8" font-family="Georgia, serif" font-size="11"></text>
-  <text x="128" y="238" text-anchor="middle" fill="#bceaff" font-size="10" letter-spacing="1.2">SCIENCE</text>
-  <text x="128" y="66" text-anchor="middle" fill="#b8e8f8" font-family="Georgia, serif" font-size="20" opacity="0.85">⚗</text>
+  <g>
+    <polygon points="92,170 172,170 180,198 84,198" fill="#523d37"/>
+    <polygon points="172,118 200,136 200,198 172,170" fill="#d6cfc2"/>
+    <polygon points="84,138 172,118 172,170 84,198" fill="#e8d8bc"/>
+    <polygon points="76,112 164,92 172,118 84,138" fill="url(#cover-clockwork-counterweights)"/>
+    <polygon points="164,92 188,108 172,118 76,112" fill="#6b4a2e" opacity="0.5"/>
+    <path d="M76 112 L84 138 L84 198 L76 176 Z" fill="#523d37"/>
+    <rect x="78" y="108" width="88" height="8" rx="2" fill="#5c4233" opacity="0.85"/>
+    <rect x="78" y="148" width="88" height="8" rx="2" fill="#5c4233" opacity="0.85"/>
+    <rect x="102" y="118" width="52" height="36" rx="3" fill="#e8d8bc" stroke="#e7b589" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="108" cy="124" r="2" fill="#e7b589" opacity="0.45"/>
+    <circle cx="148" cy="124" r="2" fill="#e7b589" opacity="0.45"/>
+    <circle cx="108" cy="148" r="2" fill="#e7b589" opacity="0.45"/>
+    <circle cx="148" cy="148" r="2" fill="#e7b589" opacity="0.45"/>
+    <rect x="125" y="126" width="6" height="20" rx="2" fill="#e7b589" opacity="0.12"/>
+    <rect x="126" y="186" width="8" height="22" rx="2" fill="#c8b888" opacity="0.9"/>
+    <path d="M90 98 L154 84 L162 86 L98 100 Z" fill="#c9a66b" opacity="0.18"/>
+  </g>
+  <rect x="10" y="10" width="236" height="236" rx="6" fill="url(#glow-clockwork-counterweights)" pointer-events="none"/>
 </svg>

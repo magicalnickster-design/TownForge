@@ -1,36 +1,31 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="256" height="320" viewBox="0 0 256 320" role="img" aria-label="Hymns for Harvest Eve">
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256" role="img" aria-label="Hymns for Harvest Eve">
   <defs>
-    <linearGradient id="g-hymns-for-harvest-eve" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#4f442e"/>
-      <stop offset="55%" stop-color="#433e32"/>
-      <stop offset="100%" stop-color="#141418"/>
+    <linearGradient id="cover-hymns-for-harvest-eve" x1="0.15" y1="0" x2="0.85" y2="1">
+      <stop offset="0%" stop-color="#5878a0"/>
+      <stop offset="45%" stop-color="#3a4870"/>
+      <stop offset="100%" stop-color="#24304a"/>
     </linearGradient>
-    <radialGradient id="shine-hymns-for-harvest-eve" cx="30%" cy="20%" r="70%">
-      <stop offset="0%" stop-color="#eadfba" stop-opacity="0.18"/>
-      <stop offset="100%" stop-color="#eadfba" stop-opacity="0"/>
+    <radialGradient id="glow-hymns-for-harvest-eve" cx="40%" cy="30%" r="65%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
     </radialGradient>
   </defs>
-  <rect width="256" height="320" rx="10" fill="#0f1014"/>
-  <rect x="18" y="12" width="220" height="296" rx="8" fill="#090a0d" opacity="0.55"/>
-
-  <rect x="46" y="34" width="164" height="252" rx="4" fill="url(#g-hymns-for-harvest-eve)" stroke="#eadfba" stroke-width="2"/>
-  <rect x="52" y="40" width="8" height="240" fill="#eadfba" opacity="0.28"/>
-  <rect x="196" y="120" width="6" height="80" rx="2" fill="#f1e2c4" opacity="0.55"/>
-  <rect x="46" y="34" width="164" height="252" rx="6" fill="url(#shine-hymns-for-harvest-eve)" pointer-events="none"/>
-  <g transform="translate(0,2)">
-  <g opacity="0.22" fill="none" stroke="#f1e2c4" stroke-width="2">
-    <circle cx="108" cy="98" r="16"/><circle cx="108" cy="98" r="6"/>
-    <circle cx="148" cy="108" r="12"/><circle cx="148" cy="108" r="4"/>
-    <path d="M108 82 L108 86 M108 110 L108 114 M92 98 L96 98 M120 98 L124 98"/>
-  </g></g>
+  <rect width="256" height="256" fill="#101012"/>
+  <rect x="10" y="10" width="236" height="236" rx="6" fill="#08080a" stroke="#3a3a42" stroke-width="2"/>
   
-  <path d="M56 44 L74 44 M56 44 L56 62" stroke="#f1e2c4" opacity="0.45" fill="none"/>
-  <path d="M200 44 L182 44 M200 44 L200 62" stroke="#f1e2c4" opacity="0.45" fill="none"/>
-  <path d="M56 276 L74 276 M56 276 L56 258" stroke="#f1e2c4" opacity="0.45" fill="none"/>
-  <path d="M200 276 L182 276 M200 276 L200 258" stroke="#f1e2c4" opacity="0.45" fill="none"/>
-  <text x="128" y="147" text-anchor="middle" fill="#eadfba" font-family="Georgia, serif" font-size="13" font-weight="700">Hymns for Harvest</text>
-  <text x="128" y="165" text-anchor="middle" fill="#eadfba" font-family="Georgia, serif" font-size="12">Eve</text>
-  <text x="128" y="183" text-anchor="middle" fill="#eadfba" font-family="Georgia, serif" font-size="11"></text>
-  <text x="128" y="252" text-anchor="middle" fill="#f1e2c4" font-size="10" letter-spacing="1.2">RELIGION</text>
-  <text x="128" y="52" text-anchor="middle" fill="#eadfba" font-family="Georgia, serif" font-size="20" opacity="0.85">☼</text>
+  <g>
+    <polygon points="88,168 168,168 176,196 80,196" fill="#0b2353"/>
+    <polygon points="168,112 196,132 196,196 168,168" fill="#a4bee7"/>
+    <polygon points="80,132 168,112 168,168 80,196" fill="#b8c8e0"/>
+    <polygon points="72,108 160,88 168,112 80,132" fill="url(#cover-hymns-for-harvest-eve)"/>
+    <polygon points="160,88 184,104 168,112 72,108" fill="#24304a" opacity="0.55"/>
+    <path d="M72 108 L80 132 L80 196 L72 172 Z" fill="#0b2353"/>
+    <path d="M88 100 L152 86 L160 88 L96 102 Z" fill="#5878a0" opacity="0.22"/>
+    <rect x="114" y="112" width="28" height="28" rx="4" fill="none" stroke="#7687be" stroke-width="3"/><circle cx="128" cy="126" r="7" fill="#7687be" opacity="0.6"/>
+    <circle cx="111" cy="110" r="3" fill="#7687be" opacity="0.55"/><rect x="146" y="106" width="4" height="4" fill="#7687be" opacity="0.45" transform="rotate(301 148 108)"/><path d="M169 126 L177 126" stroke="#7687be" stroke-width="2" opacity="0.5"/><circle cx="143" cy="142" r="3" fill="#7687be" opacity="0.55"/><rect x="104" y="142" width="4" height="4" fill="#7687be" opacity="0.45" transform="rotate(124 106 144)"/><path d="M79 124 L87 124" stroke="#7687be" stroke-width="2" opacity="0.5"/>
+    <circle cx="74" cy="114" r="3" fill="#7687be" opacity="0.35"/>
+    <circle cx="154" cy="94" r="2.5" fill="#7687be" opacity="0.3"/>
+    <circle cx="162" cy="158" r="2" fill="#7687be" opacity="0.28"/>
+  </g>
+  <rect x="10" y="10" width="236" height="236" rx="6" fill="url(#glow-hymns-for-harvest-eve)" pointer-events="none"/>
 </svg>

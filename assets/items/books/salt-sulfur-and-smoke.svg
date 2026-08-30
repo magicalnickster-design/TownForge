@@ -1,36 +1,31 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="256" height="320" viewBox="0 0 256 320" role="img" aria-label="Salt, Sulfur, and Smoke">
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256" role="img" aria-label="Salt, Sulfur, and Smoke">
   <defs>
-    <linearGradient id="g-salt-sulfur-and-smoke" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#265a6e"/>
-      <stop offset="55%" stop-color="#1a5472"/>
-      <stop offset="100%" stop-color="#141418"/>
+    <linearGradient id="cover-salt-sulfur-and-smoke" x1="0.15" y1="0" x2="0.85" y2="1">
+      <stop offset="0%" stop-color="#8a8a48"/>
+      <stop offset="45%" stop-color="#5a5a30"/>
+      <stop offset="100%" stop-color="#3a3a20"/>
     </linearGradient>
-    <radialGradient id="shine-salt-sulfur-and-smoke" cx="30%" cy="20%" r="70%">
-      <stop offset="0%" stop-color="#b3e5fa" stop-opacity="0.18"/>
-      <stop offset="100%" stop-color="#b3e5fa" stop-opacity="0"/>
+    <radialGradient id="glow-salt-sulfur-and-smoke" cx="40%" cy="30%" r="65%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
     </radialGradient>
   </defs>
-  <rect width="256" height="320" rx="10" fill="#0f1014"/>
-  <rect x="18" y="12" width="220" height="296" rx="8" fill="#090a0d" opacity="0.55"/>
-
-  <rect x="34" y="48" width="188" height="224" rx="4" fill="url(#g-salt-sulfur-and-smoke)" stroke="#b3e5fa" stroke-width="2"/>
-  <path d="M128 48 L128 272" stroke="#b3e5fa" opacity="0.35"/>
-  <rect x="40" y="54" width="10" height="212" fill="#b3e5fa" opacity="0.22"/>
-  <rect x="206" y="54" width="10" height="212" fill="#b3e5fa" opacity="0.22"/>
-  <rect x="34" y="48" width="188" height="224" rx="6" fill="url(#shine-salt-sulfur-and-smoke)" pointer-events="none"/>
-  <g transform="translate(0,8)">
-  <g opacity="0.22" fill="none" stroke="#bbe9ff" stroke-width="2">
-    <path d="M108 120 C100 108, 112 96, 120 108 C128 96, 136 108, 128 120"/>
-    <path d="M138 118 C132 108, 142 98, 148 108"/>
-  </g></g>
+  <rect width="256" height="256" fill="#101012"/>
+  <rect x="10" y="10" width="236" height="236" rx="6" fill="#08080a" stroke="#3a3a42" stroke-width="2"/>
   
-  <path d="M44 58 L62 58 M44 58 L44 76" stroke="#bbe9ff" opacity="0.45" fill="none"/>
-  <path d="M212 58 L194 58 M212 58 L212 76" stroke="#bbe9ff" opacity="0.45" fill="none"/>
-  <path d="M44 262 L62 262 M44 262 L44 244" stroke="#bbe9ff" opacity="0.45" fill="none"/>
-  <path d="M212 262 L194 262 M212 262 L212 244" stroke="#bbe9ff" opacity="0.45" fill="none"/>
-  <text x="128" y="146" text-anchor="middle" fill="#b3e5fa" font-family="Georgia, serif" font-size="13" font-weight="700">Salt, Sulfur, and</text>
-  <text x="128" y="164" text-anchor="middle" fill="#b3e5fa" font-family="Georgia, serif" font-size="12">Smoke</text>
-  <text x="128" y="182" text-anchor="middle" fill="#b3e5fa" font-family="Georgia, serif" font-size="11"></text>
-  <text x="128" y="238" text-anchor="middle" fill="#bbe9ff" font-size="10" letter-spacing="1.2">SCIENCE</text>
-  <text x="128" y="66" text-anchor="middle" fill="#b3e5fa" font-family="Georgia, serif" font-size="20" opacity="0.85">⚗</text>
+  <g>
+    <polygon points="88,168 168,168 176,196 80,196" fill="#212d29"/>
+    <polygon points="168,112 196,132 196,196 168,168" fill="#c4ceaf"/>
+    <polygon points="80,132 168,112 168,168 80,196" fill="#d8d8a8"/>
+    <polygon points="72,108 160,88 168,112 80,132" fill="url(#cover-salt-sulfur-and-smoke)"/>
+    <polygon points="160,88 184,104 168,112 72,108" fill="#3a3a20" opacity="0.55"/>
+    <path d="M72 108 L80 132 L80 196 L72 172 Z" fill="#212d29"/>
+    <path d="M88 100 L152 86 L160 88 L96 102 Z" fill="#8a8a48" opacity="0.22"/>
+    <path d="M128 98 C100 126, 114 154, 128 140 C142 154, 156 126, 128 98 Z" fill="#a89966" opacity="0.85"/>
+    <circle cx="155" cy="116" r="3" fill="#a89966" opacity="0.55"/><rect x="162" y="133" width="4" height="4" fill="#a89966" opacity="0.45" transform="rotate(25 164 135)"/><path d="M127 151 L135 151" stroke="#a89966" stroke-width="2" opacity="0.5"/><circle cx="100" cy="136" r="3" fill="#a89966" opacity="0.55"/><rect x="91" y="114" width="4" height="4" fill="#a89966" opacity="0.45" transform="rotate(208 93 116)"/><path d="M124 101 L132 101" stroke="#a89966" stroke-width="2" opacity="0.5"/>
+    <circle cx="74" cy="114" r="3" fill="#a89966" opacity="0.35"/>
+    <circle cx="154" cy="94" r="2.5" fill="#a89966" opacity="0.3"/>
+    <circle cx="162" cy="158" r="2" fill="#a89966" opacity="0.28"/>
+  </g>
+  <rect x="10" y="10" width="236" height="236" rx="6" fill="url(#glow-salt-sulfur-and-smoke)" pointer-events="none"/>
 </svg>

@@ -1,32 +1,31 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="256" height="320" viewBox="0 0 256 320" role="img" aria-label="Stellar Omens &amp; Night Signs">
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256" role="img" aria-label="Stellar Omens &amp; Night Signs">
   <defs>
-    <linearGradient id="g-stellar-omens-night-signs" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#4f3d79"/>
-      <stop offset="55%" stop-color="#43377d"/>
-      <stop offset="100%" stop-color="#141418"/>
+    <linearGradient id="cover-stellar-omens-night-signs" x1="0.15" y1="0" x2="0.85" y2="1">
+      <stop offset="0%" stop-color="#c9a66b"/>
+      <stop offset="45%" stop-color="#8f6a45"/>
+      <stop offset="100%" stop-color="#6b4a2e"/>
     </linearGradient>
-    <radialGradient id="shine-stellar-omens-night-signs" cx="30%" cy="20%" r="70%">
-      <stop offset="0%" stop-color="#cbb7ff" stop-opacity="0.18"/>
-      <stop offset="100%" stop-color="#cbb7ff" stop-opacity="0"/>
+    <radialGradient id="glow-stellar-omens-night-signs" cx="40%" cy="30%" r="65%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
     </radialGradient>
   </defs>
-  <rect width="256" height="320" rx="10" fill="#0f1014"/>
-  <rect x="18" y="12" width="220" height="296" rx="8" fill="#090a0d" opacity="0.55"/>
-
-  <rect x="28" y="20" width="200" height="280" rx="6" fill="url(#g-stellar-omens-night-signs)" stroke="#cbb7ff" stroke-width="3"/>
-  <rect x="36" y="28" width="12" height="264" fill="#cbb7ff" opacity="0.35"/>
-  <rect x="214" y="118" width="10" height="44" rx="3" fill="#c9b6ff" opacity="0.8"/>
-  <circle cx="219" cy="140" r="4" fill="#cbb7ff"/>
-  <rect x="28" y="20" width="200" height="280" rx="6" fill="url(#shine-stellar-omens-night-signs)" pointer-events="none"/>
-  <g transform="translate(0,-4)"><g opacity="0.37"><circle cx="128" cy="80" r="2" fill="#c9b6ff"/><circle cx="145" cy="103" r="3" fill="#c9b6ff"/><circle cx="162" cy="126" r="4" fill="#c9b6ff"/><circle cx="99" cy="93" r="2" fill="#c9b6ff"/><circle cx="116" cy="116" r="3" fill="#c9b6ff"/></g></g>
+  <rect width="256" height="256" fill="#101012"/>
+  <rect x="10" y="10" width="236" height="236" rx="6" fill="#08080a" stroke="#3a3a42" stroke-width="2"/>
   
-  <path d="M38 30 L56 30 M38 30 L38 48" stroke="#c9b6ff" opacity="0.45" fill="none"/>
-  <path d="M218 30 L200 30 M218 30 L218 48" stroke="#c9b6ff" opacity="0.45" fill="none"/>
-  <path d="M38 290 L56 290 M38 290 L38 272" stroke="#c9b6ff" opacity="0.45" fill="none"/>
-  <path d="M218 290 L200 290 M218 290 L218 272" stroke="#c9b6ff" opacity="0.45" fill="none"/>
-  <text x="128" y="147" text-anchor="middle" fill="#cbb7ff" font-family="Georgia, serif" font-size="13" font-weight="700">Stellar Omens &amp;</text>
-  <text x="128" y="165" text-anchor="middle" fill="#cbb7ff" font-family="Georgia, serif" font-size="12">Night Signs</text>
-  <text x="128" y="183" text-anchor="middle" fill="#cbb7ff" font-family="Georgia, serif" font-size="11"></text>
-  <text x="128" y="266" text-anchor="middle" fill="#c9b6ff" font-size="10" letter-spacing="1.2">MAGIC</text>
-  <text x="128" y="38" text-anchor="middle" fill="#cbb7ff" font-family="Georgia, serif" font-size="20" opacity="0.85">✦</text>
+  <g>
+    <polygon points="88,168 168,168 176,196 80,196" fill="#523d37"/>
+    <polygon points="168,112 196,132 196,196 168,168" fill="#d4cec3"/>
+    <polygon points="80,132 168,112 168,168 80,196" fill="#e8d8bc"/>
+    <polygon points="72,108 160,88 168,112 80,132" fill="url(#cover-stellar-omens-night-signs)"/>
+    <polygon points="160,88 184,104 168,112 72,108" fill="#6b4a2e" opacity="0.55"/>
+    <path d="M72 108 L80 132 L80 196 L72 172 Z" fill="#523d37"/>
+    <path d="M88 100 L152 86 L160 88 L96 102 Z" fill="#c9a66b" opacity="0.22"/>
+    <circle cx="128" cy="126" r="14" fill="none" stroke="#e7b589" stroke-width="3"/><circle cx="128" cy="126" r="5" fill="#e7b589" opacity="0.7"/>
+    <circle cx="111" cy="110" r="3" fill="#e7b589" opacity="0.55"/><rect x="146" y="106" width="4" height="4" fill="#e7b589" opacity="0.45" transform="rotate(301 148 108)"/><path d="M169 126 L177 126" stroke="#e7b589" stroke-width="2" opacity="0.5"/><circle cx="143" cy="142" r="3" fill="#e7b589" opacity="0.55"/><rect x="104" y="142" width="4" height="4" fill="#e7b589" opacity="0.45" transform="rotate(124 106 144)"/><path d="M79 124 L87 124" stroke="#e7b589" stroke-width="2" opacity="0.5"/>
+    <circle cx="74" cy="114" r="3" fill="#e7b589" opacity="0.35"/>
+    <circle cx="154" cy="94" r="2.5" fill="#e7b589" opacity="0.3"/>
+    <circle cx="162" cy="158" r="2" fill="#e7b589" opacity="0.28"/>
+  </g>
+  <rect x="10" y="10" width="236" height="236" rx="6" fill="url(#glow-stellar-omens-night-signs)" pointer-events="none"/>
 </svg>

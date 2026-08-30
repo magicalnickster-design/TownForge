@@ -1,36 +1,31 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="256" height="320" viewBox="0 0 256 320" role="img" aria-label="Vitals &amp; Humors">
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256" role="img" aria-label="Vitals &amp; Humors">
   <defs>
-    <linearGradient id="g-vitals-humors" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#356269"/>
-      <stop offset="55%" stop-color="#295c6d"/>
-      <stop offset="100%" stop-color="#141418"/>
+    <linearGradient id="cover-vitals-humors" x1="0.15" y1="0" x2="0.85" y2="1">
+      <stop offset="0%" stop-color="#687880"/>
+      <stop offset="45%" stop-color="#485050"/>
+      <stop offset="100%" stop-color="#303838"/>
     </linearGradient>
-    <radialGradient id="shine-vitals-humors" cx="30%" cy="20%" r="70%">
-      <stop offset="0%" stop-color="#bbe9f7" stop-opacity="0.18"/>
-      <stop offset="100%" stop-color="#bbe9f7" stop-opacity="0"/>
+    <radialGradient id="glow-vitals-humors" cx="40%" cy="30%" r="65%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
     </radialGradient>
   </defs>
-  <rect width="256" height="320" rx="10" fill="#0f1014"/>
-  <rect x="18" y="12" width="220" height="296" rx="8" fill="#090a0d" opacity="0.55"/>
-
-  <rect x="36" y="24" width="184" height="272" rx="5" fill="url(#g-vitals-humors)" stroke="#bbe9f7" stroke-width="3"/>
-  <rect x="44" y="32" width="14" height="256" fill="#bbe9f7" opacity="0.32"/>
-  <circle cx="198" cy="58" r="16" fill="none" stroke="#c2ecff" stroke-width="2" opacity="0.75"/>
-  <circle cx="198" cy="58" r="6" fill="#c2ecff" opacity="0.35"/>
-  <rect x="36" y="24" width="184" height="272" rx="6" fill="url(#shine-vitals-humors)" pointer-events="none"/>
-  <g transform="translate(0,-2)">
-  <g opacity="0.34" fill="#c2ecff">
-    <path d="M128 78 C110 96, 110 118, 128 128 C146 118, 146 96, 128 78 Z"/>
-    <path d="M128 82 L128 124" stroke="#c2ecff" stroke-width="2" fill="none"/>
-  </g></g>
+  <rect width="256" height="256" fill="#101012"/>
+  <rect x="10" y="10" width="236" height="236" rx="6" fill="#08080a" stroke="#3a3a42" stroke-width="2"/>
   
-  <rect x="44" y="32" width="18" height="18" fill="none" stroke="#c2ecff" opacity="0.35"/>
-  <rect x="194" y="32" width="18" height="18" fill="none" stroke="#c2ecff" opacity="0.35"/>
-  <rect x="44" y="270" width="18" height="18" fill="none" stroke="#c2ecff" opacity="0.35"/>
-  <rect x="194" y="270" width="18" height="18" fill="none" stroke="#c2ecff" opacity="0.35"/>
-  <text x="128" y="147" text-anchor="middle" fill="#bbe9f7" font-family="Georgia, serif" font-size="13" font-weight="700">Vitals &amp; Humors</text>
-  <text x="128" y="165" text-anchor="middle" fill="#bbe9f7" font-family="Georgia, serif" font-size="12"></text>
-  <text x="128" y="183" text-anchor="middle" fill="#bbe9f7" font-family="Georgia, serif" font-size="11"></text>
-  <text x="128" y="262" text-anchor="middle" fill="#c2ecff" font-size="10" letter-spacing="1.2">SCIENCE</text>
-  <text x="128" y="42" text-anchor="middle" fill="#bbe9f7" font-family="Georgia, serif" font-size="20" opacity="0.85">⚗</text>
+  <g>
+    <polygon points="88,168 168,168 176,196 80,196" fill="#172b41"/>
+    <polygon points="168,112 196,132 196,196 168,168" fill="#acbed7"/>
+    <polygon points="80,132 168,112 168,168 80,196" fill="#c0c8d0"/>
+    <polygon points="72,108 160,88 168,112 80,132" fill="url(#cover-vitals-humors)"/>
+    <polygon points="160,88 184,104 168,112 72,108" fill="#303838" opacity="0.55"/>
+    <path d="M72 108 L80 132 L80 196 L72 172 Z" fill="#172b41"/>
+    <path d="M88 100 L152 86 L160 88 L96 102 Z" fill="#687880" opacity="0.22"/>
+    <path d="M128 140 C100 119, 114 98, 128 117 C142 98, 156 119, 128 140 Z" fill="#86879e" opacity="0.8"/>
+    <circle cx="132" cy="108" r="3" fill="#86879e" opacity="0.55"/><rect x="163" y="117" width="4" height="4" fill="#86879e" opacity="0.45" transform="rotate(339 165 119)"/><path d="M159 142 L167 142" stroke="#86879e" stroke-width="2" opacity="0.5"/><circle cx="122" cy="144" r="3" fill="#86879e" opacity="0.55"/><rect x="88" y="130" width="4" height="4" fill="#86879e" opacity="0.45" transform="rotate(162 90 132)"/><path d="M91 109 L99 109" stroke="#86879e" stroke-width="2" opacity="0.5"/>
+    <circle cx="74" cy="114" r="3" fill="#86879e" opacity="0.35"/>
+    <circle cx="154" cy="94" r="2.5" fill="#86879e" opacity="0.3"/>
+    <circle cx="162" cy="158" r="2" fill="#86879e" opacity="0.28"/>
+  </g>
+  <rect x="10" y="10" width="236" height="236" rx="6" fill="url(#glow-vitals-humors)" pointer-events="none"/>
 </svg>

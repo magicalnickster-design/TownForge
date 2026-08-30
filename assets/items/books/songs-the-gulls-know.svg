@@ -1,35 +1,31 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="256" height="320" viewBox="0 0 256 320" role="img" aria-label="Songs the Gulls Know">
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256" role="img" aria-label="Songs the Gulls Know">
   <defs>
-    <linearGradient id="g-songs-the-gulls-know" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#694155"/>
-      <stop offset="55%" stop-color="#5d3b59"/>
-      <stop offset="100%" stop-color="#141418"/>
+    <linearGradient id="cover-songs-the-gulls-know" x1="0.15" y1="0" x2="0.85" y2="1">
+      <stop offset="0%" stop-color="#609090"/>
+      <stop offset="45%" stop-color="#406060"/>
+      <stop offset="100%" stop-color="#2a4040"/>
     </linearGradient>
-    <radialGradient id="shine-songs-the-gulls-know" cx="30%" cy="20%" r="70%">
-      <stop offset="0%" stop-color="#f7cbee" stop-opacity="0.18"/>
-      <stop offset="100%" stop-color="#f7cbee" stop-opacity="0"/>
+    <radialGradient id="glow-songs-the-gulls-know" cx="40%" cy="30%" r="65%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
     </radialGradient>
   </defs>
-  <rect width="256" height="320" rx="10" fill="#0f1014"/>
-  <rect x="18" y="12" width="220" height="296" rx="8" fill="#090a0d" opacity="0.55"/>
-
-  <rect x="46" y="34" width="164" height="252" rx="4" fill="url(#g-songs-the-gulls-know)" stroke="#f7cbee" stroke-width="2"/>
-  <rect x="52" y="40" width="8" height="240" fill="#f7cbee" opacity="0.28"/>
-  <rect x="196" y="120" width="6" height="80" rx="2" fill="#fecef8" opacity="0.55"/>
-  <rect x="46" y="34" width="164" height="252" rx="6" fill="url(#shine-songs-the-gulls-know)" pointer-events="none"/>
-  <g transform="translate(0,2)">
-  <g opacity="0.34" fill="none" stroke="#fecef8" stroke-width="2">
-    <path d="M72 108 C88 98, 104 118, 120 108 C136 98, 152 118, 168 108"/>
-    <path d="M68 124 C92 114, 108 134, 132 124 C148 118, 160 130, 184 124"/>
-  </g></g>
+  <rect width="256" height="256" fill="#101012"/>
+  <rect x="10" y="10" width="236" height="236" rx="6" fill="#08080a" stroke="#3a3a42" stroke-width="2"/>
   
-  <rect x="54" y="42" width="18" height="18" fill="none" stroke="#fecef8" opacity="0.35"/>
-  <rect x="184" y="42" width="18" height="18" fill="none" stroke="#fecef8" opacity="0.35"/>
-  <rect x="54" y="260" width="18" height="18" fill="none" stroke="#fecef8" opacity="0.35"/>
-  <rect x="184" y="260" width="18" height="18" fill="none" stroke="#fecef8" opacity="0.35"/>
-  <text x="128" y="147" text-anchor="middle" fill="#f7cbee" font-family="Georgia, serif" font-size="13" font-weight="700">Songs the Gulls</text>
-  <text x="128" y="165" text-anchor="middle" fill="#f7cbee" font-family="Georgia, serif" font-size="12">Know</text>
-  <text x="128" y="183" text-anchor="middle" fill="#f7cbee" font-family="Georgia, serif" font-size="11"></text>
-  <text x="128" y="252" text-anchor="middle" fill="#fecef8" font-size="10" letter-spacing="1.2">POETRY</text>
-  <text x="128" y="52" text-anchor="middle" fill="#f7cbee" font-family="Georgia, serif" font-size="20" opacity="0.85">♪</text>
+  <g>
+    <polygon points="88,168 168,168 176,196 80,196" fill="#113349"/>
+    <polygon points="168,112 196,132 196,196 168,168" fill="#9cc6d7"/>
+    <polygon points="80,132 168,112 168,168 80,196" fill="#b0d0d0"/>
+    <polygon points="72,108 160,88 168,112 80,132" fill="url(#cover-songs-the-gulls-know)"/>
+    <polygon points="160,88 184,104 168,112 72,108" fill="#2a4040" opacity="0.55"/>
+    <path d="M72 108 L80 132 L80 196 L72 172 Z" fill="#113349"/>
+    <path d="M88 100 L152 86 L160 88 L96 102 Z" fill="#609090" opacity="0.22"/>
+    <path d="M100 126 C114 112, 128 135, 142 112, 156 126" fill="none" stroke="#7e9fae" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="161" cy="126" r="3" fill="#7e9fae" opacity="0.55"/><rect x="146" y="142" width="4" height="4" fill="#7e9fae" opacity="0.45" transform="rotate(59 148 144)"/><path d="M102 147 L110 147" stroke="#7e9fae" stroke-width="2" opacity="0.5"/><circle cx="95" cy="126" r="3" fill="#7e9fae" opacity="0.55"/><rect x="108" y="105" width="4" height="4" fill="#7e9fae" opacity="0.45" transform="rotate(242 110 107)"/><path d="M149 105 L157 105" stroke="#7e9fae" stroke-width="2" opacity="0.5"/>
+    <circle cx="74" cy="114" r="3" fill="#7e9fae" opacity="0.35"/>
+    <circle cx="154" cy="94" r="2.5" fill="#7e9fae" opacity="0.3"/>
+    <circle cx="162" cy="158" r="2" fill="#7e9fae" opacity="0.28"/>
+  </g>
+  <rect x="10" y="10" width="236" height="236" rx="6" fill="url(#glow-songs-the-gulls-know)" pointer-events="none"/>
 </svg>

@@ -1,33 +1,35 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="256" height="320" viewBox="0 0 256 320" role="img" aria-label="Goblin Customs &amp; Taboos">
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256" role="img" aria-label="Goblin Customs &amp; Taboos">
   <defs>
-    <linearGradient id="g-goblin-customs-taboos" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#512a32"/>
-      <stop offset="55%" stop-color="#452436"/>
-      <stop offset="100%" stop-color="#141418"/>
+    <linearGradient id="cover-goblin-customs-taboos" x1="0.15" y1="0" x2="0.85" y2="1">
+      <stop offset="0%" stop-color="#a04888"/>
+      <stop offset="45%" stop-color="#703060"/>
+      <stop offset="100%" stop-color="#4a2040"/>
     </linearGradient>
-    <radialGradient id="shine-goblin-customs-taboos" cx="30%" cy="20%" r="70%">
-      <stop offset="0%" stop-color="#ebc5c2" stop-opacity="0.18"/>
-      <stop offset="100%" stop-color="#ebc5c2" stop-opacity="0"/>
+    <radialGradient id="glow-goblin-customs-taboos" cx="40%" cy="30%" r="65%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
     </radialGradient>
   </defs>
-  <rect width="256" height="320" rx="10" fill="#0f1014"/>
-  <rect x="18" y="12" width="220" height="296" rx="8" fill="#090a0d" opacity="0.55"/>
-
-  <rect x="36" y="24" width="184" height="272" rx="5" fill="url(#g-goblin-customs-taboos)" stroke="#ebc5c2" stroke-width="3"/>
-  <rect x="44" y="32" width="14" height="256" fill="#ebc5c2" opacity="0.32"/>
-  <circle cx="198" cy="58" r="16" fill="none" stroke="#efc7cd" stroke-width="2" opacity="0.75"/>
-  <circle cx="198" cy="58" r="6" fill="#efc7cd" opacity="0.35"/>
-  <rect x="36" y="24" width="184" height="272" rx="6" fill="url(#shine-goblin-customs-taboos)" pointer-events="none"/>
-  <g transform="translate(0,-2)">
-  <g opacity="0.40" fill="none" stroke="#efc7cd" stroke-width="2" stroke-linecap="round">
-    <path d="M108 118 C104 100, 112 86, 120 96"/>
-    <path d="M128 120 C124 98, 132 82, 140 94"/>
-    <path d="M148 118 C144 102, 150 88, 156 98"/>
-  </g></g>
-  <path d="M50 32 L56 38 L50 44 L44 38 Z" fill="#efc7cd" opacity="0.28"/><path d="M206 32 L212 38 L206 44 L200 38 Z" fill="#efc7cd" opacity="0.28"/><path d="M50 276 L56 282 L50 288 L44 282 Z" fill="#efc7cd" opacity="0.28"/><path d="M206 276 L212 282 L206 288 L200 282 Z" fill="#efc7cd" opacity="0.28"/>
-  <text x="128" y="147" text-anchor="middle" fill="#ebc5c2" font-family="Georgia, serif" font-size="13" font-weight="700">Goblin Customs &amp;</text>
-  <text x="128" y="165" text-anchor="middle" fill="#ebc5c2" font-family="Georgia, serif" font-size="12">Taboos</text>
-  <text x="128" y="183" text-anchor="middle" fill="#ebc5c2" font-family="Georgia, serif" font-size="11"></text>
-  <text x="128" y="262" text-anchor="middle" fill="#efc7cd" font-size="10" letter-spacing="1.2">CREATURES</text>
-  <text x="128" y="42" text-anchor="middle" fill="#ebc5c2" font-family="Georgia, serif" font-size="20" opacity="0.85">🐉</text>
+  <rect width="256" height="256" fill="#101012"/>
+  <rect x="10" y="10" width="236" height="236" rx="6" fill="#08080a" stroke="#3a3a42" stroke-width="2"/>
+  
+  <g>
+    <polygon points="92,170 172,170 180,198 84,198" fill="#311349"/>
+    <polygon points="172,118 200,136 200,198 172,170" fill="#cea7d6"/>
+    <polygon points="84,138 172,118 172,170 84,198" fill="#e0b0d0"/>
+    <polygon points="76,112 164,92 172,118 84,138" fill="url(#cover-goblin-customs-taboos)"/>
+    <polygon points="164,92 188,108 172,118 76,112" fill="#4a2040" opacity="0.5"/>
+    <path d="M76 112 L84 138 L84 198 L76 176 Z" fill="#311349"/>
+    <rect x="78" y="108" width="88" height="8" rx="2" fill="#3b1845" opacity="0.85"/>
+    <rect x="78" y="148" width="88" height="8" rx="2" fill="#3b1845" opacity="0.85"/>
+    <rect x="102" y="118" width="52" height="36" rx="3" fill="#e0b0d0" stroke="#be57a6" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="108" cy="124" r="2" fill="#be57a6" opacity="0.45"/>
+    <circle cx="148" cy="124" r="2" fill="#be57a6" opacity="0.45"/>
+    <circle cx="108" cy="148" r="2" fill="#be57a6" opacity="0.45"/>
+    <circle cx="148" cy="148" r="2" fill="#be57a6" opacity="0.45"/>
+    <rect x="125" y="126" width="6" height="20" rx="2" fill="#be57a6" opacity="0.12"/>
+    <rect x="126" y="186" width="8" height="22" rx="2" fill="#c8b888" opacity="0.9"/>
+    <path d="M90 98 L154 84 L162 86 L98 100 Z" fill="#a04888" opacity="0.18"/>
+  </g>
+  <rect x="10" y="10" width="236" height="236" rx="6" fill="url(#glow-goblin-customs-taboos)" pointer-events="none"/>
 </svg>

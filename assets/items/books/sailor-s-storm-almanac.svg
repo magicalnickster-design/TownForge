@@ -1,37 +1,31 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="256" height="320" viewBox="0 0 256 320" role="img" aria-label="Sailor's Storm Almanac">
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256" role="img" aria-label="Sailor's Storm Almanac">
   <defs>
-    <linearGradient id="g-sailor-s-storm-almanac" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#533e27"/>
-      <stop offset="55%" stop-color="#47382b"/>
-      <stop offset="100%" stop-color="#141418"/>
+    <linearGradient id="cover-sailor-s-storm-almanac" x1="0.15" y1="0" x2="0.85" y2="1">
+      <stop offset="0%" stop-color="#a07048"/>
+      <stop offset="45%" stop-color="#704830"/>
+      <stop offset="100%" stop-color="#4a3020"/>
     </linearGradient>
-    <radialGradient id="shine-sailor-s-storm-almanac" cx="30%" cy="20%" r="70%">
-      <stop offset="0%" stop-color="#eccaa7" stop-opacity="0.18"/>
-      <stop offset="100%" stop-color="#eccaa7" stop-opacity="0"/>
+    <radialGradient id="glow-sailor-s-storm-almanac" cx="40%" cy="30%" r="65%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
     </radialGradient>
   </defs>
-  <rect width="256" height="320" rx="10" fill="#0f1014"/>
-  <rect x="18" y="12" width="220" height="296" rx="8" fill="#090a0d" opacity="0.55"/>
-
-  <rect x="34" y="48" width="188" height="224" rx="4" fill="url(#g-sailor-s-storm-almanac)" stroke="#eccaa7" stroke-width="2"/>
-  <path d="M128 48 L128 272" stroke="#eccaa7" opacity="0.35"/>
-  <rect x="40" y="54" width="10" height="212" fill="#eccaa7" opacity="0.22"/>
-  <rect x="206" y="54" width="10" height="212" fill="#eccaa7" opacity="0.22"/>
-  <rect x="34" y="48" width="188" height="224" rx="6" fill="url(#shine-sailor-s-storm-almanac)" pointer-events="none"/>
-  <g transform="translate(0,8)">
-  <g opacity="0.34" fill="none" stroke="#e7c7b5" stroke-width="2" stroke-linecap="round">
-    <path d="M82 86 C104 80, 118 92, 140 86"/>
-    <path d="M78 102 C102 96, 122 110, 152 102"/>
-    <path d="M86 118 C108 112, 126 124, 146 118"/>
-  </g></g>
+  <rect width="256" height="256" fill="#101012"/>
+  <rect x="10" y="10" width="236" height="236" rx="6" fill="#08080a" stroke="#3a3a42" stroke-width="2"/>
   
-  <rect x="42" y="56" width="18" height="18" fill="none" stroke="#e7c7b5" opacity="0.35"/>
-  <rect x="196" y="56" width="18" height="18" fill="none" stroke="#e7c7b5" opacity="0.35"/>
-  <rect x="42" y="246" width="18" height="18" fill="none" stroke="#e7c7b5" opacity="0.35"/>
-  <rect x="196" y="246" width="18" height="18" fill="none" stroke="#e7c7b5" opacity="0.35"/>
-  <text x="128" y="146" text-anchor="middle" fill="#eccaa7" font-family="Georgia, serif" font-size="13" font-weight="700">Sailor's Storm Almanac</text>
-  <text x="128" y="164" text-anchor="middle" fill="#eccaa7" font-family="Georgia, serif" font-size="12"></text>
-  <text x="128" y="182" text-anchor="middle" fill="#eccaa7" font-family="Georgia, serif" font-size="11"></text>
-  <text x="128" y="238" text-anchor="middle" fill="#e7c7b5" font-size="10" letter-spacing="1.2">ADVENTURE</text>
-  <text x="128" y="66" text-anchor="middle" fill="#eccaa7" font-family="Georgia, serif" font-size="20" opacity="0.85">⚔</text>
+  <g>
+    <polygon points="88,168 168,168 176,196 80,196" fill="#312329"/>
+    <polygon points="168,112 196,132 196,196 168,168" fill="#ccb6a7"/>
+    <polygon points="80,132 168,112 168,168 80,196" fill="#e0c0a0"/>
+    <polygon points="72,108 160,88 168,112 80,132" fill="url(#cover-sailor-s-storm-almanac)"/>
+    <polygon points="160,88 184,104 168,112 72,108" fill="#4a3020" opacity="0.55"/>
+    <path d="M72 108 L80 132 L80 196 L72 172 Z" fill="#312329"/>
+    <path d="M88 100 L152 86 L160 88 L96 102 Z" fill="#a07048" opacity="0.22"/>
+    <path d="M100 126 C114 112, 128 135, 142 112, 156 126" fill="none" stroke="#be7f66" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="143" cy="110" r="3" fill="#be7f66" opacity="0.55"/><rect x="165" y="124" width="4" height="4" fill="#be7f66" opacity="0.45" transform="rotate(359 167 126)"/><path d="M147 147 L155 147" stroke="#be7f66" stroke-width="2" opacity="0.5"/><circle cx="111" cy="142" r="3" fill="#be7f66" opacity="0.55"/><rect x="87" y="124" width="4" height="4" fill="#be7f66" opacity="0.45" transform="rotate(182 89 126)"/><path d="M104 104 L112 104" stroke="#be7f66" stroke-width="2" opacity="0.5"/>
+    <circle cx="74" cy="114" r="3" fill="#be7f66" opacity="0.35"/>
+    <circle cx="154" cy="94" r="2.5" fill="#be7f66" opacity="0.3"/>
+    <circle cx="162" cy="158" r="2" fill="#be7f66" opacity="0.28"/>
+  </g>
+  <rect x="10" y="10" width="236" height="236" rx="6" fill="url(#glow-sailor-s-storm-almanac)" pointer-events="none"/>
 </svg>

@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import json
+import math
 import re
 from pathlib import Path
 
@@ -11,19 +12,6 @@ ROOT = Path(__file__).resolve().parents[1]
 OUT_DIR = ROOT / "data" / "shop-catalogs"
 IMG_DIR = ROOT / "assets" / "items" / "books"
 MODULE_IMG = "modules/townforge/assets/items/books"
-
-TOPIC_STYLES = {
-    "magic": ("#4a3b7a", "#c9b6ff", "✦"),
-    "science": ("#2f5f6b", "#b8e8f0", "⚗"),
-    "history": ("#6b4f2f", "#e8d2a8", "⌛"),
-    "religion": ("#5a4a2a", "#f0e2b0", "☼"),
-    "nature": ("#2f5a3a", "#c8e6c8", "❧"),
-    "creatures": ("#5a2f2f", "#f0c8b8", "🐉"),
-    "alchemy": ("#4a5a2a", "#e0f0b0", "⚗"),
-    "law": ("#3a3a4a", "#d0d4e8", "§"),
-    "poetry": ("#5a3a5a", "#f0c8e8", "♪"),
-    "adventure": ("#4a3a2a", "#e8c8a0", "⚔"),
-}
 
 COMPENDIUM_BOOKS = [
     {"name": "Spellbook", "topic": "magic"},
@@ -401,12 +389,17 @@ BOOKS = [
     ),
 ]
 
-FORMAT_RULES = [
-    (r"\b(map|maps|almanac|chart|roads)\b", "folio"),
-    (r"\b(hymns|ballads|songs|elegies|lay|letters)\b", "chapbook"),
-    (r"\b(manual|checklist|notes|survey|field)\b", "journal"),
-    (r"\b(codex|grimoire|treatise|principles)\b", "tome"),
-    (r"\b(chronicle|charter|tables|oaths)\b", "ledger"),
+LEATHER_PALETTES = [
+    ("#6b4a2e", "#8f6a45", "#c9a66b", "#e8d8bc"),  # tan ochre
+    ("#5a2028", "#7a3038", "#a84850", "#d8a8a8"),  # maroon
+    ("#243a2e", "#3a5a48", "#5a8268", "#b8d0c0"),  # forest
+    ("#24304a", "#3a4870", "#5878a0", "#b8c8e0"),  # navy
+    ("#3a2848", "#5a4070", "#8068a0", "#d0b8e8"),  # violet
+    ("#3a3a20", "#5a5a30", "#8a8a48", "#d8d8a8"),  # olive
+    ("#2a4040", "#406060", "#609090", "#b0d0d0"),  # teal slate
+    ("#4a3020", "#704830", "#a07048", "#e0c0a0"),  # russet
+    ("#4a2040", "#703060", "#a04888", "#e0b0d0"),  # plum
+    ("#303838", "#485050", "#687880", "#c0c8d0"),  # charcoal blue
 ]
 
 MOTIF_RULES = [
@@ -460,15 +453,6 @@ def shift_color(color: str, hue_delta: int, lighten: int = 0) -> str:
     return rgb_to_hex((r, g, b))
 
 
-def detect_format(title: str, book_id: str) -> str:
-    lower = title.lower()
-    for pattern, fmt in FORMAT_RULES:
-        if re.search(pattern, lower):
-            return fmt
-    variants = ["tome", "chapbook", "journal", "ledger", "folio"]
-    return variants[stable_hash(book_id) % len(variants)]
-
-
 def detect_motif(title: str, book_id: str) -> str:
     lower = title.lower()
     for pattern, motif in MOTIF_RULES:
@@ -478,273 +462,148 @@ def detect_motif(title: str, book_id: str) -> str:
     return motifs[stable_hash(book_id) % len(motifs)]
 
 
-def title_lines(title: str) -> tuple[str, str, str]:
-    safe = title.replace("&", "&amp;").replace("<", "&lt;")
-    words = safe.split()
-    if len(words) <= 3:
-        return safe, "", ""
-    if len(words) <= 6:
-        return " ".join(words[:3]), " ".join(words[3:]), ""
-    return " ".join(words[:3]), " ".join(words[3:6]), " ".join(words[6:9])
+def book_palette(book_id: str, topic: str) -> dict[str, str]:
+    seed = stable_hash(book_id)
+    base = LEATHER_PALETTES[seed % len(LEATHER_PALETTES)]
+    dark, mid, light, page = base
+    topic_shift = {
+        "magic": 0,
+        "science": 1,
+        "history": 2,
+        "religion": 3,
+        "nature": 4,
+        "creatures": 5,
+        "alchemy": 6,
+        "law": 7,
+        "poetry": 8,
+        "adventure": 9,
+    }.get(topic, 0)
+    palette = LEATHER_PALETTES[(seed + topic_shift) % len(LEATHER_PALETTES)]
+    dark, mid, light, page = palette
+    emblem = shift_color(light, 30, lighten=40)
+    strap = shift_color(dark, -15)
+    return {
+        "dark": dark,
+        "mid": mid,
+        "light": light,
+        "page": page,
+        "emblem": emblem,
+        "strap": strap,
+        "shadow": shift_color(dark, -25),
+    }
 
 
-def motif_svg(motif: str, accent: str, seed: int) -> str:
-  opacity = 0.22 + (seed % 4) * 0.06
-  if motif == "flame":
-      return f'''
-  <g opacity="{opacity:.2f}" fill="none" stroke="{accent}" stroke-width="2">
-    <path d="M128 78 C118 98, 112 108, 128 128 C144 108, 138 98, 128 78 Z"/>
-    <path d="M128 92 C122 104, 120 110, 128 118 C136 110, 134 104, 128 92 Z" fill="{accent}" opacity="0.35"/>
-  </g>'''
-  if motif == "stars":
-      stars = []
-      for index in range(5):
-          x = 88 + ((seed + index * 17) % 80)
-          y = 72 + ((seed + index * 23) % 56)
-          size = 2 + (index % 3)
-          stars.append(f'<circle cx="{x}" cy="{y}" r="{size}" fill="{accent}"/>')
-      return f'<g opacity="{opacity + 0.15:.2f}">{"".join(stars)}</g>'
-  if motif == "ward":
-      return f'''
-  <g opacity="{opacity:.2f}" fill="none" stroke="{accent}" stroke-width="2">
-    <circle cx="128" cy="102" r="34"/>
-    <circle cx="128" cy="102" r="22"/>
-    <path d="M128 68 L140 92 L166 92 L146 108 L154 132 L128 118 L102 132 L110 108 L90 92 L116 92 Z" opacity="0.5"/>
-  </g>'''
-  if motif == "runes":
-      rune_chars = "ᚠᚢᚦᚨᚱᚲ"
-      glyphs = []
-      for index in range(6):
-          x = 74 + index * 18
-          y = 88 + (index % 2) * 10
-          glyphs.append(
-              f'<text x="{x}" y="{y}" fill="{accent}" font-size="14" font-family="serif">{rune_chars[index]}</text>'
-          )
-      return f'<g opacity="{opacity + 0.1:.2f}">{"".join(glyphs)}</g>'
-  if motif == "gears":
-      return f'''
-  <g opacity="{opacity:.2f}" fill="none" stroke="{accent}" stroke-width="2">
-    <circle cx="108" cy="98" r="16"/><circle cx="108" cy="98" r="6"/>
-    <circle cx="148" cy="108" r="12"/><circle cx="148" cy="108" r="4"/>
-    <path d="M108 82 L108 86 M108 110 L108 114 M92 98 L96 98 M120 98 L124 98"/>
-  </g>'''
-  if motif == "wind":
-      return f'''
-  <g opacity="{opacity:.2f}" fill="none" stroke="{accent}" stroke-width="2" stroke-linecap="round">
-    <path d="M82 86 C104 80, 118 92, 140 86"/>
-    <path d="M78 102 C102 96, 122 110, 152 102"/>
-    <path d="M86 118 C108 112, 126 124, 146 118"/>
-  </g>'''
-  if motif == "smoke":
-      return f'''
-  <g opacity="{opacity:.2f}" fill="none" stroke="{accent}" stroke-width="2">
-    <path d="M108 120 C100 108, 112 96, 120 108 C128 96, 136 108, 128 120"/>
-    <path d="M138 118 C132 108, 142 98, 148 108"/>
-  </g>'''
-  if motif == "pulse":
-      return f'''
-  <g opacity="{opacity:.2f}" fill="none" stroke="{accent}" stroke-width="2">
-    <path d="M78 104 L92 104 L100 88 L108 120 L116 96 L124 104 L178 104"/>
-  </g>'''
-  if motif == "waves":
-      return f'''
-  <g opacity="{opacity:.2f}" fill="none" stroke="{accent}" stroke-width="2">
-    <path d="M72 108 C88 98, 104 118, 120 108 C136 98, 152 118, 168 108"/>
-    <path d="M68 124 C92 114, 108 134, 132 124 C148 118, 160 130, 184 124"/>
-  </g>'''
-  if motif == "compass":
-      return f'''
-  <g opacity="{opacity:.2f}" fill="none" stroke="{accent}" stroke-width="2">
-    <circle cx="128" cy="102" r="28"/>
-    <path d="M128 78 L134 102 L128 126 L122 102 Z" fill="{accent}" opacity="0.25"/>
-    <path d="M128 74 L128 82 M128 122 L128 130 M104 102 L112 102 M144 102 L152 102"/>
-  </g>'''
-  if motif == "crown":
-      return f'''
-  <g opacity="{opacity:.2f}" fill="{accent}">
-    <path d="M96 112 L104 92 L116 104 L128 86 L140 104 L152 92 L160 112 Z"/>
-  </g>'''
-  if motif == "halo":
-      return f'''
-  <g opacity="{opacity:.2f}" fill="none" stroke="{accent}" stroke-width="2">
-    <ellipse cx="128" cy="96" rx="34" ry="10"/>
-    <path d="M128 106 L128 124"/>
-  </g>'''
-  if motif == "leaf":
-      return f'''
-  <g opacity="{opacity:.2f}" fill="{accent}">
-    <path d="M128 78 C110 96, 110 118, 128 128 C146 118, 146 96, 128 78 Z"/>
-    <path d="M128 82 L128 124" stroke="{accent}" stroke-width="2" fill="none"/>
-  </g>'''
-  if motif == "claw":
-      return f'''
-  <g opacity="{opacity:.2f}" fill="none" stroke="{accent}" stroke-width="2" stroke-linecap="round">
-    <path d="M108 118 C104 100, 112 86, 120 96"/>
-    <path d="M128 120 C124 98, 132 82, 140 94"/>
-    <path d="M148 118 C144 102, 150 88, 156 98"/>
-  </g>'''
-  if motif == "vial":
-      return f'''
-  <g opacity="{opacity:.2f}" fill="none" stroke="{accent}" stroke-width="2">
-    <path d="M118 82 L118 92 L110 118 L110 126 L146 126 L146 118 L138 92 L138 82 Z"/>
-    <rect x="114" y="118" width="28" height="10" fill="{accent}" opacity="0.25"/>
-  </g>'''
-  if motif == "scales":
-      return f'''
-  <g opacity="{opacity:.2f}" fill="none" stroke="{accent}" stroke-width="2">
-    <path d="M96 112 L160 112"/>
-    <path d="M128 112 L128 92"/>
-    <path d="M104 112 C104 98, 116 92, 120 104"/>
-    <path d="M152 112 C152 98, 140 92, 136 104"/>
-  </g>'''
-  if motif == "heart":
-      return f'''
-  <g opacity="{opacity:.2f}" fill="{accent}">
-    <path d="M128 126 C108 108, 104 92, 118 88 C124 86, 128 92, 132 88 C146 92, 148 108, 128 126 Z"/>
-  </g>'''
-  if motif == "cave":
-      return f'''
-  <g opacity="{opacity:.2f}" fill="none" stroke="{accent}" stroke-width="2">
-    <path d="M88 126 L104 88 L128 78 L152 88 L168 126 Z"/>
-    <path d="M112 126 L120 104 L136 104 L144 126"/>
-  </g>'''
-  return ""
+def emblem_symbol(motif: str, cx: int, cy: int, accent: str, size: int) -> str:
+    s = size
+    if motif in {"flame", "smoke"}:
+        return f'''<path d="M{cx} {cy - s} C{cx - s} {cy}, {cx - s//2} {cy + s}, {cx} {cy + s//2} C{cx + s//2} {cy + s}, {cx + s} {cy}, {cx} {cy - s} Z" fill="{accent}" opacity="0.85"/>'''
+    if motif in {"stars", "halo"}:
+        return f'<circle cx="{cx}" cy="{cy}" r="{s//2}" fill="none" stroke="{accent}" stroke-width="3"/><circle cx="{cx}" cy="{cy}" r="{s//5}" fill="{accent}" opacity="0.7"/>'
+    if motif in {"ward", "compass"}:
+        return f'''<polygon points="{cx},{cy - s} {cx + s},{cy + s} {cx - s},{cy + s}" fill="none" stroke="{accent}" stroke-width="3"/><circle cx="{cx}" cy="{cy + s//4}" r="{s//4}" fill="{accent}" opacity="0.65"/>'''
+    if motif in {"crown", "cave"}:
+        return f'''<polygon points="{cx - s},{cy + s//2} {cx - s//2},{cy - s//2} {cx},{cy} {cx + s//2},{cy - s//2} {cx + s},{cy + s//2}" fill="{accent}" opacity="0.8"/>'''
+    if motif in {"heart", "leaf"}:
+        return f'''<path d="M{cx} {cy + s//2} C{cx - s} {cy - s//4}, {cx - s//2} {cy - s}, {cx} {cy - s//3} C{cx + s//2} {cy - s}, {cx + s} {cy - s//4}, {cx} {cy + s//2} Z" fill="{accent}" opacity="0.8"/>'''
+    if motif in {"gears", "vial"}:
+        return f'<rect x="{cx - s//2}" y="{cy - s//2}" width="{s}" height="{s}" rx="4" fill="none" stroke="{accent}" stroke-width="3"/><circle cx="{cx}" cy="{cy}" r="{s//4}" fill="{accent}" opacity="0.6"/>'
+    if motif in {"waves", "wind"}:
+        return f'''<path d="M{cx - s} {cy} C{cx - s//2} {cy - s//2}, {cx} {cy + s//3}, {cx + s//2} {cy - s//2}, {cx + s} {cy}" fill="none" stroke="{accent}" stroke-width="3" stroke-linecap="round"/>'''
+    if motif in {"claw", "pulse"}:
+        return f'''<path d="M{cx - s} {cy + s//3} L{cx - s//3} {cy - s//2} M{cx} {cy + s//3} L{cx} {cy - s//2} M{cx + s} {cy + s//3} L{cx + s//3} {cy - s//2}" fill="none" stroke="{accent}" stroke-width="3" stroke-linecap="round"/>'''
+    if motif in {"scales", "runes"}:
+        return f'''<path d="M{cx - s} {cy + s//4} L{cx + s} {cy + s//4} M{cx} {cy + s//4} L{cx} {cy - s//2}" fill="none" stroke="{accent}" stroke-width="3"/>'''
+    return f'''<polygon points="{cx},{cy - s} {cx + s},{cy + s//2} {cx - s},{cy + s//2}" fill="none" stroke="{accent}" stroke-width="3"/><circle cx="{cx}" cy="{cy + s//6}" r="{s//4}" fill="{accent}" opacity="0.7"/>'''
 
 
-def format_layout(fmt: str, book_id: str, spine: str, page: str, accent: str, seed: int) -> tuple[str, int, int, int, int]:
-    """Return cover rect markup and x, y, width, height."""
-    if fmt == "chapbook":
-        return (
-            f'''
-  <rect x="46" y="34" width="164" height="252" rx="4" fill="url(#g-{book_id})" stroke="{page}" stroke-width="2"/>
-  <rect x="52" y="40" width="8" height="240" fill="{page}" opacity="0.28"/>
-  <rect x="196" y="120" width="6" height="80" rx="2" fill="{accent}" opacity="0.55"/>''',
-            46,
-            34,
-            164,
-            252,
-        )
-    if fmt == "folio":
-        return (
-            f'''
-  <rect x="34" y="48" width="188" height="224" rx="4" fill="url(#g-{book_id})" stroke="{page}" stroke-width="2"/>
-  <path d="M128 48 L128 272" stroke="{page}" opacity="0.35"/>
-  <rect x="40" y="54" width="10" height="212" fill="{page}" opacity="0.22"/>
-  <rect x="206" y="54" width="10" height="212" fill="{page}" opacity="0.22"/>''',
-            34,
-            48,
-            188,
-            224,
-        )
-    if fmt == "journal":
-        return (
-            f'''
-  <rect x="40" y="28" width="176" height="264" rx="5" fill="url(#g-{book_id})" stroke="{page}" stroke-width="2"/>
-  <rect x="48" y="36" width="10" height="248" fill="{page}" opacity="0.3"/>
-  <line x1="72" y1="52" x2="200" y2="52" stroke="{page}" opacity="0.18"/>
-  <line x1="72" y1="72" x2="200" y2="72" stroke="{page}" opacity="0.18"/>
-  <rect x="188" y="120" width="18" height="72" rx="3" fill="none" stroke="{accent}" stroke-width="2" opacity="0.7"/>''',
-            40,
-            28,
-            176,
-            264,
-        )
-    if fmt == "ledger":
-        return (
-            f'''
-  <rect x="36" y="24" width="184" height="272" rx="5" fill="url(#g-{book_id})" stroke="{page}" stroke-width="3"/>
-  <rect x="44" y="32" width="14" height="256" fill="{page}" opacity="0.32"/>
-  <circle cx="198" cy="58" r="16" fill="none" stroke="{accent}" stroke-width="2" opacity="0.75"/>
-  <circle cx="198" cy="58" r="6" fill="{accent}" opacity="0.35"/>''',
-            36,
-            24,
-            184,
-            272,
-        )
-    clasp_y = 118 + (seed % 24)
-    return (
-        f'''
-  <rect x="28" y="20" width="200" height="280" rx="6" fill="url(#g-{book_id})" stroke="{page}" stroke-width="3"/>
-  <rect x="36" y="28" width="12" height="264" fill="{page}" opacity="0.35"/>
-  <rect x="214" y="{clasp_y}" width="10" height="44" rx="3" fill="{accent}" opacity="0.8"/>
-  <circle cx="219" cy="{clasp_y + 22}" r="4" fill="{page}"/>''',
-        28,
-        20,
-        200,
-        280,
-    )
+def emblem_marks(cx: int, cy: int, accent: str, seed: int) -> str:
+    marks = []
+    for index in range(6):
+        angle = (seed + index * 61) % 360
+        radius = 34 + (index % 3) * 6
+        rad = math.radians(angle)
+        x = cx + int(math.cos(rad) * radius)
+        y = cy + int(math.sin(rad) * radius * 0.55)
+        if index % 3 == 0:
+            marks.append(f'<circle cx="{x}" cy="{y}" r="3" fill="{accent}" opacity="0.55"/>')
+        elif index % 3 == 1:
+            marks.append(f'<rect x="{x - 2}" y="{y - 2}" width="4" height="4" fill="{accent}" opacity="0.45" transform="rotate({angle} {x} {y})"/>')
+        else:
+            marks.append(f'<path d="M{x - 4} {y} L{x + 4} {y}" stroke="{accent}" stroke-width="2" opacity="0.5"/>')
+    return "".join(marks)
 
 
-def corner_ornaments(seed: int, accent: str, x: int, y: int, w: int, h: int) -> str:
-    style = seed % 4
-    if style == 0:
-        return f'''
-  <path d="M{x + 10} {y + 10} L{x + 28} {y + 10} M{x + 10} {y + 10} L{x + 10} {y + 28}" stroke="{accent}" opacity="0.45" fill="none"/>
-  <path d="M{x + w - 10} {y + 10} L{x + w - 28} {y + 10} M{x + w - 10} {y + 10} L{x + w - 10} {y + 28}" stroke="{accent}" opacity="0.45" fill="none"/>
-  <path d="M{x + 10} {y + h - 10} L{x + 28} {y + h - 10} M{x + 10} {y + h - 10} L{x + 10} {y + h - 28}" stroke="{accent}" opacity="0.45" fill="none"/>
-  <path d="M{x + w - 10} {y + h - 10} L{x + w - 28} {y + h - 10} M{x + w - 10} {y + h - 10} L{x + w - 10} {y + h - 28}" stroke="{accent}" opacity="0.45" fill="none"/>'''
-    if style == 1:
-        return f'''
-  <circle cx="{x + 16}" cy="{y + 16}" r="5" fill="none" stroke="{accent}" opacity="0.4"/>
-  <circle cx="{x + w - 16}" cy="{y + 16}" r="5" fill="none" stroke="{accent}" opacity="0.4"/>
-  <circle cx="{x + 16}" cy="{y + h - 16}" r="5" fill="none" stroke="{accent}" opacity="0.4"/>
-  <circle cx="{x + w - 16}" cy="{y + h - 16}" r="5" fill="none" stroke="{accent}" opacity="0.4"/>'''
-    if style == 2:
-        return f'''
-  <rect x="{x + 8}" y="{y + 8}" width="18" height="18" fill="none" stroke="{accent}" opacity="0.35"/>
-  <rect x="{x + w - 26}" y="{y + 8}" width="18" height="18" fill="none" stroke="{accent}" opacity="0.35"/>
-  <rect x="{x + 8}" y="{y + h - 26}" width="18" height="18" fill="none" stroke="{accent}" opacity="0.35"/>
-  <rect x="{x + w - 26}" y="{y + h - 26}" width="18" height="18" fill="none" stroke="{accent}" opacity="0.35"/>'''
-    diamonds = []
-    for px, py in ((x + 14, y + 14), (x + w - 14, y + 14), (x + 14, y + h - 14), (x + w - 14, y + h - 14)):
-        diamonds.append(f'<path d="M{px} {py - 6} L{px + 6} {py} L{px} {py + 6} L{px - 6} {py} Z" fill="{accent}" opacity="0.28"/>')
-    return "".join(diamonds)
+def svg_emblem_tome(book_id: str, colors: dict[str, str], motif: str, seed: int) -> str:
+    c = colors
+    cx, cy = 128, 126
+    return f'''
+  <g>
+    <polygon points="88,168 168,168 176,196 80,196" fill="{c["shadow"]}"/>
+    <polygon points="168,112 196,132 196,196 168,168" fill="{shift_color(c["page"], -20)}"/>
+    <polygon points="80,132 168,112 168,168 80,196" fill="{c["page"]}"/>
+    <polygon points="72,108 160,88 168,112 80,132" fill="url(#cover-{book_id})"/>
+    <polygon points="160,88 184,104 168,112 72,108" fill="{c["dark"]}" opacity="0.55"/>
+    <path d="M72 108 L80 132 L80 196 L72 172 Z" fill="{c["shadow"]}"/>
+    <path d="M88 100 L152 86 L160 88 L96 102 Z" fill="{c["light"]}" opacity="0.22"/>
+    {emblem_symbol(motif, cx, cy, c["emblem"], 28)}
+    {emblem_marks(cx, cy, c["emblem"], seed)}
+    <circle cx="74" cy="114" r="3" fill="{c["emblem"]}" opacity="0.35"/>
+    <circle cx="154" cy="94" r="2.5" fill="{c["emblem"]}" opacity="0.3"/>
+    <circle cx="162" cy="158" r="2" fill="{c["emblem"]}" opacity="0.28"/>
+  </g>'''
+
+
+def svg_strapped_journal(book_id: str, colors: dict[str, str], seed: int) -> str:
+    c = colors
+    plaque_w, plaque_h = 52, 36
+    px, py = 128 - plaque_w // 2, 118
+    ribbon = "#c8b888" if seed % 2 else "#d8c8a8"
+    return f'''
+  <g>
+    <polygon points="92,170 172,170 180,198 84,198" fill="{c["shadow"]}"/>
+    <polygon points="172,118 200,136 200,198 172,170" fill="{shift_color(c["page"], -18)}"/>
+    <polygon points="84,138 172,118 172,170 84,198" fill="{c["page"]}"/>
+    <polygon points="76,112 164,92 172,118 84,138" fill="url(#cover-{book_id})"/>
+    <polygon points="164,92 188,108 172,118 76,112" fill="{c["dark"]}" opacity="0.5"/>
+    <path d="M76 112 L84 138 L84 198 L76 176 Z" fill="{c["shadow"]}"/>
+    <rect x="78" y="108" width="88" height="8" rx="2" fill="{c["strap"]}" opacity="0.85"/>
+    <rect x="78" y="148" width="88" height="8" rx="2" fill="{c["strap"]}" opacity="0.85"/>
+    <rect x="{px}" y="{py}" width="{plaque_w}" height="{plaque_h}" rx="3" fill="{c["page"]}" stroke="{c["emblem"]}" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="{px + 6}" cy="{py + 6}" r="2" fill="{c["emblem"]}" opacity="0.45"/>
+    <circle cx="{px + plaque_w - 6}" cy="{py + 6}" r="2" fill="{c["emblem"]}" opacity="0.45"/>
+    <circle cx="{px + 6}" cy="{py + plaque_h - 6}" r="2" fill="{c["emblem"]}" opacity="0.45"/>
+    <circle cx="{px + plaque_w - 6}" cy="{py + plaque_h - 6}" r="2" fill="{c["emblem"]}" opacity="0.45"/>
+    <rect x="{px + plaque_w // 2 - 3}" y="{py + 8}" width="6" height="{plaque_h - 16}" rx="2" fill="{c["emblem"]}" opacity="0.12"/>
+    <rect x="126" y="186" width="8" height="22" rx="2" fill="{ribbon}" opacity="0.9"/>
+    <path d="M90 98 L154 84 L162 86 L98 100 Z" fill="{c["light"]}" opacity="0.18"/>
+  </g>'''
 
 
 def svg_cover(book_id: str, title: str, topic: str) -> str:
-    base_spine, base_page, mark = TOPIC_STYLES[topic]
     seed = stable_hash(book_id)
-    hue_shift = (seed % 41) - 20
-    spine = shift_color(base_spine, hue_shift)
-    page = shift_color(base_page, hue_shift // 2, lighten=8)
-    accent = shift_color(page, (seed % 17) - 8, lighten=12)
-    fmt = detect_format(title, book_id)
+    colors = book_palette(book_id, topic)
     motif = detect_motif(title, book_id)
-    line1, line2, line3 = title_lines(title)
+    style = "emblem" if seed % 2 == 0 else "strapped"
     safe_title = title.replace("&", "&amp;").replace("<", "&lt;")
-    layout_svg, cx, cy, cw, ch = format_layout(fmt, book_id, spine, page, accent, seed)
-    band_y = cy + ch - 34
-    title_y = cy + int(ch * 0.52)
-    line_gap = 18 if not line3 else 16
-    motif_y = cy + int(ch * 0.28)
-
-    return f'''<svg xmlns="http://www.w3.org/2000/svg" width="256" height="320" viewBox="0 0 256 320" role="img" aria-label="{safe_title}">
+    body = svg_emblem_tome(book_id, colors, motif, seed) if style == "emblem" else svg_strapped_journal(book_id, colors, seed)
+    return f'''<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256" role="img" aria-label="{safe_title}">
   <defs>
-    <linearGradient id="g-{book_id}" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="{spine}"/>
-      <stop offset="55%" stop-color="{shift_color(spine, -12)}"/>
-      <stop offset="100%" stop-color="#141418"/>
+    <linearGradient id="cover-{book_id}" x1="0.15" y1="0" x2="0.85" y2="1">
+      <stop offset="0%" stop-color="{colors["light"]}"/>
+      <stop offset="45%" stop-color="{colors["mid"]}"/>
+      <stop offset="100%" stop-color="{colors["dark"]}"/>
     </linearGradient>
-    <radialGradient id="shine-{book_id}" cx="30%" cy="20%" r="70%">
-      <stop offset="0%" stop-color="{page}" stop-opacity="0.18"/>
-      <stop offset="100%" stop-color="{page}" stop-opacity="0"/>
+    <radialGradient id="glow-{book_id}" cx="40%" cy="30%" r="65%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
     </radialGradient>
   </defs>
-  <rect width="256" height="320" rx="10" fill="#0f1014"/>
-  <rect x="18" y="12" width="220" height="296" rx="8" fill="#090a0d" opacity="0.55"/>
-{layout_svg}
-  <rect x="{cx}" y="{cy}" width="{cw}" height="{ch}" rx="6" fill="url(#shine-{book_id})" pointer-events="none"/>
-  <g transform="translate(0,{motif_y - 102})">{motif_svg(motif, accent, seed)}</g>
-  {corner_ornaments(seed, accent, cx, cy, cw, ch)}
-  <text x="128" y="{title_y - line_gap}" text-anchor="middle" fill="{page}" font-family="Georgia, serif" font-size="13" font-weight="700">{line1}</text>
-  <text x="128" y="{title_y}" text-anchor="middle" fill="{page}" font-family="Georgia, serif" font-size="12">{line2}</text>
-  <text x="128" y="{title_y + line_gap}" text-anchor="middle" fill="{page}" font-family="Georgia, serif" font-size="11">{line3}</text>
-  <text x="128" y="{band_y}" text-anchor="middle" fill="{accent}" font-size="10" letter-spacing="1.2">{topic.upper()}</text>
-  <text x="128" y="{cy + 18}" text-anchor="middle" fill="{page}" font-family="Georgia, serif" font-size="20" opacity="0.85">{mark}</text>
+  <rect width="256" height="256" fill="#101012"/>
+  <rect x="10" y="10" width="236" height="236" rx="6" fill="#08080a" stroke="#3a3a42" stroke-width="2"/>
+  {body}
+  <rect x="10" y="10" width="236" height="236" rx="6" fill="url(#glow-{book_id})" pointer-events="none"/>
 </svg>
 '''
-
-
 def main() -> None:
     IMG_DIR.mkdir(parents=True, exist_ok=True)
     OUT_DIR.mkdir(parents=True, exist_ok=True)

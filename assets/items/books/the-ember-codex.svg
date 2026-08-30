@@ -1,36 +1,35 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="256" height="320" viewBox="0 0 256 320" role="img" aria-label="The Ember Codex">
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256" role="img" aria-label="The Ember Codex">
   <defs>
-    <linearGradient id="g-the-ember-codex" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#3e357e"/>
-      <stop offset="55%" stop-color="#322f82"/>
-      <stop offset="100%" stop-color="#141418"/>
+    <linearGradient id="cover-the-ember-codex" x1="0.15" y1="0" x2="0.85" y2="1">
+      <stop offset="0%" stop-color="#8a8a48"/>
+      <stop offset="45%" stop-color="#5a5a30"/>
+      <stop offset="100%" stop-color="#3a3a20"/>
     </linearGradient>
-    <radialGradient id="shine-the-ember-codex" cx="30%" cy="20%" r="70%">
-      <stop offset="0%" stop-color="#c3b3ff" stop-opacity="0.18"/>
-      <stop offset="100%" stop-color="#c3b3ff" stop-opacity="0"/>
+    <radialGradient id="glow-the-ember-codex" cx="40%" cy="30%" r="65%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
     </radialGradient>
   </defs>
-  <rect width="256" height="320" rx="10" fill="#0f1014"/>
-  <rect x="18" y="12" width="220" height="296" rx="8" fill="#090a0d" opacity="0.55"/>
-
-  <rect x="28" y="20" width="200" height="280" rx="6" fill="url(#g-the-ember-codex)" stroke="#c3b3ff" stroke-width="3"/>
-  <rect x="36" y="28" width="12" height="264" fill="#c3b3ff" opacity="0.35"/>
-  <rect x="214" y="127" width="10" height="44" rx="3" fill="#c3b3ff" opacity="0.8"/>
-  <circle cx="219" cy="149" r="4" fill="#c3b3ff"/>
-  <rect x="28" y="20" width="200" height="280" rx="6" fill="url(#shine-the-ember-codex)" pointer-events="none"/>
-  <g transform="translate(0,-4)">
-  <g opacity="0.28" fill="none" stroke="#c3b3ff" stroke-width="2">
-    <path d="M128 78 C118 98, 112 108, 128 128 C144 108, 138 98, 128 78 Z"/>
-    <path d="M128 92 C122 104, 120 110, 128 118 C136 110, 134 104, 128 92 Z" fill="#c3b3ff" opacity="0.35"/>
-  </g></g>
+  <rect width="256" height="256" fill="#101012"/>
+  <rect x="10" y="10" width="236" height="236" rx="6" fill="#08080a" stroke="#3a3a42" stroke-width="2"/>
   
-  <circle cx="44" cy="36" r="5" fill="none" stroke="#c3b3ff" opacity="0.4"/>
-  <circle cx="212" cy="36" r="5" fill="none" stroke="#c3b3ff" opacity="0.4"/>
-  <circle cx="44" cy="284" r="5" fill="none" stroke="#c3b3ff" opacity="0.4"/>
-  <circle cx="212" cy="284" r="5" fill="none" stroke="#c3b3ff" opacity="0.4"/>
-  <text x="128" y="147" text-anchor="middle" fill="#c3b3ff" font-family="Georgia, serif" font-size="13" font-weight="700">The Ember Codex</text>
-  <text x="128" y="165" text-anchor="middle" fill="#c3b3ff" font-family="Georgia, serif" font-size="12"></text>
-  <text x="128" y="183" text-anchor="middle" fill="#c3b3ff" font-family="Georgia, serif" font-size="11"></text>
-  <text x="128" y="266" text-anchor="middle" fill="#c3b3ff" font-size="10" letter-spacing="1.2">MAGIC</text>
-  <text x="128" y="38" text-anchor="middle" fill="#c3b3ff" font-family="Georgia, serif" font-size="20" opacity="0.85">✦</text>
+  <g>
+    <polygon points="92,170 172,170 180,198 84,198" fill="#212d29"/>
+    <polygon points="172,118 200,136 200,198 172,170" fill="#c6cfae"/>
+    <polygon points="84,138 172,118 172,170 84,198" fill="#d8d8a8"/>
+    <polygon points="76,112 164,92 172,118 84,138" fill="url(#cover-the-ember-codex)"/>
+    <polygon points="164,92 188,108 172,118 76,112" fill="#3a3a20" opacity="0.5"/>
+    <path d="M76 112 L84 138 L84 198 L76 176 Z" fill="#212d29"/>
+    <rect x="78" y="108" width="88" height="8" rx="2" fill="#2b3225" opacity="0.85"/>
+    <rect x="78" y="148" width="88" height="8" rx="2" fill="#2b3225" opacity="0.85"/>
+    <rect x="102" y="118" width="52" height="36" rx="3" fill="#d8d8a8" stroke="#a89966" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="108" cy="124" r="2" fill="#a89966" opacity="0.45"/>
+    <circle cx="148" cy="124" r="2" fill="#a89966" opacity="0.45"/>
+    <circle cx="108" cy="148" r="2" fill="#a89966" opacity="0.45"/>
+    <circle cx="148" cy="148" r="2" fill="#a89966" opacity="0.45"/>
+    <rect x="125" y="126" width="6" height="20" rx="2" fill="#a89966" opacity="0.12"/>
+    <rect x="126" y="186" width="8" height="22" rx="2" fill="#c8b888" opacity="0.9"/>
+    <path d="M90 98 L154 84 L162 86 L98 100 Z" fill="#8a8a48" opacity="0.18"/>
+  </g>
+  <rect x="10" y="10" width="236" height="236" rx="6" fill="url(#glow-the-ember-codex)" pointer-events="none"/>
 </svg>
