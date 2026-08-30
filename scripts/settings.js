@@ -36,7 +36,12 @@ export function registerTownForgeSettings() {
       restricted: true,
       onChange: () => {
         console.log(`${LOG_PREFIX} Sane Magical Prices setting updated`);
-        void readySaneMagicalPrices().then(() => refreshAllOpenShopUIs());
+        void readySaneMagicalPrices()
+          .then(() => shopService.refreshSanePricingForAllShopkeepers())
+          .catch((error) => {
+            console.error(`${LOG_PREFIX} Failed to refresh Sane Magical Prices`, error);
+            refreshAllOpenShopUIs();
+          });
       }
     });
 

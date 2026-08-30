@@ -1,5 +1,6 @@
 import { FLAGS, MODULE_ID } from "./constants.js";
 import { findCompendiumItemByName, listCandidatePacks } from "./compendium-resolver.js";
+import { inferSpellScrollLevel } from "./sane-magical-prices.js";
 import { stableHash } from "./shop-random.js";
 import {
   APPAREL_UUID_PREFIX,
@@ -534,7 +535,8 @@ async function resolveNamedCompendiumStock(lookups, options, { validateName, def
         typeof options.priceFromItem === "function" ? options.priceFromItem(doc) : 25 * 100
       )
     );
-    entries.push({
+    const spellLevel = inferSpellScrollLevel(resolvedName, doc);
+    const entry = {
       id: `tfstock-compendium-${stableHash(uuid)}`,
       uuid,
       name: resolvedName,
@@ -547,7 +549,9 @@ async function resolveNamedCompendiumStock(lookups, options, { validateName, def
       filter: topic,
       topic,
       unlimited: true
-    });
+    };
+    if (spellLevel != null) entry.spellLevel = spellLevel;
+    entries.push(entry);
   }
 
   return entries;

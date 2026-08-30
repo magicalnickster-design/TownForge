@@ -1,8 +1,10 @@
 import { ANNOUNCE_TRADES_SETTING, FLAGS, LOG_PREFIX, MODULE_ID } from "./constants.js";
 import {
+  inferSpellScrollLevel,
   isSaneMagicalPricesEnabled,
   lookupSaneMagicalPriceCP,
-  readySaneMagicalPrices
+  readySaneMagicalPrices,
+  sanePriceContextFromStock
 } from "./sane-magical-prices.js";
 import {
   addCopper as addCopperPure,
@@ -61,7 +63,7 @@ import { isApparelRelatedName, isApparelRelatedShopEntry } from "./shop-apparel.
 import { isBookRelatedName, isBookRelatedShopEntry } from "./shop-books.js";
 import { isFoodRelatedName, isFoodRelatedShopEntry } from "./shop-foods.js";
 import { isShadyRelatedName, isShadyRelatedShopEntry } from "./shop-shady.js";
-import { refreshOpenShopUIs } from "./shop-sync.js";
+import { refreshAllOpenShopUIs, refreshOpenShopUIs } from "./shop-sync.js";
 import { newGenerationSalt, randomPick, seededPick, stableHash, weightedRandomPick, weightedSeededPick } from "./shop-random.js";
 import {
   buildPartyProfile,
@@ -619,6 +621,21 @@ export class ShopService {
           filter: resolveShopItemFilter(entry)
         };
       });
+  }
+
+  /**
+   * Enrich spell-scroll stock rows with spell levels and refresh open shop UIs.
+   * Call after toggling Sane Magical Prices so dnd5e scroll names can be priced.
+   */
+  async refreshSanePricingForAllShopkeepers() {
+    await readySaneMagicalPrices();
+    const actors = game.actors?.contents ?? [];
+    for (const actor of actors) {
+      const shop = this.getShopkeeper(actor);
+      if (!shop.enabled) continue;
+      await this.#enrichStockPricingHints(actor);
+    }
+    refreshAllOpenShopUIs();
   }
 
   /**
@@ -1910,7 +1927,7 @@ export class ShopService {
   #priceFromIndexItem(item, multiplier = 1) {
     const mult = Math.max(0.1, Number(multiplier) || 1);
     if (isSaneMagicalPricesEnabled()) {
-      const saneCP = lookupSaneMagicalPriceCP(item?.name);
+      const saneCP = lookupSaneMagicalPriceCP(item?.name, sanePriceContextFromStock(item) ?? item);
       if (saneCP != null) return Math.max(1, Math.round(saneCP * mult));
     }
     return Math.max(1, Math.round(item.valueCP * mult));
@@ -1932,10 +1949,41 @@ export class ShopService {
   #resolveStockUnitPriceCP(stock, shop) {
     const multiplier = Math.max(0.1, Number(shop?.priceMultiplier) || 1);
     if (isSaneMagicalPricesEnabled()) {
-      const saneCP = lookupSaneMagicalPriceCP(stock?.name);
+      const saneCP = lookupSaneMagicalPriceCP(stock?.name, sanePriceContextFromStock(stock));
       if (saneCP != null) return Math.max(1, Math.round(saneCP * multiplier));
     }
     return Math.max(1, Number(stock?.priceCP) || 1);
+  }
+
+  async #enrichStockPricingHints(actor) {
+    const shop = this.getShopkeeper(actor);
+    const inventory = shop.inventory ?? [];
+    if (!inventory.length) return;
+
+    let changed = false;
+    const nextInventory = [];
+    for (const entry of inventory) {
+      if (entry.spellLevel != null || !/^spell scroll\b/i.test(String(entry.name ?? ""))) {
+        nextInventory.push(entry);
+        continue;
+      }
+      try {
+        const doc = await fromUuid(entry.uuid);
+        const spellLevel = inferSpellScrollLevel(entry.name, doc);
+        if (spellLevel == null) {
+          nextInventory.push(entry);
+          continue;
+        }
+        changed = true;
+        nextInventory.push({ ...entry, spellLevel });
+      } catch (_error) {
+        nextInventory.push(entry);
+      }
+    }
+
+    if (changed) {
+      await this.updateShopkeeper(actor, { inventory: nextInventory });
+    }
   }
 
   #toStockEntry(item, { source, priceCP, quantity }) {
@@ -1957,6 +2005,8 @@ export class ShopService {
       filter: resolveShopItemFilter(item),
       unlimited
     };
+    const spellLevel = inferSpellScrollLevel(item.name, item);
+    if (spellLevel != null) entry.spellLevel = spellLevel;
     if (!unlimited) entry.quantity = Math.max(0, Math.floor(Number(quantity) || 0));
     return entry;
   }
