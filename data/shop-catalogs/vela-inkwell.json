@@ -55,7 +55,7 @@
       "priceGP": 28,
       "description": "A primer on shaping minor magic without burning out a novice's focus.",
       "passive": "After 1 hour of study during a Short Rest, gain a +1 bonus to your next Intelligence (Arcana) check about cantrips.",
-      "img": "modules/townforge/assets/items/books/principles-of-cantrip-craft.svg"
+      "img": "modules/townforge/assets/items/books/principles-of-cantrip-craft.png"
     },
     {
       "id": "stellar-omens-night-signs",
@@ -64,7 +64,7 @@
       "priceGP": 42,
       "description": "Charts constellations said to foretell wars, harvests, and royal successions.",
       "passive": "If you study this book under an open sky at night, you have advantage on your next Wisdom (Survival) check made to navigate by the stars.",
-      "img": "modules/townforge/assets/items/books/stellar-omens-night-signs.svg"
+      "img": "modules/townforge/assets/items/books/stellar-omens-night-signs.png"
     },
     {
       "id": "the-ember-codex",
@@ -73,7 +73,7 @@
       "priceGP": 65,
       "description": "Forbidden notes on fire runes copied from a salvaged tower library.",
       "passive": "After studying for 1 hour, you have advantage on your next check to identify fire runes, warm magic, or scorch marks.",
-      "img": "modules/townforge/assets/items/books/the-ember-codex.svg"
+      "img": "modules/townforge/assets/items/books/the-ember-codex.png"
     },
     {
       "id": "wards-for-the-wary",
@@ -82,7 +82,7 @@
       "priceGP": 22,
       "description": "Household protective circles explained for shopkeepers and sailors.",
       "passive": "After studying, gain a +1 bonus to your next Intelligence (Investigation) check to find a hidden trap or hazard indoors.",
-      "img": "modules/townforge/assets/items/books/wards-for-the-wary.svg"
+      "img": "modules/townforge/assets/items/books/wards-for-the-wary.png"
     },
     {
       "id": "whisper-tongue-grammars",
@@ -91,7 +91,7 @@
       "priceGP": 38,
       "description": "Studies the dead languages used to bargain with fey envoys.",
       "passive": "After 1 hour of study, gain a +1 bonus to your next Charisma check made to parley with fey or undead.",
-      "img": "modules/townforge/assets/items/books/whisper-tongue-grammars.svg"
+      "img": "modules/townforge/assets/items/books/whisper-tongue-grammars.png"
     },
     {
       "id": "clockwork-counterweights",
@@ -100,7 +100,7 @@
       "priceGP": 30,
       "description": "Illustrated treatise on gears, springs, and town clock repair.",
       "passive": "Gain a +1 bonus to your next Intelligence (Investigation) check involving locks, gears, or clockwork mechanisms.",
-      "img": "modules/townforge/assets/items/books/clockwork-counterweights.svg"
+      "img": "modules/townforge/assets/items/books/clockwork-counterweights.png"
     },
     {
       "id": "on-the-weight-of-air",
@@ -109,7 +109,7 @@
       "priceGP": 45,
       "description": "Early natural philosophy arguing that wind is matter in motion.",
       "passive": "You have advantage on your next check to predict wind, weather, or drafts within the next 24 hours.",
-      "img": "modules/townforge/assets/items/books/on-the-weight-of-air.svg"
+      "img": "modules/townforge/assets/items/books/on-the-weight-of-air.png"
     },
     {
       "id": "salt-sulfur-and-smoke",
@@ -118,7 +118,7 @@
       "priceGP": 33,
       "description": "Field notes on smelting, glassblowing, and kiln temperatures.",
       "passive": "Gain a +1 bonus to your next check using smith's tools, glassblower's tools, or when judging kiln heat.",
-      "img": "modules/townforge/assets/items/books/salt-sulfur-and-smoke.svg"
+      "img": "modules/townforge/assets/items/books/salt-sulfur-and-smoke.png"
     },
     {
       "id": "the-moving-heavens",
@@ -127,7 +127,7 @@
       "priceGP": 52,
       "description": "Controversial models of planets, moons, and tidal pull.",
       "passive": "Gain a +1 bonus to your next Intelligence (Arcana) or (Nature) check about moons, tides, or planetary motion.",
-      "img": "modules/townforge/assets/items/books/the-moving-heavens.svg"
+      "img": "modules/townforge/assets/items/books/the-moving-heavens.png"
     },
     {
       "id": "vitals-humors",
@@ -136,7 +136,7 @@
       "priceGP": 26,
       "description": "A physician's guide to pulse, fever, and sensible bleeding.",
       "passive": "After studying, gain a +1 bonus to your next Wisdom (Medicine) check.",
-      "img": "modules/townforge/assets/items/books/vitals-humors.svg"
+      "img": "modules/townforge/assets/items/books/vitals-humors.png"
     },
     {
       "id": "chronicle-of-the-first-kings",
@@ -145,7 +145,7 @@
       "priceGP": 40,
       "description": "Royal lineages from mythic founders to the present court.",
       "passive": "You have advantage on your next Intelligence (History) check about royalty, succession, or court titles in this region.",
-      "img": "modules/townforge/assets/items/books/chronicle-of-the-first-kings.svg"
+      "img": "modules/townforge/assets/items/books/chronicle-of-the-first-kings.png"
     },
     {
       "id": "flood-years-of-the-low-town",
@@ -154,7 +154,7 @@
       "priceGP": 18,
       "description": "Survivor accounts of the great river rise and rebuilding.",
       "passive": "You have advantage on your next Wisdom (Survival) check to find safe footing or shelter in flooded or marshy terrain.",
-      "img": "modules/townforge/assets/items/books/flood-years-of-the-low-town.svg"
+      "img": "modules/townforge/assets/items/books/flood-years-of-the-low-town.png"
     },
     {
       "id": "guild-charters-of-old",
@@ -163,7 +163,7 @@
       "priceGP": 24,
       "description": "Copied statutes governing smiths, weavers, and river pilots.",
       "passive": "Gain a +1 bonus to your next Charisma (Persuasion) check with guild artisans, pilots, or trade officials.",
-      "img": "modules/townforge/assets/items/books/guild-charters-of-old.svg"
+      "img": "modules/townforge/assets/items/books/guild-charters-of-old.png"
     },
     {
       "id": "siege-of-the-grey-gate",
@@ -172,7 +172,7 @@
       "priceGP": 36,
       "description": "Battle maps and testimony from a decade-long border war.",
       "passive": "You have advantage on your next Intelligence (History) check about sieges, fortifications, or siege engines.",
-      "img": "modules/townforge/assets/items/books/siege-of-the-grey-gate.svg"
+      "img": "modules/townforge/assets/items/books/siege-of-the-grey-gate.png"
     },
     {
       "id": "trade-roads-toll-stones",
@@ -181,7 +181,7 @@
       "priceGP": 20,
       "description": "Merchant routes, caravan fees, and safe harbors.",
       "passive": "Gain a +1 bonus to your next Wisdom (Survival) check to avoid getting lost on a road, trail, or caravan route.",
-      "img": "modules/townforge/assets/items/books/trade-roads-toll-stones.svg"
+      "img": "modules/townforge/assets/items/books/trade-roads-toll-stones.png"
     },
     {
       "id": "hymns-for-harvest-eve",
@@ -190,7 +190,7 @@
       "priceGP": 12,
       "description": "Seasonal songs and rites for rural temples.",
       "passive": "After reciting one hymn aloud, gain a +1 bonus to your next Charisma (Performance) check.",
-      "img": "modules/townforge/assets/items/books/hymns-for-harvest-eve.svg"
+      "img": "modules/townforge/assets/items/books/hymns-for-harvest-eve.png"
     },
     {
       "id": "lives-of-the-lantern-saints",
@@ -199,7 +199,7 @@
       "priceGP": 34,
       "description": "Hagiographies of healers who walked with a single flame.",
       "passive": "You have advantage on your next Wisdom (Religion) check about local saints, shrines, or healing rites.",
-      "img": "modules/townforge/assets/items/books/lives-of-the-lantern-saints.svg"
+      "img": "modules/townforge/assets/items/books/lives-of-the-lantern-saints.png"
     },
     {
       "id": "pilgrim-paths-east",
@@ -208,7 +208,7 @@
       "priceGP": 27,
       "description": "Shrines, hostels, and relic customs along a sacred road.",
       "passive": "Gain a +1 bonus to your next Wisdom (Survival) check while traveling a marked pilgrim route or holy road.",
-      "img": "modules/townforge/assets/items/books/pilgrim-paths-east.svg"
+      "img": "modules/townforge/assets/items/books/pilgrim-paths-east.png"
     },
     {
       "id": "the-book-of-small-mercies",
@@ -217,7 +217,7 @@
       "priceGP": 16,
       "description": "Prayers for travelers, midwives, and grieving households.",
       "passive": "When you comfort a frightened or grieving creature for 1 minute, it gains a +1 bonus on its next saving throw against being frightened (once).",
-      "img": "modules/townforge/assets/items/books/the-book-of-small-mercies.svg"
+      "img": "modules/townforge/assets/items/books/the-book-of-small-mercies.png"
     },
     {
       "id": "treatise-on-sacred-oaths",
@@ -226,7 +226,7 @@
       "priceGP": 44,
       "description": "When a vow binds the soul—and when it may be broken.",
       "passive": "You have advantage on your next Wisdom (Insight) check to tell whether someone is honoring or breaking a sworn vow.",
-      "img": "modules/townforge/assets/items/books/treatise-on-sacred-oaths.svg"
+      "img": "modules/townforge/assets/items/books/treatise-on-sacred-oaths.png"
     },
     {
       "id": "beasts-of-the-fen",
@@ -235,7 +235,7 @@
       "priceGP": 25,
       "description": "Sketches and habits of eels, herons, and marsh cats.",
       "passive": "You have advantage on your next Wisdom (Nature) check to identify marsh beasts or their tracks.",
-      "img": "modules/townforge/assets/items/books/beasts-of-the-fen.svg"
+      "img": "modules/townforge/assets/items/books/beasts-of-the-fen.png"
     },
     {
       "id": "forest-cant-herb-lore",
@@ -244,7 +244,7 @@
       "priceGP": 31,
       "description": "Which leaves soothe fever and which berries kill.",
       "passive": "Gain a +1 bonus to your next Intelligence (Nature) check to identify common herbs, berries, or edible plants.",
-      "img": "modules/townforge/assets/items/books/forest-cant-herb-lore.svg"
+      "img": "modules/townforge/assets/items/books/forest-cant-herb-lore.png"
     },
     {
       "id": "mountain-stone-root",
@@ -253,7 +253,7 @@
       "priceGP": 29,
       "description": "Geology and foraging among high passes and scree fields.",
       "passive": "You have advantage on your next Wisdom (Survival) check foraging in hills, mountains, or rocky highlands.",
-      "img": "modules/townforge/assets/items/books/mountain-stone-root.svg"
+      "img": "modules/townforge/assets/items/books/mountain-stone-root.png"
     },
     {
       "id": "seasons-of-the-wheat-belt",
@@ -262,7 +262,7 @@
       "priceGP": 19,
       "description": "Planting calendars tied to river thaw and crow migration.",
       "passive": "Gain a +1 bonus to your next Wisdom (Survival) or Intelligence (Nature) check about crops, harvest timing, or farmland.",
-      "img": "modules/townforge/assets/items/books/seasons-of-the-wheat-belt.svg"
+      "img": "modules/townforge/assets/items/books/seasons-of-the-wheat-belt.png"
     },
     {
       "id": "whale-roads",
@@ -271,7 +271,7 @@
       "priceGP": 37,
       "description": "Sailor charts of migration lanes along cold coasts.",
       "passive": "You have advantage on your next Wisdom (Survival) or navigator's tools check on open water or along a coast.",
-      "img": "modules/townforge/assets/items/books/whale-roads.svg"
+      "img": "modules/townforge/assets/items/books/whale-roads.png"
     },
     {
       "id": "a-bestiary-for-bailiffs",
@@ -280,7 +280,7 @@
       "priceGP": 35,
       "description": "Common monsters likely to raid barns and toll roads.",
       "passive": "You have advantage on your next Intelligence check to recall the habits of predators or pests near settlements.",
-      "img": "modules/townforge/assets/items/books/a-bestiary-for-bailiffs.svg"
+      "img": "modules/townforge/assets/items/books/a-bestiary-for-bailiffs.png"
     },
     {
       "id": "dragons-a-cautious-survey",
@@ -289,7 +289,7 @@
       "priceGP": 75,
       "description": "Scholarly skepticism about scale, hoards, and flame.",
       "passive": "Gain a +1 bonus to your next Intelligence (Arcana) or (Nature) check about dragons, wyrmlings, or dragon lairs.",
-      "img": "modules/townforge/assets/items/books/dragons-a-cautious-survey.svg"
+      "img": "modules/townforge/assets/items/books/dragons-a-cautious-survey.png"
     },
     {
       "id": "goblin-customs-taboos",
@@ -298,7 +298,7 @@
       "priceGP": 21,
       "description": "Observations from a truce envoy who returned alive.",
       "passive": "You have advantage on your next Charisma check when parleying with goblins, hobgoblins, or bugbears.",
-      "img": "modules/townforge/assets/items/books/goblin-customs-taboos.svg"
+      "img": "modules/townforge/assets/items/books/goblin-customs-taboos.png"
     },
     {
       "id": "owlbear-nesting-notes",
@@ -307,7 +307,7 @@
       "priceGP": 23,
       "description": "Where not to camp, according to rangers.",
       "passive": "Gain a +1 bonus to your next Wisdom (Perception) check to spot owlbear sign, feathers, or nesting grounds.",
-      "img": "modules/townforge/assets/items/books/owlbear-nesting-notes.svg"
+      "img": "modules/townforge/assets/items/books/owlbear-nesting-notes.png"
     },
     {
       "id": "trolls-under-the-bridge",
@@ -316,7 +316,7 @@
       "priceGP": 27,
       "description": "Folklore cross-checked with toll-keeper interviews.",
       "passive": "You have advantage on your next Intelligence (Investigation) check near bridges, fords, or toll crossings.",
-      "img": "modules/townforge/assets/items/books/trolls-under-the-bridge.svg"
+      "img": "modules/townforge/assets/items/books/trolls-under-the-bridge.png"
     },
     {
       "id": "antidotes-neutral-salts",
@@ -325,7 +325,7 @@
       "priceGP": 32,
       "description": "Recipes for venom counters and sting poultices.",
       "passive": "Gain a +1 bonus to your next Wisdom (Medicine) check to treat poison, venom, or toxic stings.",
-      "img": "modules/townforge/assets/items/books/antidotes-neutral-salts.svg"
+      "img": "modules/townforge/assets/items/books/antidotes-neutral-salts.png"
     },
     {
       "id": "distillation-for-beginners",
@@ -334,7 +334,7 @@
       "priceGP": 28,
       "description": "Safe glasswork and flame control for apothecaries.",
       "passive": "You have advantage on your next check using alchemist's supplies or brewer's supplies for a mundane brew.",
-      "img": "modules/townforge/assets/items/books/distillation-for-beginners.svg"
+      "img": "modules/townforge/assets/items/books/distillation-for-beginners.png"
     },
     {
       "id": "elixirs-of-wakefulness",
@@ -343,7 +343,7 @@
       "priceGP": 48,
       "description": "Stimulant tonics popular with watch captains.",
       "passive": "For the next 4 hours, you have advantage on Constitution saving throws against exhaustion caused by lack of sleep (once per long rest).",
-      "img": "modules/townforge/assets/items/books/elixirs-of-wakefulness.svg"
+      "img": "modules/townforge/assets/items/books/elixirs-of-wakefulness.png"
     },
     {
       "id": "ink-of-binding",
@@ -352,7 +352,7 @@
       "priceGP": 55,
       "description": "Arcane formulae for contracts that resist forgery.",
       "passive": "Gain a +1 bonus to your next Intelligence (Investigation) check to spot forged signatures, seals, or contract clauses.",
-      "img": "modules/townforge/assets/items/books/ink-of-binding.svg"
+      "img": "modules/townforge/assets/items/books/ink-of-binding.png"
     },
     {
       "id": "pigments-preservatives",
@@ -361,7 +361,7 @@
       "priceGP": 24,
       "description": "How to keep maps and scrolls from mildew.",
       "passive": "You have advantage on your next check to preserve maps, books, or documents from mildew, smearing, or water damage.",
-      "img": "modules/townforge/assets/items/books/pigments-preservatives.svg"
+      "img": "modules/townforge/assets/items/books/pigments-preservatives.png"
     },
     {
       "id": "bailiff-s-field-manual",
@@ -370,7 +370,7 @@
       "priceGP": 22,
       "description": "Arrest, holding, and fair notice in market towns.",
       "passive": "Gain a +1 bonus to your next Charisma (Intimidation or Persuasion) check when acting as an agent of the law.",
-      "img": "modules/townforge/assets/items/books/bailiff-s-field-manual.svg"
+      "img": "modules/townforge/assets/items/books/bailiff-s-field-manual.png"
     },
     {
       "id": "charter-of-the-free-bridge",
@@ -379,7 +379,7 @@
       "priceGP": 30,
       "description": "River crossing rights fought over for three generations.",
       "passive": "You have advantage on your next check to negotiate tolls, tariffs, or river crossing fees.",
-      "img": "modules/townforge/assets/items/books/charter-of-the-free-bridge.svg"
+      "img": "modules/townforge/assets/items/books/charter-of-the-free-bridge.png"
     },
     {
       "id": "inheritance-in-ten-tables",
@@ -388,7 +388,7 @@
       "priceGP": 26,
       "description": "Who inherits a shop when siblings disagree.",
       "passive": "Gain a +1 bonus to your next Intelligence (Investigation) check involving wills, deeds, or inheritance disputes.",
-      "img": "modules/townforge/assets/items/books/inheritance-in-ten-tables.svg"
+      "img": "modules/townforge/assets/items/books/inheritance-in-ten-tables.png"
     },
     {
       "id": "market-measures-penalties",
@@ -397,7 +397,7 @@
       "priceGP": 18,
       "description": "Weights, false scales, and public shaming fines.",
       "passive": "You have advantage on your next Wisdom (Perception) check to spot false scales, short measure, or rigged weights.",
-      "img": "modules/townforge/assets/items/books/market-measures-penalties.svg"
+      "img": "modules/townforge/assets/items/books/market-measures-penalties.png"
     },
     {
       "id": "oaths-before-the-magistrate",
@@ -406,7 +406,7 @@
       "priceGP": 40,
       "description": "Recorded speeches from famous trials.",
       "passive": "You have advantage on your next Charisma (Persuasion) check before a judge, magistrate, or court official.",
-      "img": "modules/townforge/assets/items/books/oaths-before-the-magistrate.svg"
+      "img": "modules/townforge/assets/items/books/oaths-before-the-magistrate.png"
     },
     {
       "id": "ballads-of-the-lost-company",
@@ -415,7 +415,7 @@
       "priceGP": 14,
       "description": "Soldier songs from a company that never returned.",
       "passive": "Gain a +1 bonus to your next Charisma (Performance) check when singing or reciting soldier ballads.",
-      "img": "modules/townforge/assets/items/books/ballads-of-the-lost-company.svg"
+      "img": "modules/townforge/assets/items/books/ballads-of-the-lost-company.png"
     },
     {
       "id": "elegies-for-river-towns",
@@ -424,7 +424,7 @@
       "priceGP": 16,
       "description": "Mourning verse after floods and failed harvests.",
       "passive": "After reading an elegy aloud for 1 minute, one ally who listens gains a +1 bonus on their next saving throw against fear.",
-      "img": "modules/townforge/assets/items/books/elegies-for-river-towns.svg"
+      "img": "modules/townforge/assets/items/books/elegies-for-river-towns.png"
     },
     {
       "id": "love-letters-never-sent",
@@ -433,7 +433,7 @@
       "priceGP": 11,
       "description": "Romantic poems copied from a sealed estate chest.",
       "passive": "Gain a +1 bonus to your next Charisma (Persuasion) check in a romantic or heartfelt conversation.",
-      "img": "modules/townforge/assets/items/books/love-letters-never-sent.svg"
+      "img": "modules/townforge/assets/items/books/love-letters-never-sent.png"
     },
     {
       "id": "songs-the-gulls-know",
@@ -442,7 +442,7 @@
       "priceGP": 13,
       "description": "Harbor poetry in salt-stained chapbook form.",
       "passive": "You have advantage on your next Charisma (Performance) check performed in a harbor, port, or dockside tavern.",
-      "img": "modules/townforge/assets/items/books/songs-the-gulls-know.svg"
+      "img": "modules/townforge/assets/items/books/songs-the-gulls-know.png"
     },
     {
       "id": "the-green-knight-s-lay",
@@ -451,7 +451,7 @@
       "priceGP": 20,
       "description": "Chivalric romance in uneven rhyme.",
       "passive": "Gain a +1 bonus to your next Charisma (Performance) or (Persuasion) check involving chivalric etiquette or courtly manners.",
-      "img": "modules/townforge/assets/items/books/the-green-knight-s-lay.svg"
+      "img": "modules/townforge/assets/items/books/the-green-knight-s-lay.png"
     },
     {
       "id": "cave-maps-of-the-red-hills",
@@ -460,7 +460,7 @@
       "priceGP": 33,
       "description": "Survey sketches sold without guarantee of return.",
       "passive": "You have advantage on your next Wisdom (Survival) check to avoid getting lost in caves or red-rock badlands.",
-      "img": "modules/townforge/assets/items/books/cave-maps-of-the-red-hills.svg"
+      "img": "modules/townforge/assets/items/books/cave-maps-of-the-red-hills.png"
     },
     {
       "id": "dungeon-delver-s-checklist",
@@ -469,7 +469,7 @@
       "priceGP": 25,
       "description": "Rope lengths, chalk marks, and retreat signals.",
       "passive": "Gain a +1 bonus to your next Wisdom (Perception) check to spot traps, loose stone, or unsafe footing underground.",
-      "img": "modules/townforge/assets/items/books/dungeon-delver-s-checklist.svg"
+      "img": "modules/townforge/assets/items/books/dungeon-delver-s-checklist.png"
     },
     {
       "id": "mercenary-contracts-explained",
@@ -478,7 +478,7 @@
       "priceGP": 29,
       "description": "What a company owes you when the lord defaults.",
       "passive": "You have advantage on your next Intelligence (Investigation) check to read contracts, pay clauses, or mercenary terms.",
-      "img": "modules/townforge/assets/items/books/mercenary-contracts-explained.svg"
+      "img": "modules/townforge/assets/items/books/mercenary-contracts-explained.png"
     },
     {
       "id": "sailor-s-storm-almanac",
@@ -487,7 +487,7 @@
       "priceGP": 31,
       "description": "Weather signs trusted on long blue-water runs.",
       "passive": "You have advantage on your next Wisdom (Survival) check to predict an imminent storm at sea or on the coast.",
-      "img": "modules/townforge/assets/items/books/sailor-s-storm-almanac.svg"
+      "img": "modules/townforge/assets/items/books/sailor-s-storm-almanac.png"
     },
     {
       "id": "the-squire-s-first-tour",
@@ -496,7 +496,7 @@
       "priceGP": 17,
       "description": "Practical advice for youths joining a road company.",
       "passive": "Gain a +1 bonus to your next Wisdom (Animal Handling) or Charisma check when dealing with mounts, camp followers, or road crews.",
-      "img": "modules/townforge/assets/items/books/the-squire-s-first-tour.svg"
+      "img": "modules/townforge/assets/items/books/the-squire-s-first-tour.png"
     }
   ]
 }
