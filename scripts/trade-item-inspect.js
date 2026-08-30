@@ -4,6 +4,9 @@ import { formatTradeItemMeta, loadTradeItemDetail } from "./trade-item-detail.js
 
 const HandlebarsApplicationV2 = getHandlebarsApplicationV2Base();
 
+const INSPECT_WINDOW_WIDTH = 1260;
+const INSPECT_WINDOW_HEIGHT = 960;
+
 /** Right-click item inspector — scrollable description in a separate window. */
 export class TradeItemInspect extends HandlebarsApplicationV2 {
   /** @type {Actor} */
@@ -27,7 +30,7 @@ export class TradeItemInspect extends HandlebarsApplicationV2 {
       resizable: true,
       contentClasses: ["townforge-window-content"]
     },
-    position: { width: 420, height: 480 },
+    position: { width: INSPECT_WINDOW_WIDTH, height: INSPECT_WINDOW_HEIGHT },
     actions: {
       closeInspect: TradeItemInspect.#onClose
     }
@@ -73,8 +76,8 @@ export class TradeItemInspect extends HandlebarsApplicationV2 {
     const detail = await loadTradeItemDetail(options.merchant, options.buyerUuid ?? null, options.cell);
     const app = new TradeItemInspect({ ...options, detail });
     const margin = 16;
-    const width = 420;
-    const height = 480;
+    const width = INSPECT_WINDOW_WIDTH;
+    const height = INSPECT_WINDOW_HEIGHT;
     const left =
       typeof options.left === "number"
         ? Math.min(Math.max(margin, options.left), Math.max(margin, window.innerWidth - width - margin))
