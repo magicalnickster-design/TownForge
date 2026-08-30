@@ -87,6 +87,8 @@ export function matchesCompendiumIndexEntry(entry, match) {
  * @returns {CompendiumCollection[]}
  */
 export function listCandidatePacks(documentName, hintedPackId) {
+  if (typeof game === "undefined" || !game?.packs) return [];
+
   const preferredIds = [];
   if (documentName === "Spell") {
     preferredIds.push(...DND5E_SPELL_PACK_CANDIDATES);

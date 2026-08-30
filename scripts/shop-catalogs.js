@@ -11,6 +11,8 @@ import {
 } from "./shop-apparel.js";
 import {
   DEFAULT_COMPENDIUM_BOOK_ITEMS,
+  inferBookTopic,
+  isBookIndexRow,
   isBookRelatedName,
   isBookRelatedShopEntry
 } from "./shop-books.js";
@@ -552,12 +554,40 @@ async function resolveNamedCompendiumStock(lookups, options, { validateName, def
 }
 
 /**
+ * Discover book-related compendium items across installed item packs.
+ * @returns {Promise<{name:string, topic:string}[]>}
+ */
+export async function discoverCompendiumBookLookups() {
+  const seen = new Set();
+  const lookups = [];
+
+  const add = (name, topic) => {
+    const key = String(name).trim().toLowerCase();
+    if (!key || seen.has(key) || !isBookRelatedName(name)) return;
+    seen.add(key);
+    lookups.push({ name: String(name).trim(), topic: topic ?? inferBookTopic(name) });
+  };
+
+  for (const lookup of DEFAULT_COMPENDIUM_BOOK_ITEMS) add(lookup.name, lookup.topic);
+
+  for (const pack of listCandidatePacks("Item")) {
+    const index = pack.index?.length ? pack.index : await pack.getIndex?.().catch(() => []);
+    for (const row of index) {
+      if (!row?.name || !isBookIndexRow(row)) continue;
+      add(row.name, inferBookTopic(row.name));
+    }
+  }
+
+  return lookups;
+}
+
+/**
  * Resolve dnd5e compendium book-related items for a catalog NPC.
  */
 export async function buildCompendiumBookStock(catalog, options = {}) {
   const lookups = catalog.compendiumBooks?.length
     ? catalog.compendiumBooks
-    : DEFAULT_COMPENDIUM_BOOK_ITEMS;
+    : await discoverCompendiumBookLookups();
   return resolveNamedCompendiumStock(lookups, options, {
     validateName: isBookRelatedName,
     defaultTopic: () => "gear"

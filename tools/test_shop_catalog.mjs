@@ -7,13 +7,15 @@ import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 import {
-  buildBookItemData,
   buildCatalogStock,
-  inventoryHasNonBookEntries,
-  inventoryViolatesCatalogOnly,
-  townforgeBookUuid
+  discoverCompendiumBookLookups,
+  inventoryViolatesCatalogOnly
 } from "../scripts/shop-catalogs.js";
-import { isBookRelatedName, isBookRelatedShopEntry } from "../scripts/shop-books.js";
+import {
+  DEFAULT_COMPENDIUM_BOOK_ITEMS,
+  isBookRelatedName,
+  isBookRelatedShopEntry
+} from "../scripts/shop-books.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const catalog = JSON.parse(
@@ -33,66 +35,55 @@ function assert(condition, message) {
 
 console.log("TownForge shop catalog tests");
 
-test("vela catalog has 50 unique books", () => {
-  assert(catalog.books.length === 50, "expected 50 books");
-  const names = new Set(catalog.books.map((book) => book.name.toLowerCase()));
-  assert(names.size === 50, "expected unique titles");
+test("vela catalog has no custom books", () => {
+  assert(!catalog.books || catalog.books.length === 0, "expected no custom books");
+  assert(catalog.catalogOnly === true, "catalogOnly flag");
+  assert(catalog.shopType === "bookstore", "bookstore shop type");
 });
 
-test("catalog stock uses townforge book uuids", () => {
+test("custom book stock is empty for vela", () => {
   const stock = buildCatalogStock(catalog, {
     priceMultiplier: 1,
     formatPrice: (cp) => `${cp} cp`
   });
-  assert(stock.length === 50, "50 stock rows");
-  assert(stock.every((entry) => entry.unlimited), "catalog books are unlimited");
-  assert(stock.every((entry) => entry.uuid.startsWith("townforge-book:")), "uuid format");
+  assert(stock.length === 0, "no custom stock rows");
 });
 
-test("book item data includes description and price", () => {
-  const book = { ...catalog.books[0], catalogId: catalog.id };
-  const data = buildBookItemData(book);
-  assert(data.type === "loot", "loot item");
-  assert(data.system.price.value === book.priceGP, "price");
-  assert(data.system.description.value.includes(book.description), "description");
-  assert(book.passive, "catalog passive");
-  assert(data.system.description.value.includes("Study Benefit"), "study benefit");
-  assert(data.flags.townforge.passive === book.passive, "passive flag");
-});
-
-test("every catalog book has a study benefit", () => {
-  assert(catalog.books.every((book) => String(book.passive ?? "").trim().length > 0), "all passives");
-});
-
-test("catalog is books-only", () => {
-  assert(catalog.catalogOnly === true, "catalogOnly flag");
-  assert(Array.isArray(catalog.compendiumBooks) && catalog.compendiumBooks.length > 0, "compendium books");
+const lookups = await discoverCompendiumBookLookups();
+test("compendium book discovery includes dnd defaults", () => {
+  assert(lookups.length >= DEFAULT_COMPENDIUM_BOOK_ITEMS.length, "default compendium books");
+  for (const item of DEFAULT_COMPENDIUM_BOOK_ITEMS) {
+    assert(
+      lookups.some((lookup) => lookup.name.toLowerCase() === item.name.toLowerCase()),
+      `missing ${item.name}`
+    );
+  }
 });
 
 test("bookshop filters reject general store junk", () => {
   assert(isBookRelatedName("Spellbook"), "spellbook");
-  assert(isBookRelatedName("The Ember Codex"), "codex title");
+  assert(isBookRelatedName("Book"), "book");
   assert(!isBookRelatedName("Dwarven Thrower"), "magic weapon");
   assert(!isBookRelatedName("Trident"), "weapon");
   assert(!isBookRelatedName("Torch"), "torch");
   assert(!isBookRelatedName("Tinderbox"), "tinderbox");
   assert(!isBookRelatedName("Fine Clothes"), "clothes");
   assert(
-    inventoryHasNonBookEntries(
+    inventoryViolatesCatalogOnly(
       [
         { name: "Torch", uuid: "Compendium.dnd5e.items.torch", source: "automatic" },
-        { name: "Principles of Cantrip Craft", uuid: townforgeBookUuid("x"), source: "catalog" }
+        { name: "Spellbook", uuid: "Compendium.dnd5e.items.spellbook", source: "compendium" }
       ],
       catalog
     ),
     "detects mixed inventory"
   );
   assert(
-    !inventoryHasNonBookEntries(
-      [{ name: "Principles of Cantrip Craft", uuid: townforgeBookUuid("x"), source: "catalog" }],
+    !inventoryViolatesCatalogOnly(
+      [{ name: "Spellbook", uuid: "Compendium.dnd5e.items.spellbook", source: "compendium" }],
       catalog
     ),
-    "catalog-only inventory passes"
+    "compendium-only inventory passes"
   );
   assert(
     isBookRelatedShopEntry({ name: "Spellbook", uuid: "Compendium.dnd5e.items.spellbook", source: "compendium" }),
