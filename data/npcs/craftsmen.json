@@ -53,8 +53,8 @@
               "calc": "flat"
             },
             "hp": {
-              "value": 28,
-              "max": 28
+              "value": 36,
+              "max": 36
             },
             "movement": {
               "walk": 30,
@@ -195,8 +195,8 @@
               "calc": "flat"
             },
             "hp": {
-              "value": 18,
-              "max": 18
+              "value": 22,
+              "max": 22
             },
             "movement": {
               "walk": 30,
@@ -325,8 +325,8 @@
               "calc": "flat"
             },
             "hp": {
-              "value": 18,
-              "max": 18
+              "value": 22,
+              "max": 22
             },
             "movement": {
               "walk": 30,
@@ -455,8 +455,8 @@
               "calc": "flat"
             },
             "hp": {
-              "value": 18,
-              "max": 18
+              "value": 22,
+              "max": 22
             },
             "movement": {
               "walk": 30,
@@ -585,8 +585,8 @@
               "calc": "flat"
             },
             "hp": {
-              "value": 18,
-              "max": 18
+              "value": 22,
+              "max": 22
             },
             "movement": {
               "walk": 30,
@@ -715,8 +715,8 @@
               "calc": "flat"
             },
             "hp": {
-              "value": 18,
-              "max": 18
+              "value": 22,
+              "max": 22
             },
             "movement": {
               "walk": 30,
@@ -967,8 +967,8 @@
               "calc": "flat"
             },
             "hp": {
-              "value": 18,
-              "max": 18
+              "value": 22,
+              "max": 22
             },
             "movement": {
               "walk": 30,
@@ -1097,8 +1097,8 @@
               "calc": "flat"
             },
             "hp": {
-              "value": 18,
-              "max": 18
+              "value": 22,
+              "max": 22
             },
             "movement": {
               "walk": 30,
@@ -1227,8 +1227,8 @@
               "calc": "flat"
             },
             "hp": {
-              "value": 18,
-              "max": 18
+              "value": 22,
+              "max": 22
             },
             "movement": {
               "walk": 30,

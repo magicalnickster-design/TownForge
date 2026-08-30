@@ -53,8 +53,8 @@
               "calc": "flat"
             },
             "hp": {
-              "value": 33,
-              "max": 33
+              "value": 45,
+              "max": 45
             },
             "movement": {
               "walk": 30,
@@ -246,8 +246,8 @@
               "calc": "flat"
             },
             "hp": {
-              "value": 10,
-              "max": 10
+              "value": 12,
+              "max": 12
             },
             "movement": {
               "walk": 30,
@@ -419,8 +419,8 @@
               "calc": "flat"
             },
             "hp": {
-              "value": 21,
-              "max": 21
+              "value": 27,
+              "max": 27
             },
             "movement": {
               "walk": 30,
@@ -597,8 +597,8 @@
               "calc": "flat"
             },
             "hp": {
-              "value": 27,
-              "max": 27
+              "value": 36,
+              "max": 36
             },
             "movement": {
               "walk": 30,
@@ -775,8 +775,8 @@
               "calc": "flat"
             },
             "hp": {
-              "value": 13,
-              "max": 13
+              "value": 16,
+              "max": 16
             },
             "movement": {
               "walk": 30,
@@ -922,8 +922,8 @@
               "calc": "flat"
             },
             "hp": {
-              "value": 27,
-              "max": 27
+              "value": 35,
+              "max": 35
             },
             "movement": {
               "walk": 30,
@@ -1096,8 +1096,8 @@
               "calc": "flat"
             },
             "hp": {
-              "value": 21,
-              "max": 21
+              "value": 27,
+              "max": 27
             },
             "movement": {
               "walk": 30,
@@ -1264,8 +1264,8 @@
               "calc": "flat"
             },
             "hp": {
-              "value": 21,
-              "max": 21
+              "value": 27,
+              "max": 27
             },
             "movement": {
               "walk": 30,

@@ -81,13 +81,11 @@ def ability_mod(score: int) -> int:
 
 
 def estimate_hp(class_id: str, level: int, con_score: int) -> int:
+    """Max-hit-die HP per level so NPC toughness scales clearly with class level."""
     die = HIT_DICE.get(class_id, 8)
     con_mod = ability_mod(con_score)
-    first = max(1, die + con_mod)
-    if level <= 1:
-        return first
-    per_level = max(1, (die // 2) + 1 + con_mod)
-    return first + per_level * (level - 1)
+    per_level = max(1, die + con_mod)
+    return max(1, int(level) * per_level)
 
 
 def estimate_ac(loadout: Loadout, dex_score: int) -> int:

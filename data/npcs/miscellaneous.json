@@ -297,8 +297,8 @@
               "calc": "flat"
             },
             "hp": {
-              "value": 15,
-              "max": 15
+              "value": 18,
+              "max": 18
             },
             "movement": {
               "walk": 30,

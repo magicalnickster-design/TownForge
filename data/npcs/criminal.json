@@ -53,8 +53,8 @@
               "calc": "flat"
             },
             "hp": {
-              "value": 21,
-              "max": 21
+              "value": 27,
+              "max": 27
             },
             "movement": {
               "walk": 30,
@@ -352,8 +352,8 @@
               "calc": "flat"
             },
             "hp": {
-              "value": 15,
-              "max": 15
+              "value": 18,
+              "max": 18
             },
             "movement": {
               "walk": 30,
@@ -498,8 +498,8 @@
               "calc": "flat"
             },
             "hp": {
-              "value": 15,
-              "max": 15
+              "value": 18,
+              "max": 18
             },
             "movement": {
               "walk": 30,
@@ -651,8 +651,8 @@
               "calc": "flat"
             },
             "hp": {
-              "value": 10,
-              "max": 10
+              "value": 12,
+              "max": 12
             },
             "movement": {
               "walk": 30,
@@ -817,8 +817,8 @@
               "calc": "flat"
             },
             "hp": {
-              "value": 15,
-              "max": 15
+              "value": 18,
+              "max": 18
             },
             "movement": {
               "walk": 30,
@@ -963,8 +963,8 @@
               "calc": "flat"
             },
             "hp": {
-              "value": 15,
-              "max": 15
+              "value": 18,
+              "max": 18
             },
             "movement": {
               "walk": 30,
@@ -1116,8 +1116,8 @@
               "calc": "flat"
             },
             "hp": {
-              "value": 15,
-              "max": 15
+              "value": 18,
+              "max": 18
             },
             "movement": {
               "walk": 30,

@@ -53,8 +53,8 @@
               "calc": "flat"
             },
             "hp": {
-              "value": 33,
-              "max": 33
+              "value": 45,
+              "max": 45
             },
             "movement": {
               "walk": 30,
@@ -231,8 +231,8 @@
               "calc": "flat"
             },
             "hp": {
-              "value": 15,
-              "max": 15
+              "value": 18,
+              "max": 18
             },
             "movement": {
               "walk": 30,
@@ -386,8 +386,8 @@
               "calc": "flat"
             },
             "hp": {
-              "value": 32,
-              "max": 32
+              "value": 44,
+              "max": 44
             },
             "movement": {
               "walk": 30,
@@ -534,8 +534,8 @@
               "calc": "flat"
             },
             "hp": {
-              "value": 21,
-              "max": 21
+              "value": 27,
+              "max": 27
             },
             "movement": {
               "walk": 30,
@@ -682,8 +682,8 @@
               "calc": "flat"
             },
             "hp": {
-              "value": 33,
-              "max": 33
+              "value": 45,
+              "max": 45
             },
             "movement": {
               "walk": 30,

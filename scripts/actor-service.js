@@ -2,6 +2,7 @@ import {
   resolveClassItemStub,
   resolveCompendiumDocument
 } from "./compendium-resolver.js";
+import { buildNpcCombatStatUpdates } from "./npc-combat-stats.js";
 import { FLAGS, LOG_PREFIX, MODULE_ID, MODULE_TITLE } from "./constants.js";
 
 const FALLBACK_IMAGE = "icons/svg/mystery-man.svg";
@@ -142,6 +143,7 @@ export class ActorService {
       if (itemData.length) {
         await actor.createEmbeddedDocuments("Item", itemData);
       }
+      await this.#applyNpcCombatStats(actor, npc);
       await this.#markLoadoutVersion(actor, npc);
 
       console.log(`${LOG_PREFIX} Actor created for "${npc.name}" (${actor.id})`);
@@ -304,29 +306,25 @@ export class ActorService {
     }
     await actor.createEmbeddedDocuments("Item", items);
 
-    const prof = npc.actorData?.system?.attributes?.prof;
-    const hp = npc.actorData?.system?.attributes?.hp;
-    const ac = npc.actorData?.system?.attributes?.ac?.flat;
-    const level = npc.actorData?.system?.details?.level;
-    const updates = {};
-    if (Number.isFinite(prof)) updates["system.attributes.prof"] = prof;
-    if (Number.isFinite(hp?.max)) {
-      updates["system.attributes.hp.max"] = hp.max;
-      updates["system.attributes.hp.value"] = hp.value ?? hp.max;
-    }
-    if (Number.isFinite(ac)) {
-      updates["system.attributes.ac.flat"] = ac;
-      updates["system.attributes.ac.calc"] = "flat";
-    }
-    if (Number.isFinite(level)) updates["system.details.level"] = level;
-    if (Object.keys(updates).length) await actor.update(updates);
-
+    await this.#applyNpcCombatStats(actor, npc);
     await this.#markLoadoutVersion(actor, npc);
     console.log(`${LOG_PREFIX} Synced combat loadout for "${npc.name}" (${items.length} items)`);
     try {
       ui.notifications?.info(`${MODULE_TITLE} updated combat gear for ${npc.name}.`);
     } catch (error) {
       console.warn(`${LOG_PREFIX} Loadout sync notification failed for "${npc.name}"`, error);
+    }
+  }
+
+  /**
+   * Apply HP/AC/prof/level after class items exist (dnd5e may overwrite HP on embed).
+   * @param {Actor} actor
+   * @param {object} npc
+   */
+  async #applyNpcCombatStats(actor, npc) {
+    const updates = buildNpcCombatStatUpdates(npc);
+    if (Object.keys(updates).length) {
+      await actor.update(updates);
     }
   }
 

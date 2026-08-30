@@ -29,10 +29,7 @@ def main() -> int:
             if not isinstance(actor_data, dict):
                 continue
             next_data = apply_combat_to_actor_data(actor_data, archetype, occupation)
-            items = next_data.get("items") or []
-            if items != actor_data.get("items") or next_data["system"]["attributes"].get("prof") != actor_data.get(
-                "system", {}
-            ).get("attributes", {}).get("prof"):
+            if next_data != actor_data:
                 npc["actorData"] = next_data
                 changed = True
                 updated += 1
