@@ -4,6 +4,26 @@ import { formatTradeItemMeta, loadTradeItemDetail } from "./trade-item-detail.js
 
 const HandlebarsApplicationV2 = getHandlebarsApplicationV2Base();
 
+const INSPECT_WINDOW_WIDTH = 1260;
+const INSPECT_WINDOW_HEIGHT = 960;
+const INSPECT_WINDOW_MARGIN = 16;
+
+/**
+ * Centered inspect window size, clamped to the current viewport.
+ * @param {number} [width]
+ * @param {number} [height]
+ */
+function centerInspectPosition(width = INSPECT_WINDOW_WIDTH, height = INSPECT_WINDOW_HEIGHT) {
+  const w = Math.min(width, window.innerWidth - INSPECT_WINDOW_MARGIN * 2);
+  const h = Math.min(height, window.innerHeight - INSPECT_WINDOW_MARGIN * 2);
+  return {
+    width: w,
+    height: h,
+    left: Math.max(INSPECT_WINDOW_MARGIN, Math.round((window.innerWidth - w) / 2)),
+    top: Math.max(INSPECT_WINDOW_MARGIN, Math.round((window.innerHeight - h) / 2))
+  };
+}
+
 /** Right-click item inspector — scrollable description in a separate window. */
 export class TradeItemInspect extends HandlebarsApplicationV2 {
   /** @type {Actor} */
@@ -27,7 +47,7 @@ export class TradeItemInspect extends HandlebarsApplicationV2 {
       resizable: true,
       contentClasses: ["townforge-window-content"]
     },
-    position: { width: 420, height: 480 },
+    position: centerInspectPosition(),
     actions: {
       closeInspect: TradeItemInspect.#onClose
     }
@@ -61,9 +81,7 @@ export class TradeItemInspect extends HandlebarsApplicationV2 {
    * @param {{
    *   merchant: Actor,
    *   buyerUuid?: string|null,
-   *   cell: HTMLElement,
-   *   left?: number,
-   *   top?: number
+   *   cell: HTMLElement
    * }} options
    */
   static async show(options) {
@@ -72,20 +90,9 @@ export class TradeItemInspect extends HandlebarsApplicationV2 {
 
     const detail = await loadTradeItemDetail(options.merchant, options.buyerUuid ?? null, options.cell);
     const app = new TradeItemInspect({ ...options, detail });
-    const margin = 16;
-    const width = 420;
-    const height = 480;
-    const left =
-      typeof options.left === "number"
-        ? Math.min(Math.max(margin, options.left), Math.max(margin, window.innerWidth - width - margin))
-        : undefined;
-    const top =
-      typeof options.top === "number"
-        ? Math.min(Math.max(margin, options.top), Math.max(margin, window.innerHeight - height - margin))
-        : undefined;
     await app.render({
       force: true,
-      position: left != null && top != null ? { width, height, left, top } : { width, height }
+      position: centerInspectPosition()
     });
     return app;
   }

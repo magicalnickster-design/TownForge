@@ -692,14 +692,12 @@ export class MerchantApp extends HandlebarsApplicationV2 {
     });
   }
 
-  async #openItemInspect(cell, event) {
+  async #openItemInspect(cell, _event) {
     const { TradeItemInspect } = await import("./trade-item-inspect.js");
     await TradeItemInspect.show({
       merchant: this.#merchant,
       buyerUuid: this.#buyerUuid,
-      cell,
-      left: event.clientX + 12,
-      top: event.clientY + 12
+      cell
     });
   }
 
