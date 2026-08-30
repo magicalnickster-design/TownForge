@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
-"""Generate Vela Inkwell's 50-book shop catalog and unique cover art."""
+"""Generate Vela Inkwell's 50-book shop catalog."""
 
 from __future__ import annotations
 
 import json
-import math
 import re
 from pathlib import Path
 
@@ -12,6 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 OUT_DIR = ROOT / "data" / "shop-catalogs"
 IMG_DIR = ROOT / "assets" / "items" / "books"
 MODULE_IMG = "modules/townforge/assets/items/books"
+BOOK_IMAGE_EXT = ".png"
 
 COMPENDIUM_BOOKS = [
     {"name": "Spellbook", "topic": "magic"},
@@ -389,19 +389,6 @@ BOOKS = [
     ),
 ]
 
-LEATHER_PALETTES = [
-    ("#6b4a2e", "#8f6a45", "#c9a66b", "#e8d8bc"),  # tan ochre
-    ("#5a2028", "#7a3038", "#a84850", "#d8a8a8"),  # maroon
-    ("#243a2e", "#3a5a48", "#5a8268", "#b8d0c0"),  # forest
-    ("#24304a", "#3a4870", "#5878a0", "#b8c8e0"),  # navy
-    ("#3a2848", "#5a4070", "#8068a0", "#d0b8e8"),  # violet
-    ("#3a3a20", "#5a5a30", "#8a8a48", "#d8d8a8"),  # olive
-    ("#2a4040", "#406060", "#609090", "#b0d0d0"),  # teal slate
-    ("#4a3020", "#704830", "#a07048", "#e0c0a0"),  # russet
-    ("#4a2040", "#703060", "#a04888", "#e0b0d0"),  # plum
-    ("#303838", "#485050", "#687880", "#c0c8d0"),  # charcoal blue
-]
-
 MOTIF_RULES = [
     (r"\b(ember|flame|fire|lantern)\b", "flame"),
     (r"\b(stellar|star|heavens|omens)\b", "stars"),
@@ -436,23 +423,6 @@ def stable_hash(text: str) -> int:
     return value
 
 
-def hex_to_rgb(color: str) -> tuple[int, int, int]:
-    color = color.lstrip("#")
-    return int(color[0:2], 16), int(color[2:4], 16), int(color[4:6], 16)
-
-
-def rgb_to_hex(rgb: tuple[int, int, int]) -> str:
-    return "#{:02x}{:02x}{:02x}".format(*(max(0, min(255, channel)) for channel in rgb))
-
-
-def shift_color(color: str, hue_delta: int, lighten: int = 0) -> str:
-    r, g, b = hex_to_rgb(color)
-    r = max(0, min(255, r + hue_delta))
-    g = max(0, min(255, g + (hue_delta // 2)))
-    b = max(0, min(255, b - (hue_delta // 3) + lighten))
-    return rgb_to_hex((r, g, b))
-
-
 def detect_motif(title: str, book_id: str) -> str:
     lower = title.lower()
     for pattern, motif in MOTIF_RULES:
@@ -462,157 +432,18 @@ def detect_motif(title: str, book_id: str) -> str:
     return motifs[stable_hash(book_id) % len(motifs)]
 
 
-def book_palette(book_id: str, topic: str) -> dict[str, str]:
-    seed = stable_hash(book_id)
-    base = LEATHER_PALETTES[seed % len(LEATHER_PALETTES)]
-    dark, mid, light, page = base
-    topic_shift = {
-        "magic": 0,
-        "science": 1,
-        "history": 2,
-        "religion": 3,
-        "nature": 4,
-        "creatures": 5,
-        "alchemy": 6,
-        "law": 7,
-        "poetry": 8,
-        "adventure": 9,
-    }.get(topic, 0)
-    palette = LEATHER_PALETTES[(seed + topic_shift) % len(LEATHER_PALETTES)]
-    dark, mid, light, page = palette
-    emblem = shift_color(light, 30, lighten=40)
-    strap = shift_color(dark, -15)
-    return {
-        "dark": dark,
-        "mid": mid,
-        "light": light,
-        "page": page,
-        "emblem": emblem,
-        "strap": strap,
-        "shadow": shift_color(dark, -25),
-    }
-
-
-def emblem_symbol(motif: str, cx: int, cy: int, accent: str, size: int) -> str:
-    s = size
-    if motif in {"flame", "smoke"}:
-        return f'''<path d="M{cx} {cy - s} C{cx - s} {cy}, {cx - s//2} {cy + s}, {cx} {cy + s//2} C{cx + s//2} {cy + s}, {cx + s} {cy}, {cx} {cy - s} Z" fill="{accent}" opacity="0.85"/>'''
-    if motif in {"stars", "halo"}:
-        return f'<circle cx="{cx}" cy="{cy}" r="{s//2}" fill="none" stroke="{accent}" stroke-width="3"/><circle cx="{cx}" cy="{cy}" r="{s//5}" fill="{accent}" opacity="0.7"/>'
-    if motif in {"ward", "compass"}:
-        return f'''<polygon points="{cx},{cy - s} {cx + s},{cy + s} {cx - s},{cy + s}" fill="none" stroke="{accent}" stroke-width="3"/><circle cx="{cx}" cy="{cy + s//4}" r="{s//4}" fill="{accent}" opacity="0.65"/>'''
-    if motif in {"crown", "cave"}:
-        return f'''<polygon points="{cx - s},{cy + s//2} {cx - s//2},{cy - s//2} {cx},{cy} {cx + s//2},{cy - s//2} {cx + s},{cy + s//2}" fill="{accent}" opacity="0.8"/>'''
-    if motif in {"heart", "leaf"}:
-        return f'''<path d="M{cx} {cy + s//2} C{cx - s} {cy - s//4}, {cx - s//2} {cy - s}, {cx} {cy - s//3} C{cx + s//2} {cy - s}, {cx + s} {cy - s//4}, {cx} {cy + s//2} Z" fill="{accent}" opacity="0.8"/>'''
-    if motif in {"gears", "vial"}:
-        return f'<rect x="{cx - s//2}" y="{cy - s//2}" width="{s}" height="{s}" rx="4" fill="none" stroke="{accent}" stroke-width="3"/><circle cx="{cx}" cy="{cy}" r="{s//4}" fill="{accent}" opacity="0.6"/>'
-    if motif in {"waves", "wind"}:
-        return f'''<path d="M{cx - s} {cy} C{cx - s//2} {cy - s//2}, {cx} {cy + s//3}, {cx + s//2} {cy - s//2}, {cx + s} {cy}" fill="none" stroke="{accent}" stroke-width="3" stroke-linecap="round"/>'''
-    if motif in {"claw", "pulse"}:
-        return f'''<path d="M{cx - s} {cy + s//3} L{cx - s//3} {cy - s//2} M{cx} {cy + s//3} L{cx} {cy - s//2} M{cx + s} {cy + s//3} L{cx + s//3} {cy - s//2}" fill="none" stroke="{accent}" stroke-width="3" stroke-linecap="round"/>'''
-    if motif in {"scales", "runes"}:
-        return f'''<path d="M{cx - s} {cy + s//4} L{cx + s} {cy + s//4} M{cx} {cy + s//4} L{cx} {cy - s//2}" fill="none" stroke="{accent}" stroke-width="3"/>'''
-    return f'''<polygon points="{cx},{cy - s} {cx + s},{cy + s//2} {cx - s},{cy + s//2}" fill="none" stroke="{accent}" stroke-width="3"/><circle cx="{cx}" cy="{cy + s//6}" r="{s//4}" fill="{accent}" opacity="0.7"/>'''
-
-
-def emblem_marks(cx: int, cy: int, accent: str, seed: int) -> str:
-    marks = []
-    for index in range(6):
-        angle = (seed + index * 61) % 360
-        radius = 34 + (index % 3) * 6
-        rad = math.radians(angle)
-        x = cx + int(math.cos(rad) * radius)
-        y = cy + int(math.sin(rad) * radius * 0.55)
-        if index % 3 == 0:
-            marks.append(f'<circle cx="{x}" cy="{y}" r="3" fill="{accent}" opacity="0.55"/>')
-        elif index % 3 == 1:
-            marks.append(f'<rect x="{x - 2}" y="{y - 2}" width="4" height="4" fill="{accent}" opacity="0.45" transform="rotate({angle} {x} {y})"/>')
-        else:
-            marks.append(f'<path d="M{x - 4} {y} L{x + 4} {y}" stroke="{accent}" stroke-width="2" opacity="0.5"/>')
-    return "".join(marks)
-
-
-def svg_emblem_tome(book_id: str, colors: dict[str, str], motif: str, seed: int) -> str:
-    c = colors
-    cx, cy = 128, 126
-    return f'''
-  <g>
-    <polygon points="88,168 168,168 176,196 80,196" fill="{c["shadow"]}"/>
-    <polygon points="168,112 196,132 196,196 168,168" fill="{shift_color(c["page"], -20)}"/>
-    <polygon points="80,132 168,112 168,168 80,196" fill="{c["page"]}"/>
-    <polygon points="72,108 160,88 168,112 80,132" fill="url(#cover-{book_id})"/>
-    <polygon points="160,88 184,104 168,112 72,108" fill="{c["dark"]}" opacity="0.55"/>
-    <path d="M72 108 L80 132 L80 196 L72 172 Z" fill="{c["shadow"]}"/>
-    <path d="M88 100 L152 86 L160 88 L96 102 Z" fill="{c["light"]}" opacity="0.22"/>
-    {emblem_symbol(motif, cx, cy, c["emblem"], 28)}
-    {emblem_marks(cx, cy, c["emblem"], seed)}
-    <circle cx="74" cy="114" r="3" fill="{c["emblem"]}" opacity="0.35"/>
-    <circle cx="154" cy="94" r="2.5" fill="{c["emblem"]}" opacity="0.3"/>
-    <circle cx="162" cy="158" r="2" fill="{c["emblem"]}" opacity="0.28"/>
-  </g>'''
-
-
-def svg_strapped_journal(book_id: str, colors: dict[str, str], seed: int) -> str:
-    c = colors
-    plaque_w, plaque_h = 52, 36
-    px, py = 128 - plaque_w // 2, 118
-    ribbon = "#c8b888" if seed % 2 else "#d8c8a8"
-    return f'''
-  <g>
-    <polygon points="92,170 172,170 180,198 84,198" fill="{c["shadow"]}"/>
-    <polygon points="172,118 200,136 200,198 172,170" fill="{shift_color(c["page"], -18)}"/>
-    <polygon points="84,138 172,118 172,170 84,198" fill="{c["page"]}"/>
-    <polygon points="76,112 164,92 172,118 84,138" fill="url(#cover-{book_id})"/>
-    <polygon points="164,92 188,108 172,118 76,112" fill="{c["dark"]}" opacity="0.5"/>
-    <path d="M76 112 L84 138 L84 198 L76 176 Z" fill="{c["shadow"]}"/>
-    <rect x="78" y="108" width="88" height="8" rx="2" fill="{c["strap"]}" opacity="0.85"/>
-    <rect x="78" y="148" width="88" height="8" rx="2" fill="{c["strap"]}" opacity="0.85"/>
-    <rect x="{px}" y="{py}" width="{plaque_w}" height="{plaque_h}" rx="3" fill="{c["page"]}" stroke="{c["emblem"]}" stroke-width="1.5" opacity="0.95"/>
-    <circle cx="{px + 6}" cy="{py + 6}" r="2" fill="{c["emblem"]}" opacity="0.45"/>
-    <circle cx="{px + plaque_w - 6}" cy="{py + 6}" r="2" fill="{c["emblem"]}" opacity="0.45"/>
-    <circle cx="{px + 6}" cy="{py + plaque_h - 6}" r="2" fill="{c["emblem"]}" opacity="0.45"/>
-    <circle cx="{px + plaque_w - 6}" cy="{py + plaque_h - 6}" r="2" fill="{c["emblem"]}" opacity="0.45"/>
-    <rect x="{px + plaque_w // 2 - 3}" y="{py + 8}" width="6" height="{plaque_h - 16}" rx="2" fill="{c["emblem"]}" opacity="0.12"/>
-    <rect x="126" y="186" width="8" height="22" rx="2" fill="{ribbon}" opacity="0.9"/>
-    <path d="M90 98 L154 84 L162 86 L98 100 Z" fill="{c["light"]}" opacity="0.18"/>
-  </g>'''
-
-
-def svg_cover(book_id: str, title: str, topic: str) -> str:
-    seed = stable_hash(book_id)
-    colors = book_palette(book_id, topic)
-    motif = detect_motif(title, book_id)
-    style = "emblem" if seed % 2 == 0 else "strapped"
-    safe_title = title.replace("&", "&amp;").replace("<", "&lt;")
-    body = svg_emblem_tome(book_id, colors, motif, seed) if style == "emblem" else svg_strapped_journal(book_id, colors, seed)
-    return f'''<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256" role="img" aria-label="{safe_title}">
-  <defs>
-    <linearGradient id="cover-{book_id}" x1="0.15" y1="0" x2="0.85" y2="1">
-      <stop offset="0%" stop-color="{colors["light"]}"/>
-      <stop offset="45%" stop-color="{colors["mid"]}"/>
-      <stop offset="100%" stop-color="{colors["dark"]}"/>
-    </linearGradient>
-    <radialGradient id="glow-{book_id}" cx="40%" cy="30%" r="65%">
-      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.12"/>
-      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
-    </radialGradient>
-  </defs>
-  <rect width="256" height="256" fill="#101012"/>
-  <rect x="10" y="10" width="236" height="236" rx="6" fill="#08080a" stroke="#3a3a42" stroke-width="2"/>
-  {body}
-  <rect x="10" y="10" width="236" height="236" rx="6" fill="url(#glow-{book_id})" pointer-events="none"/>
-</svg>
-'''
 def main() -> None:
     IMG_DIR.mkdir(parents=True, exist_ok=True)
     OUT_DIR.mkdir(parents=True, exist_ok=True)
 
     books = []
+    missing = []
     for title, topic, price_gp, blurb, passive in BOOKS:
         book_id = slugify(title)
-        img_path = IMG_DIR / f"{book_id}.svg"
-        img_path.write_text(svg_cover(book_id, title, topic), encoding="utf-8")
+        img_name = f"{book_id}{BOOK_IMAGE_EXT}"
+        img_path = IMG_DIR / img_name
+        if not img_path.exists():
+            missing.append(img_name)
         books.append(
             {
                 "id": book_id,
@@ -621,8 +452,15 @@ def main() -> None:
                 "priceGP": price_gp,
                 "description": blurb,
                 "passive": passive,
-                "img": f"{MODULE_IMG}/{book_id}.svg",
+                "img": f"{MODULE_IMG}/{img_name}",
             }
+        )
+
+    if missing:
+        raise SystemExit(
+            "Missing book art files in assets/items/books:\n  "
+            + "\n  ".join(missing)
+            + "\nGenerate covers with tools/vela_book_art.py prompts and rerun."
         )
 
     catalog = {
